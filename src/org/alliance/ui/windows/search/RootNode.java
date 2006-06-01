@@ -1,0 +1,161 @@
+package org.alliance.ui.windows.search;
+
+import com.stendahls.nif.util.EnumerationIteratorConverter;
+import com.stendahls.util.TextUtils;
+import org.alliance.core.comm.SearchHit;
+
+import javax.swing.tree.TreeNode;
+import java.util.*;
+
+/**
+ * Created by IntelliJ IDEA.
+ * User: maciek
+ * Date: 2006-apr-24
+ * Time: 14:15:33
+ */
+public class RootNode extends SearchTreeNode {
+    private ArrayList<SearchTreeNode> children = new ArrayList<SearchTreeNode>();
+    private HashMap<String, FolderNode> folderMapping = new HashMap<String, FolderNode>();
+
+    private SearchTreeTableModel model;
+    private Comparator<SearchTreeNode> comparator, secondaryComparator;
+
+    public void setModel(SearchTreeTableModel model) {
+        this.model = model;
+        comparator = model.createSourcesComparator();
+        secondaryComparator = model.createDaysAgoComparator();
+    }
+
+    public void addSearchHits(int sourceGuid, int hops, java.util.List<SearchHit> hits) {
+        for(SearchHit h : hits) {
+            if (model.getCore().getFileManager().getFileDatabase().contains(h.getRoot())) continue;
+
+            String fn = TextUtils.makeSurePathIsMultiplatform(h.getPath());
+
+            String filename = fn;
+            if (filename.indexOf('/') != -1) filename = filename.substring(filename.lastIndexOf('/')+1);
+
+            String folder;
+            if (fn.length() > filename.length()) {
+                folder = fn.substring(0, fn.length()-filename.length()-1);
+                if (folder.indexOf('/') != -1) {
+                    if (Character.isDigit(folder.charAt(folder.length()-1)) && folder.length()-folder.lastIndexOf('/') < 10) {
+                        //extract parent AND grandparent folder
+                        int i = folder.lastIndexOf('/');
+                        int j = folder.substring(0, i-1).lastIndexOf('/');
+                        if (j != -1) {
+                            folder = folder.substring(j+1);
+                        }
+                    } else {
+                        //extract parent folder
+                        folder = folder.substring(folder.lastIndexOf('/')+1);
+                    }
+                }
+            } else {
+                folder = "";
+            }
+
+            if (folder.length() == 0) {
+                for(SearchTreeNode n : children) {
+                    if (n instanceof FileNode) {
+                        FileNode f = (FileNode)n;
+                        if (f.getSh().getRoot().equals(h.getRoot())) {
+                            f.addHit(sourceGuid);
+                            h=null;
+                            break;
+                        }
+                    }
+                }
+                if (h != null) children.add(new FileNode(this, filename, h, sourceGuid));
+            } else {
+                FolderNode n = folderMapping.get(folder.toLowerCase());
+                if (n == null) {
+                    n = new FolderNode(this, folder);
+                    children.add(n);
+                    folderMapping.put(folder.toLowerCase(),  n);
+                }
+                n.addHit(sourceGuid, filename, h);
+            }
+        }
+
+        resortTable();
+    }
+
+    private void resortTable() {
+        if (secondaryComparator != null) Collections.sort(children, secondaryComparator);
+        Collections.sort(children, comparator);
+        model.nodeStructureChanged(this);
+    }
+
+    public TreeNode getChildAt(int childIndex) {
+        return children.get(childIndex);
+    }
+
+    public int getChildCount() {
+        return children.size();
+    }
+
+    public TreeNode getParent() {
+        return null;
+    }
+
+    public int getIndex(TreeNode node) {
+        return children.indexOf(node);
+    }
+
+    public boolean getAllowsChildren() {
+        return true;
+    }
+
+    public boolean isLeaf() {
+        return false;
+    }
+
+    public Enumeration children() {
+        return EnumerationIteratorConverter.enumeration(children.iterator());
+    }
+
+    public String getName() {
+        return "root";
+    }
+
+    public double getSources() {
+        return 0;
+    }
+
+    public long getSize() {
+        return 0;
+    }
+
+    public int getDaysAgo() {
+        return 0;
+    }
+
+    public SearchTreeTableModel getModel() {
+        return model;
+    }
+
+    public void sortByName() {
+        comparator = model.createNameComparator();
+        secondaryComparator = null;
+        resortTable();
+    }
+
+    public void sortBySize() {
+        comparator = model.createSizeComparator();
+        secondaryComparator = null;
+        resortTable();
+    }
+
+    public void sortByDaysAgo() {
+        comparator = model.createDaysAgoComparator();
+        secondaryComparator = null;
+        resortTable();
+    }
+
+    public void sortBySources() {
+        comparator = model.createSourcesComparator();
+        secondaryComparator = null;
+        resortTable();
+    }
+}

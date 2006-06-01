@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="alliance" default="Build release">
+    <property name="lib.dir" value="lib"/>
+    <property name="build.dir" value="build"/>
+    <fileset dir="C:\" id="3ppjars">
+        <include name="java\tools\synthetica\synthetica.jar"/>
+        <include name="java\tools\synthetica\syntheticaBlackStar.jar"/>
+        <include name="java\tools\idw-gpl-1.4.0\lib\idw-gpl.jar"/>
+        <include name="proj\libs\XUI\lib\XUI.jar"/>
+        <include name="proj\libs\UI\lib\StendahlsUI.jar"/>
+        <include name="proj\libs\NIF\lib\NIF.jar"/>
+        <include name="proj\libs\StendahlsTheme\lib\StendahlsTheme.jar"/>
+        <include name="java\tools\jdic-0.9.1-bin-windows\jdic.jar"/>
+        <include name="java\tools\swinglabs\dist\swingx-0.8.0.jar"/>
+        <include name="java\tools\cyberlink\clink.jar"/>
+    </fileset>
+    <taskdef resource="proguard/ant/task.properties"/>
+
+    <target name="Build release">
+        <!--
+                <delete dir="${lib.dir}"/>
+                <mkdir dir="${lib.dir}"/>
+                <delete dir="${build.dir}"/>
+                <mkdir dir="${build.dir}"/>
+        -->
+
+        <propertyfile file="res/build.properties">
+            <entry key="build.number" type="int" operation="+" value="1"/>
+        </propertyfile>
+
+        <jar jarfile="${lib.dir}/alliance.jar">
+            <fileset dir="classes"/>
+            <fileset dir="." includes="res/**/*" excludes="**/Thumbs.db"/>
+            <manifest>
+                <attribute name="Main-Class" value="org.alliance.launchers.ui.Main"/>
+            </manifest>
+        </jar>
+
+        <copy verbose="yes" overwrite="yes" todir="${lib.dir}" flatten="true">
+            <fileset refid="3ppjars"/>
+        </copy>
+
+        <proguard>
+            <!-- these two are here for debugging -->
+            -dontobfuscate
+            -keepattributes LineNumberTable
+
+
+            -libraryjars "&lt;java.home&gt;/lib/rt.jar";"c:\Program Files\JetBrains\IntelliJ IDEA 5.0\lib\JUnit.jar"
+            -injars      lib
+            -outjar      build/alliance.jar
+
+            -defaultpackage ''
+            -printseeds
+            -printmapping proguard.map
+            -applymapping proguard.map
+
+            -keepclassmembers class * implements java.io.Serializable {
+                static final long serialVersionUID;
+                private void writeObject(java.io.ObjectOutputStream);
+                private void readObject(java.io.ObjectInputStream);
+                java.lang.Object writeReplace();
+                java.lang.Object readResolve();
+            }
+
+            -keep public class org.alliance.launchers.ui.Main {
+            public static void main(java.lang.String[]);
+            }
+            -keep public class * implements Serializable
+            -keep public class * implements org.alliance.Subsystem
+            -keep public class * extends com.stendahls.XUI.XUIElement
+            -keep class org.alliance.core.settings.** { public *; }
+            -keepclassmembers class com.stendahls.nif.ui.toolbaractions.** { public *; }
+            -keepclassmembers public class * { public void EVENT_*(**); }
+            -keepclassmembers class com.stendahls.ui.ErrorDialog { public *; }
+
+            -keep public class de.javasoft.plaf.synthetica.**
+            -keep class * extends javax.swing.plaf.ComponentUI {
+            public static javax.swing.plaf.ComponentUI createUI(javax.swing.JComponent);
+            }
+
+            -keepclassmembers class org.jdesktop.jdic.tray.internal.impl.** {
+            public *; <!-- don't know how to say all methods -->
+            private *;
+            protected *;
+            package *;
+            }
+        </proguard>
+
+        <signjar lazy="no" alias="blacknet" storepass="${keystorepassword}" keystore="${keystorelocation}">
+            <fileset dir="${build.dir}">
+                <include name="alliance.jar"/>
+            </fileset>
+        </signjar>
+
+        <delete includeemptydirs="true">
+            <fileset dir="${build.dir}" excludes="alliance.jar, alliance.exe, settings.xml">
+                <include name="**/**"/>
+            </fileset>
+        </delete>
+
+        <move file="${build.dir}/alliance.jar" tofile="${build.dir}/alliance.dat"/>
+    </target>
+</project>

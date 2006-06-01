@@ -1,0 +1,88 @@
+package org.alliance.core.file.share;
+
+import org.alliance.core.CoreSubsystem;
+import org.alliance.core.file.filedatabase.FileDatabase;
+import org.alliance.core.settings.Settings;
+import org.alliance.core.settings.Share;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+
+/**
+ * Created by IntelliJ IDEA.
+ * User: maciek
+ * Date: 2006-jan-06
+ * Time: 15:40:55
+ * To change this template use File | Settings | File Templates.
+ */
+public class ShareManager {
+    private HashMap<String , ShareBase> shareBases = new HashMap<String, ShareBase>();
+    private ArrayList<ShareBase> shareBaseOrder = new ArrayList<ShareBase>();
+
+    private FileDatabase fileDatabase;
+    private ShareScanner shareScanner;
+    private Settings settings;
+    private CoreSubsystem core;
+
+    public ShareManager(CoreSubsystem core, Settings settings) throws IOException {
+        this.core = core;
+        this.settings = settings;
+        fileDatabase = new FileDatabase(settings.getInternal().getFiledatabaseindexfile(), settings.getInternal().getFiledatabasefile());
+        shareScanner = new ShareScanner(core, this);
+
+        updateShareBases();
+
+        shareScanner.start();
+    }
+
+    public void updateShareBases() {
+        shareBases.clear();
+        shareBaseOrder.clear();
+        add(new ShareBase(settings.getInternal().getCachefolder()));
+        add(new ShareBase(settings.getInternal().getDownloadfolder()));
+        for(Share s : settings.getSharelist()) {
+            add(new ShareBase(s.getPath()));
+        }
+    }
+
+    private void add(ShareBase sb) {
+        shareBases.put(sb.getPath(), sb);
+        shareBaseOrder.add(sb);
+    }
+
+    public void shutdown() throws IOException {
+        fileDatabase.flush();
+        shareScanner.kill();
+    }
+
+    public ShareBase getBaseByPath(String path) {
+        return shareBases.get(path);
+    }
+
+    public FileDatabase getFileDatabase() {
+        return fileDatabase;
+    }
+
+    public Settings getSettings() {
+        return settings;
+    }
+
+    public Collection<ShareBase> shareBases() {
+        return shareBaseOrder;
+    }
+
+    public ShareBase getBaseByPathHashCode(int i) {
+        for(String s : shareBases.keySet()) if (s.hashCode() == i) return shareBases.get(s);
+        return null;
+    }
+
+    public ShareScanner getShareMonitor() {
+        return shareScanner;
+    }
+
+    public CoreSubsystem getCore() {
+        return core;
+    }
+}

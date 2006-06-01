@@ -1,0 +1,84 @@
+package org.alliance.core.node;
+
+import com.stendahls.util.TextUtils;
+
+import java.util.Collection;
+import java.util.HashMap;
+
+/**
+ * Created by IntelliJ IDEA.
+ * User: maciek
+ * Date: 2005-dec-29
+ * Time: 13:50:55
+ */
+public abstract class Node {
+    protected String nickname;
+    protected int guid;
+    protected HashMap<Integer, UntrustedNode> friendsFriends;
+    protected long shareSize;
+
+    protected Node() {
+    }
+
+    protected Node(String nickname, int guid) {
+        this.nickname = nickname;
+        this.guid = guid;
+    }
+
+    public abstract boolean isConnected();
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public int getGuid() {
+        return guid;
+    }
+
+    public void setGuid(int guid) {
+        this.guid = guid;
+    }
+
+    public String toString() {
+        return getNickname()+"["+guid+", "+TextUtils.simplifyClassName(getClass())+"]";
+    }
+
+    public void addFriendsFriend(UntrustedNode untrustedNode) {
+        if (friendsFriends == null) friendsFriends = new HashMap<Integer, UntrustedNode>();
+        friendsFriends.put(untrustedNode.getGuid(), untrustedNode);
+    }
+
+    public boolean friendsFriendsLoaded() {
+        return friendsFriends != null;
+    }
+    
+    public Collection<UntrustedNode> friendsFriends() {
+        if (friendsFriends == null) return null;
+        return friendsFriends.values();
+    }
+
+    public UntrustedNode getFriendsFriend(int guid) {
+        if (friendsFriends == null) return null;
+        return friendsFriends.get(guid);
+    }
+
+    public HashMap<Integer, UntrustedNode> getFriendsFriends() {
+        return friendsFriends;
+    }
+
+    public void setFriendsFriends(HashMap<Integer, UntrustedNode> friendsFriends) {
+        this.friendsFriends = friendsFriends;
+    }
+
+    public long getShareSize() {
+        return shareSize;
+    }
+
+    public void setShareSize(long shareSize) {
+        this.shareSize = shareSize;
+    }
+}

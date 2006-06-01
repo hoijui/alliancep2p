@@ -1,0 +1,88 @@
+<xui xmlns="http://rs.stendahls.net/XUI">
+    <title value="Alliancet" image="gfx/icons/alliance.png"/>
+    <menubar>
+        <menu text="File" mnemonic="f">
+            <menuitem eventid="hide" mnemonic="x" text="Close"/>
+        </menu>
+        <menu text="View" mnemonic="w">
+            <menuitem eventid="uploads" accelerator="ctrl-u" mnemonic="u" text="Uploads"/>
+            <menuitem eventid="changelog" mnemonic="l" text="Change Log"/>
+            <menu text="Debug">
+                <menuitem eventid="trace" mnemonic="t" accelerator="ctrl-t" text="Trace"/>
+                <menuitem eventid="console" mnemonic="d" accelerator="ctrl-d" text="Debug Console"/>
+                <menuitem eventid="connections" mnemonic="c" text="TCP/IP Connections"/>
+                <menuitem eventid="friendtree" mnemonic="c" accelerator="ctrl-n"  text="Network Topology"/>
+            </menu>
+            <separator/>
+            <menuitem eventid="options" accelerator="ctrl-o" mnemonic="o" text="Options"/>
+        </menu>
+    </menubar>
+    <body>
+        <panel border="0" axis="y">
+            <panel axis="y" border="0" id="toppanel">
+                <panel axis="x" border="0" expand="horiz" shaded="yes" >
+                    <strut width="4"/>
+                    <button image="gfx/icons/addconnection.png" eventid="addfriendwizard" tooltip="Add new connection to a person"/>
+                    <strut width="4"/>
+                    <panel axis="y" opaque="no">
+                        <filler axis="y"/>
+                        <strut height="2"/>
+                        <progressbar id="bandwidthin" expand="none" width="80"/>
+                        <filler axis="y"/>
+                    </panel>
+                    <strut width="1"/>
+                    <panel axis="y" opaque="no">
+                        <filler axis="y"/>
+                        <strut height="2"/>
+                        <progressbar id="bandwidthout" expand="none" width="80"/>
+                        <filler axis="y"/>
+                    </panel>
+                    <filler axis="x"/>
+                    <image src="gfx/logo.png" border="4"/>
+                </panel>
+                <panel border="0,1,0,0" axis="x" bgcolor="A8A9BB">
+                    <filler/>
+                </panel>
+            </panel>
+
+
+            <panel axis="x" id="applicationArea" border="0" expand="both"/>
+
+            <panel axis="y" border="0">
+                <!--<panel border="0,1,0,0" axis="x" bgcolor="A8A9BB">
+                <filler/>
+                </panel>-->
+                <panel axis="x" border="3,3,3,3" expand="horiz" id="bottompanel">
+                    <!--                    <image src="gfx/icons/networktraffic_off.png" id="networktraffic"/>
+
+                   <strut width="5"/>-->
+
+                    <panel axis="y" border="0,0,5,0" opaque="no">
+                        <filler axis="y"/>
+                        <strut height="1"/>
+                        <progressbar expand="vert" memorymonitor="yes" id="memMonitor" width="80"/>
+                        <filler axis="y"/>
+                    </panel>
+
+                    <panel axis="x" bordertype="thinlowered" border="2,1,1,1">
+                        <label text=" " id="statusbar"/>
+                        <filler axis="x"/>
+                    </panel>
+                    <strut width="4"/>
+                    <panel axis="x" bordertype="thinlowered" border="2,1,1,1">
+                        <label text=" " id="totalup" tooltip="Total bytes uploaded"/>
+                    </panel>
+                    <strut width="4"/>
+                    <panel axis="x" bordertype="thinlowered" border="2,1,1,1">
+                        <label text=" " id="totaldown" tooltip="Total bytes downloaded"/>
+                    </panel>
+                    <strut width="4"/>
+                    <panel axis="x" bordertype="thinlowered" border="2,1,1,1">
+                        <label text=" " id="sharing" tooltip="Your share"/>
+                    </panel>
+                    <strut width="2"/>
+                </panel>
+            </panel>
+        </panel>
+    </body>
+</xui>

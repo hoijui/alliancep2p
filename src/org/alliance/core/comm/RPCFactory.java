@@ -1,0 +1,62 @@
+package org.alliance.core.comm;
+
+import org.alliance.core.comm.rpc.*;
+
+public class RPCFactory {
+    public static RPC newInstance(int packetId) {
+        RPC rpc = null;
+        switch(packetId) {
+            case 1: rpc = new BlockMaskResult(); break;
+            case 2: rpc = new Broadcast(); break;
+            case 3: rpc = new ConnectionInfo(); break;
+            case 4: rpc = new GetBlockMask(); break;
+            case 5: rpc = new GetIsFriend(); break;
+            case 6: rpc = new GetUserInfo(); break;
+            case 7: rpc = new GetUserList(); break;
+            case 8: rpc = new GracefulClose(); break;
+            case 9: rpc = new IsFriend(); break;
+            case 10: rpc = new NewVersionAvailable(); break;
+            case 11: rpc = new NoRouteToHost(); break;
+            case 12: rpc = new Ping(); break;
+            case 13: rpc = new Pong(); break;
+            case 14: rpc = new ChatMessage(); break;
+            case 15: rpc = new Route(); break;
+            case 16: rpc = new Search(); break;
+            case 17: rpc = new SearchHits(); break;
+            case 18: rpc = new UserInfo(); break;
+            case 19: rpc = new UserList(); break;
+            case 20: rpc = new GetMyExternalIp(); break;
+            case 21: rpc = new PleaseForwardInvitation(); break;
+            case 22: rpc = new ForwardedInvitation(); break;
+        }
+        if (rpc == null) if (T.t) T.error("UNRECOGNIZED rpc id: "+packetId);
+        return rpc;
+    }
+
+    public static byte getPacketIdFor(RPC rpc) {
+        if (rpc instanceof BlockMaskResult) return 1;
+        if (rpc instanceof Broadcast) return 2;
+        if (rpc instanceof ConnectionInfo) return 3;
+        if (rpc instanceof GetBlockMask) return 4;
+        if (rpc instanceof GetIsFriend) return 5;
+        if (rpc instanceof GetUserInfo) return 6;
+        if (rpc instanceof GetUserList) return 7;
+        if (rpc instanceof GracefulClose) return 8;
+        if (rpc instanceof IsFriend) return 9;
+        if (rpc instanceof NewVersionAvailable) return 10;
+        if (rpc instanceof NoRouteToHost) return 11;
+        if (rpc instanceof Ping) return 12;
+        if (rpc instanceof Pong) return 13;
+        if (rpc instanceof ChatMessage) return 14;
+        if (rpc instanceof Route) return 15;
+        if (rpc instanceof Search) return 16;
+        if (rpc instanceof SearchHits) return 17;
+        if (rpc instanceof UserInfo) return 18;
+        if (rpc instanceof UserList) return 19;
+        if (rpc instanceof GetMyExternalIp) return 20;
+        if (rpc instanceof PleaseForwardInvitation) return 21;
+        if (rpc instanceof ForwardedInvitation) return 22;
+        if(T.t)T.error("Could not identify RPC: "+rpc);
+        return -1;
+   }
+}

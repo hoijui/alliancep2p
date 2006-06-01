@@ -1,0 +1,205 @@
+<toolbaractions>
+    <group id="friendlist">
+        <action
+                id="addfriendwizard"
+                name="Add connection"
+                description="Add new connections to a people. Enter/create connection codes."
+                menuimage="gfx/icons/addconnection_small.png"
+                toolbarimage="gfx/icons/addconnection_small.png"
+                addInMenu="file"
+                accelerator="ctrl-p"
+                mnemonic="a"/>
+        <action separator="yes"/>
+        <action
+                id="removefriend"
+                name="Remove connection"
+                description="Permanently remove the selected connection"
+                menuimage="gfx/icons/removeconnection.png"
+                toolbarimage="gfx/icons/removeconnection.png"
+                addInMenu="file"
+                accelerator="Delete"
+                mnemonic="d"/>
+        <action separator="yes"/>
+        <action
+                id="chat"
+                name="Post Message"
+                description="Post message to selected connection"
+                menuimage="gfx/icons/chatmessage.png"
+                toolbarimage="gfx/icons/chatmessage.png"
+                addInMenu="file"
+                accelerator="f6"
+                mnemonic="c"/>
+        <action
+                id="revert"
+                name="Refresh"
+                description="Refresh list"
+                menuimage="gfx/icons/refresh.png"
+                toolbarimage="gfx/icons/refresh.png"
+                addInMenu="file"
+                accelerator="F5"
+                mnemonic="r"/>
+        <action filler="true"/>
+    </group>
+
+    <group id="friends">
+        <action
+                id="revert"
+                name="Refresh"
+                description="Refresh node tree - will try to reconnect to disconnected hosts"
+                menuimage="gfx/icons/refresh.png"
+                toolbarimage="gfx/icons/refresh.png"
+                addInMenu="file"
+                accelerator="F5"
+                mnemonic="r"/>
+        <action filler="true"/>
+        <action
+                id="close"
+                name="Close"
+                description="Close"
+                menuimage="gfx/icons/close.png"
+                toolbarimage="gfx/icons/close.png"
+                addInMenu="window"
+                accelerator="ctrl-w"
+                mnemonic="c"/>
+    </group>
+
+    <group id="search">
+        <action
+                id="download"
+                name="Download"
+                description="Download selected files"
+                menuimage="gfx/icons/download.png"
+                toolbarimage="gfx/icons/download.png"
+                addInMenu="file"
+                accelerator="enter"
+                mnemonic="d"/>
+        <action filler="true"/>
+    </group>
+
+    <group id="chatmessage">
+        <action filler="true"/>
+        <action
+                id="close"
+                name="Close"
+                description="Close"
+                menuimage="gfx/icons/close.png"
+                toolbarimage="gfx/icons/close.png"
+                addInMenu="window"
+                accelerator="ctrl-w"
+                mnemonic="c"/>
+    </group>
+    <group id="downloads">
+        <action
+                id="moveUp"
+                name="Move up"
+                description="Move selected download up in que"
+                menuimage="gfx/icons/up.png"
+                toolbarimage="gfx/icons/up.png"
+                addInMenu="file"
+                accelerator="ctrl-up"
+                mnemonic="u"/>
+        <action
+                id="moveDown"
+                name="Move down"
+                description="Move selected download down in que"
+                menuimage="gfx/icons/down.png"
+                toolbarimage="gfx/icons/down.png"
+                addInMenu="file"
+                accelerator="ctrl-up"
+                mnemonic="u"/>
+        <action
+                id="cleanup"
+                name="Clean up"
+                description="Remove complete downloads from list"
+                menuimage="gfx/icons/cleanup.png"
+                toolbarimage="gfx/icons/cleanup.png"
+                addInMenu="window"
+                accelerator="ctrl-down"
+                mnemonic="u"/>
+        <action
+                id="remove"
+                name="Remove"
+                description="Remove the download from the harddrive and this queue"
+                menuimage="gfx/icons/delete.png"
+                toolbarimage="gfx/icons/delete.png"
+                addInMenu="window"
+                accelerator="del"
+                mnemonic="r"/>
+        <action filler="true"/>
+    </group>
+
+    <group id="uploads">
+        <action
+                id="cleanup"
+                name="Clean up"
+                description="Remove complete uploads from list"
+                menuimage="gfx/icons/cleanup.png"
+                toolbarimage="gfx/icons/cleanup.png"
+                addInMenu="window"
+                accelerator="ctrl-u"
+                mnemonic="u"/>
+        <action filler="true"/>
+        <action
+                id="close"
+                name="Close"
+                description="Close"
+                menuimage="gfx/icons/close.png"
+                toolbarimage="gfx/icons/close.png"
+                addInMenu="window"
+                accelerator="ctrl-w"
+                mnemonic="c"/>
+    </group>
+
+    <group id="trace">
+        <action filler="true"/>
+        <action
+                id="close"
+                name="Close"
+                description="Close"
+                menuimage="gfx/icons/close.png"
+                toolbarimage="gfx/icons/close.png"
+                addInMenu="window"
+                accelerator="ctrl-w"
+                mnemonic="c"/>
+    </group>
+
+    <group id="welcome">
+        <action filler="true"/>
+        <action
+                id="close"
+                name="Close"
+                description="Close"
+                menuimage="gfx/icons/close.png"
+                toolbarimage="gfx/icons/close.png"
+                addInMenu="window"
+                accelerator="ctrl-w"
+                mnemonic="c"/>
+    </group>
+
+    <group id="connections">
+        <action filler="true"/>
+        <action
+                id="close"
+                name="Close"
+                description="Close"
+                menuimage="gfx/icons/close.png"
+                toolbarimage="gfx/icons/close.png"
+                addInMenu="window"
+                accelerator="ctrl-w"
+                mnemonic="c"/>
+    </group>
+
+    <group id="console">
+        <action filler="true"/>
+        <action
+                id="close"
+                name="Close"
+                description="Close"
+                menuimage="gfx/icons/close.png"
+                toolbarimage="gfx/icons/close.png"
+                addInMenu="window"
+                accelerator="ctrl-w"
+                mnemonic="c"/>
+    </group>
+
+</toolbaractions>

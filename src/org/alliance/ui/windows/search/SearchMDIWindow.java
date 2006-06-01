@@ -1,0 +1,337 @@
+package org.alliance.ui.windows.search;
+
+import com.stendahls.nif.ui.mdi.MDIWindow;
+import com.stendahls.util.TextUtils;
+import org.alliance.core.comm.SearchHit;
+import org.alliance.core.file.filedatabase.FileType;
+import org.alliance.ui.UISubsystem;
+import org.alliance.ui.windows.AllianceMDIWindow;
+import org.jdesktop.swingx.JXTreeTable;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
+import javax.swing.tree.DefaultTreeCellRenderer;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+
+/**
+ * Created by IntelliJ IDEA.
+ * User: maciek
+ * Date: 2006-jan-05
+ * Time: 13:21:55
+ * To change this template use File | Settings | File Templates.
+ */
+public class SearchMDIWindow extends AllianceMDIWindow {
+    private int totalHits;
+
+    private JXTreeTable table;
+    private SearchTreeTableModel model;
+    private JComboBox type;
+    private JRadioButton newfiles, keywords;
+    private JPopupMenu popup;
+    private JLabel left, right;
+
+    private JTextField search;
+
+    private ImageIcon[] fileTypeIcons;
+
+    public SearchMDIWindow(final UISubsystem ui) throws Exception {
+        super(ui.getMainWindow().getMDIManager(), "search", ui);
+
+        fileTypeIcons = new ImageIcon[7];
+        for(int i=0;i<fileTypeIcons.length;i++) fileTypeIcons[i] = new ImageIcon(ui.getRl().getResource("gfx/filetypes/"+i+".png"));
+
+        left = (JLabel)xui.getComponent("left");
+        right = (JLabel)xui.getComponent("right");
+        search = (JTextField)xui.getComponent("search1");
+
+        table = new JXTreeTable(model = new SearchTreeTableModel(ui.getCore()));
+        table.setColumnControlVisible(true);
+
+        table.getTableHeader().addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                JTableHeader h = (JTableHeader) e.getSource();
+                TableColumnModel columnModel = h.getColumnModel();
+                int viewColumn = columnModel.getColumnIndexAtX(e.getX());
+                int column = columnModel.getColumn(viewColumn).getModelIndex();
+                if (column != -1) {
+                    switch(column) {
+                        case 0:
+                            model.getRoot().sortByName();
+                            break;
+                        case 1:
+                            model.getRoot().sortBySize();
+                            break;
+
+                        case 3:
+                            model.getRoot().sortByDaysAgo();
+                            break;
+                        case 4:
+                            model.getRoot().sortBySources();
+                            break;
+                    }
+                }
+            }
+        });
+        table.addMouseMotionListener(new MouseMotionListener() {
+            public void mouseDragged(MouseEvent e) {
+            }
+
+            public void mouseMoved(MouseEvent e) {
+                SearchTreeNode n = (SearchTreeNode)table.getPathForLocation(e.getX(), e.getY()).getLastPathComponent();
+                if (n != null) {
+                    if (n instanceof FileNode) {
+                        FileNode fn = (FileNode)n;
+                        left.setText(fn.getSh().getPath()+" ("+TextUtils.formatByteSize(fn.getSize())+")");
+                        right.setText(fn.getListOfUsers(ui.getCore()));
+                    }
+                }
+            }
+        });
+
+        table.addMouseListener(new MouseAdapter() {
+            public void mouseReleased(MouseEvent e) {
+                maybeShowPopup(e);
+            }
+
+            public void mousePressed(MouseEvent e) {
+                maybeShowPopup(e);
+            }
+
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() >= 2) {
+                    EVENT_download(null);
+                }
+            }
+
+            private void maybeShowPopup(MouseEvent e) {
+                if (e.isPopupTrigger()) {
+                    int row = table.rowAtPoint(e.getPoint());
+                    boolean b = false;
+                    for(int r : table.getSelectedRows()) {
+                        if (r == row) {
+                            b = true;
+                            break;
+                        }
+                    }
+                    if (!b) table.getSelectionModel().setSelectionInterval(row,row);
+                    popup.show(e.getComponent(), e.getX(), e.getY());
+                }
+            }
+        });
+
+        table.setAutoCreateColumnsFromModel(false);
+        table.setTreeCellRenderer(new NameCellRenderer());
+        table.getColumnModel().getColumn(1).setCellRenderer(new BytesizeCellRenderer());
+        table.getColumnModel().getColumn(3).setCellRenderer(new DaysOldCellRenderer());
+        table.getColumnModel().getColumn(4).setCellRenderer(new SourcesCellRenderer());
+
+        table.getColumnModel().getColumn(0).setPreferredWidth(500);
+        setFixedColumnSize(table.getColumnModel().getColumn(1), 50);
+        setFixedColumnSize(table.getColumnModel().getColumn(2), 50);
+        setFixedColumnSize(table.getColumnModel().getColumn(3), 55);
+        setFixedColumnSize(table.getColumnModel().getColumn(4), 50);
+
+        table.getColumnExt(2).setVisible(false); //tricky! the index points to the visible columns!
+//        table.getColumnExt(1).setVisible(false);
+
+        ((JScrollPane)xui.getComponent("treepanel")).setViewportView(table);
+
+        type = (JComboBox)xui.getComponent("type");
+        popup = (JPopupMenu)xui.getComponent("popup");
+
+        newfiles = (JRadioButton)xui.getComponent("newfiles");
+        keywords = (JRadioButton)xui.getComponent("keywords");
+        keywords.setSelected(true);
+
+        for(FileType v : FileType.values()) type.addItem(v.description());
+
+        setTitle("File search");
+        postInit();
+    }
+
+    private void setFixedColumnSize(TableColumn column, int i) {
+        column.setPreferredWidth(i);
+        column.setMaxWidth(i);
+        column.setMinWidth(i);
+    }
+
+    public void EVENT_download(ActionEvent e) {
+        int selection[] = table.getSelectedRows();
+
+        if (selection != null && selection.length > 0) for(int i : selection) {
+            boolean changeWindow = false;
+            for(final FileNode n : getFileNodesByRow(i)) {
+                if (ui.getCore().getFileManager().containsComplete(n.getSh().getRoot())) {
+                    ui.getCore().getUICallback().statusMessage("You already have the file "+n.getName()+"!");
+                } else if (ui.getCore().getNetworkManager().getDownloadManager().getDownload(n.getSh().getRoot()) != null) {
+                    ui.getCore().getUICallback().statusMessage("You are already downloading "+n.getName()+"!");
+                } else {
+                    ui.getCore().invokeLater(new Runnable() {
+                        public void run() {
+                            try {
+                                ui.getCore().getNetworkManager().getDownloadManager().queDownload(n.getSh().getRoot(), n.getName(), n.getUserGuids());
+                            } catch(IOException e1) {
+                                ui.handleErrorInEventLoop(e1);
+                            }
+                        }
+                    });
+                    changeWindow = true;
+                }
+            }
+            if (changeWindow) ui.getMainWindow().getMDIManager().selectWindow(ui.getMainWindow().getDownloadsWindow());
+        }
+    }
+
+    private ArrayList<FileNode> getFileNodesByRow(int row) {
+        SearchTreeNode n = (SearchTreeNode)table.getPathForRow(row).getLastPathComponent();
+        ArrayList<FileNode> al = new ArrayList<FileNode>();
+        if (n instanceof FileNode) {
+            al.add((FileNode)n);
+        } else {
+            FolderNode fn = (FolderNode)n;
+            for(int i=0;i<fn.getChildCount();i++) al.add((FileNode)fn.getChildAt(i));
+        }
+        return al;
+    }
+
+    public void searchHits(int sourceGuid, int hops, java.util.List<SearchHit> hits) {
+        model.addSearchHits(sourceGuid, hops, hits);
+    }
+
+    public void windowSelected() {
+        super.windowSelected();
+    }
+
+    public void EVENT_search1(ActionEvent e) throws IOException {
+        search(search.getText());
+    }
+
+    public void EVENT_search2(ActionEvent e) throws IOException {
+        search(search.getText());
+    }
+
+    private void search(String text) throws IOException {
+        search(text, FileType.values()[type.getSelectedIndex()]);
+        if (keywords.isSelected()) search.setText("");
+    }
+
+    public void searchForNewFilesOfType(FileType ft) throws IOException {
+        search("", ft);
+    }
+
+    public void search(String text, final FileType ft) throws IOException {
+        if (newfiles.isSelected()) {
+            text = "";
+        }
+        final String t = text;
+
+        String s;
+        if (t.trim().length() == 0)
+            s = "Searching for all files of type "+ft.description();
+        else
+            s = "Searching for "+t +" in "+ft.description()+"...";
+        left.setText(s);
+        totalHits=0;
+        table.setTreeTableModel(model = new SearchTreeTableModel(ui.getCore()));
+        ui.getCore().invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    ui.getCore().getFriendManager().getNetMan().sendSearch(t, ft);
+                } catch(IOException e) {
+                    ui.handleErrorInEventLoop(e);
+                }
+            }
+        });
+    }
+
+    public String getIdentifier() {
+        return "Search";
+    }
+
+    public void save() throws Exception {}
+    public void revert() throws Exception {}
+    public void serialize(ObjectOutputStream out) throws IOException {}
+    public MDIWindow deserialize(ObjectInputStream in) throws IOException { return null; }
+
+    public void EVENT_keywords(ActionEvent e) {
+        search.setEnabled(true);
+    }
+
+    public void EVENT_newfiles(ActionEvent e) {
+        search.setEnabled(false);
+    }
+
+    public class NameCellRenderer extends DefaultTreeCellRenderer {
+        public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus) {
+            super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf, row, hasFocus);
+            if (value instanceof FileNode) setIcon(fileTypeIcons[FileType.getByFileName(((FileNode)value).getSh().getPath()).id()]);
+            return this;
+        }
+    }
+
+    public class BytesizeCellRenderer extends DefaultTableCellRenderer {
+
+        public Component getTableCellRendererComponent(JTable table, Object value,
+                                                       boolean isSelected, boolean hasFocus, int rowIndex, int vColIndex) {
+            super.getTableCellRendererComponent(table, value,  isSelected,  hasFocus,  rowIndex, vColIndex);
+            setText(TextUtils.formatByteSize((Long)value));
+            setToolTipText(String.valueOf(value));
+            return this;
+        }
+        public void validate() {}
+        public void revalidate() {}
+        protected void firePropertyChange(String propertyName, Object oldValue, Object newValue) {}
+        public void firePropertyChange(String propertyName, boolean oldValue, boolean newValue) {}
+    }
+
+    public class DaysOldCellRenderer extends DefaultTableCellRenderer {
+        public Component getTableCellRendererComponent(JTable table, Object value,
+                                                       boolean isSelected, boolean hasFocus, int rowIndex, int vColIndex) {
+            super.getTableCellRendererComponent(table, value,  isSelected,  hasFocus,  rowIndex, vColIndex);
+            int val = (Integer)value;
+            if (val == 255)
+                setText("Old");
+            else
+                setText(String.valueOf(val));
+            return this;
+        }
+        public void validate() {}
+        public void revalidate() {}
+        protected void firePropertyChange(String propertyName, Object oldValue, Object newValue) {}
+        public void firePropertyChange(String propertyName, boolean oldValue, boolean newValue) {}
+    }
+
+    public class SourcesCellRenderer extends DefaultTableCellRenderer {
+        public Component getTableCellRendererComponent(JTable table, Object value,
+                                                       boolean isSelected, boolean hasFocus, int rowIndex, int vColIndex) {
+            super.getTableCellRendererComponent(table, value,  isSelected,  hasFocus,  rowIndex, vColIndex);
+
+            double val = (Double)value;
+            val *= 10;
+            val = Math.round(val);
+            String s = String.valueOf(val);
+            if (s.substring(1,2).equals("0")) {
+                setText(s.substring(0,1));
+            } else {
+                setText(s.substring(0,1)+"."+s.substring(1,2));
+
+            }
+            return this;
+        }
+        public void validate() {}
+        public void revalidate() {}
+        protected void firePropertyChange(String propertyName, Object oldValue, Object newValue) {}
+        public void firePropertyChange(String propertyName, boolean oldValue, boolean newValue) {}
+    }
+}

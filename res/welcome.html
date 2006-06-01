@@ -1,0 +1,190 @@
+<!--
+<p>
+Look for <b>new files</b> in your circle:<br>
+<dl>
+    <dd><a href="http://1">Audio</a> - Music, audio samples</dd>
+    <dd><a href="http://4">Archives</a> - For example Zip and Rar</dd>
+    <dd><a href="http://3">CD/DVD Images</a> - Used to burn CDs or DVDs</dd>
+    <dd><a href="http://6">Documents</a></dd>
+    <dd><a href="http://5">Pictures</a></dd>
+    <dd><a href="http://7">Presentations</a> - For example PowerPoint and Keynote</dd>
+    <dd><a href="http://2">Video</a> - Video clips, movies</dd>
+</dl>-->
+<b>Changelog</b>
+<br><br>
+
+<p>
+    <b>0.8.25.1</b> - 2006-04-28
+<dl>
+    <dd>+ Trying to fix a pesky bug where searches are not always returned correctly
+</dl>
+<br>
+
+<p>
+    <b>0.8.25</b> - 2006-04-26
+<dl>
+    <dd>+ Automatic port forwarding using UPnP
+    <dd>+ Function for automatically sending email to a friend when inviting
+    <dd>+ New search UI
+    <dd>+ Modified search algorithm. Parts of words now give results
+    <dd>+ It is now possible to send chat messages to users that are offline
+    <dd>+ "Last modified" file dates are correctly preserved when files are downloaded
+</dl>
+<br>
+
+<p>
+    <b>0.8.21</b> - 2006-04-20
+<dl>
+    <dd>+ Maybe fixed a serious bug where user information was flooded in the network. Added flood detection for this bug in case it's not fixed yet.
+    <dd>+ Sorting by file size in search tab now works again
+</dl>
+<br>
+
+<p>
+    <b>0.8.20</b> - 2006-04-19
+<dl>
+    <dd>+ Popup-menu in search tab
+    <dd>+ "Remove connection" function in "My Network"
+    <dd>+ Sligtly more polite user connecting - routers started to crash
+    <dd>+ Logic to prevent flooding of invitation forwards
+</dl>
+<br>
+
+
+<p>
+    <b>0.8.19</b> - 2006-04-19
+<dl>
+    <dd>+ Rewritten UI and flows for connecting and inviting friends. Uses a wizard now
+    <dd>+ Added security mesures to prevent brute-forcing of connection codes
+    <dd>+ When new version has been installed a question pops up - "Would you like to restart?" instead of a brute restart
+    <dd>+ Fixed problem with TCP/IP error showing in event log on XP SP2
+    <dd>+ Completely rewritten UI for list of friends (from now on called "Connection")
+    <dd>+ State of the core subsystem is now remembered between restarts
+    <dd>+ Stuff that needs user interaction (a invitation to connect for example) are remembered between restarts 
+    <dd>+ A connection code is now valid a month(!)
+    <dd>+ Fixed random NullPointerException bug (problem with l'n'f)
+    <dd>+ Changed a bunch of icons
+    <dd>+ Does not show files in search result that you already have
+</dl>
+<br>
+
+<p>
+    <b>0.8.10</b> - 2006-03-26
+<dl>
+    <dd>+ Removed all advanced windows. They're reachable through the windows menu now.
+    <dd>+ Renamed "Invitation Code" to "Connection code". Changed terminology in this process. You now have a "connection" to a user. The term "ally" is no longer used.
+    <dd>+ More intelligent download selection. Avoids starting two downloads from the same person - prefers running two downloads from different users simulaniously
+    <dd>+ Move up/down downloads in download queue
+    <dd>+ Filename always visible in download queue
+    <dd>+ Fixed bug where splashwindow would not dissapear and lock UI
+    <dd>+ Change number formating
+    <dd>+ Improved search UI
+    <dd>+ A bunch of minor fixes
+</dl>
+<br>
+
+<p>
+    <b>0.8.8</b> - 2006-03-21
+<dl>
+    <dd>+ Renamed to Alliance
+    <dd>+ Invitations - Use a invitation code to invite a friend to be your ally
+    <dd>+ Forwarded invitations - use an ally to forward an invitation to one of his allies
+    <dd>+ Created installer for Windows
+    <dd>+ More polite friend connecting - Windows XP SP2 limit will not be reached now
+    <dd>+ Polite hashing tweaked: hash no more than 10Mb/s. Hash 50Gb and then wait 30 minutes.
+    <dd>+ Options dialog! Check it out. Automatically opened first time Alliance is run.
+    <dd>+ Trace tab is not shown by default.
+    <dd>+ Messages are now rememered when ui is not running and displayed when you oppen the ui.
+</dl>
+<br>
+
+<b>0.8.5</b> -  2006-03-14
+<dl>
+    <dd>+ Upload throttling! Set the throttle value under Tools->Options. It is <b>higly recommended</b> for ADSL users with 1mbit upstream to set their upload throttle to 70 (kb/s).
+    <dd>+ "Look for new files" function - the links above. Try it!
+    <dd>+ Duplicate files detected in share. Try command "dups" in console. Keeps Alliance from using 100% cpu when starting up and there are a lot of duplicate files.
+    <dd>+ The "days ago" column in search now uses the time the file was last modified (as opposed to when it was hashed).
+    <dd>+ File that are modified while beeing hashed are detected. Files modified after hashing are also detected.
+    <dd>+ File types. It's now possible to search per file type
+</dl>
+<br>
+
+<p>
+    <b>0.8.1</b> - 2006-02-22
+<dl>
+    <dd>+ Minor bugfixes
+</dl>
+<br>
+
+<p>
+    <b>0.8.0</b> - 2006-02-18
+<dl>
+    <dd>+ New column in search. Displays number of days ago a file was indexed.
+    <dd>+ Fixed problem: large files (>2Gb) would grind system to a halt at beginning of download. This was because it takes a lot of time to allocate a 2Gb file on disk. Blocks that are close or below the actual file size on disk are now preferred.
+    <dd>+ Imporved error handling (again). Now errors should never lock threads.
+    <dd>+ Even more polite hashing. Really don't want this to be a problem. Hashes 50Gb and waits 30 minutes (and repeats).
+</dl>
+<br>
+
+<p>
+    <b>0.7.7</b> - 2006-02-14
+<dl>
+    <dd>+ Program can not be started twice. Splash screen is shown when starting first time.
+    <dd>+ Folder column in search result. Tooltip on every result.
+    <dd>+ File scanning (=looking for new files to hash) is more polite now.. No longer consumes 100% on linux.
+    <dd>+ File downloads of files larger than 2Gb now work.
+</dl>
+<br>
+
+<b>0.7.5</b> - 2006-02-13
+<dl>
+    <dd>+ Upload tab
+    <dd>+ Fixed bug (maybe): BufferUnderflowException when connecting to friend.
+    <dd>+ Search index takes file date into concideration. Newers files are returned first. Searching for very broad keyword (avi for example) does not degrade performance. This paves the way for some interesting features.
+    <dd>+ Polite hashing. After each 200Gb of hashed data the system waits for two hours (configurable). Disks where getting overheated..
+</dl>
+<br>
+
+<b>0.7.0</b> - 2006-02-12
+<dl>
+    <dd>+ Improved download reliability significantly
+    <dd>+ Download queue is remembered between restarts.
+    <dd>+ Swarming downloads now work. Badly need bandwidth throttling now - swarms depend on it.
+    <dd>+ When a friend goes online he's checked for blocks of files you're downloading.
+    <dd>+ Its now possible to see what files you upload (under connections).
+    <dd>+ Downloads are now aborted in a more graceful way.
+    <dd>+ Fixed bug: "Tiger hash for block X is incorrect on disk".
+    <dd>+ Share size in neighberhood is updated when user goes offline.
+    <dd>+ Setting-values with default values are not saved in the settings file. This is good. I can change default settings for you with a new update.
+    <dd>+ Download connections can hande IO errors now
+    <dd>+ Added user names in search hits
+</dl>
+<br>
+
+<b>0.6.0</b> - 2006-02-10
+<dl>
+    <dd>+ Improved friend tree ui
+    <dd>+ Limit on number of hits is no longer fixed but is based on maximum packet size - right now 15kb.
+    <dd>+ Total share size in your neighborhood! yay!
+    <dd>+ ETA on downloads. Rolling averages for bandwidth mesuring.
+    <dd>+ More precise % complete per download. Updated once every second.
+    <dd>+ Added logging and improved error handling. Now there's error.log and trace.log. Trace is shown in a tab in the UI. <b>Skicka gärna med error.log och trace.log när ni hittar något läbbigt fel.</b>. IO errors are only logged - not shown to user.
+    <dd>+ Added a comprehendable message when remote most probably does not have you as friend
+    <dd>+ Error messages are now shown as balloons when UI has not been initiated. Error dialogs do not block COMM thread.
+</dl>
+<br>
+
+<b>0.5.5</b> - 2006-02-09
+<dl>
+    <dd>+ Fixed serious problem where a download would not finish if we're uploading the same file at the same time.
+    <dd>+ Incomplete files in downloads are no longer fragmented - thay are saved sequentially to disk. This saves a lot of time when the download is comlete and is moved out from the blockstorage. Files in cache are still fragmented. This saves disk space when having partial files in cache.
+    <dd>+ Fixed bug where downloads where not starting
+    <dd>+ Double click on tray icon
+    <dd>+ This window
+</dl>
+<br>
+
+<b>0.5.0</b> - 2006-02-07
+<dl>
+    <dd>+ First release ever!
+</dl>
