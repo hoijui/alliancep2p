@@ -5,6 +5,7 @@ import org.alliance.Subsystem;
 import org.alliance.Version;
 import org.alliance.core.ResourceSingelton;
 import org.alliance.core.T;
+import org.alliance.launchers.OSInfo;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -44,14 +45,18 @@ public class Main {
         for(int i=0;i<args.length;i++) if (!"/min".equals(args[i])) s = args[i];
         Subsystem core = initCore(s);
 
-        Subsystem tray = initTrayIcon(core);
+        if (OSInfo.supportsTrayIcon()) {
+            Subsystem tray = initTrayIcon(core);
 
-        if (!runMinimized) {
-            ((Runnable)tray).run(); //open ui
-            if (r != null) r.run(); //close splashwindow
+            if (!runMinimized) {
+                ((Runnable)tray).run(); //open ui
+                if (r != null) r.run(); //close splashwindow
+            }
+
+            startStartSignalThread(tray);
+        } else {
+            initUI(core);
         }
-
-        startStartSignalThread(tray);
     }
 
     private static void checkIfAlreadyRunning() {
@@ -149,7 +154,7 @@ public class Main {
             System.out.println("starting ui");
             SimpleTimer s = new SimpleTimer();
             Subsystem ui = (Subsystem)Class.forName("org.alliance.ui.UISubsystem").newInstance();
-            ui.init(ResourceSingelton.getRl(), core, false);
+            ui.init(ResourceSingelton.getRl(), core, !OSInfo.supportsTrayIcon());
             if(T.t)T.trace("Subsystem UI started in "+s.getTime());
         } catch(Exception t) {
             reportError(t);
