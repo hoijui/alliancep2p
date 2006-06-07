@@ -12,4 +12,4 @@ public class OSInfo {
         if (System.getProperty("os.name").toUpperCase().indexOf("LINUX") != -1) return true;
         return false;
     }
-}
+ }
