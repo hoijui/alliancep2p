@@ -135,7 +135,7 @@ public class Console {
     }
 
     private void dups() throws IOException {
-        Collection<String> dups = core.getFileManager().getFileDatabase().getDuplicates();
+        Collection<String> dups = new ArrayList<String>(core.getFileManager().getFileDatabase().getDuplicates());
         printer.println("Duplicates: ");
         for(String s : dups) {
             Hash h = core.getFileManager().getFileDatabase().getHashForDuplicate(s);

@@ -38,7 +38,11 @@ public class ShareScanner extends Thread {
             ArrayList<ShareBase> al = new ArrayList<ShareBase>(manager.shareBases());
             for(ShareBase base : al) {
                 if (!alive) break;
+                try {
                 scanPath(base);
+                } catch(Exception e) {
+                    if(T.t)T.error("Could not scan "+base+": "+e);
+                }
             }
 
 //            cleanup();
@@ -82,12 +86,12 @@ public class ShareScanner extends Thread {
         } catch (InterruptedException e) {}
     }
 
-    private void scanPath(ShareBase base) {
+    private void scanPath(ShareBase base) throws IOException {
         if(T.t)T.info("Scanning "+base.getPath()+"...");
         scanPathRecursive(base.getPath(),base,1);
     }
 
-    private void scanPathRecursive(String dir, ShareBase base, int level) {
+    private void scanPathRecursive(String dir, ShareBase base, int level) throws IOException {
         if (!alive) return;
 
         if (shouldSkip(dir)) return;
@@ -97,6 +101,7 @@ public class ShareScanner extends Thread {
         File files[] = top.listFiles();
         if (files != null) for(int i=0;i<files.length;i++) {
             File file = files[i];
+            file = file.getCanonicalFile();
             if (file.isDirectory()) {
                 try {
                     Thread.sleep(150); //don't look for files too fast - takes 100% cpu on some machines

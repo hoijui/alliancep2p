@@ -91,7 +91,7 @@ public class Main {
         XUIFrame frame = new XUIFrame("testsuite/testsuite.xui.xml");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getXUI().setEventHandler(new Main());
-       list = new JList(new DefaultListModel());
+        list = new JList(new DefaultListModel());
         JScrollPane p = (JScrollPane)frame.getXUI().getComponent("sp");
         p.setViewportView(list);
         frame.display();
@@ -115,13 +115,15 @@ public class Main {
 
         File settings[] = new File("testsuite/settings").listFiles();
         for(File f : settings) {
-            final Main m = new Main(f.toString());
-            users.put(f.toString().substring(f.toString().lastIndexOf('\\')+1, f.toString().lastIndexOf('.')).toLowerCase(), m);
-            SwingUtilities.invokeLater(new Runnable() {
-                public void run() {
-                    ((DefaultListModel)list.getModel()).addElement(m);
-                }
-            });
+            if (f.toString().endsWith("xml")) {
+                final Main m = new Main(f.toString());
+                users.put(f.toString().substring(f.toString().lastIndexOf('\\')+1, f.toString().lastIndexOf('.')).toLowerCase(), m);
+                SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        ((DefaultListModel)list.getModel()).addElement(m);
+                    }
+                });
+            }
 //            Thread.sleep((long)(1000));
         }
     }

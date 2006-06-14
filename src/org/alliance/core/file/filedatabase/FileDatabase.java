@@ -238,7 +238,7 @@ public class FileDatabase {
                 remove(fileHasBeenRemoved.getFd());
                 continue;
             }
-            if (fd.getFullPath().equals(path)) return true;
+            if (fd != null && fd.getFullPath().equals(path)) return true;
         }
         return false;
     }

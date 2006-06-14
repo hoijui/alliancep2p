@@ -156,6 +156,8 @@ public class FileDescriptor {
     }
 
     public static FileDescriptor createFrom(InputStream is, boolean shouldExist) throws IOException, FileHasBeenRemovedOrChanged {
+        if (is == null) return null;
+        
         FileDescriptor fd = new FileDescriptor();
         DataInputStream in = new DataInputStream(is);
 

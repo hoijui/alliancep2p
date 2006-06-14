@@ -56,6 +56,7 @@ public class Main {
             startStartSignalThread(tray);
         } else {
             initUI(core);
+            if (r != null) r.run();
         }
     }
 

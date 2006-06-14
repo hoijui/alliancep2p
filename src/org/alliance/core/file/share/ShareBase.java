@@ -2,6 +2,9 @@ package org.alliance.core.file.share;
 
 import com.stendahls.util.TextUtils;
 
+import java.io.File;
+import java.io.IOException;
+
 /**
  * Created by IntelliJ IDEA.
  * User: maciek
@@ -13,7 +16,13 @@ public class ShareBase {
     private String path;
 
     public ShareBase(String path) {
-        this.path = TextUtils.makeSurePathIsMultiplatform(path);
+        path = TextUtils.makeSurePathIsMultiplatform(path);
+        try {
+            path = new File(path).getCanonicalFile().getPath();
+        } catch (IOException e) {
+            if(T.t)T.error("Could not resolve canonical share path: "+e);
+        }
+        this.path = path;
     }
 
     public String getPath() {
