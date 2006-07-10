@@ -17,6 +17,7 @@
                             </cell>
                         </row>
                     </form>
+
                     <panel axis="x">
                         <mlabel html="true">
                             Note that your nickname can be seen by unstrusted users in the network.
@@ -125,6 +126,11 @@
                     </panel>
                 </panel>
 
+                <panel axis="y" bordertype="etched" bordertitle="Network expansion defaults">
+                    <panel axis="x" expand="horiz">
+                        <checkbox id="internal.alwaysallowfriendstoconnect" text="Always allow my friends to connect to each other"/><filler/>
+                    </panel>
+                </panel>
 
                 <filler/>
             </tab>

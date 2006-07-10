@@ -33,7 +33,8 @@ public class OptionsWindow extends XUIDialog {
             "internal.politehashingintervalingigabytes",
             "my.nickname",
             "server.port",
-            "internal.downloadfolder"
+            "internal.downloadfolder",
+            "internal.alwaysallowfriendstoconnect"
     };
 
     private UISubsystem ui;
@@ -101,6 +102,13 @@ public class OptionsWindow extends XUIDialog {
         if (c instanceof JTextField) {
             JTextField tf = (JTextField)c;
             tf.setText(settingValue);
+        } else if (c instanceof JCheckBox) {
+            JCheckBox b = (JCheckBox)c;
+            if ("0".equals(settingValue) || "no".equalsIgnoreCase(settingValue) || "false".equalsIgnoreCase(settingValue)) {
+                b.setSelected(false);
+            } else {
+                b.setSelected(true);
+            }
         }
     }
 
@@ -161,6 +169,7 @@ public class OptionsWindow extends XUIDialog {
 
     private Object getComponentValue(JComponent c) {
         if (c instanceof JTextField) return ((JTextField)c).getText();
+        if (c instanceof JCheckBox) return ((JCheckBox)c).isSelected() ? 1 : 0;
         return null;
     }
 

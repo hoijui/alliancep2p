@@ -15,6 +15,7 @@ import org.alliance.core.comm.upnp.UPnPManager;
 import org.alliance.core.file.FileManager;
 import org.alliance.core.file.share.ShareManager;
 import org.alliance.core.interactions.NeedsToRestartInteraction;
+import org.alliance.core.interactions.PleaseForwardInvitationInteraction;
 import org.alliance.core.node.FriendManager;
 import org.alliance.core.node.InvitaitonManager;
 import org.alliance.core.settings.Settings;
@@ -290,6 +291,17 @@ public class CoreSubsystem implements Subsystem {
     }
 
     public void queNeedsUserInteraction(NeedsUserInteraction ui) {
+        if (ui instanceof PleaseForwardInvitationInteraction && getSettings().getInternal().getAlwaysallowfriendstoconnect() > 0) {
+            try {
+                //automatically forward this user invitation - the settings are set to do this.
+                if(T.t)T.info("Automatically forwarding invitation: "+ui);
+                getFriendManager().forwardInvitation((PleaseForwardInvitationInteraction)ui);
+                return;
+            } catch (IOException e) {
+                reportError(e, ui);
+            }
+        }
+
         userInternactionQue.add(ui);
     }
 

@@ -16,7 +16,6 @@ import org.alliance.Version;
 import org.alliance.core.NeedsUserInteraction;
 import org.alliance.core.comm.BandwidthAnalyzer;
 import org.alliance.core.interactions.*;
-import org.alliance.core.node.FriendManager;
 import org.alliance.ui.addfriendwizard.AddFriendWizard;
 import org.alliance.ui.windows.*;
 import org.alliance.ui.windows.search.SearchMDIWindow;
@@ -389,14 +388,12 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
         } else if (nui instanceof PleaseForwardInvitationInteraction) {
             final PleaseForwardInvitationInteraction pmi = (PleaseForwardInvitationInteraction)nui;
             try {
-                FriendManager fm = ui.getCore().getFriendManager();
-                String from = fm.nickname(pmi.getFromGuid());
-                String to = fm.nickname(pmi.getToGuid());
-                if (OptionDialog.showQuestionDialog(this, from+" want to connect to "+to+".[p]These two users are not connected right now. You are the middleman between them.[p]Do you want to allow "+from+" to invite "+to+" to connect to him/her?[p]")) {
+                ForwardInvitationDialog d = new ForwardInvitationDialog(ui, pmi.getFromGuid(), pmi.getToGuid());
+                if (d.hasPressedYes()) {
                     ui.getCore().invokeLater(new Runnable() {
                         public void run() {
                             try {
-                                ui.getCore().getFriendManager().forwardInvitation(pmi.getFromGuid(), pmi.getToGuid(), pmi.getInvitationCode());
+                                ui.getCore().getFriendManager().forwardInvitation(pmi);
                             } catch(final IOException e) {
                                 SwingUtilities.invokeLater(new Runnable() {
                                     public void run() {
@@ -406,9 +403,8 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
                             }
                         }
                     });
-                } else {
-                    //ingnore request for forward
                 }
+                if (d.alwaysAllowInvite()) ui.getCore().getSettings().getInternal().setAlwaysallowfriendstoconnect(1);
             } catch(Exception e) {
                 ui.handleErrorInEventLoop(e);
             }
@@ -438,7 +434,7 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
             if (ui.getCore().getFriendManager().getFriend(fii.getFromGuid()) != null && ui.getCore().getFriendManager().getFriend(fii.getFromGuid()).isConnected()) {
                 if(T.t)T.error("Already was connected to this friend!!");
             } else {
-                if (OptionDialog.showQuestionDialog(this, fii.getRemoteName()+" is inviting you to connect. "+fii.getRemoteName()+" has a connection to "+fii.getMiddleman(ui.getCore()).getNickname()+" (whom has a connection to you). [p]Do you want to connect to "+fii.getRemoteName()+"?[p]")) {
+                if (OptionDialog.showQuestionDialog(this, fii.getRemoteName()+" wants to connect to you. "+fii.getRemoteName()+" has a connection to "+fii.getMiddleman(ui.getCore()).getNickname()+" (whom has a connection to you). [p]Do you want to connect to "+fii.getRemoteName()+"?[p]")) {
                     try {
                         ui.getCore().getInvitaitonManager().attemptToBecomeFriendWith(fii.getInvitationCode());
                         openWizardAt(AddFriendWizard.STEP_ATTEMPT_CONNECT, fii.getFromGuid());
@@ -467,9 +463,10 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
                 lastAddFriendWizard.getOuterDialog().dispose();
                 if(T.t)T.trace("Wizard disposed");
             }
-            OptionDialog.showInformationDialog(this, "You already have a connection to "+name+". IP-Adress information was updated for this connection.");
+            // no need to display the below. The user should not mind about this.
+            //OptionDialog.showInformationDialog(this, "You already have a connection to "+name+". IP-Adress information was updated for this connection.");
         } else {
-            System.out.println("unknownsdf : "+nui);
+            System.out.println("unknown: "+nui);
         }
     }
 

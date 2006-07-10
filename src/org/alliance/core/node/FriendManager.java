@@ -5,6 +5,7 @@ import org.alliance.core.CoreSubsystem;
 import org.alliance.core.Manager;
 import org.alliance.core.comm.*;
 import org.alliance.core.comm.rpc.*;
+import org.alliance.core.interactions.PleaseForwardInvitationInteraction;
 import org.alliance.core.settings.My;
 import org.alliance.core.settings.Settings;
 
@@ -212,6 +213,10 @@ public class FriendManager extends Manager {
         }
         n+=me.getShareSize();
         return n;
+    }
+
+    public void forwardInvitation(PleaseForwardInvitationInteraction fi) throws IOException {
+        forwardInvitation(fi.getFromGuid(), fi.getToGuid(), fi.getInvitationCode());
     }
 
     public void forwardInvitation(int fromGuid, int toGuid, String invitationCode) throws IOException {

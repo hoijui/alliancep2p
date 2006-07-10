@@ -34,6 +34,8 @@ public class Internal extends SettingClass {
     private Integer connectionkeepaliveinterval=60;
     private Integer numberofblockstopipeline=2;
 
+    private Integer alwaysallowfriendstoconnect=0;
+
     private Integer minimumtimebetweeninvitations = 60*24*2; //in minutes
 
     /** Used to be polite when running on XP sp2 wich only allows 10 pending tcp/ip connections
@@ -289,5 +291,13 @@ public class Internal extends SettingClass {
 
     public void setTempcleareddups(Integer tempcleareddups) {
         this.tempcleareddups = tempcleareddups;
+    }
+
+    public Integer getAlwaysallowfriendstoconnect() {
+        return alwaysallowfriendstoconnect;
+    }
+
+    public void setAlwaysallowfriendstoconnect(Integer alwaysallowfriendstoconnect) {
+        this.alwaysallowfriendstoconnect = alwaysallowfriendstoconnect;
     }
 }

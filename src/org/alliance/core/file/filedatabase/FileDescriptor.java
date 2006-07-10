@@ -36,6 +36,8 @@ public class FileDescriptor {
      * @param file
      */
     public FileDescriptor(String basePath, File file, int hashSpeedInMbPerSecond) throws IOException {
+        basePath = TextUtils.makeSurePathIsMultiplatform(basePath);
+        
         byte buf[] = new byte[BLOCK_SIZE];
 
         if(T.t)T.trace("Hashing "+file+" ...");
