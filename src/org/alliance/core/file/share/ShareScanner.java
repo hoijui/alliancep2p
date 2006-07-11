@@ -63,7 +63,7 @@ public class ShareScanner extends Thread {
         }
     }
 
-    // Remove missing files from index
+    // Remove missing files from index - not used right now
     private void cleanup() {
         try {
             if(T.t)T.info("Cleaning up index...");
