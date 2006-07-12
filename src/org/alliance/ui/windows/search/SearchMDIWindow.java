@@ -48,7 +48,7 @@ public class SearchMDIWindow extends AllianceMDIWindow {
     public SearchMDIWindow(final UISubsystem ui) throws Exception {
         super(ui.getMainWindow().getMDIManager(), "search", ui);
 
-        fileTypeIcons = new ImageIcon[7];
+        fileTypeIcons = new ImageIcon[8];
         for(int i=0;i<fileTypeIcons.length;i++) fileTypeIcons[i] = new ImageIcon(ui.getRl().getResource("gfx/filetypes/"+i+".png"));
 
         left = (JLabel)xui.getComponent("left");

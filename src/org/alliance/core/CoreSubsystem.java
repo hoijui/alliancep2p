@@ -95,7 +95,6 @@ public class CoreSubsystem implements Subsystem {
         this.rl = rl;
         this.settingsFile = String.valueOf(params[0]);
 
-
         Thread.currentThread().setName("Booting Core");
 
         loadSettings();
@@ -106,12 +105,12 @@ public class CoreSubsystem implements Subsystem {
         invitaitonManager = new InvitaitonManager(this, settings);
         upnpManager = new UPnPManager(this);
 
+        loadState();
+
         fileManager.init();
         friendManager.init();
         networkManager.init();
         if (System.getProperty("testsuite") == null) upnpManager.init();
-
-        loadState();
 
         Thread.currentThread().setName(friendManager.getMe()+" main");
 

@@ -377,10 +377,10 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
 //                }
 //            }
 
-            System.out.println("userInteractionsInProgress: "+userInteractionsInProgress);
+//            if(T.t)T.trace("userInteractionsInProgress: "+userInteractionsInProgress+", in que: "+ui.getCore().getAllUserInteractionsInQue().size());
             for(NeedsUserInteraction nui : ui.getCore().getAllUserInteractionsInQue()) {
                 if (userInteractionsInProgress == 0 || nui.canRunInParallelWithOtherInteractions()) {
-                    System.out.println("running user interaction: "+nui);
+//                    if(T.t)T.info("running user interaction: "+nui);
                     ui.getCore().removeUserInteraction(nui);
                     final NeedsUserInteraction nui1 = nui;
                     SwingUtilities.invokeLater(new Runnable() {
