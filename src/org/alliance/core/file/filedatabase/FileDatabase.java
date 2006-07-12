@@ -25,7 +25,7 @@ import java.util.zip.InflaterInputStream;
  */
 public class FileDatabase {
     public static final int MINIMUM_TIME_BETWEEN_FLUSHES_IN_MS = 1000*60;
-    public static final int VERSION=5;
+    public static final int VERSION=12;
 
     private ChunkStorage chunkStorage;
 
@@ -33,6 +33,7 @@ public class FileDatabase {
     private KeywordIndex keywordIndex;
     private HashMap<Hash, Integer> baseHashTable = new HashMap<Hash, Integer>();
     private HashMap<String, Hash> duplicates = new HashMap<String, Hash>();
+    private CompressedPathCollection indexedFilenames = new CompressedPathCollection();
 
     private WeakValueHashMap<Hash, FileDescriptor> fileDescriptorCache = new WeakValueHashMap<Hash, FileDescriptor>();
 
@@ -94,6 +95,8 @@ public class FileDatabase {
         //index keywords
         keywordIndex.add(index, fd);
 
+        indexedFilenames.addPath(fd.getFullPath());
+
         totalSize += fd.getSize();
 
         //save and flush database and indices
@@ -135,6 +138,7 @@ public class FileDatabase {
         chunkStorage.markAsRemoved(off);
         baseHashTable.remove(fd.getRootHash());
         fileDescriptorCache.remove(fd.getRootHash());
+        indexedFilenames.removePath(fd.getFullPath());
         totalSize -= fd.getSize();
     }
 
@@ -178,6 +182,7 @@ public class FileDatabase {
         out.writeObject(baseHashTable);
         allocationTable.save(out);
         keywordIndex.save(out);
+        out.writeObject(indexedFilenames);
         out.writeObject(duplicates);
 
         out.flush();
@@ -206,6 +211,7 @@ public class FileDatabase {
                 baseHashTable = (HashMap<Hash, Integer>)in.readObject();
                 allocationTable.load(in);
                 keywordIndex.load(in);
+                indexedFilenames = (CompressedPathCollection)in.readObject();
                 duplicates = (HashMap<String, Hash>)in.readObject();
             } catch(ClassNotFoundException e) {
                 throw new IOException("Could not load indices: "+e);
@@ -228,19 +234,23 @@ public class FileDatabase {
     }
 
     public synchronized boolean contains(String path) throws IOException {
-        path = TextUtils.makeSurePathIsMultiplatform(path);
-        int indices[] = keywordIndex.search(path, 500, FileType.EVERYTHING); //@todo:   ick!! fix this.
-        for(int i : indices) {
-            FileDescriptor fd = null;
-            try {
-                fd = FileDescriptor.createFrom(chunkStorage.getChunk(allocationTable.getOffset(i)), true);
-            } catch(FileHasBeenRemovedOrChanged fileHasBeenRemoved) {
-                remove(fileHasBeenRemoved.getFd());
-                continue;
-            }
-            if (fd != null && fd.getFullPath().equals(path)) return true;
-        }
-        return false;
+        return indexedFilenames.contains(path);
+//        if (!indexedFilenames.contains(path)) return false;
+//
+//        path = TextUtils.makeSurePathIsMultiplatform(path);
+//        int indices[] = keywordIndex.search(path, 500, FileType.EVERYTHING);
+//        for(int i : indices) {
+//            FileDescriptor fd = null;
+//            try {
+//                fd = FileDescriptor.createFrom(chunkStorage.getChunk(allocationTable.getOffset(i)), true);
+//            } catch(FileHasBeenRemovedOrChanged fileHasBeenRemoved) {
+//                remove(fileHasBeenRemoved.getFd());
+//                continue;
+//            }
+//            if (fd != null && fd.getFullPath().equals(path)) return true;
+//        }
+//        if(T.t)T.trace("ick. had to do a search when it was not needed");
+//        return false;
     }
 
     public synchronized boolean contains(Hash rootHash) {

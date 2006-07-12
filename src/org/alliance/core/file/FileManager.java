@@ -49,12 +49,6 @@ public class FileManager extends Manager {
         downloads = new DownloadStorage(settings.getInternal().getDownloadfolder()+"/_incomplete_", settings.getInternal().getDownloadfolder(), core);
         automaticUpgrade = new AutomaticUpgrade(core, cache);
         shareManager = new ShareManager(core, settings);
-
-        if (core.getSettings().getInternal().getTempcleareddups() == null ||
-                core.getSettings().getInternal().getTempcleareddups() == 0) {
-            getFileDatabase().clearDuplicates();
-            core.getSettings().getInternal().setTempcleareddups(1);
-        }
     }
 
     public ShareManager getShareManager() {

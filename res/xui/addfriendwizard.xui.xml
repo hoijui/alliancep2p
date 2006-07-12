@@ -5,7 +5,7 @@
         <wizard id="wizard" implementation="org.alliance.ui.addfriendwizard.AddFriendWizard" text="" image="gfx/wizardimage.jpg">
 
             <step text="">
-                <mlabel html="yes">This wizard helps you connect to your coworkers, friends or family members using Alliance.
+                <mlabel html="yes">This wizard helps you connect to your friends, coworkers or family members using Alliance.
                     [p]
                 </mlabel>
                 <strut height="5"/>
@@ -29,23 +29,22 @@
 
             <step text="Send connection code">
                 <mlabel id="text" html="yes">
-                    Click the link below.
+                    [b]Click the link below.[/b]
                 </mlabel>
                 <strut height="15"/>
                 <panel border="0" axis="x" expand="horiz">
                     <mlabel id="text" html="yes">
-                        [a href=mail]Create e-mail invitation for a friend[/a]
+                        [a href=mail]Create e-mail invitation for one friend[/a]
                     </mlabel>
                     <label id="waittext" text=""/>
                     <strut width="50"/>
                 </panel>
                 <strut height="15"/>
                 <mlabel html="yes">
-                    If you want to invite several friends click on the link above several times. [i]Send one e-mail per friend[/i].
+                    If you want to invite several friends click on the link above several times. Send one e-mail per friend.
                     [p]
-                    Once your friend receives the code he can enter it into his Alliance program. You will then will automatically connect to each other.
                     [p]
-                    If the link does not work or you do not want to use e-mail you can copy and paste the code below and send it to your friend in some other way.
+                    [b]If the link above does not work[/b] or you do not want to use e-mail you can copy and paste the code below and send it to your friend in some other way. Send one code per friend.
                 </mlabel>
                 <strut height="15"/>
                 <panel axis="x" border="0" expand="horiz">

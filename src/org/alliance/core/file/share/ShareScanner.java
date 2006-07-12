@@ -39,7 +39,7 @@ public class ShareScanner extends Thread {
             for(ShareBase base : al) {
                 if (!alive) break;
                 try {
-                scanPath(base);
+                    scanPath(base);
                 } catch(Exception e) {
                     if(T.t)T.error("Could not scan "+base+": "+e);
                 }
@@ -104,10 +104,12 @@ public class ShareScanner extends Thread {
             file = file.getCanonicalFile();
             if (file.isDirectory()) {
                 try {
-                    Thread.sleep(150); //don't look for files too fast - takes 100% cpu on some machines
+                    Thread.sleep(20);
+                    //don't look for files too fast - takes 100% cpu on some machines
                 } catch(InterruptedException e) {
                 }
                 if(T.t)T.trace("Scanning "+file.getPath()+"...");
+//                manager.getCore().getUICallback().statusMessage("Scanning "+file.getPath()+"...");   too techno for regular users - can get scared when lot of folders flicker by in statusbar
                 scanPathRecursive(file.getPath(),base,level+1);
             } else {
                 try {

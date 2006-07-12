@@ -12,4 +12,8 @@ public class OSInfo {
         if (System.getProperty("os.name").toUpperCase().indexOf("LINUX") != -1) return true;
         return false;
     }
- }
+
+    public static boolean isWindows() {
+        return System.getProperty("os.name").toUpperCase().indexOf("WINDOWS") != -1;
+    }
+}

@@ -5,6 +5,7 @@ import com.stendahls.nif.ui.OptionDialog;
 import com.stendahls.ui.JHtmlLabel;
 import com.stendahls.ui.JWizard;
 import org.alliance.core.node.Invitation;
+import org.alliance.launchers.OSInfo;
 import org.alliance.ui.T;
 import org.alliance.ui.UISubsystem;
 
@@ -77,6 +78,9 @@ public class AddFriendWizard extends JWizard {
         radioButtons.add((JRadioButton)innerXUI.getComponent("radio2_1"));
         radioButtons.add((JRadioButton)innerXUI.getComponent("radio2_2"));
 
+        //disable looking for friends in secondary connections if we have no friends
+        if (ui.getCore().getFriendManager().friends().size() == 0)  innerXUI.getComponent("radio1_3").setEnabled(false);
+
         final JHtmlLabel l = (JHtmlLabel)innerXUI.getComponent("text");
         l.addHyperlinkListener(new HyperlinkListener() {
             public void hyperlinkUpdate(HyperlinkEvent e) {
@@ -84,27 +88,31 @@ public class AddFriendWizard extends JWizard {
                     try {
                         final JLabel label = (JLabel)innerXUI.getComponent("waittext");
                         label.setText("Please wait...");
-                        String subject = "Connect to me using Alliance!";
-                            String body = "\n     [ENTER EMAIL ADDRESS OF YOUR FRIEND ABOVE and ENTER PERSONAL MESSAGE HERE]\n\n" +
+                        String subject = "";
+                        String body = "\n\n\n" +
                                 "______________________________________________________________________________________________________\n" +
                                 "\n" +
-                                "Here is what you need to do:\n" +
+                                "You have been invited to my Alliance network! This is a private and secure network\n" +
+                                "where me and my friends share files.\n" +
                                 "\n" +
-                                "1. Download Alliance here: http://www.alliancep2p.com\n" +
+                                "1. Download and run Alliance here:\n" +
+                                "http://prdownloads.sourceforge.net/alliancep2p/AllianceSetup.exe?download\n" +
                                 "\n" +
-                                "2. Start Alliance\n" +
-                                "\n" +
-                                "3. The program will ask you for a code. Enter this code:\n" +
+                                "2. After installation Alliance will ask you for a code. Enter this code:\n" +
                                 "\n" +
                                 ui.getCore().getInvitaitonManager().createInvitation().getCompleteInvitaitonString()+"\n"+
                                 "\n" +
-                                "Thats all!\n" +
+                                "Using this code you will connect to our private Alliance network.\n" +
                                 "______________________________________________________________________________________________________";
 
                         body = body.replace("\n", "%0A");
                         body = body.replace(" ", "%20");
                         subject = subject.replace(" ", "%20");
-                        String s = "cmd /k \"start mailto:?body="+body+"^&subject="+subject+"\"";
+                        String s;
+                        if (OSInfo.isWindows())
+                            s = "cmd /k \"start mailto:?body="+body+"^&subject="+subject+"\"";
+                        else
+                            s = "mailto:?body="+body+"&subject="+subject;
 
                         Runtime.getRuntime().exec(s);
 

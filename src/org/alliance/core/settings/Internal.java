@@ -22,7 +22,7 @@ public class Internal extends SettingClass {
 
     private Integer reconnectinterval = 60*10;
     private Integer connectFriendInterval = 1;
-    private Integer sharemanagercycle = 60;
+    private Integer sharemanagercycle = 30;
     private String filedatabasefile = "share.dat";
     private String filedatabaseindexfile = "share.idx";
     private String downloadquefile = "downloads.dat";

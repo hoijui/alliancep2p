@@ -72,7 +72,7 @@
             <tab text="Share" tooltip="Add or remove directories to share">
                 <panel axis="y" bordertype="etched" bordertitle="Shared folders:">
                     <panel border="0,0,0,5" axis="x" expand="horiz">
-                        <label text="Select what folders you want to share with your allies: "/><filler/>
+                        <label text="Select what folders you want to share with your friends: "/><filler/>
                     </panel>
 
                     <scrollpanel bordertype="lowered">
