@@ -1,6 +1,6 @@
 package org.alliance.core.interactions;
 
-import org.alliance.core.NeedsUserInteraction;
+import org.alliance.core.SynchronizedNeedsUserInteraction;
 
 /**
  * Created by IntelliJ IDEA.
@@ -9,7 +9,7 @@ import org.alliance.core.NeedsUserInteraction;
  * Time: 20:20:31
  * To change this template use File | Settings | File Templates.
  */
-public class PostMessageInteraction implements NeedsUserInteraction {
+public class PostMessageInteraction extends SynchronizedNeedsUserInteraction {
     private String message;
     private long tick;
     private int fromGuid;

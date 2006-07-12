@@ -25,4 +25,8 @@ public class NewFriendConnectedUserInteraction implements NeedsUserInteraction {
     public void setGuid(int guid) {
         this.guid = guid;
     }
+
+    public boolean canRunInParallelWithOtherInteractions() {
+        return true;
+    }
 }

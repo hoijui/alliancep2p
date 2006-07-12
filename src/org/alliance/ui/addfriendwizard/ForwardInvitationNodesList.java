@@ -106,7 +106,7 @@ public class ForwardInvitationNodesList extends JList {
                     addElement(new ListRow(ui.getCore().getFriendManager().nickname(guid), createConnectedThroughList(guid), guid));
             }
 
-            if (getSize() == 0) OptionDialog.showInformationDialog(ui.getMainWindow(), "No new connections where foud for you to connect to. This is why the connection list will be empty.");
+            if (getSize() == 0) OptionDialog.showInformationDialog(ui.getMainWindow(), "No new connections where found for you to connect to.");
         }
 
         private String createConnectedThroughList(int guid) {

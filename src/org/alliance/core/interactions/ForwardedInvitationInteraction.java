@@ -1,7 +1,7 @@
 package org.alliance.core.interactions;
 
 import org.alliance.core.CoreSubsystem;
-import org.alliance.core.NeedsUserInteraction;
+import org.alliance.core.SynchronizedNeedsUserInteraction;
 import org.alliance.core.node.Friend;
 
 /**
@@ -11,7 +11,7 @@ import org.alliance.core.node.Friend;
  * Time: 20:20:31
  * To change this template use File | Settings | File Templates.
  */
-public class ForwardedInvitationInteraction implements NeedsUserInteraction {
+public class ForwardedInvitationInteraction extends SynchronizedNeedsUserInteraction {
     private String invitationCode;
     private int middlemanGuid;
     private String remoteName;

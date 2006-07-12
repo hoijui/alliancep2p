@@ -1,6 +1,6 @@
 package org.alliance.core.interactions;
 
-import org.alliance.core.NeedsUserInteraction;
+import org.alliance.core.SynchronizedNeedsUserInteraction;
 
 /**
  * Created by IntelliJ IDEA.
@@ -8,7 +8,7 @@ import org.alliance.core.NeedsUserInteraction;
  * Date: 2006-apr-13
  * Time: 16:58:19
  */
-public class FriendAlreadyInListUserInteraction implements NeedsUserInteraction {
+public class FriendAlreadyInListUserInteraction extends SynchronizedNeedsUserInteraction {
     private int guid;
 
     public FriendAlreadyInListUserInteraction() {

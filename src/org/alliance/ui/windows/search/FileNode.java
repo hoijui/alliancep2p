@@ -33,7 +33,7 @@ public class FileNode extends SearchTreeNode implements Comparable {
         filename = filename.replace('_', ' ');
         
         int i = filename.lastIndexOf('.');
-        if (i == -1 && FileType.getByFileName(filename) != FileType.EVERYTHING) {
+        if (i == -1 || FileType.getByFileName(filename) == FileType.EVERYTHING) {
             this.filename = filename;
         } else {
             if (i == -1) {

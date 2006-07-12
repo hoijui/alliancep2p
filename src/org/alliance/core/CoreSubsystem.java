@@ -14,7 +14,7 @@ import org.alliance.core.comm.rpc.GetUserInfo;
 import org.alliance.core.comm.upnp.UPnPManager;
 import org.alliance.core.file.FileManager;
 import org.alliance.core.file.share.ShareManager;
-import org.alliance.core.interactions.NeedsToRestartInteraction;
+import org.alliance.core.interactions.NeedsToRestartBecauseOfUpgradeInteraction;
 import org.alliance.core.interactions.PleaseForwardInvitationInteraction;
 import org.alliance.core.node.FriendManager;
 import org.alliance.core.node.InvitaitonManager;
@@ -28,6 +28,7 @@ import java.nio.channels.ClosedChannelException;
 import java.nio.channels.UnresolvedAddressException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * This is the core of the entire Alliance system. Theres not too much code here, it's more of a hub for the entire
@@ -174,7 +175,7 @@ public class CoreSubsystem implements Subsystem {
             networkManager.load(in);
             userInternactionQue = (ArrayList<NeedsUserInteraction>)in.readObject();
             for(Iterator i = userInternactionQue.iterator();i.hasNext();) {
-                if (i.next() instanceof NeedsToRestartInteraction) i.remove(); //we don't need to restart if it's a interaction from the last time we ran alliance
+                if (i.next() instanceof NeedsToRestartBecauseOfUpgradeInteraction) i.remove(); //we don't need to restart if it's a interaction from the last time we ran alliance
             }
             in.close();
         } catch(FileNotFoundException e) {
@@ -319,13 +320,37 @@ public class CoreSubsystem implements Subsystem {
         return null;
     }
 
+    public NeedsUserInteraction peekUserInteraction() {
+        System.out.println(userInternactionQue.size()+" interaction in que: ");
+        for(NeedsUserInteraction u : userInternactionQue) {
+            System.out.println("  "+u+" "+u.getClass().getName());
+        }
+        if (userInternactionQue.size() > 0) {
+            return userInternactionQue.get(0);
+        }
+        return null;
+    }
+
+    public void removeUserInteraction(NeedsUserInteraction nui) {
+        System.out.println("removing "+nui);
+        userInternactionQue.remove(nui);
+    }
+
+    public boolean doesInterationQueContain(Class<? extends NeedsUserInteraction> c) {
+        System.out.println("que size "+userInternactionQue.size());
+        for(NeedsUserInteraction u : userInternactionQue) {
+            if (u.getClass().equals(c)) return true;
+        }
+        return false;
+    }
+
     public void refreshFriendInfo() throws IOException {
         networkManager.sendToAllFriends(new GetUserInfo());
     }
 
     public void softRestart() throws IOException {
         if (uiCallback.isUIVisible()) {
-            queNeedsUserInteraction(new NeedsToRestartInteraction());
+            queNeedsUserInteraction(new NeedsToRestartBecauseOfUpgradeInteraction());
         } else {
             restartProgram(false);
         }
@@ -361,5 +386,9 @@ public class CoreSubsystem implements Subsystem {
 
     public UPnPManager getUpnpManager() {
         return upnpManager;
+    }
+
+    public List<NeedsUserInteraction> getAllUserInteractionsInQue() {
+        return (List<NeedsUserInteraction>)userInternactionQue.clone();
     }
 }

@@ -1,6 +1,6 @@
 package org.alliance.core.interactions;
 
-import org.alliance.core.NeedsUserInteraction;
+import org.alliance.core.SynchronizedNeedsUserInteraction;
 
 /**
  * Created by IntelliJ IDEA.
@@ -9,7 +9,7 @@ import org.alliance.core.NeedsUserInteraction;
  * Time: 20:20:31
  * To change this template use File | Settings | File Templates.
  */
-public class PleaseForwardInvitationInteraction implements NeedsUserInteraction {
+public class PleaseForwardInvitationInteraction extends SynchronizedNeedsUserInteraction {
     private String invitationCode;
     private int toGuid;
     private int fromGuid;

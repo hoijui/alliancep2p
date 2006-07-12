@@ -10,4 +10,5 @@ import java.io.Serializable;
  * To change this template use File | Settings | File Templates.
  */
 public interface NeedsUserInteraction extends Serializable {
+    boolean canRunInParallelWithOtherInteractions();
 }

@@ -213,6 +213,9 @@ public class AddFriendWizard extends JWizard {
         listScrollPane.setViewportView(forwardInvitationNodesList = new ForwardInvitationNodesList(ui, this));
         setStep(STEP_FORWARD_INVITATIONS);
         next.setEnabled(false);
+        if (forwardInvitationNodesList.getModel().getSize() == 0) {
+            getOuterDialog().dispose(); //we're done. Nothing to forward. Just close the wizard.
+        }
     }
 
     private void handleInvitationCode() {

@@ -2,6 +2,7 @@ package org.alliance.ui.windows;
 
 import com.stendahls.XUI.XUIDialog;
 import com.stendahls.ui.JHtmlLabel;
+import org.alliance.core.interactions.PleaseForwardInvitationInteraction;
 import org.alliance.core.node.FriendManager;
 import org.alliance.ui.UISubsystem;
 
@@ -19,19 +20,21 @@ public class ForwardInvitationDialog extends XUIDialog {
     private UISubsystem ui;
     private JCheckBox alwaysAllowInvite;
     private boolean pressedYes = false;
+    private PleaseForwardInvitationInteraction pmi;
 
 
-    public ForwardInvitationDialog(UISubsystem ui, int fromGUID, int toGUID) throws Exception {
+    public ForwardInvitationDialog(UISubsystem ui, PleaseForwardInvitationInteraction pmi) throws Exception {
         super(ui.getMainWindow());
         this.ui = ui;
+        this.pmi = pmi;
 
         init(ui.getRl(), ui.getRl().getResourceStream("xui/forwardinvitation.xui.xml"));
 
         FriendManager fm = ui.getCore().getFriendManager();
-        String from = fm.nickname(fromGUID);
-        String to = fm.nickname(toGUID);
+        String from = fm.nickname(pmi.getFromGuid());
+        String to = fm.nickname(pmi.getToGuid());
 
-        ((JHtmlLabel)xui.getComponent("label")).setText(from+" wants to connect to "+to+". These two users are not connected right now. You are the connection between them.<p>Do you want to allow "+from+" to connect to "+to+"?");     
+        ((JHtmlLabel)xui.getComponent("label")).setText(from+" wants to connect to "+to+". These two users are not connected right now. You are the connection between them.<p>Do you want to allow "+from+" to connect to "+to+"?");
 
         alwaysAllowInvite = (JCheckBox)xui.getComponent("alwaysAllowInvite");
 
@@ -40,7 +43,7 @@ public class ForwardInvitationDialog extends XUIDialog {
         display();
     }
 
-    public boolean hasPressedYes() {
+   public boolean hasPressedYes() {
         return pressedYes;
     }
 
