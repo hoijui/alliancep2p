@@ -96,7 +96,7 @@ public class AddFriendWizard extends JWizard {
                                 "where me and my friends share files.\n" +
                                 "\n" +
                                 "1. Download and run Alliance here:\n" +
-                                "http://prdownloads.sourceforge.net/alliancep2p/AllianceSetup.exe?download\n" +
+                                "http://www.alliancep2p.com/download\n" +
                                 "\n" +
                                 "2. After installation Alliance will ask you for a code. Enter this code:\n" +
                                 "\n" +
