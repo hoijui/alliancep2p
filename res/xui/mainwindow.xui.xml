@@ -78,8 +78,10 @@
                     </panel>
                     <strut width="4"/>
                     <panel axis="x" bordertype="thinlowered" border="2,1,1,1">
-                        <label text=" " id="sharing" tooltip="Your share"/>
+                        <label text="Share: 40,1MiB in 7 files" id="sharing" tooltip="Your share"/>
                     </panel>
+                    <strut width="4"/>
+                    <button text="" image="gfx/icons/refresh.png" type="flat" eventid="rescan" border="0" tooltip="Refresh share - look for new files in shares"/>
                     <strut width="2"/>
                 </panel>
             </panel>

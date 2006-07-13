@@ -21,6 +21,7 @@ import org.alliance.ui.windows.*;
 import org.alliance.ui.windows.search.SearchMDIWindow;
 
 import javax.swing.*;
+import javax.swing.plaf.metal.MetalButtonUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
@@ -56,6 +57,8 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
 
         bandwidthIn = (JProgressBar)xui.getComponent("bandwidthin");
         bandwidthOut = (JProgressBar)xui.getComponent("bandwidthout");
+
+        ((JButton)xui.getComponent("rescan")).setUI(new MetalButtonUI());
 
         xui.setEventHandler(this);
         xui.setMenuItemDescriptionListener(this);
@@ -535,6 +538,10 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
         } catch(EOFException ex) {
             OptionDialog.showErrorDialog(this, "Your connection code is corrupt. It seems to be too short. Maybe you did not enter all characters? Please try again. If that doesn't help try with a new code.");
         }
+    }
+
+    public void EVENT_rescan(ActionEvent e) {
+        ui.getCore().getShareManager().getShareMonitor().startScan();
     }
 
     public void EVENT_console(ActionEvent e) throws Exception {

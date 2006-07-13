@@ -23,7 +23,7 @@ public class Friend extends Node {
     private int lastKnownPort;
     private FriendManager manager;
     private FriendConnection friendConnection;
-    private boolean newlyDiscoveredFriend; //true when friend is found using invitation
+    private boolean newlyDiscoveredFriend; //true when friend was recently found using invitation
 
     public Friend(FriendManager manager, org.alliance.core.settings.Friend f) {
         nickname = f.getNickname();

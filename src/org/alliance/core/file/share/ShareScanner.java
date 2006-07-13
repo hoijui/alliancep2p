@@ -109,7 +109,7 @@ public class ShareScanner extends Thread {
                 } catch(InterruptedException e) {
                 }
                 if(T.t)T.trace("Scanning "+file.getPath()+"...");
-//                manager.getCore().getUICallback().statusMessage("Scanning "+file.getPath()+"...");   too techno for regular users - can get scared when lot of folders flicker by in statusbar
+                manager.getCore().getUICallback().statusMessage("Scanning "+file.getPath()+"...");
                 scanPathRecursive(file.getPath(),base,level+1);
             } else {
                 try {
