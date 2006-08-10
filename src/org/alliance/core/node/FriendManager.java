@@ -3,6 +3,7 @@ package org.alliance.core.node;
 import org.alliance.core.BroadcastManager;
 import org.alliance.core.CoreSubsystem;
 import org.alliance.core.Manager;
+import org.alliance.core.T;
 import org.alliance.core.comm.*;
 import org.alliance.core.comm.rpc.*;
 import org.alliance.core.interactions.PleaseForwardInvitationInteraction;
@@ -64,18 +65,20 @@ public class FriendManager extends Manager {
 
     private void setupGUID() throws Exception {
         if (settings.getMy() == null || settings.getMy().getGuid() == null) {
-            if(org.alliance.core.T.t)org.alliance.core.T.info("Generating GUID for user.");
+            if(T.t)T.info("Generating GUID for user.");
             if (settings.getMy() == null) settings.setMy(new My());
             Random r = new Random(8682522807148012L+System.nanoTime());
-            settings.getMy().setGuid(r.nextInt());
+            do {
+                settings.getMy().setGuid(r.nextInt());
+            } while(settings.getMy().getGuid() != 0); //guid may not be 0.
             core.saveSettings();
         } else {
-            if(org.alliance.core.T.t)org.alliance.core.T.info("User: "+settings.getMy().getNickname()+" - "+settings.getMy().getGuid());
+            if(T.t)T.info("User: "+settings.getMy().getNickname()+" - "+settings.getMy().getGuid());
         }
     }
 
     private void setupFriends() throws Exception {
-        if(org.alliance.core.T.t)org.alliance.core.T.info("Setting up friends...");
+        if(T.t)T.info("Setting up friends...");
         me = new MyNode(settings.getMy().getNickname(), settings.getMy().getGuid());
         me.setShareSize(core.getFileManager().getTotalBytesShared());
 
@@ -84,18 +87,22 @@ public class FriendManager extends Manager {
 
     public void addFriend(org.alliance.core.settings.Friend f, boolean foundFriendUsingInvitation) throws Exception {
         if (f.getGuid() == me.getGuid()) {
-            if(org.alliance.core.T.t)org.alliance.core.T.warn("You have yourself in your friendlist!");
+            if(T.t)T.warn("You have yourself in your friendlist!");
         } else if (f.getNickname() == null) {
             throw new Exception("No nickname for guid: "+f.getGuid());
         } else {
-            if(org.alliance.core.T.t)org.alliance.core.T.info("Found "+f.getNickname()+". GUID: "+f.getGuid());
-            org.alliance.core.node.Friend friend = new org.alliance.core.node.Friend(this, f);
+            if(T.t)T.info("Found "+f.getNickname()+". GUID: "+f.getGuid()+" introducted by: "+f.getMiddlemanguid());
+            Friend friend = new Friend(this, f);
             if (friend.getGuid() == getMyGUID()) throw new Exception("You have configured a friend that has your own GUID.");
             friends.put(f.getGuid(), friend);
             friend.setNewlyDiscoveredFriend(foundFriendUsingInvitation);
             core.getUICallback().signalFriendAdded(friend);
             if (foundFriendUsingInvitation) sendMyInfoToAllMyFriends();
         }
+    }
+
+    public org.alliance.core.settings.Friend getConfigurationItemFor(Friend friend) {
+        return settings.getFriend(friend.getGuid());
     }
 
     private void sendMyInfoToAllMyFriends() throws IOException {
@@ -111,7 +118,7 @@ public class FriendManager extends Manager {
             getFriend(c.getRemoteUserGUID()).addConnection(c);
             getNetMan().getPackageRouter().updateRouteTable(getFriend(c.getRemoteUserGUID()), c.getRemoteUserGUID(), 0);
         } else {
-            if(org.alliance.core.T.t)org.alliance.core.T.ass(c instanceof InvitationConnection,"Not an invitation connection!");
+            if(T.t)T.ass(c instanceof InvitationConnection,"Not an invitation connection!");
         }
     }
 
@@ -155,7 +162,7 @@ public class FriendManager extends Manager {
 
     public void connect(Friend f) throws IOException {
         if (f.isConnected()) {
-            if(org.alliance.core.T.t)org.alliance.core.T.warn("Already connected!");
+            if(T.t)T.warn("Already connected!");
             return;
         }
         netMan.connect(f.getLastKnownHost(), f.getLastKnownPort(),new FriendConnection(netMan, Connection.Direction.OUT, f.getGuid()));
@@ -202,6 +209,23 @@ public class FriendManager extends Manager {
         return n.getNickname();
     }
 
+    public String nicknameWithContactPath(int guid) {
+        String s = nickname(guid);
+        String s2 = contactPath(guid);
+        if (s2.length() > 0) s += " ("+s2+")";
+        return s;
+    }
+
+    public String contactPath(int guid) {
+        String s = "";
+
+        Friend f = getFriend(guid);
+        if (f != null && f.getMiddlemanGuid() != 0) {
+                s += "via "+nickname(f.getMiddlemanGuid());
+        }
+        return s;
+    }
+
     public void shutdown() throws IOException {
         netMan.sendToAllFriends(new GracefulClose(GracefulClose.SHUTDOWN));
     }
@@ -222,8 +246,8 @@ public class FriendManager extends Manager {
     public void forwardInvitation(int fromGuid, int toGuid, String invitationCode) throws IOException {
         Node from = getNode(fromGuid);
         Friend to = getFriend(toGuid);
-        if(org.alliance.core.T.t)org.alliance.core.T.ass(from!=null,"From is null");
-        if(org.alliance.core.T.t)org.alliance.core.T.ass(to!=null,"To is null");
+        if(T.t)T.ass(from!=null,"From is null");
+        if(T.t)T.ass(to!=null,"To is null");
         netMan.sendPersistantly(new ForwardedInvitation(from, invitationCode), to);
     }
 

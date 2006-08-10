@@ -34,6 +34,8 @@ public class Internal extends SettingClass {
     private Integer connectionkeepaliveinterval=60;
     private Integer numberofblockstopipeline=2;
 
+    private Integer daysnotconnectedwhenold=7*2; //after three weeks of disconnection from a friend hes concidered old
+
     private Integer alwaysallowfriendstoconnect=0;
 
     private Integer minimumtimebetweeninvitations = 60*24*2; //in minutes
@@ -299,5 +301,13 @@ public class Internal extends SettingClass {
 
     public void setAlwaysallowfriendstoconnect(Integer alwaysallowfriendstoconnect) {
         this.alwaysallowfriendstoconnect = alwaysallowfriendstoconnect;
+    }
+
+    public Integer getDaysnotconnectedwhenold() {
+        return daysnotconnectedwhenold;
+    }
+
+    public void setDaysnotconnectedwhenold(Integer daysnotconnectedwhenold) {
+        this.daysnotconnectedwhenold = daysnotconnectedwhenold;
     }
 }

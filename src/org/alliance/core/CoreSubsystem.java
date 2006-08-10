@@ -16,6 +16,7 @@ import org.alliance.core.file.FileManager;
 import org.alliance.core.file.share.ShareManager;
 import org.alliance.core.interactions.NeedsToRestartBecauseOfUpgradeInteraction;
 import org.alliance.core.interactions.PleaseForwardInvitationInteraction;
+import org.alliance.core.node.Friend;
 import org.alliance.core.node.FriendManager;
 import org.alliance.core.node.InvitaitonManager;
 import org.alliance.core.settings.Settings;
@@ -209,6 +210,7 @@ public class CoreSubsystem implements Subsystem {
         shutdownInProgress = true;
         if(T.t)T.info("Shutting down core..");
         try {
+            updateLastSeendOnlineForFriends();
             fileManager.shutdown();
             friendManager.shutdown();
             networkManager.shutdown();
@@ -218,6 +220,16 @@ public class CoreSubsystem implements Subsystem {
             Thread.sleep(1500); //wait for GracefulClose RPCs to be sent
         } catch(Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private void updateLastSeendOnlineForFriends() {
+        for(Friend f : friendManager.friends()) {
+            if (f.isConnected()) {
+                if (settings.getFriend(f.getGuid()) != null) {
+                    settings.getFriend(f.getGuid()).setLastseenonlineat(System.currentTimeMillis());
+                }
+            }
         }
     }
 

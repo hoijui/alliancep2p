@@ -28,12 +28,17 @@ public class RootNode extends SearchTreeNode {
 
     public void addSearchHits(int sourceGuid, int hops, java.util.List<SearchHit> hits) {
         for(SearchHit h : hits) {
+            //don't show files that i already have
             if (model.getCore().getFileManager().getFileDatabase().contains(h.getRoot())) continue;
 
             String fn = TextUtils.makeSurePathIsMultiplatform(h.getPath());
 
             String filename = fn;
             if (filename.indexOf('/') != -1) filename = filename.substring(filename.lastIndexOf('/')+1);
+
+            String filenameWithoutExtention = filename;
+            if (filenameWithoutExtention.indexOf('.') != -1)
+                filenameWithoutExtention = filenameWithoutExtention.substring(0, filenameWithoutExtention.lastIndexOf('.'));
 
             String folder;
             if (fn.length() > filename.length()) {
@@ -54,6 +59,8 @@ public class RootNode extends SearchTreeNode {
             } else {
                 folder = "";
             }
+
+            if (folder.equalsIgnoreCase(filenameWithoutExtention)) folder = ""; //skip folder if is has same name as file
 
             if (folder.length() == 0) {
                 for(SearchTreeNode n : children) {

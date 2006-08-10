@@ -28,6 +28,10 @@ public class RPCFactory {
             case 20: rpc = new GetMyExternalIp(); break;
             case 21: rpc = new PleaseForwardInvitation(); break;
             case 22: rpc = new ForwardedInvitation(); break;
+            case 23: rpc = new GetDirectoryListing(); break;
+            case 24: rpc = new DirectoryListing(); break;
+            case 25: rpc = new GetShareBaseList(); break;
+            case 26: rpc = new ShareBaseList(); break;
         }
         if (rpc == null) if (T.t) T.error("UNRECOGNIZED rpc id: "+packetId);
         return rpc;
@@ -56,6 +60,10 @@ public class RPCFactory {
         if (rpc instanceof GetMyExternalIp) return 20;
         if (rpc instanceof PleaseForwardInvitation) return 21;
         if (rpc instanceof ForwardedInvitation) return 22;
+        if (rpc instanceof GetDirectoryListing) return 23;
+        if (rpc instanceof DirectoryListing) return 24;
+        if (rpc instanceof GetShareBaseList) return 25;
+        if (rpc instanceof ShareBaseList) return 26;
         if(T.t)T.error("Could not identify RPC: "+rpc);
         return -1;
    }

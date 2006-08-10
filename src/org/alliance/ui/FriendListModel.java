@@ -27,7 +27,8 @@ public class FriendListModel extends DefaultListModel {
         for(Friend f : c) {
             if (f.isConnected()) addElement(f);
         }
-        for(Friend f : c) if (!f.isConnected()) addElement(f);
+        for(Friend f : c) if (!f.isConnected() && !f.hasNotBeenOnlineForLongTime()) addElement(f);
+        for(Friend f : c) if (!f.isConnected() && f.hasNotBeenOnlineForLongTime()) addElement(f);
     }
 
     public void signalFriendChanged(Friend node) {

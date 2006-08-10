@@ -7,10 +7,13 @@ import org.alliance.core.CoreSubsystem;
 import org.alliance.core.ResourceSingelton;
 import org.alliance.core.comm.Connection;
 import org.alliance.core.comm.FriendConnection;
+import org.alliance.core.comm.rpc.GetDirectoryListing;
+import org.alliance.core.comm.rpc.GetShareBaseList;
 import org.alliance.core.file.blockstorage.BlockFile;
 import org.alliance.core.file.filedatabase.FileDescriptor;
 import org.alliance.core.file.filedatabase.FileType;
 import org.alliance.core.file.hash.Hash;
+import org.alliance.core.file.share.ShareBase;
 import org.alliance.core.node.Friend;
 import org.alliance.core.node.FriendManager;
 
@@ -99,8 +102,29 @@ public class Console {
             killUI();
         } else if ("share".equals(command)) {
             share(params);
+        } else if ("sharebases".equals(command)) {
+            sharebases();
         } else if ("gc".equals(command)) {
             gc();
+        } else if ("dir".equals(command)) {
+            String sharebase = params.get(0);
+            params.remove(0);
+            String p = "";
+            for(String s : params) p += s+" ";
+            p = p.trim();
+            dir(sharebase, p);
+        } else if ("remotedir".equals(command)) {
+            int sharebaseIndex = Integer.parseInt(params.get(0));
+            String user = params.get(1);
+            params.remove(0);
+            params.remove(0);
+
+            String p = "";
+            for(String s : params) p += s+" ";
+            p = p.trim();
+            remotedir(sharebaseIndex, user, p);
+        } else if ("remotesharebases".equals(command)) {
+            remotesharebases(params.get(0));
         } else if ("cleardups".equals(command)) {
             cleardups();
         } else if ("threads".equals(command)) {
@@ -117,6 +141,38 @@ public class Console {
             throw new Exception("test error");
         } else {
             printer.println("Unknown command "+command);
+        }
+    }
+
+    private void remotesharebases(String s) throws IOException {
+        Friend f = manager.getFriend(s);
+        f.getFriendConnection().send(new GetShareBaseList());
+    }
+
+    private void remotedir(int sharebaseIndex, String user, String path) throws IOException {
+        Friend f = manager.getFriend(user);
+        printer.println("Found friend: "+f+" for "+user);
+        f.getFriendConnection().send(new GetDirectoryListing(sharebaseIndex,  path));
+    }
+
+    private void sharebases() {
+        printer.println("Sharebases: ");
+        for(ShareBase b : core.getFileManager().getShareManager().shareBases()) {
+            printer.println("  "+b);
+        }
+    }
+
+    private void dir(String sharebase, String path) {
+        printer.println("Directory listing for "+path+": ");
+        sharebase = TextUtils.makeSurePathIsMultiplatform(sharebase);
+        ShareBase b = core.getFileManager().getShareManager().getBaseByPath(sharebase);
+        if (b == null) {
+            printer.println("Could not find share base for "+sharebase);
+            return;
+        }
+        printer.println("Found share base: "+b);
+        for(String s : core.getFileManager().getFileDatabase().getDirectoryListing(b, path)) {
+            printer.println(s);
         }
     }
 

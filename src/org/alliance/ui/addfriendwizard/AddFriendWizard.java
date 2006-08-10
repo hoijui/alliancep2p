@@ -102,7 +102,7 @@ public class AddFriendWizard extends JWizard {
                                 "\n" +
                                 ui.getCore().getInvitaitonManager().createInvitation().getCompleteInvitaitonString()+"\n"+
                                 "\n" +
-                                "Using this code you will connect to our private Alliance network.\n" +
+                                "Using this code you will connect to my private Alliance network.\n" +
                                 "______________________________________________________________________________________________________";
 
                         body = body.replace("\n", "%0A");
@@ -232,7 +232,7 @@ public class AddFriendWizard extends JWizard {
             OptionDialog.showErrorDialog(ui.getMainWindow(), "You must enter a connection code!");
         } else {
             try {
-                ui.getCore().getInvitaitonManager().attemptToBecomeFriendWith(invitation.trim());
+                ui.getCore().getInvitaitonManager().attemptToBecomeFriendWith(invitation.trim(), null);
                 goToAttemptConnect();
             } catch(EOFException ex) {
                 OptionDialog.showErrorDialog(ui.getMainWindow(), "Your connection code is corrupt. It seems to be too short. Maybe you did not enter all characters? Please try again. If that doesn't help try with a new code.");

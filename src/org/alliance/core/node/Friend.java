@@ -24,6 +24,8 @@ public class Friend extends Node {
     private FriendManager manager;
     private FriendConnection friendConnection;
     private boolean newlyDiscoveredFriend; //true when friend was recently found using invitation
+    private long lastSeenOnlineAt;
+    private int middlemanGuid;
 
     public Friend(FriendManager manager, org.alliance.core.settings.Friend f) {
         nickname = f.getNickname();
@@ -31,6 +33,8 @@ public class Friend extends Node {
         lastKnownHost = f.getHost();
         lastKnownPort = f.getPort();
         this.manager = manager;
+        lastSeenOnlineAt = f.getLastseenonlineat() == null ? 0 : f.getLastseenonlineat();
+        middlemanGuid = f.getMiddlemanguid() == null ? 0 : f.getMiddlemanguid();
     }
 
     public Friend(FriendManager manager, String nickname, int guid) {
@@ -120,5 +124,18 @@ public class Friend extends Node {
 
     public void disconnect() throws IOException {
         if (friendConnection != null) friendConnection.send(new GracefulClose(GracefulClose.DELETED));
+    }
+
+    public long getLastSeenOnlineAt() {
+        return lastSeenOnlineAt;
+    }
+
+    public boolean hasNotBeenOnlineForLongTime() {
+        return System.currentTimeMillis() - lastSeenOnlineAt >
+                manager.getCore().getSettings().getInternal().getDaysnotconnectedwhenold()*24*60*60*1000;
+    }
+
+    public int getMiddlemanGuid() {
+        return middlemanGuid;
     }
 }

@@ -5,6 +5,7 @@ import com.stendahls.util.TextUtils;
 import org.alliance.core.file.ChunkStorage;
 import org.alliance.core.file.filedatabase.searchindex.KeywordIndex;
 import org.alliance.core.file.hash.Hash;
+import org.alliance.core.file.share.ShareBase;
 import org.alliance.core.file.share.T;
 
 import java.io.*;
@@ -235,22 +236,6 @@ public class FileDatabase {
 
     public synchronized boolean contains(String path) throws IOException {
         return indexedFilenames.contains(path);
-//        if (!indexedFilenames.contains(path)) return false;
-//
-//        path = TextUtils.makeSurePathIsMultiplatform(path);
-//        int indices[] = keywordIndex.search(path, 500, FileType.EVERYTHING);
-//        for(int i : indices) {
-//            FileDescriptor fd = null;
-//            try {
-//                fd = FileDescriptor.createFrom(chunkStorage.getChunk(allocationTable.getOffset(i)), true);
-//            } catch(FileHasBeenRemovedOrChanged fileHasBeenRemoved) {
-//                remove(fileHasBeenRemoved.getFd());
-//                continue;
-//            }
-//            if (fd != null && fd.getFullPath().equals(path)) return true;
-//        }
-//        if(T.t)T.trace("ick. had to do a search when it was not needed");
-//        return false;
     }
 
     public synchronized boolean contains(Hash rootHash) {
@@ -291,6 +276,10 @@ public class FileDatabase {
             duplicates.remove(fullPath);
         }
         return false;
+    }
+
+    public String[] getDirectoryListing(ShareBase base, String path) {
+        return indexedFilenames.getDirectoryListing(base.getPath()+"/"+path);
     }
 
     public Collection<String> getDuplicates() {

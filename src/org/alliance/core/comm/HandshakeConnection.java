@@ -46,8 +46,9 @@ public class HandshakeConnection extends PacketConnection {
                 if(T.t)T.info("Aha! Some I invited is trying to connect!");
                 if (core.getInvitaitonManager().isValid(guid)) {
                     if(T.t)T.info("And the key is valid! Let's go!");
+                    InvitationConnection c = new InvitationConnection(netMan, Connection.Direction.IN, key, guid,
+                            core.getInvitaitonManager().getInvitation(guid).getMiddlemanGuid());
                     core.getInvitaitonManager().consume(guid);
-                    InvitationConnection c = new InvitationConnection(netMan, Connection.Direction.IN, key, guid);
                     netMan.replaceConnection(key, c);
                     c.init();
                     return;

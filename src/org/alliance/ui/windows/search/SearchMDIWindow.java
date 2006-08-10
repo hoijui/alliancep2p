@@ -14,6 +14,7 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.tree.DefaultTreeCellRenderer;
+import javax.swing.tree.TreePath;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
@@ -207,6 +208,14 @@ public class SearchMDIWindow extends AllianceMDIWindow {
 
     public void searchHits(int sourceGuid, int hops, java.util.List<SearchHit> hits) {
         model.addSearchHits(sourceGuid, hops, hits);
+
+        SearchTreeNode root = model.getRoot();
+        for(int i=0;i<root.getChildCount();i++) {
+            SearchTreeNode n = (SearchTreeNode)root.getChildAt(i);
+            if (n.getChildCount() == 1) {
+                table.expandPath(new TreePath(new Object[] {root, n}));
+            }
+        }
     }
 
     public void windowSelected() {

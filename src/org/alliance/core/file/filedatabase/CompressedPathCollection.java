@@ -3,12 +3,14 @@ package org.alliance.core.file.filedatabase;
 import com.stendahls.util.TextUtils;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.HashSet;
 
 /**
  * Can keep track of a lot of filepaths in a efficient (memory usage wise) way.
- * Used in the filedatabase to keep track of what files are indexed. It actually
- * doesn't give a 100% exact result but it is used as a first test to improve performance
+ * Used in the filedatabase to keep track of what files are indexed.
+ *
+ * Uhm. It's not efficient memory wise right now. THere's room for optimiziation here.
  *
  * Created by IntelliJ IDEA.
  * User: maciek
@@ -17,6 +19,7 @@ import java.util.HashSet;
  */
 
 public class CompressedPathCollection implements Serializable {
+    private static final long serialVersionUID = 7234254693355857212L;
     private HashSet<String> paths = new HashSet<String>();
 
     public void addPath(String path) {
@@ -36,6 +39,28 @@ public class CompressedPathCollection implements Serializable {
     public boolean contains(String path) {
         path = TextUtils.makeSurePathIsMultiplatform(path);
         return paths.contains(path);
+    }
+
+    public String[] getDirectoryListing(String path) {
+        path = TextUtils.makeSurePathIsMultiplatform(path);
+        if (!path.endsWith("/")) path = path+'/';
+
+        HashSet<String> hs = new HashSet<String>();
+        for(String s: paths) {
+            if (s.startsWith(path)) {
+                //add filename without path
+                s = s.substring(path.length());
+                if (s.indexOf('/') != -1) {
+                    //show only files and folders that are in this directory, not in subdirectories
+                    s = s.substring(0, s.indexOf('/')+1);
+                }
+                hs.add(s);
+            }
+        }
+        String[] sa = new String[hs.size()];
+        hs.toArray(sa);
+        Arrays.sort(sa);
+        return sa;
     }
 }
 

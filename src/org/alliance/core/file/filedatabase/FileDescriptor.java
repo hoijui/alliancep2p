@@ -3,6 +3,7 @@ package org.alliance.core.file.filedatabase;
 import com.stendahls.nif.util.SimpleTimer;
 import com.stendahls.util.TextUtils;
 import static org.alliance.core.CoreSubsystem.BLOCK_SIZE;
+import org.alliance.core.UICallback;
 import org.alliance.core.file.blockstorage.BlockFile;
 import org.alliance.core.file.hash.Hash;
 import org.alliance.core.file.hash.Tiger;
@@ -31,13 +32,17 @@ public class FileDescriptor {
     public FileDescriptor() {
     }
 
+    public FileDescriptor(String basePath, File file, int hashSpeedInMbPerSecond) throws IOException {
+        this(basePath, file, hashSpeedInMbPerSecond, null);
+    }
+
     /**
      * Creates a new file descriptor from scratch. Including creating hashes.
      * @param file
      */
-    public FileDescriptor(String basePath, File file, int hashSpeedInMbPerSecond) throws IOException {
+    public FileDescriptor(String basePath, File file, int hashSpeedInMbPerSecond, UICallback callback) throws IOException {
         basePath = TextUtils.makeSurePathIsMultiplatform(basePath);
-        
+
         byte buf[] = new byte[BLOCK_SIZE];
 
         if(T.t)T.trace("Hashing "+file+" ...");
@@ -53,6 +58,9 @@ public class FileDescriptor {
         long totalRead=0;
         int read;
         long startedLastReadAt = System.currentTimeMillis();
+        if (callback != null) callback.statusMessage("Hashing "+file.getName()+"...");
+        long updateHashMessageTick = System.currentTimeMillis()+1500; //delay first update with 1500ms
+        long startTick = System.currentTimeMillis();
         while((read = in.read(buf)) == buf.length) {
             //loaded complete block
 
@@ -70,6 +78,19 @@ public class FileDescriptor {
             }
 
             startedLastReadAt = System.currentTimeMillis();
+            if (callback != null && System.currentTimeMillis()-updateHashMessageTick > 500) {
+                String s2 = "";
+                if (hashSpeedInMbPerSecond > 0) s2 = " [hash speed limit: "+hashSpeedInMbPerSecond+"Mb/s]";
+                String s =  "Hasing "+
+                        file.getName()+
+                        " ("+
+                        (totalRead*100/file.length())+
+                        "% done @ "+
+                        TextUtils.formatByteSize(totalRead/((System.currentTimeMillis()-startTick)/1000))+
+                        "/s"+s2+")";
+                callback.statusMessage(s);
+                updateHashMessageTick = System.currentTimeMillis();
+            }
         }
 
         if (startSize != file.length()) throw new IOException("Inconsistent file size! File was probably written to.");
@@ -159,7 +180,7 @@ public class FileDescriptor {
 
     public static FileDescriptor createFrom(InputStream is, boolean shouldExist) throws IOException, FileHasBeenRemovedOrChanged {
         if (is == null) return null;
-        
+
         FileDescriptor fd = new FileDescriptor();
         DataInputStream in = new DataInputStream(is);
 

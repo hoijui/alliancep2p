@@ -78,6 +78,10 @@ public class ShareManager {
         return null;
     }
 
+    public ShareBase getBaseByIndex(int index) {
+        return shareBaseOrder.get(index);
+    }
+
     public ShareScanner getShareMonitor() {
         return shareScanner;
     }

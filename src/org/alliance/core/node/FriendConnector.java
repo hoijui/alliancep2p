@@ -4,6 +4,8 @@ import org.alliance.core.T;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Created by IntelliJ IDEA.
@@ -24,7 +26,17 @@ public class FriendConnector extends Thread {
 
     public void run() {
         while(alive) {
+            //get all friends and sort them by last seen online
             ArrayList<Friend> al = new ArrayList<Friend>(manager.friends());
+            Collections.sort(al, new Comparator<Friend>() {
+                public int compare(Friend o1, Friend o2) {
+                    long diff = o2.getLastSeenOnlineAt() - o1.getLastSeenOnlineAt();
+                    if (diff > 0xffffff) diff = 0xffffff;
+                    if (diff < -0xffffff) diff = -0xffffff;
+                    return (int)diff;
+                }}
+            );
+
             for(Friend f : al) {
                 while(manager.getCore().getNetworkManager().getNetworkLayer().getNumberOfPendingConnections() > manager.getSettings().getInternal().getMaxpendingconnections()) {
                     try { Thread.sleep(1000); } catch(InterruptedException e) {}

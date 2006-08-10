@@ -55,6 +55,8 @@ public class TrayIconSubsystem implements Subsystem, Runnable {
             public void signalFriendAdded(Friend friend) {}
             public boolean isUIVisible() { return false; }
             public void logNetworkEvent(String event) {}
+            public void receivedShareBaseList(Friend friend, String[] shareBaseNames) {}
+            public void receivedDirectoryListing(Friend friend, int i, String s, String[] files) {}
 
             public void handleError(final Throwable e, final Object source) {
                 ti.displayMessage(e.getClass().getName(), e+"\n"+source+"\n\nClick here to view detailed error (and send error report)", TrayIcon.ERROR_MESSAGE_TYPE);

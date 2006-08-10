@@ -10,6 +10,8 @@ import org.alliance.ui.UISubsystem;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -24,7 +26,7 @@ public class FriendListMDIWindow extends AllianceMDIWindow  {
     private UISubsystem ui;
     private JList list;
 
-    private ImageIcon iconFriend, iconFriendDimmed;
+    private ImageIcon iconFriend, iconFriendDimmed, iconFriendOld;
 
     private JLabel statusleft, statusright;
 
@@ -37,6 +39,7 @@ public class FriendListMDIWindow extends AllianceMDIWindow  {
 
         iconFriend = new ImageIcon(ui.getRl().getResource("gfx/icons/friend.png"));
         iconFriendDimmed = new ImageIcon(ui.getRl().getResource("gfx/icons/friend_dimmed.png"));
+        iconFriendOld = new ImageIcon(ui.getRl().getResource("gfx/icons/friend_old.png"));
 
         setWindowType(WINDOWTYPE_NAVIGATION);
 
@@ -55,6 +58,22 @@ public class FriendListMDIWindow extends AllianceMDIWindow  {
         list = new JList(ui.getFriendListModel());
         list.setCellRenderer(new FriendListRenderer());
         ((JScrollPane)xui.getComponent("scrollpanel")).setViewportView(list);
+
+        list.addMouseListener(new MouseListener() {
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    try {
+                        EVENT_viewshare(null);
+                    } catch (Exception e1) {
+                        ui.handleErrorInEventLoop(e1);
+                    }
+                }
+            }
+            public void mousePressed(MouseEvent e) {}
+            public void mouseReleased(MouseEvent e) {}
+            public void mouseEntered(MouseEvent e) {}
+            public void mouseExited(MouseEvent e) {}
+        });
 
         postInit();
     }
@@ -96,11 +115,27 @@ public class FriendListMDIWindow extends AllianceMDIWindow  {
                     setForeground(Color.white);
                 else
                     setForeground(Color.black);
-                setText(f.getNickname()+" ("+ TextUtils.formatByteSize(f.getShareSize())+")");
+//                setText(f.getNickname()+" ("+ TextUtils.formatByteSize(f.getShareSize())+")");
+                setText("<html>"+FriendListMDIWindow.this.ui.getCore().getFriendManager().nickname(f.getGuid()) +
+                        "<font color=aaaaaa> " +
+                        FriendListMDIWindow.this.ui.getCore().getFriendManager().contactPath(f.getGuid())+
+                        "</font> (" +
+                        TextUtils.formatByteSize(f.getShareSize())
+                        + ")</html>");
+            } else if (f.hasNotBeenOnlineForLongTime()) {
+                setIcon(iconFriendOld);
+                setForeground(Color.lightGray);
+                if (f.getLastSeenOnlineAt() != 0) {
+                    setText(f.getNickname()+" (offline for "+
+                            ((System.currentTimeMillis()-f.getLastSeenOnlineAt())/1000/60/60/24)
+                            +" days)");
+                } else {
+                    setText(f.getNickname());
+                }
             } else {
                 setIcon(iconFriendDimmed);
-                    setForeground(Color.lightGray);
-                setText(f.getNickname());
+                setForeground(Color.lightGray);
+                setText(FriendListMDIWindow.this.ui.getCore().getFriendManager().nicknameWithContactPath(f.getGuid()));
             }
 
             return this;
@@ -111,6 +146,18 @@ public class FriendListMDIWindow extends AllianceMDIWindow  {
         if (list.getSelectedValue() == null) return;
         Friend f = (Friend)list.getSelectedValue();
         if (f != null) ui.getMainWindow().chatMessage(f.getGuid(), null, 0);
+    }
+
+    public void EVENT_viewshare(ActionEvent e) throws Exception {
+        if (list.getSelectedValue() == null) return;
+        Friend f = (Friend)list.getSelectedValue();
+        if (f != null) {
+            if (!f.isConnected()) {
+                OptionDialog.showErrorDialog(ui.getMainWindow(), "User must be online in order to view his share.");
+            } else {
+                ui.getMainWindow().viewShare(f);
+            }
+        }
     }
 
     public void EVENT_addfriendwizard(ActionEvent e) throws Exception {

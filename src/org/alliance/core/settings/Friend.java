@@ -9,6 +9,8 @@ package org.alliance.core.settings;
 public class Friend {
     private String nickname, host;
     private Integer guid, port;
+    private Long lastseenonlineat;
+    private Integer middlemanguid; //0 if a first degree friend, guid of middleman if introduced by someone to me
 
     public Friend() {
     }
@@ -18,6 +20,11 @@ public class Friend {
         this.host = lasthost;
         this.guid = guid;
         this.port = lastport;
+    }
+
+    public Friend(String nickname, String lasthost, Integer guid, Integer lastport, Integer introducedBy) {
+        this(nickname, lasthost,  guid, lastport);
+        this.middlemanguid = introducedBy;
     }
 
     public String getHost() {
@@ -54,5 +61,21 @@ public class Friend {
 
     public String toString() {
         return "Friend ["+nickname+"]";
+    }
+
+    public Long getLastseenonlineat() {
+        return lastseenonlineat;
+    }
+
+    public void setLastseenonlineat(Long lastseenonlineat) {
+        this.lastseenonlineat = lastseenonlineat;
+    }
+
+    public Integer getMiddlemanguid() {
+        return middlemanguid;
+    }
+
+    public void setMiddlemanguid(Integer middlemanguid) {
+        this.middlemanguid = middlemanguid;
     }
 }

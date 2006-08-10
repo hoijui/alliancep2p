@@ -30,11 +30,11 @@ public class InvitaitonManager {
     }
 
     public Invitation createInvitation() throws Exception {
-        return createInvitation(null);
+        return createInvitation(null, null);
     }
 
-    public Invitation createInvitation(Integer destinationGuid) throws Exception {
-        Invitation i = new Invitation(core, destinationGuid);
+    public Invitation createInvitation(Integer destinationGuid, Integer middlemanGuid) throws Exception {
+        Invitation i = new Invitation(core, destinationGuid, middlemanGuid);
         invitations.put(i.getInvitationPassKey(), i);
         return i;
     }
@@ -47,7 +47,7 @@ public class InvitaitonManager {
         return System.currentTimeMillis()-invitations.get(key).getCreatedAt() < INVITATION_TIMEOUT;
     }
 
-    public void attemptToBecomeFriendWith(String invitation) throws IOException {
+    public void attemptToBecomeFriendWith(String invitation, Friend middleman) throws IOException {
         byte data[] = HumanReadableEncoder.fromBase64String(invitation);
         DataInputStream in = new DataInputStream(new ByteArrayInputStream(data));
 
@@ -61,7 +61,7 @@ public class InvitaitonManager {
         if(T.t)T.info("Deserialized invitation: "+ip+", "+port+", "+passkey);
 
         core.getNetworkManager().connect(
-                ip.getHostAddress(), port, new InvitationConnection(core.getNetworkManager(), Connection.Direction.OUT, passkey));
+                ip.getHostAddress(), port, new InvitationConnection(core.getNetworkManager(), Connection.Direction.OUT, passkey, middleman));
     }
 
     public Invitation getInvitation(int key) {

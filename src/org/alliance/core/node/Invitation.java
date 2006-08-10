@@ -21,16 +21,14 @@ public class Invitation implements Serializable {
     private String completeInvitaitonString;
     private long createdAt;
     private Integer destinationGuid;
+    private int middlemanGuid;
 
     public Invitation() {
     }
 
-    public Invitation(CoreSubsystem core) throws Exception {
-        this(core, null);
-    }
-
-    public Invitation(CoreSubsystem core, Integer destinationGuid) throws Exception {
+    public Invitation(CoreSubsystem core, Integer destinationGuid, Integer middlemanGuid) throws Exception {
         this.destinationGuid = destinationGuid;
+        this.middlemanGuid = middlemanGuid;
 
         String myhost = core.getFriendManager().getMe().getExternalIp(core);
 
@@ -79,5 +77,9 @@ public class Invitation implements Serializable {
 
     public Integer getDestinationGuid() {
         return destinationGuid;
+    }
+
+    public int getMiddlemanGuid() {
+        return middlemanGuid;
     }
 }

@@ -79,6 +79,7 @@ public class Main {
                                 if (error == null) error = new Exception();
                                 m.core.propagateTraceMessage(level, String.valueOf(message), error);
                             }
+                        } else {
                         }
 
                     } catch(IOException e) {

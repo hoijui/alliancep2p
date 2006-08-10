@@ -12,13 +12,16 @@ import com.stendahls.nif.ui.toolbaractions.ToolbarActionManager;
 import com.stendahls.nif.util.SXML;
 import com.stendahls.ui.util.RecursiveBackgroundSetter;
 import com.stendahls.util.TextUtils;
+import de.javasoft.plaf.synthetica.SyntheticaRootPaneUI;
 import org.alliance.Version;
 import org.alliance.core.NeedsUserInteraction;
 import org.alliance.core.comm.BandwidthAnalyzer;
 import org.alliance.core.interactions.*;
+import org.alliance.core.node.Friend;
 import org.alliance.ui.addfriendwizard.AddFriendWizard;
 import org.alliance.ui.windows.*;
 import org.alliance.ui.windows.search.SearchMDIWindow;
+import org.alliance.ui.windows.viewshare.ViewShareMDIWindow;
 
 import javax.swing.*;
 import javax.swing.plaf.metal.MetalButtonUI;
@@ -257,6 +260,8 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
 
             setLocation((Point)obj.readObject());
             setSize((Dimension)obj.readObject());
+            if (getRootPane().getUI() instanceof SyntheticaRootPaneUI)
+                ((SyntheticaRootPaneUI)getRootPane().getUI()).setMaximizedBounds(this);
             setExtendedState(obj.readInt());
             obj.close();
             setVisible(true);
@@ -289,6 +294,15 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
             mdiManager.addWindow(w);
         }
         if (message != null) w.addMessage(message, tick);
+    }
+
+    public void viewShare(Friend f) throws Exception {
+        ViewShareMDIWindow w = (ViewShareMDIWindow)mdiManager.getWindow("viewshare"+f.getGuid());
+        if (w == null) {
+            w = new ViewShareMDIWindow(ui, f);
+            mdiManager.addWindow(w);
+        }
+        mdiManager.selectWindow(w);
     }
 
     public SearchMDIWindow getSearchWindow() {
@@ -400,6 +414,7 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
     }
 
 
+    // @todo: move this logic in separate class - it's getting too big
     private void handleNeedsUserInteraction(NeedsUserInteraction nui) {
         userInteractionsInProgress++;
         try {
@@ -451,7 +466,7 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
                 } else {
                     if (OptionDialog.showQuestionDialog(this, fii.getRemoteName()+" wants to connect to you. "+fii.getRemoteName()+" has a connection to "+fii.getMiddleman(ui.getCore()).getNickname()+" (whom has a connection to you). [p]Do you want to connect to "+fii.getRemoteName()+"?[p]")) {
                         try {
-                            ui.getCore().getInvitaitonManager().attemptToBecomeFriendWith(fii.getInvitationCode());
+                            ui.getCore().getInvitaitonManager().attemptToBecomeFriendWith(fii.getInvitationCode(), fii.getMiddleman(ui.getCore()));
                             openWizardAt(AddFriendWizard.STEP_ATTEMPT_CONNECT, fii.getFromGuid());
                         } catch(Exception e) {
                             ui.handleErrorInEventLoop(e);
@@ -534,7 +549,7 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
     public void EVENT_addally(ActionEvent e) throws IOException {
         String invitation = JOptionPane.showInputDialog(ui.getMainWindow(), "Enter the connection code you got from your friend: ");
         try {
-            if (invitation != null) ui.getCore().getInvitaitonManager().attemptToBecomeFriendWith(invitation.trim());
+            if (invitation != null) ui.getCore().getInvitaitonManager().attemptToBecomeFriendWith(invitation.trim(), null);
         } catch(EOFException ex) {
             OptionDialog.showErrorDialog(this, "Your connection code is corrupt. It seems to be too short. Maybe you did not enter all characters? Please try again. If that doesn't help try with a new code.");
         }
@@ -592,5 +607,23 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
 
     public void openWizardAt(int step) throws Exception {
         openWizardAt(step, null);
+    }
+
+    public void shareBaseListReceived(Friend friend, String[] shareBaseNames) {
+        ViewShareMDIWindow w = (ViewShareMDIWindow)mdiManager.getWindow("viewshare"+friend.getGuid());
+        if (w == null) {
+            if(T.t)T.error("Could not find view share window for "+friend);
+        } else {
+            w.shareBaseListReceived(shareBaseNames);
+        }
+    }
+
+    public void directoryListingReceived(Friend friend, int shareBaseIndex, String path, String[] files) {
+        ViewShareMDIWindow w = (ViewShareMDIWindow)mdiManager.getWindow("viewshare"+friend.getGuid());
+        if (w == null) {
+            if(T.t)T.error("Could not find view share window for "+friend);
+        } else {
+            w.directoryListingReceived(shareBaseIndex, path, files);
+        }
     }
 }

@@ -131,7 +131,7 @@ public class ShareScanner extends Thread {
         if (manager.getFileDatabase().isDuplicate(file.getCanonicalPath())) return;
 
         SimpleTimer st = new SimpleTimer();
-        FileDescriptor fd = new FileDescriptor(base.getPath(), file, core.getSettings().getInternal().getHashspeedinmbpersecond());
+        FileDescriptor fd = new FileDescriptor(base.getPath(), file, core.getSettings().getInternal().getHashspeedinmbpersecond(), manager.getCore().getUICallback());
         manager.getCore().getUICallback().statusMessage("Hashed "+fd.getFilename()+" in "+st.getTime()+" ("+TextUtils.formatByteSize((long)(fd.getSize()/(st.getTimeInMs()/1000.)))+"/s)");
         manager.getFileDatabase().add(fd);
 

@@ -3,8 +3,8 @@
     <property name="lib.dir" value="lib"/>
     <property name="build.dir" value="build"/>
     <fileset dir="C:\" id="3ppjars">
-        <include name="java\tools\synthetica\synthetica.jar"/>
-        <include name="java\tools\synthetica\syntheticaBlackStar.jar"/>
+        <include name="java\tools\synthetica-2.0.1\synthetica.jar"/>
+        <include name="java\tools\synthetica-2.0.1\syntheticaBlackStar.jar"/>
         <include name="java\tools\idw-gpl-1.4.0\lib\idw-gpl.jar"/>
         <include name="proj\libs\XUI\lib\XUI.jar"/>
         <include name="proj\libs\UI\lib\StendahlsUI.jar"/>

@@ -31,8 +31,8 @@ public class ForwardInvitationDialog extends XUIDialog {
         init(ui.getRl(), ui.getRl().getResourceStream("xui/forwardinvitation.xui.xml"));
 
         FriendManager fm = ui.getCore().getFriendManager();
-        String from = fm.nickname(pmi.getFromGuid());
-        String to = fm.nickname(pmi.getToGuid());
+        String from = fm.nicknameWithContactPath(pmi.getFromGuid());
+        String to = fm.nicknameWithContactPath(pmi.getToGuid());
 
         ((JHtmlLabel)xui.getComponent("label")).setText(from+" wants to connect to "+to+". These two users are not connected right now. You are the connection between them.<p>Do you want to allow "+from+" to connect to "+to+"?");
 

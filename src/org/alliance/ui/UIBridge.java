@@ -56,6 +56,22 @@ public class UIBridge implements UICallback {
         }
     }
 
+    public void receivedShareBaseList(final Friend friend, final String[] shareBaseNames) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                ui.getMainWindow().shareBaseListReceived(friend, shareBaseNames);
+            }
+        });
+    }
+
+    public void receivedDirectoryListing(final Friend friend, final int shareBaseIndex, final String path, final String[] files) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                ui.getMainWindow().directoryListingReceived(friend, shareBaseIndex, path, files);
+            }
+        });
+    }
+
     public void noRouteToHost(final Node node) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {

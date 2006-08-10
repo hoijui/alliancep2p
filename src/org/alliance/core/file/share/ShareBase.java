@@ -16,13 +16,12 @@ public class ShareBase {
     private String path;
 
     public ShareBase(String path) {
-        path = TextUtils.makeSurePathIsMultiplatform(path);
         try {
             path = new File(path).getCanonicalFile().getPath();
         } catch (IOException e) {
             if(T.t)T.error("Could not resolve canonical share path: "+e);
         }
-        this.path = path;
+        this.path = TextUtils.makeSurePathIsMultiplatform(path);
     }
 
     public String getPath() {
@@ -31,5 +30,16 @@ public class ShareBase {
 
     public String toString() {
         return "ShareBase "+path;
+    }
+
+    /**
+     * @return A friendly, short version of this share. Sent over the network to other users. Don't want to send full
+     * pathname because is discloses security information that remote peers don't need to know. Currently this is the
+     * name of the last directory in the sharebase's path.
+     */
+    public String getName() {
+        int i = path.lastIndexOf('/');
+        if (i == -1) return path;
+        return path.substring(i+1);
     }
 }

@@ -53,4 +53,9 @@ public class NonWindowUICallback implements UICallback {
     public void logNetworkEvent(String event) {
         //To change body of implemented methods use File | Settings | File Templates.
     }
+
+    public void receivedShareBaseList(Friend friend, String[] shareBaseNames) {}
+
+    public void receivedDirectoryListing(Friend friend, int i, String s, String[] files) {
+    }
 }
