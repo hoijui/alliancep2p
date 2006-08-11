@@ -67,7 +67,7 @@ public class ViewShareMDIWindow extends AllianceMDIWindow {
                     TreePath underMouse = tree.getPathForLocation(e.getPoint().x, e.getPoint().y);
                     ViewShareTreeNode n = (ViewShareTreeNode)underMouse.getLastPathComponent();
                     boolean mouseClickedOnASelectedNode = false;
-                    for(TreePath p : tree.getSelectionPaths()) {
+                    if (tree.getSelectionPaths() != null) for(TreePath p : tree.getSelectionPaths()) {
                         if (p.getLastPathComponent() == n) {
                             mouseClickedOnASelectedNode = true;
                             break;
