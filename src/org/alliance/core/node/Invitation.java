@@ -28,7 +28,7 @@ public class Invitation implements Serializable {
 
     public Invitation(CoreSubsystem core, Integer destinationGuid, Integer middlemanGuid) throws Exception {
         this.destinationGuid = destinationGuid;
-        this.middlemanGuid = middlemanGuid;
+        this.middlemanGuid = middlemanGuid == null ? 0 : middlemanGuid;
 
         String myhost = core.getFriendManager().getMe().getExternalIp(core);
 

@@ -32,6 +32,7 @@ public class ShareScanner extends Thread {
     }
 
     public void run() {
+        try { Thread.sleep(6*1000); } catch (InterruptedException e) {}
         while(alive) {
             manager.getFileDatabase().cleanupDuplicates();
 

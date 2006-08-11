@@ -34,7 +34,7 @@ public abstract class RPC {
     private transient boolean initialized;
 
     public abstract void execute(Packet in) throws IOException;
-    public abstract Packet serializeTo(Packet out);
+    public abstract Packet serializeTo(Packet out) throws IOException;
 
     /**
      * Initializes this RCP in a mode where it has not been recived from anyone - fromGuid is 0

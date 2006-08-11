@@ -343,7 +343,6 @@ public class CoreSubsystem implements Subsystem {
     }
 
     public void removeUserInteraction(NeedsUserInteraction nui) {
-        System.out.println("removing "+nui);
         userInternactionQue.remove(nui);
     }
 

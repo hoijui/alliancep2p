@@ -6,6 +6,7 @@ import org.alliance.core.comm.rpc.GetDirectoryListing;
 import org.alliance.core.node.Friend;
 import org.alliance.ui.T;
 
+import javax.swing.*;
 import javax.swing.tree.TreeNode;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -51,6 +52,14 @@ public abstract class ViewShareTreeNode implements TreeNode {
                 }
             });
             hasSentQueryForChildren = true;
+            SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    if (children.size() == 0) {
+                        children.add(new ViewShareLoadingNode(root, ViewShareTreeNode.this));
+                        root.getModel().nodeStructureChanged(ViewShareTreeNode.this);
+                    }
+                }
+            });
         }
     }
 
@@ -104,26 +113,21 @@ public abstract class ViewShareTreeNode implements TreeNode {
             if(T.t)T.trace("Looking for path item "+item);
             ViewShareFileNode node = getNodeByName(item);
             if (node == null) {
-                throw new RuntimeException("Could not find item <"+item+">");
-//                if(T.t)T.warn("Ehh. Did not find item. Creating it.");
-//                node = new ViewShareFileNode(item, root, this);
-//                children.add(node);
-//                root.getModel().nodeStructureChanged(this);
+                if(T.t)T.warn("Ehh. Did not find item. Creating it.");
+                node = new ViewShareFileNode(item, root, this);
+                children.add(node);
+                root.getModel().nodeStructureChanged(this);
             }
             node.pathUpdated(path.substring(item.length()), files);
         }
     }
 
     private ViewShareFileNode getNodeByName(String item) {
-        for(ViewShareFileNode n : children) {
-            if(T.t)T.trace("cmp "+n+" - "+item);
-            if (n.getName().equals(item)) return n;
-        }
+        for(ViewShareFileNode n : children) if (n.getName().equals(item)) return n;
         return null;
     }
 
     protected String getFirstPathItem(String path) {
-        System.out.println("Extracting firsth path item from: "+path);
         if (path.startsWith("/")) path = path.substring(1);
         int i = path.indexOf('/');
         if (i == -1) {

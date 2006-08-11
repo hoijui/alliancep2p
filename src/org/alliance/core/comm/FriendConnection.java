@@ -102,11 +102,11 @@ public class FriendConnection extends AuthenticatedConnection {
         send(new Broadcast(netMan.getFriendManager().getMyGUID(), msgId, p));
     }
 
-    public Packet createRPCPacket(RPC rpc) {
+    public Packet createRPCPacket(RPC rpc) throws IOException {
         return createRPCPacket(netMan, rpc);
     }
 
-    public static Packet createRPCPacket(NetworkManager m, RPC rpc) {
+    public static Packet createRPCPacket(NetworkManager m, RPC rpc) throws IOException {
         if (!rpc.isInitialized()) if(T.t)T.error("RPC not initialized!");
         Packet p = m.createPacketForSend();
         p.writeByte(RPCFactory.getPacketIdFor(rpc));

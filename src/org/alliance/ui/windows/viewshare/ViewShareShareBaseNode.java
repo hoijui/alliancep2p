@@ -7,12 +7,16 @@ package org.alliance.ui.windows.viewshare;
  * Time: 18:16:51
  */
 public class ViewShareShareBaseNode extends ViewShareTreeNode {
-    public ViewShareShareBaseNode(String name, ViewShareRootNode root) {
+    private int shareBaseIndex;
+
+    public ViewShareShareBaseNode(String name, ViewShareRootNode root, int shareBaseIndex) {
         super(name, root, root);
+        this.shareBaseIndex = shareBaseIndex;
     }
 
     protected int getShareBaseIndex() {
-        return root.getIndex(this);
+        return shareBaseIndex;
+//        return root.getIndex(this);
     }
 
     protected String getFileItemPath() {

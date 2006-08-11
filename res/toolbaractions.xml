@@ -98,6 +98,15 @@
     </group>
 
     <group id="viewshare">
+        <action
+                id="download"
+                name="Download"
+                description="Download selected files"
+                menuimage="gfx/icons/download.png"
+                toolbarimage="gfx/icons/download.png"
+                addInMenu="file"
+                accelerator="enter"
+                mnemonic="d"/>
         <action filler="true"/>
         <action
                 id="close"

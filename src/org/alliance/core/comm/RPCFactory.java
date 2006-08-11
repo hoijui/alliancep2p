@@ -32,6 +32,8 @@ public class RPCFactory {
             case 24: rpc = new DirectoryListing(); break;
             case 25: rpc = new GetShareBaseList(); break;
             case 26: rpc = new ShareBaseList(); break;
+            case 27: rpc = new GetHashesForPath(); break;
+            case 28: rpc = new HashesForPath(); break;
         }
         if (rpc == null) if (T.t) T.error("UNRECOGNIZED rpc id: "+packetId);
         return rpc;
@@ -64,6 +66,8 @@ public class RPCFactory {
         if (rpc instanceof DirectoryListing) return 24;
         if (rpc instanceof GetShareBaseList) return 25;
         if (rpc instanceof ShareBaseList) return 26;
+        if (rpc instanceof GetHashesForPath) return 27;
+        if (rpc instanceof HashesForPath) return 28;
         if(T.t)T.error("Could not identify RPC: "+rpc);
         return -1;
    }

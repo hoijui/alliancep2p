@@ -3,7 +3,8 @@ package org.alliance.core.file.filedatabase;
 import com.stendahls.util.TextUtils;
 
 import java.io.Serializable;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 
 /**
@@ -57,9 +58,22 @@ public class CompressedPathCollection implements Serializable {
                 hs.add(s);
             }
         }
-        String[] sa = new String[hs.size()];
-        hs.toArray(sa);
-        Arrays.sort(sa);
+
+        ArrayList<String> dirs = new ArrayList<String>();
+        ArrayList<String> files = new ArrayList<String>();
+        for(String s : hs) {
+            if (s.endsWith("/"))
+                dirs.add(s);
+            else
+                files.add(s);
+        }
+        Collections.sort(dirs);
+        Collections.sort(files);
+
+        String[] sa = new String[dirs.size()+files.size()];
+        int i=0;
+        for(String s : dirs) sa[i++] = s;
+        for(String s : files) sa[i++] = s;
         return sa;
     }
 }

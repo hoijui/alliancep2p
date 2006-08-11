@@ -9,10 +9,7 @@ import org.alliance.core.file.share.ShareBase;
 import org.alliance.core.file.share.T;
 
 import java.io.*;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 import java.util.zip.Deflater;
 import java.util.zip.DeflaterOutputStream;
 import java.util.zip.InflaterInputStream;
@@ -252,6 +249,23 @@ public class FileDatabase {
 
     public synchronized Set<Hash> getAllHashes() {
         return baseHashTable.keySet();
+    }
+
+    /**
+     * Returns up to 500 FDs that are withing the supplied path. Subdirectories included.
+     * @param path
+     * @return
+     * @throws IOException
+     */
+
+    public Collection<FileDescriptor> getFDsByPath(String path) throws IOException {
+        FileDescriptor fd[] = search(path, 500, FileType.EVERYTHING);
+        ArrayList<FileDescriptor> al = new ArrayList<FileDescriptor>();
+        for(FileDescriptor f : fd) {
+            System.out.println("found: "+f.getFullPath()+" - "+path);
+            if (f.getFullPath().startsWith(path)) al.add(f);
+        }
+        return al;
     }
 
     public synchronized FileDescriptor[] search(String query, int maxHits, FileType ft) throws IOException {

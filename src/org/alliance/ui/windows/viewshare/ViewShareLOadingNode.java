@@ -7,9 +7,9 @@ package org.alliance.ui.windows.viewshare;
  * Time: 18:16:51
  */
 
-public class ViewShareFileNode extends ViewShareTreeNode {
-    public ViewShareFileNode(String name, ViewShareRootNode root, ViewShareTreeNode parent) {
-        super(name, root, parent);
+public class ViewShareLoadingNode extends ViewShareFileNode {
+    public ViewShareLoadingNode(ViewShareRootNode root, ViewShareTreeNode parent) {
+        super("Loading...", root, parent);
     }
 
     protected int getShareBaseIndex() {
@@ -20,7 +20,7 @@ public class ViewShareFileNode extends ViewShareTreeNode {
         return getParent().getFileItemPath()+getName();
     }
 
-    public boolean isFolder() {
-        return getName().endsWith("/");
+    public boolean isLeaf() {
+        return true;
     }
 }

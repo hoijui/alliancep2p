@@ -23,8 +23,9 @@ public class ViewShareRootNode extends ViewShareTreeNode {
 
     void fill(String[] shareBaseNames) {
         shareBases.clear();
-        for (String shareBaseName : shareBaseNames) shareBases.add(new ViewShareShareBaseNode(shareBaseName, this));
-
+        for(int i=0;i<shareBaseNames.length;i++) {
+            if (!shareBaseNames[i].equals("cache")) shareBases.add(new ViewShareShareBaseNode(shareBaseNames[i], this, i));
+        }
     }
 
     public ViewShareShareBaseNode getChildAt(int childIndex) {
@@ -71,5 +72,12 @@ public class ViewShareRootNode extends ViewShareTreeNode {
 
     public void setModel(ViewShareTreeModel viewShareTreeModel) {
         model = viewShareTreeModel;
+    }
+
+    public ViewShareShareBaseNode getByShareBase(int shareBaseIndex) {
+        for(ViewShareShareBaseNode s : shareBases) {
+            if (s.getShareBaseIndex() == shareBaseIndex) return s;
+        }
+        return null;
     }
 }
