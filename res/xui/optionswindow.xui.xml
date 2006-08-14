@@ -20,7 +20,7 @@
 
                     <panel axis="x">
                         <mlabel html="true">
-                            Note that your nickname can be seen by unstrusted users in the network.
+                            Note that your nickname can be seen by untrusted users in the network.
                         </mlabel>
                     </panel>
                 </panel>
