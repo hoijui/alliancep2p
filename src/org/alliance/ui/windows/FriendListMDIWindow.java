@@ -22,7 +22,7 @@ import java.io.ObjectOutputStream;
  * Date: 2005-dec-30
  * Time: 16:22:07
  */
-public class FriendListMDIWindow extends AllianceMDIWindow  {
+public class FriendListMDIWindow extends AllianceMDIWindow {
     private UISubsystem ui;
     private JList list;
 
@@ -43,21 +43,21 @@ public class FriendListMDIWindow extends AllianceMDIWindow  {
 
         setWindowType(WINDOWTYPE_NAVIGATION);
 
-        statusleft = (JLabel)xui.getComponent("statusleft");
-        statusright = (JLabel)xui.getComponent("statusright");
+        statusleft = (JLabel) xui.getComponent("statusleft");
+        statusright = (JLabel) xui.getComponent("statusright");
 
         createUI();
         setTitle("My  Network");
     }
 
     public void update() {
-        statusright.setText("Online: "+ui.getCore().getFriendManager().getNUsersConnected()+"/"+ui.getCore().getFriendManager().getNUsers()+" ("+TextUtils.formatByteSize(ui.getCore().getFriendManager().getTotalBytesShared())+")");
+        statusright.setText("Online: " + ui.getCore().getFriendManager().getNUsersConnected() + "/" + ui.getCore().getFriendManager().getNUsers() + " (" + TextUtils.formatByteSize(ui.getCore().getFriendManager().getTotalBytesShared()) + ")");
     }
 
     private void createUI() throws Exception {
         list = new JList(ui.getFriendListModel());
         list.setCellRenderer(new FriendListRenderer());
-        ((JScrollPane)xui.getComponent("scrollpanel")).setViewportView(list);
+        ((JScrollPane) xui.getComponent("scrollpanel")).setViewportView(list);
 
         list.addMouseListener(new MouseListener() {
             public void mouseClicked(MouseEvent e) {
@@ -69,10 +69,18 @@ public class FriendListMDIWindow extends AllianceMDIWindow  {
                     }
                 }
             }
-            public void mousePressed(MouseEvent e) {}
-            public void mouseReleased(MouseEvent e) {}
-            public void mouseEntered(MouseEvent e) {}
-            public void mouseExited(MouseEvent e) {}
+
+            public void mousePressed(MouseEvent e) {
+            }
+
+            public void mouseReleased(MouseEvent e) {
+            }
+
+            public void mouseEntered(MouseEvent e) {
+            }
+
+            public void mouseExited(MouseEvent e) {
+            }
         });
 
         postInit();
@@ -81,7 +89,7 @@ public class FriendListMDIWindow extends AllianceMDIWindow  {
     public void save() throws Exception {
     }
 
-    public String  getIdentifier() {
+    public String getIdentifier() {
         return "friendlist";
     }
 
@@ -90,7 +98,7 @@ public class FriendListMDIWindow extends AllianceMDIWindow  {
             public void run() {
                 try {
                     ui.getCore().refreshFriendInfo();
-                } catch(IOException e) {
+                } catch (IOException e) {
                     ui.handleErrorInEventLoop(e);
                 }
             }
@@ -108,7 +116,7 @@ public class FriendListMDIWindow extends AllianceMDIWindow  {
         public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
             super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 
-            Friend f = (Friend)value;
+            Friend f = (Friend) value;
             if (f.isConnected()) {
                 setIcon(iconFriend);
                 if (isSelected)
@@ -116,9 +124,9 @@ public class FriendListMDIWindow extends AllianceMDIWindow  {
                 else
                     setForeground(Color.black);
 //                setText(f.getNickname()+" ("+ TextUtils.formatByteSize(f.getShareSize())+")");
-                setText("<html>"+FriendListMDIWindow.this.ui.getCore().getFriendManager().nickname(f.getGuid()) +
+                setText("<html>" + FriendListMDIWindow.this.ui.getCore().getFriendManager().nickname(f.getGuid()) +
                         "<font color=aaaaaa> " +
-                        FriendListMDIWindow.this.ui.getCore().getFriendManager().contactPath(f.getGuid())+
+                        FriendListMDIWindow.this.ui.getCore().getFriendManager().contactPath(f.getGuid()) +
                         "</font> (" +
                         TextUtils.formatByteSize(f.getShareSize())
                         + ")</html>");
@@ -126,9 +134,9 @@ public class FriendListMDIWindow extends AllianceMDIWindow  {
                 setIcon(iconFriendOld);
                 setForeground(Color.lightGray);
                 if (f.getLastSeenOnlineAt() != 0) {
-                    setText(f.getNickname()+" (offline for "+
-                            ((System.currentTimeMillis()-f.getLastSeenOnlineAt())/1000/60/60/24)
-                            +" days)");
+                    setText(f.getNickname() + " (offline for " +
+                            ((System.currentTimeMillis() - f.getLastSeenOnlineAt()) / 1000 / 60 / 60 / 24)
+                            + " days)");
                 } else {
                     setText(f.getNickname());
                 }
@@ -144,13 +152,13 @@ public class FriendListMDIWindow extends AllianceMDIWindow  {
 
     public void EVENT_chat(ActionEvent e) throws Exception {
         if (list.getSelectedValue() == null) return;
-        Friend f = (Friend)list.getSelectedValue();
+        Friend f = (Friend) list.getSelectedValue();
         if (f != null) ui.getMainWindow().chatMessage(f.getGuid(), null, 0);
     }
 
     public void EVENT_viewshare(ActionEvent e) throws Exception {
         if (list.getSelectedValue() == null) return;
-        Friend f = (Friend)list.getSelectedValue();
+        Friend f = (Friend) list.getSelectedValue();
         if (f != null) {
             if (!f.isConnected()) {
                 OptionDialog.showErrorDialog(ui.getMainWindow(), "User must be online in order to view his share.");
@@ -166,10 +174,17 @@ public class FriendListMDIWindow extends AllianceMDIWindow  {
 
     public void EVENT_removefriend(ActionEvent e) throws Exception {
         if (list.getSelectedValue() == null) return;
-        Friend f = (Friend)list.getSelectedValue();
-        if (f != null) {
-            if (OptionDialog.showConfirmDialog(ui.getMainWindow(), "Are you sure you want to permanently delete this connection?")) {
-                ui.getCore().getFriendManager().permanentlyRemove(f);
+        Object[] friends = list.getSelectedValues();
+        if (friends != null && friends.length > 0) {
+            Boolean delete = OptionDialog.showConfirmDialog(ui.getMainWindow(), "Are you sure you want to permanently delete these (" + friends.length + ") connections?");
+            if (delete == null) return;
+            if (delete) {
+                for (Object friend : friends) {
+                    Friend f = (Friend) friend;
+                    if (f != null) {
+                        ui.getCore().getFriendManager().permanentlyRemove(f);
+                    }
+                }
                 revert();
             }
         }
