@@ -118,7 +118,7 @@
                     Here is a list of new connections found:
                     [p]
                 </mlabel>
-                <scrollpanel bordertype="lowered" height="100" id="scrollpanel">
+                <scrollpanel bordertype="lowered" height="200" id="scrollpanel">
                 </scrollpanel>
                 <panel border="5,5,0,0" axis="x">
                     <filler expand="horiz"/>
