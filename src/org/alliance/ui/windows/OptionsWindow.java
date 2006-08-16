@@ -1,22 +1,21 @@
+package org.alliance.ui.windows;
 
- package org.alliance.ui.windows;
+import com.stendahls.XUI.XUIDialog;
+import com.stendahls.nif.ui.OptionDialog;
+import com.stendahls.nif.util.EnumerationIteratorConverter;
+import com.stendahls.ui.JHtmlLabel;
+import static org.alliance.core.CoreSubsystem.KB;
+import org.alliance.core.settings.My;
+import org.alliance.core.settings.SettingClass;
+import org.alliance.core.settings.Settings;
+import org.alliance.core.settings.Share;
+import org.alliance.ui.T;
+import org.alliance.ui.UISubsystem;
 
- import com.stendahls.XUI.XUIDialog;
- import com.stendahls.nif.ui.OptionDialog;
- import com.stendahls.nif.util.EnumerationIteratorConverter;
- import com.stendahls.ui.JHtmlLabel;
- import static org.alliance.core.CoreSubsystem.KB;
- import org.alliance.core.settings.My;
- import org.alliance.core.settings.SettingClass;
- import org.alliance.core.settings.Settings;
- import org.alliance.core.settings.Share;
- import org.alliance.ui.T;
- import org.alliance.ui.UISubsystem;
-
- import javax.swing.*;
- import java.awt.event.ActionEvent;
- import java.io.File;
- import java.util.HashMap;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.io.File;
+import java.util.HashMap;
 
 /**
  * Created by IntelliJ IDEA.
@@ -26,7 +25,7 @@
  * To change this template use File | Settings | File Templates.
  */
 public class OptionsWindow extends XUIDialog {
-    private final static String[] OPTIONS = new String[] {
+    private final static String[] OPTIONS = new String[]{
             "internal.uploadthrottle",
             "internal.hashspeedinmbpersecond",
             "internal.politehashingwaittimeinminutes",
@@ -42,6 +41,7 @@ public class OptionsWindow extends XUIDialog {
 
     private JList shareList;
     private DefaultListModel shareListModel;
+    private boolean shareListHasBeenModified = false;
 
     private JTextField nickname;
 
@@ -53,8 +53,8 @@ public class OptionsWindow extends XUIDialog {
 
         init(ui.getRl(), ui.getRl().getResourceStream("xui/optionswindow.xui.xml"));
 
-        for(String k : OPTIONS) {
-            JComponent c = (JComponent)xui.getComponent(k);
+        for (String k : OPTIONS) {
+            JComponent c = (JComponent) xui.getComponent(k);
             if (c != null) {
                 components.put(k, c);
                 setComponentValue(c, getSettingValue(k));
@@ -63,17 +63,17 @@ public class OptionsWindow extends XUIDialog {
 
         xui.getComponent("server.port").setEnabled(false);
 
-        nickname = (JTextField)xui.getComponent("my.nickname");
+        nickname = (JTextField) xui.getComponent("my.nickname");
 
-        shareList = (JList)xui.getComponent("shareList");
+        shareList = (JList) xui.getComponent("shareList");
         shareListModel = new DefaultListModel();
-        for(Share share : ui.getCore().getSettings().getSharelist()) shareListModel.addElement(share.getPath());
+        for (Share share : ui.getCore().getSettings().getSharelist()) shareListModel.addElement(share.getPath());
         shareList.setModel(shareListModel);
 
         openedWithUndefiniedNickname = nickname.getText().equals(My.UNDEFINED_NICKNAME);
 
         if (ui.getCore().getUpnpManager().isPortForwardSuccedeed()) {
-            ((JHtmlLabel)xui.getComponent("portforward")).setText("Port successfully forwarded in your router using UPnP.");
+            ((JHtmlLabel) xui.getComponent("portforward")).setText("Port successfully forwarded in your router using UPnP.");
         }
 
         display();
@@ -83,7 +83,7 @@ public class OptionsWindow extends XUIDialog {
 
     private String getSettingValue(String k) throws Exception {
         String clazz = k.substring(0, k.indexOf('.'));
-        k = k.substring(k.indexOf('.')+1);
+        k = k.substring(k.indexOf('.') + 1);
         SettingClass setting = getSettingClass(clazz);
         return String.valueOf(setting.getValue(k));
     }
@@ -95,16 +95,17 @@ public class OptionsWindow extends XUIDialog {
             return ui.getCore().getSettings().getMy();
         else if (clazz.equals("server"))
             return ui.getCore().getSettings().getServer();
-        else throw new Exception("Could not find class type: "+clazz);
+        else throw new Exception("Could not find class type: " + clazz);
     }
 
     private void setComponentValue(JComponent c, String settingValue) {
         if (c instanceof JTextField) {
-            JTextField tf = (JTextField)c;
+            JTextField tf = (JTextField) c;
             tf.setText(settingValue);
         } else if (c instanceof JCheckBox) {
-            JCheckBox b = (JCheckBox)c;
-            if ("0".equals(settingValue) || "no".equalsIgnoreCase(settingValue) || "false".equalsIgnoreCase(settingValue)) {
+            JCheckBox b = (JCheckBox) c;
+            if ("0".equals(settingValue) || "no".equalsIgnoreCase(settingValue) || "false".equalsIgnoreCase(settingValue))
+            {
                 b.setSelected(false);
             } else {
                 b.setSelected(true);
@@ -120,26 +121,29 @@ public class OptionsWindow extends XUIDialog {
         if (!nicknameIsOk()) return false;
 
         //update primitive values
-        for(String k : OPTIONS) {
-            JComponent c = (JComponent)xui.getComponent(k);
+        for (String k : OPTIONS) {
+            JComponent c = (JComponent) xui.getComponent(k);
             setSettingValue(k, getComponentValue(c));
         }
 
         //update shares
         Settings settings = ui.getCore().getSettings();
         settings.getSharelist().clear();
-        for(String path : EnumerationIteratorConverter.iterable(shareListModel.elements(), String.class)) {
+        for (String path : EnumerationIteratorConverter.iterable(shareListModel.elements(), String.class)) {
             settings.getSharelist().add(new Share(path));
         }
         ui.getCore().getShareManager().updateShareBases();
-        ui.getCore().getShareManager().getShareMonitor().startScan();
+        if (shareListHasBeenModified) {
+            ui.getCore().getShareManager().getShareMonitor().startScan();
+        }
 
         ui.getCore().getFriendManager().getMe().setNickname(nickname.getText());
-        if (ui.getNodeTreeModel(false) != null) ui.getNodeTreeModel(false).signalNodeChanged(ui.getCore().getFriendManager().getMe());
+        if (ui.getNodeTreeModel(false) != null)
+            ui.getNodeTreeModel(false).signalNodeChanged(ui.getCore().getFriendManager().getMe());
 
         ui.getCore().saveSettings();
 
-        ui.getCore().getNetworkManager().getUploadThrottle().setRate(settings.getInternal().getUploadthrottle()*KB);
+        ui.getCore().getNetworkManager().getUploadThrottle().setRate(settings.getInternal().getUploadthrottle() * KB);
 
         return true;
     }
@@ -168,34 +172,41 @@ public class OptionsWindow extends XUIDialog {
     }
 
     private Object getComponentValue(JComponent c) {
-        if (c instanceof JTextField) return ((JTextField)c).getText();
-        if (c instanceof JCheckBox) return ((JCheckBox)c).isSelected() ? 1 : 0;
+        if (c instanceof JTextField) return ((JTextField) c).getText();
+        if (c instanceof JCheckBox) return ((JCheckBox) c).isSelected() ? 1 : 0;
         return null;
     }
 
     private void setSettingValue(String k, Object val) throws Exception {
         String clazz = k.substring(0, k.indexOf('.'));
-        k = k.substring(k.indexOf('.')+1);
+        k = k.substring(k.indexOf('.') + 1);
         SettingClass setting = getSettingClass(clazz);
         setting.setValue(k, val);
     }
 
     public void EVENT_addfolder(ActionEvent e) {
-        JFileChooser fc = new JFileChooser(shareListModel.getSize() > 0 ? shareListModel.getElementAt(shareListModel.getSize()-1).toString() : ".");
+        JFileChooser fc = new JFileChooser(shareListModel.getSize() > 0 ? shareListModel.getElementAt(shareListModel.getSize() - 1).toString() : ".");
         fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         int returnVal = fc.showOpenDialog(this);
-        if(returnVal == JFileChooser.APPROVE_OPTION) {
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
             String path = fc.getSelectedFile().getPath();
-            if(T.t)T.trace("adding: "+path);
+            if (T.t) T.trace("adding: " + path);
             if (!new File(path).exists()) path = new File(path).getParent();
             shareListModel.addElement(path);
+            shareListHasBeenModified = true;
             shareList.revalidate();
         }
+
     }
 
+    /**
+     * Triggered when "remove folder" button is pressed in the option->share menu
+     * @param e
+     */
     public void EVENT_removefolder(ActionEvent e) {
         if (shareList.getSelectedIndex() != -1) {
             shareListModel.remove(shareList.getSelectedIndex());
+            shareListHasBeenModified = true;
             shareList.revalidate();
         }
     }
