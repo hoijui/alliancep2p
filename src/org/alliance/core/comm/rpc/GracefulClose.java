@@ -42,6 +42,9 @@ public class GracefulClose extends RPC {
         } else {
             if(T.t)T.warn("Unknown connection close reason: "+reason);
         }
+
+        core.updateLastSeenOnlineForFriends();
+
         con.close();
     }
 

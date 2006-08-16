@@ -210,7 +210,7 @@ public class CoreSubsystem implements Subsystem {
         shutdownInProgress = true;
         if(T.t)T.info("Shutting down core..");
         try {
-            updateLastSeendOnlineForFriends();
+            updateLastSeenOnlineForFriends();
             fileManager.shutdown();
             friendManager.shutdown();
             networkManager.shutdown();
@@ -223,7 +223,7 @@ public class CoreSubsystem implements Subsystem {
         }
     }
 
-    private void updateLastSeendOnlineForFriends() {
+    public void updateLastSeenOnlineForFriends() {
         for(Friend f : friendManager.friends()) {
             if (f.isConnected()) {
                 if (settings.getFriend(f.getGuid()) != null) {
