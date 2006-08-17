@@ -4,6 +4,7 @@ import com.stendahls.XUI.XUIDialog;
 import com.stendahls.nif.ui.OptionDialog;
 import com.stendahls.nif.util.EnumerationIteratorConverter;
 import com.stendahls.ui.JHtmlLabel;
+import com.stendahls.util.TextUtils;
 import static org.alliance.core.CoreSubsystem.KB;
 import org.alliance.core.settings.My;
 import org.alliance.core.settings.SettingClass;
@@ -15,7 +16,9 @@ import org.alliance.ui.UISubsystem;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 /**
  * Created by IntelliJ IDEA.
@@ -129,6 +132,10 @@ public class OptionsWindow extends XUIDialog {
         //update shares
         Settings settings = ui.getCore().getSettings();
         settings.getSharelist().clear();
+
+        //remove paths that are subdirectories of other shares
+        while(removeDuplicateShare());
+
         for (String path : EnumerationIteratorConverter.iterable(shareListModel.elements(), String.class)) {
             settings.getSharelist().add(new Share(path));
         }
@@ -146,6 +153,33 @@ public class OptionsWindow extends XUIDialog {
         ui.getCore().getNetworkManager().getUploadThrottle().setRate(settings.getInternal().getUploadthrottle() * KB);
 
         return true;
+    }
+
+    /**
+     * @return True if a duplicate share was removed - in this case this method needs to be called again in order to
+     * check for more duplicated to remove. This is becase only one duplicate is removed at a time.
+     */
+    private boolean removeDuplicateShare() {
+        for(Iterator<String> i=EnumerationIteratorConverter.iterable(shareListModel.elements(), String.class).iterator();i.hasNext();) {
+            String path = i.next();
+            ArrayList<String> al = new ArrayList<String>();
+            for (String s : EnumerationIteratorConverter.iterable(shareListModel.elements(), String.class)) {
+                al.add(s);
+            }
+            al.add(ui.getCore().getSettings().getInternal().getDownloadfolder());
+
+            for (String s : al) {
+                String pathA = TextUtils.makeSurePathIsMultiplatform(new File(path).getAbsolutePath());
+                String sA = TextUtils.makeSurePathIsMultiplatform(new File(s).getAbsolutePath());
+                if (!sA.equals(pathA) &&
+                        pathA.startsWith(sA)) {
+                    OptionDialog.showInformationDialog(ui.getMainWindow(), "The folder "+pathA+" is already shared as "+sA+". There is no need to add it in your shares.");
+                    shareListModel.removeElement(path);
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     private boolean nicknameIsOk() {
