@@ -364,7 +364,10 @@ public class TCPNIONetworkLayer implements Runnable {
         ((SelectionKey)key).cancel();
     }
 
-    public int getNumberOfPendingConnections() {
+    /**
+     * Thread safe
+     */
+    public synchronized int getNumberOfPendingConnections() {
         return pendingConnectionAttempts.size();
     }
 }

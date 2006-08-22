@@ -104,11 +104,6 @@ public class ShareScanner extends Thread {
             File file = files[i];
             file = file.getCanonicalFile();
             if (file.isDirectory()) {
-                try {
-                    Thread.sleep(20);
-                    //don't look for files too fast - takes 100% cpu on some machines
-                } catch(InterruptedException e) {
-                }
                 if(T.t)T.trace("Scanning "+file.getPath()+"...");
                 manager.getCore().getUICallback().statusMessage("Scanning "+file.getPath()+"...");
                 scanPathRecursive(file.getPath(),base,level+1);
