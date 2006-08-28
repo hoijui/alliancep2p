@@ -21,6 +21,9 @@ public class NoEncryptionCryptoLayer extends BufferedCryptoLayer {
         super(core);
     }
 
+    public void closed(Connection c) {
+    }
+
     public int encrypt(Connection c, ByteBuffer src, ByteBuffer dst) throws IOException {
         int r = src.remaining();
         dst.put(src);

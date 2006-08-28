@@ -25,6 +25,10 @@ public class FriendConnector extends Thread {
     }
 
     public void run() {
+        if (manager.getCore().isRunningAsTestSuite()) {
+            //all hell breaks loose if all clients attemt to connect to each other at the same time
+            try { Thread.sleep((long)(1000+Math.random()*3000)); } catch (InterruptedException e) {}
+        }
         while(alive) {
             //get all friends and sort them by last seen online
             ArrayList<Friend> al = new ArrayList<Friend>(manager.friends());
@@ -43,7 +47,7 @@ public class FriendConnector extends Thread {
                 }
                 if (!f.isConnected()) {
                     try {
-/*                        if (f.getNickname().toLowerCase().equals("maciek")) {
+                        /*if (f.getNickname().toLowerCase().equals("dojjan")) {
                             System.out.println("OOOOO! Remove this - just for testing SSL");
                             continue;
                         }*/

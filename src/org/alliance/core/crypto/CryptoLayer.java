@@ -26,6 +26,7 @@ public abstract class CryptoLayer {
     public abstract void readyToSend(Connection connection) throws IOException;
     public abstract void signalInterestToSend(final Connection c);
     public abstract void noInterestToSend(final Connection c);
+    public abstract void closed(Connection c);
 
     //can be overrided by implementing classes
     public void init() throws Exception {}
@@ -54,4 +55,5 @@ public abstract class CryptoLayer {
             T.info(s);
         }
     }
+
 }

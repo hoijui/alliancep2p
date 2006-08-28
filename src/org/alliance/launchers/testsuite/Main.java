@@ -126,7 +126,7 @@ public class Main {
                     }
                 });
             }
-//            Thread.sleep((long)(1000));
+            Thread.sleep((long)(1000));
         }
     }
 

@@ -20,6 +20,9 @@ public class TranslationCryptoLayer extends BufferedCryptoLayer {
         super(core);
     }
 
+    public void closed(Connection c) {
+    }
+
     public int encrypt(Connection c, ByteBuffer src, ByteBuffer dst) {
         int start = dst.position();
         dst.put(src);

@@ -162,6 +162,7 @@ public class NetworkManager extends Manager {
         friendManager.connectionClosed(c);
         connections.remove(c.getKey());
         networkLayer.close(c.getKey());
+        cryptoLayer.closed(c);
     }
 
     public Connection replaceConnection(Object key, Connection connection) {

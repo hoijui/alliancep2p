@@ -85,7 +85,7 @@ public class CoreSubsystem implements Subsystem {
     public void init(ResourceLoader rl, Object... params) throws Exception {
         errorLog = new Log("error.log");
         traceLog = new Log("trace.log");
-        if (T.t && System.getProperty("testsuite") == null) {
+        if (T.t && !isRunningAsTestSuite()) {
             final TraceHandler old = Trace.handler;
             Trace.handler = new TraceHandler() {
                 public void print(int level, Object message, Exception error) {
@@ -116,7 +116,7 @@ public class CoreSubsystem implements Subsystem {
         fileManager.init();
         friendManager.init();
         networkManager.init();
-        if (System.getProperty("testsuite") == null) upnpManager.init();
+        if (!isRunningAsTestSuite()) upnpManager.init();
 
         Thread.currentThread().setName(friendManager.getMe()+" main");
 
@@ -125,6 +125,10 @@ public class CoreSubsystem implements Subsystem {
                 shutdown();
             }
         });
+    }
+
+    public boolean isRunningAsTestSuite() {
+        return System.getProperty("testsuite") != null;
     }
 
     public void logTrace(int level, Object message) {

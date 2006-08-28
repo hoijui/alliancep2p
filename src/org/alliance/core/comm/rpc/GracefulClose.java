@@ -30,11 +30,12 @@ public class GracefulClose extends RPC {
     public void execute(Packet data) throws IOException {
         reason = data.readByte();
         if (reason == DUPLICATE_CONNECTION) {
-            if (con.getRemoteFriend().hasMultipleFriendConnections()) {
+            if(T.t)T.trace("Detected multiple connections to one friend. Closing one down.");
+/*            if (con.getRemoteFriend().hasMultipleFriendConnections()) {
                 if(T.t)T.info("Ha! We have detected a double connection to one friend. Closing one down.");
             } else {
                 if(T.t)T.info(con.getRemoteFriend()+" is closing us down even though we only have one connection to him! This is a little bit scketchy but probably ok. We just don't know that we'll get a new connection to him in an instant.");
-            }
+            }*/
         } else if (reason == SHUTDOWN) {
             if(T.t)T.info("Remote computer shutting donw. Closing this connection.");
         } else if (reason == DELETED) {
@@ -43,9 +44,27 @@ public class GracefulClose extends RPC {
             if(T.t)T.warn("Unknown connection close reason: "+reason);
         }
 
+
         core.updateLastSeenOnlineForFriends();
 
-        con.close();
+        if(T.t)T.trace("Waiting a second and then closing connection.");
+        //this is kind of bullshit - but it's really tricky to close connection when two friends connect to each other
+        //at the same time. This is why it works this way
+        Thread t = new Thread(new Runnable() {
+            public void run() {
+                try { Thread.sleep(1000); } catch (InterruptedException e) {}
+                core.invokeLater(new Runnable() {
+                    public void run() {
+                        try {
+                            con.close();
+                        } catch (IOException e) {
+                            if(T.t)T.warn("Got error while trying to close connection: "+e);
+                        }
+                    }
+                });
+            }
+        });
+        t.start();
     }
 
     public Packet serializeTo(Packet p) {

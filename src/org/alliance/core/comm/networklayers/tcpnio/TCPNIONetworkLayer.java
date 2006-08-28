@@ -232,6 +232,7 @@ public class TCPNIONetworkLayer implements Runnable {
         key.cancel();
         if (key.channel() instanceof SocketChannel) {
             try {
+//                if (netMan.getConnection(key) != null) netMan.getConnection(key).close();
                 ((SocketChannel)key.channel()).close();
             } catch(IOException e1) {
                 if(T.t)T.trace("Could not close socket: "+e1);

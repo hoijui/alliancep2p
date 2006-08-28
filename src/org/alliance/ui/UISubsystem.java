@@ -59,7 +59,7 @@ public class UISubsystem implements UINexus, Subsystem {
                 Throwable innerError = t;
 //                    while(innerError.getCause() != null) innerError = innerError.getCause();
 
-                if (innerError.getStackTrace()[0].toString().indexOf("de.javasoft.plaf.synthetica.StyleFactory$ComponentProperty.hashCode") != -1) {
+                if (innerError.getStackTrace().length > 0 && innerError.getStackTrace()[0].toString().indexOf("de.javasoft.plaf.synthetica.StyleFactory$ComponentProperty.hashCode") != -1) {
                     return null; //some wicked blackstar bug probably
                 }
 

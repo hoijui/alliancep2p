@@ -3,6 +3,7 @@ package org.alliance.core.comm.rpc;
 import org.alliance.Version;
 import org.alliance.core.CoreSubsystem;
 import org.alliance.core.T;
+import org.alliance.core.comm.Connection;
 import org.alliance.core.comm.Packet;
 import org.alliance.core.comm.RPC;
 import org.alliance.core.file.hash.Hash;
@@ -48,11 +49,16 @@ public class UserInfo extends RPC {
         }
 
         //now that we have a good connection to friend: verify that we only have ONE connection
-        if (con.getRemoteFriend().hasMultipleFriendConnections() && manager.getMyGUID() > con.getRemoteUserGUID()) {
-            //serveral connections. Its up to us to close one
-            if(T.t)T.info("Already connected to "+con.getRemoteFriend()+" Send drop connection request and dropping connection.");
-            send(new GracefulClose(GracefulClose.DUPLICATE_CONNECTION));
-            con.close();
+        if (con.getRemoteFriend().hasMultipleFriendConnections()) {
+            if(T.t)T.trace("Has multple connections to a friend. Figuring out wich one of us should close the connection");
+            if ((con.getDirection() == Connection.Direction.IN && con.getRemoteUserGUID() > manager.getMyGUID()) ||
+                   (con.getDirection() == Connection.Direction.OUT && manager.getMyGUID() > con.getRemoteUserGUID())) {
+                //serveral connections. Its up to us to close one
+                if(T.t)T.info("Already connected to "+con.getRemoteFriend()+". Closing connection");
+                send(new GracefulClose(GracefulClose.DUPLICATE_CONNECTION));
+                //con.close();
+                //close connection when we in turn receive a graceful close
+            }
         }
 
         //this is the place for an event: "FriendSuccessfullyConnected".
