@@ -9,7 +9,10 @@ import javax.net.ssl.SSLEngineResult;
 import javax.net.ssl.SSLException;
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  *
@@ -25,14 +28,10 @@ public class SSLCryptoLayer extends BufferedCryptoLayer {
     private SSLContext sslContext;
     //@todo: memory leak - this array is never cleared
     private HashMap<Object, SSLEngine> engines = new HashMap<Object, SSLEngine>();
-
     private HashMap<Object, ByteBuffer> bufferedIncomingEncryptedData = new HashMap<Object, ByteBuffer>();
 
-//    can be used with "strong encryption" - with no US export regulations
-    private static final String CHIPHER_SUITE = "TLS_DH_anon_WITH_AES_128_CBC_SHA";
-
-//    can be used with "unlimited strength" encryption - subject to US export laws
-//    private static final String CHIPHER_SUITE = "TLS_DH_anon_WITH_AES_256_CBC_SHA";
+    private static final String INTERESTING_CHIPHER_SUITES[] = {"TLS_DH_anon_WITH_AES_256_CBC_SHA", "TLS_DH_anon_WITH_AES_128_CBC_SHA"};
+    private String ALLOWED_CHIPHER_SUITES[]; //generated at runtime
 
     public SSLCryptoLayer(CoreSubsystem core) throws Exception {
         super(core);
@@ -41,14 +40,17 @@ public class SSLCryptoLayer extends BufferedCryptoLayer {
     public void init() throws Exception {
         if(T.t)T.info("SSLCryptoLayer initializing!");
         //init sslengine
-
         sslContext = SSLContext.getInstance("TLSv1");
-
-/*        KeyManagerFactory kmf = KeyManagerFactory.getInstance("SunX509");
-        kmf.init(core.getCryptoManager().getKeystore(), core.getCryptoManager().getKeystorePassword());
-        sslContext.init(kmf.getKeyManagers(), null, null);*/
-
         sslContext.init(null, null, null);
+
+        List<String> supportedChipherSuites = Arrays.asList(sslContext.createSSLEngine().getSupportedCipherSuites());
+        ArrayList<String> allowedChipherSuites = new ArrayList<String>();
+        for(String s : INTERESTING_CHIPHER_SUITES) if (supportedChipherSuites.contains(s)) {
+            if(T.t)T.debug("Supported chipher suite: "+s);
+            allowedChipherSuites.add(s);
+        }
+        ALLOWED_CHIPHER_SUITES = new String[allowedChipherSuites.size()];
+        allowedChipherSuites.toArray(ALLOWED_CHIPHER_SUITES);
     }
 
     public int encrypt(Connection c, ByteBuffer src, ByteBuffer dst) throws IOException {
@@ -84,7 +86,7 @@ public class SSLCryptoLayer extends BufferedCryptoLayer {
             encrypt(c, ByteBuffer.allocate(0), dst);
         }
 
-        checkSSLEngineResult(e, c, r);
+        checkSSLEngineResult(c, r);
 
         return read;
     }
@@ -93,7 +95,7 @@ public class SSLCryptoLayer extends BufferedCryptoLayer {
         if(T.t)T.debug("Decrypt");
 
         if (bufferedIncomingEncryptedData.get(c.getKey()) != null) {
-            if(T.t)T.trace("Old, buffered, encryption data available - merge it with new data");
+            if(T.t)T.warn("Old, buffered, encryption data available - merge it with new data");
             ByteBuffer old = bufferedIncomingEncryptedData.get(c.getKey());
             ByteBuffer n3w = src;
             src = ByteBuffer.allocate(old.remaining()+n3w.remaining());
@@ -114,13 +116,13 @@ public class SSLCryptoLayer extends BufferedCryptoLayer {
                 if(T.t)T.trace("SLLEngine reported BUFFER_UNDERFLOW - buffer the data and wait for more");
                 ByteBuffer b = bufferedIncomingEncryptedData.get(c.getKey());
                 if (b != null) {
-                    if(T.t)T.trace("Appending new buffer with old one");
+                    if(T.t)T.warn("Appending new buffer with old one");
                     ByteBuffer old = b;
                     b = ByteBuffer.allocate(src.remaining()+b.position());
                     b.put(old);
                     b.put(src);
                 } else {
-                    if(T.t)T.trace("Creating new buffer");
+                    if(T.t)T.warn("Creating new buffer");
                     b = ByteBuffer.allocate(src.remaining());
                     b.put(src);
                 }
@@ -145,7 +147,7 @@ public class SSLCryptoLayer extends BufferedCryptoLayer {
                 ((r.getHandshakeStatus() == SSLEngineResult.HandshakeStatus.NEED_UNWRAP && r.bytesProduced() == 0) || //wants to unwrap more data
                 ( r.getHandshakeStatus() == SSLEngineResult.HandshakeStatus.NOT_HANDSHAKING && src.remaining() > 0 && r.bytesConsumed() > 0))); //has more data to decrypt
 
-        checkSSLEngineResult(e, c, r);
+        checkSSLEngineResult(c, r);
 
         if (r.getStatus() != SSLEngineResult.Status.OK) throw new IOException("Status not ok: "+r.getStatus()+"!");
         if (r.getHandshakeStatus() == SSLEngineResult.HandshakeStatus.NEED_WRAP) {
@@ -154,7 +156,7 @@ public class SSLCryptoLayer extends BufferedCryptoLayer {
         }
     }
 
-    private void checkSSLEngineResult(SSLEngine e, final Connection c, SSLEngineResult r) throws IOException {
+    private void checkSSLEngineResult(final Connection c, SSLEngineResult r) throws IOException {
         if (r.getHandshakeStatus() == SSLEngineResult.HandshakeStatus.NEED_TASK) {
             throw new IOException("Task should not be needed here.");
         } else if (r.getHandshakeStatus() == SSLEngineResult.HandshakeStatus.NEED_UNWRAP) {
@@ -186,7 +188,7 @@ public class SSLCryptoLayer extends BufferedCryptoLayer {
     private SSLEngine setupSLLEngine(Connection c) throws SSLException {
         SSLEngine e = sslContext.createSSLEngine();
 
-        e.setEnabledCipherSuites(new String[] {CHIPHER_SUITE});
+        e.setEnabledCipherSuites(ALLOWED_CHIPHER_SUITES);
         e.setUseClientMode(c.getDirection() == Connection.Direction.OUT);
         e.beginHandshake();
         return e;

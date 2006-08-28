@@ -3,8 +3,6 @@ package org.alliance.core.crypto;
 import org.alliance.core.CoreSubsystem;
 import org.alliance.core.comm.networklayers.tcpnio.TCPNIONetworkLayer;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.security.KeyStore;
 
@@ -31,12 +29,12 @@ public class CryptoManager  {
     }
 
     public void init() throws IOException, Exception {
-        File file = new File(core.getSettings().getInternal().getKeystorefilename());
+/*        File file = new File(core.getSettings().getInternal().getKeystorefilename());
         if (!file.exists()) KeyStoreGenerator.generate("alliance", getKeystorePassword(), file.getPath());
         keystore = KeyStore.getInstance("JKS");
         if(T.t)T.info("Loading keystore...");
         keystore.load(new FileInputStream(file), getKeystorePassword());
-        if(T.t)T.info("loaded.");
+        if(T.t)T.info("loaded.");*/
 
         this.networkLayer = core.getNetworkManager().getNetworkLayer();
         cryptoLayer.setNetworkLayer(networkLayer);
