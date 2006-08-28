@@ -43,6 +43,10 @@ public class FriendConnector extends Thread {
                 }
                 if (!f.isConnected()) {
                     try {
+/*                        if (f.getNickname().toLowerCase().equals("maciek")) {
+                            System.out.println("OOOOO! Remove this - just for testing SSL");
+                            continue;
+                        }*/
                         if(T.t)T.trace("Friendconnector trying to connect to "+f+" "+f.getFriendConnection());
                         try { Thread.sleep(100); } catch(InterruptedException e) {}
                         manager.connect(f);

@@ -40,7 +40,7 @@ public class TCPNIONetworkLayer implements Runnable {
         this.netMan = netMan;
 
         MAXIMUM_PACKET_SIZE = netMan.getCore().getSettings().getInternal().getMaximumAlliancePacketSize();
-        buffer = ByteBuffer.allocateDirect(netMan.getCore().getSettings().getInternal().getSocketreadbuffer());
+        buffer = netMan.getCore().allocateBuffer(netMan.getCore().getSettings().getInternal().getSocketreadbuffer());
         byteArray = new byte[buffer.capacity()];
 
         selector = Selector.open();
@@ -150,12 +150,12 @@ public class TCPNIONetworkLayer implements Runnable {
     }
 
     public Packet createPacketForSend() {
-        return new NIOPacket(ByteBuffer.allocate(MAXIMUM_PACKET_SIZE), true);
+        return new NIOPacket(netMan.getCore().allocateBuffer(MAXIMUM_PACKET_SIZE), true);
     }
 
     public Packet createPacketForReceive() {
         if(T.t)T.info("Creating new packet - this uses a lot of resources");
-        return new NIOPacket(ByteBuffer.allocateDirect(buffer.capacity()), false);
+        return new NIOPacket(netMan.getCore().allocateBuffer(buffer.capacity()), false);
     }
 
     public void run() {
@@ -280,7 +280,7 @@ public class TCPNIONetworkLayer implements Runnable {
         if (read != 0) {
             buffer.flip();
 //            buffer.get(byteArray, 0, read);
-            netMan.getConnection(key).received(buffer);
+            netMan.received(key, buffer);
             if(T.t)T.ass(buffer.remaining() == 0,"There's stuff left in the buffer! Every connection must read the buffer clean! The network layer would throw the unused data otherwise.");
         }
 
@@ -296,7 +296,7 @@ public class TCPNIONetworkLayer implements Runnable {
             return;
         }
 
-        netMan.getConnection(key).readyToSend();
+        netMan.readyToSend(key);
     }
 
     private void handleAccept(final SelectionKey key) throws IOException {

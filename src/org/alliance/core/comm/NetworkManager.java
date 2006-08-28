@@ -4,11 +4,13 @@ import org.alliance.core.CoreSubsystem;
 import static org.alliance.core.CoreSubsystem.KB;
 import org.alliance.core.Manager;
 import org.alliance.core.comm.filetransfers.DownloadManager;
+import org.alliance.core.comm.networklayers.tcpnio.NIOPacket;
 import org.alliance.core.comm.networklayers.tcpnio.TCPNIONetworkLayer;
 import org.alliance.core.comm.rpc.PersistantRPC;
 import org.alliance.core.comm.rpc.Ping;
 import org.alliance.core.comm.rpc.Search;
 import org.alliance.core.comm.throttling.BandwidthThrottle;
+import org.alliance.core.crypto.CryptoLayer;
 import org.alliance.core.file.filedatabase.FileType;
 import org.alliance.core.node.Friend;
 import org.alliance.core.node.FriendManager;
@@ -21,6 +23,7 @@ import java.io.ObjectOutputStream;
 import java.net.ConnectException;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.nio.ByteBuffer;
 import java.util.*;
 
 /**
@@ -31,11 +34,13 @@ import java.util.*;
  * To change this template use File | Settings | File Templates.
  */
 public class NetworkManager extends Manager {
-    public static final boolean DIRECTLY_CALL_READYTOSEND = true; //setting fale here produces wierd results 
+    public static final boolean DIRECTLY_CALL_READYTOSEND = true; //setting fale here produces wierd results - not sure anymore now that encryption is implemented - anyway. It seems to be working well with this flag on.
+
     private int serverPort;
     private boolean alive = true;
 
     private TCPNIONetworkLayer networkLayer;
+    private CryptoLayer cryptoLayer;
     private FriendManager friendManager;
     private CoreSubsystem core;
     private DownloadManager downloadManager;
@@ -69,6 +74,7 @@ public class NetworkManager extends Manager {
         this.serverPort = p;
 
         networkLayer = new TCPNIONetworkLayer(this);
+        cryptoLayer = core.getCryptoManager().getCryptoLayer();
         downloadManager = new DownloadManager(friendManager.getCore());
         router = new Router(friendManager);
         bandwidthIn = new BandwidthAnalyzer(BandwidthAnalyzer.OUTER_INTERVAL, settings.getInternal().getRecordinspeed());
@@ -208,6 +214,41 @@ public class NetworkManager extends Manager {
         return serverPort;
     }
 
+    /* **** methods below are part of interface between Connection classes and the network layer ***** */
+    public int send(Connection c, Packet p) throws IOException {
+        if (!(p instanceof NIOPacket)) throw new IOException("Internal error: unknown type of packet: "+p.getClass().getName());
+        return cryptoLayer.send(c, ((NIOPacket)p).getBuffer());
+    }
+
+    public int send(Connection c, ByteBuffer buf, int bytesToSend) throws IOException {
+        int orig = buf.limit();
+        int newPos = buf.position()+bytesToSend;
+        if (newPos < buf.limit()) buf.limit(newPos);
+
+        int wrote = cryptoLayer.send(c, buf);
+
+        buf.limit(orig);
+        return wrote;
+    }
+
+    public void received(Object key, ByteBuffer buffer) throws IOException {
+        cryptoLayer.received(getConnection(key), buffer);
+    }
+
+    public void readyToSend(Object key) throws IOException {
+        cryptoLayer.readyToSend(getConnection(key));
+    }
+
+    public void signalInterestToSend(final Connection c) throws IOException {
+        cryptoLayer.signalInterestToSend(c);
+            }
+
+    public void noInterestToSend(final Connection c) {
+        cryptoLayer.noInterestToSend(c);
+    }
+    /* ************************************************************************************************* */
+
+
     public void sendToAllFriends(RPC rpc) throws IOException {
         ArrayList<Connection> al = new ArrayList<Connection>();
         for(Connection c : connections.values()) al.add(c);
@@ -257,32 +298,6 @@ public class NetworkManager extends Manager {
 
     public TCPNIONetworkLayer getNetworkLayer() {
         return networkLayer;
-    }
-
-    public void signalInterestToSend(final Connection c) throws IOException {
-        if (c.hasWriteInterest()) {
-        } else {
-            networkLayer.invokeLater(new Runnable() {
-                public void run() {
-//                    if(T.t)T.trace("Interested in sending data");   can't trace this because it's called 10 times a sec when throttling @todo: check that throttling doesn't use exessive cpu
-                    networkLayer.addInterestForWrite(c.getKey());
-                    c.setHasWriteInterest(true);
-                }
-            });
-        }
-    }
-
-    public void noInterestToSend(final Connection c) {
-        if (!c.hasWriteInterest()) {
-        } else {
-            networkLayer.invokeLater(new Runnable() {
-                public void run() {
-//                    if(T.t)T.trace("No longer Interested in sending data");
-                    networkLayer.removeInterestForWrite(c.getKey());
-                    c.setHasWriteInterest(false);
-                }
-            });
-        }
     }
 
     public void invokeLater(Runnable runnable) {

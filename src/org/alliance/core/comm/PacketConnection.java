@@ -57,7 +57,7 @@ public abstract class PacketConnection extends Connection {
             }
             if(T.t)T.ass(packetCurrentlyInSending != null, "Internal error! Packet is null!");
 
-            int r = netMan.getNetworkLayer().send(getKey(), packetCurrentlyInSending);
+            int r = netMan.send(this, packetCurrentlyInSending);
             if (r == -1) throw new IOException("Connection ended");
             if (r == 0) {
                 netMan.signalInterestToSend(this);

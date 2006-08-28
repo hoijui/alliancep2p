@@ -29,10 +29,12 @@ public class Internal extends SettingClass {
     private String corestatefile = "core.dat";
     private String downloadfolder = CURRENT_DIRECTORY+"downloads";
     private String cachefolder = CURRENT_DIRECTORY+"cache";
+    private String keystorefilename = CURRENT_DIRECTORY+"me.ks";
     private Integer maxdownloadconnections=5;
     private Integer recordoutspeed=0, recordinspeed=0;
     private Integer connectionkeepaliveinterval=60;
     private Integer numberofblockstopipeline=2;
+    private Integer usedirectbuffers=0; // Should direct nio buffers be used? 0=no 1=yes
 
     private Integer daysnotconnectedwhenold=7*2; //after three weeks of disconnection from a friend hes concidered old
 
@@ -309,5 +311,21 @@ public class Internal extends SettingClass {
 
     public void setDaysnotconnectedwhenold(Integer daysnotconnectedwhenold) {
         this.daysnotconnectedwhenold = daysnotconnectedwhenold;
+    }
+
+    public String getKeystorefilename() {
+        return keystorefilename;
+    }
+
+    public void setKeystorefilename(String keystorefilename) {
+        this.keystorefilename = keystorefilename;
+    }
+
+    public Integer getUsedirectbuffers() {
+        return usedirectbuffers;
+    }
+
+    public void setUsedirectbuffers(Integer usedirectbuffers) {
+        this.usedirectbuffers = usedirectbuffers;
     }
 }

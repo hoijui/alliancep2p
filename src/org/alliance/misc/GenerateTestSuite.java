@@ -177,6 +177,7 @@ public class GenerateTestSuite {
         s.getInternal().setDownloadfolder(path+"downloads");
         s.getInternal().setDownloadquefile(path+"downloads.dat");
         s.getInternal().setCorestatefile(path+"core.dat");
+        s.getInternal().setKeystorefilename(path+"me.ks");
         s.addShare(getRandomShare());
         s.addShare(new Share("c:/dummy"));
         return s;

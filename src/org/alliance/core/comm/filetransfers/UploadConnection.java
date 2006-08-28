@@ -24,7 +24,7 @@ public class UploadConnection extends TransferConnection {
 
     public UploadConnection(NetworkManager netMan, Object key, Direction direction, int userGUID) {
         super(netMan, key, direction, userGUID);
-        buffer = ByteBuffer.allocateDirect(netMan.getCore().getSettings().getInternal().getSocketsendbuffer());
+        buffer = netMan.getCore().allocateBuffer(netMan.getCore().getSettings().getInternal().getSocketsendbuffer());
         setStatusString("Waiting for request...");
     }
 
@@ -113,7 +113,7 @@ public class UploadConnection extends TransferConnection {
                     break;
                 }
                 buffer.flip();
-                int r = netMan.getNetworkLayer().send(getKey(), buffer, toSend);
+                int r = netMan.send(this, buffer, toSend);
                 if (r == -1) throw new IOException("Connection ended");
                 netMan.getUploadThrottle().bytesProcessed(r);
                 buffer.compact();

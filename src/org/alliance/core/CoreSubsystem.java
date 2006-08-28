@@ -12,6 +12,7 @@ import org.alliance.Subsystem;
 import org.alliance.core.comm.NetworkManager;
 import org.alliance.core.comm.rpc.GetUserInfo;
 import org.alliance.core.comm.upnp.UPnPManager;
+import org.alliance.core.crypto.CryptoManager;
 import org.alliance.core.file.FileManager;
 import org.alliance.core.file.share.ShareManager;
 import org.alliance.core.interactions.NeedsToRestartBecauseOfUpgradeInteraction;
@@ -25,6 +26,7 @@ import org.w3c.dom.Document;
 
 import java.io.*;
 import java.net.SocketException;
+import java.nio.ByteBuffer;
 import java.nio.channels.ClosedChannelException;
 import java.nio.channels.UnresolvedAddressException;
 import java.util.ArrayList;
@@ -65,6 +67,7 @@ public class CoreSubsystem implements Subsystem {
     private NetworkManager networkManager;
     private InvitaitonManager invitaitonManager;
     private UPnPManager upnpManager;
+    private CryptoManager cryptoManager;
 
     private UICallback uiCallback = new NonWindowUICallback();
 
@@ -102,12 +105,14 @@ public class CoreSubsystem implements Subsystem {
 
         fileManager = new FileManager(this, settings);
         friendManager = new FriendManager(this, settings);
+        cryptoManager = new CryptoManager(this);
         networkManager = new NetworkManager(this, settings);
         invitaitonManager = new InvitaitonManager(this, settings);
         upnpManager = new UPnPManager(this);
 
         loadState();
 
+        cryptoManager.init();
         fileManager.init();
         friendManager.init();
         networkManager.init();
@@ -400,5 +405,17 @@ public class CoreSubsystem implements Subsystem {
 
     public List<NeedsUserInteraction> getAllUserInteractionsInQue() {
         return (List<NeedsUserInteraction>)userInternactionQue.clone();
+    }
+
+    public CryptoManager getCryptoManager() {
+        return cryptoManager;
+    }
+
+    public ByteBuffer allocateBuffer(int size) {
+        if (settings.getInternal().getUsedirectbuffers() > 0) {
+            return ByteBuffer.allocateDirect(size);
+        } else {
+            return ByteBuffer.allocate(size);
+        }
     }
 }
