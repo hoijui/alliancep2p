@@ -10,7 +10,7 @@
             <menu text="Debug">
                 <menuitem eventid="trace" mnemonic="t" accelerator="ctrl-t" text="Trace"/>
                 <menuitem eventid="console" mnemonic="d" accelerator="ctrl-d" text="Debug Console"/>
-                <menuitem eventid="connections" mnemonic="c" text="TCP/IP Connections"/>
+                <menuitem eventid="connections" mnemonic="c" accelerator="ctrl-p" text="TCP/IP Connections"/>
                 <menuitem eventid="friendtree" mnemonic="c" accelerator="ctrl-n"  text="Network Topology"/>
             </menu>
             <separator/>

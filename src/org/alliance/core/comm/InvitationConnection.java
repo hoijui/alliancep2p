@@ -80,31 +80,40 @@ public class InvitationConnection extends AuthenticatedConnection {
         send(p);
     }
 
+    private boolean friendInfoReceived = false;
     public void packetReceived(Packet p) throws IOException {
-        if(T.t)T.info("Received info of new friend!");
-        int guid = p.readInt();
-        String host = p.readUTF();
-        int port = p.readInt();
-        String name = p.readUTF();
+        if (friendInfoReceived) {
+            if(T.t)T.info("InvitationConnection complete - both side has agreed on closing connection - so lets close it");
+            close();
+        } else {
+            if(T.t)T.info("Received info of new friend!");
+            int guid = p.readInt();
+            String host = p.readUTF();
+            int port = p.readInt();
+            String name = p.readUTF();
 
-        org.alliance.core.settings.Friend newFriend = new org.alliance.core.settings.Friend(name, host, guid, port, middleman == null ? null : middleman.getGuid());
-        for(org.alliance.core.settings.Friend f : core.getSettings().getFriendlist()) if (f.getGuid() == guid) {
-            org.alliance.core.node.Friend friend = core.getFriendManager().getFriend(f.getGuid());
-            if (friend != null && !friend.isConnected()) {
-                friend.updateLastKnownHostInfo(host, port);
-                core.getFriendManager().getFriendConnector().wakeup();
+            org.alliance.core.settings.Friend newFriend = new org.alliance.core.settings.Friend(name, host, guid, port, middleman == null ? null : middleman.getGuid());
+            for(org.alliance.core.settings.Friend f : core.getSettings().getFriendlist()) if (f.getGuid() == guid) {
+                org.alliance.core.node.Friend friend = core.getFriendManager().getFriend(f.getGuid());
+                if (friend != null && !friend.isConnected()) {
+                    friend.updateLastKnownHostInfo(host, port);
+                    core.getFriendManager().getFriendConnector().wakeup();
+                }
+                core.queNeedsUserInteraction(new FriendAlreadyInListUserInteraction(newFriend.getGuid()));
+                return;
             }
-            core.queNeedsUserInteraction(new FriendAlreadyInListUserInteraction(newFriend.getGuid()));
-            return;
-        }
 
-        core.getSettings().getFriendlist().add(newFriend);
-        try {
-            core.saveSettings();
-            core.getFriendManager().addFriend(newFriend, true);
-            core.getFriendManager().runFriendConnectorIn((int)(Math.random()*1000+1000));
-        } catch(Exception e) {
-            core.reportError(e, this);
+            core.getSettings().getFriendlist().add(newFriend);
+            try {
+                core.saveSettings();
+                core.getFriendManager().addFriend(newFriend, true);
+                core.getFriendManager().runFriendConnectorIn((int)(Math.random()*1000+1000));
+            } catch(Exception e) {
+                core.reportError(e, this);
+            }
+
+            friendInfoReceived = true;
+            send(netMan.createPacketForSend()); //send an empty packet to trigger packetReceived on other end again.
         }
     }
 

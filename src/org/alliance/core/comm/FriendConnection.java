@@ -15,6 +15,7 @@ import java.io.IOException;
  */
 public class FriendConnection extends AuthenticatedConnection {
     public static final int CONNECTION_ID=1;
+    private int rpcsSent, rpcsReceived;
 
     public FriendConnection(NetworkManager netMan, Direction direction, int userGUID) {
         super(netMan, direction, userGUID);
@@ -59,7 +60,18 @@ public class FriendConnection extends AuthenticatedConnection {
             }
             rpc.init(this, fromGuid, hops);
             rpc.execute(packet);
+            signalReceived(rpc);
         }
+    }
+
+    private void signalReceived(RPC rpc) {
+        rpcsReceived++;
+        setStatusString("s:"+rpcsSent+" r: "+rpcsReceived+" (last: <-"+rpc+")");
+    }
+
+    private void signalSent(RPC rpc) {
+        rpcsSent++;
+        setStatusString("s:"+rpcsSent+" r: "+rpcsReceived+" (last: ->"+rpc+")");
     }
 
     protected int getConnectionId() {
@@ -68,6 +80,7 @@ public class FriendConnection extends AuthenticatedConnection {
 
     public void send(RPC rpc) throws IOException {
         send(getRemoteUserGUID(), rpc);
+        signalSent(rpc);
     }
 
     public void send(int dstGuid, RPC rpc) throws IOException {

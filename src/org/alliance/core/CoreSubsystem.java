@@ -380,7 +380,7 @@ public class CoreSubsystem implements Subsystem {
             if(T.t)T.trace("GUL counter: "+GULCounter);
             if (GULCounter > 300) {
                 try {
-                    new ErrorDialog(new Exception("UserList flood detected: "+GULCounter+"! <b>If this error reoccurs then please restart alliance.</b> Please send this error report to us."), false);
+                    new ErrorDialog(new Exception("UserList flood detected: "+GULCounter+"! <b>This is a fatal error. You need to restart Alliance.</b> Please send this error report by pressing 'send error'."), true);
                 } catch(XUIException e) {
                     e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                 }

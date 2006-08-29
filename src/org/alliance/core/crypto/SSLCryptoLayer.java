@@ -66,7 +66,7 @@ public class SSLCryptoLayer extends BufferedCryptoLayer {
     public int encrypt(Connection c, ByteBuffer src, ByteBuffer dst) throws IOException {
         if(T.t)T.debug("Encrypt");
         SSLEngine e = getContext(c).engine;
-
+        
         SSLEngineResult r;
         int read = 0;
         do {

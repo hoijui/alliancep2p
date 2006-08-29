@@ -480,7 +480,6 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
                 String name = ui.getCore().getFriendManager().nickname(i.getGuid());
                 if (lastAddFriendWizard != null) lastAddFriendWizard.connectionWasSuccessful();
 
-                System.out.println("ok. we're done. :"+ui.getCore().doesInterationQueContain(ForwardedInvitationInteraction.class));
                 if (ui.getCore().doesInterationQueContain(ForwardedInvitationInteraction.class)) {
                     if (lastAddFriendWizard != null) lastAddFriendWizard.getOuterDialog().dispose();
                     OptionDialog.showInformationDialog(this, "You have successfully connected to "+name+"!");

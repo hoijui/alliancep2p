@@ -92,7 +92,7 @@ public abstract class Connection {
     public void close() throws IOException {
         connected = false;
         netMan.closed(this);
-//        netMan.getSocketFor(this).close();
+        netMan.getSocketFor(this).close();
     }
 
     public long getBytesSent() {
