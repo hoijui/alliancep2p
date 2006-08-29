@@ -20,8 +20,7 @@ public class CryptoManager  {
     private KeyStore keystore;
 
     public CryptoManager(CoreSubsystem core) throws Exception {
-        this.cryptoLayer = new SSLCryptoLayer(core);
-//        this.cryptoLayer = new NoEncryptionCryptoLayer(core);
+        this.cryptoLayer = core.getSettings().getInternal().getEncryption() > 0 ? new SSLCryptoLayer(core) : new NoEncryptionCryptoLayer(core);
         this.core = core;
     }
 
