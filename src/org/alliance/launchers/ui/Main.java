@@ -26,23 +26,16 @@ public class Main {
     public static void main(String[] args) throws Exception {
         System.out.println("Launching Alliance v"+ Version.VERSION+" build "+Version.BUILD_NUMBER);
 
-        checkIfAlreadyRunning();
+        boolean allowMultipleInstances = argsContain(args, "/allowMultipleInstances");
+        boolean runMinimized = argsContain(args, "/min");
 
-        boolean runMinimized = args.length > 0 && "/min".equalsIgnoreCase(args[0]);
+        if (!allowMultipleInstances) checkIfAlreadyRunning();
 
         Runnable r = null;
         if (!runMinimized) r = (Runnable)Class.forName("org.alliance.launchers.SplashWindow").newInstance();
 
-//        if (T.t) {
-//            try {
-//                Class.forName("com.stendahls.trace.TraceWindow").newInstance();
-//            } catch(Exception e) {
-//                System.err.println("Could not open trace window: "+e);
-//            }
-//        }
-
         String s = "settings.xml";
-        for(int i=0;i<args.length;i++) if (!"/min".equals(args[i])) s = args[i];
+        for(int i=0;i<args.length;i++) if (!args[i].startsWith("/")) s = args[i];
         Subsystem core = initCore(s);
 
         if (OSInfo.supportsTrayIcon()) {
@@ -53,11 +46,16 @@ public class Main {
                 if (r != null) r.run(); //close splashwindow
             }
 
-            startStartSignalThread(tray);
+            if (!allowMultipleInstances) startStartSignalThread(tray);
         } else {
             initUI(core);
             if (r != null) r.run();
         }
+    }
+
+    private static boolean argsContain(String[] args, String pattern) {
+        if (args != null) for(String s : args) if (pattern.equalsIgnoreCase(s)) return true;
+        return false;
     }
 
     private static void checkIfAlreadyRunning() {

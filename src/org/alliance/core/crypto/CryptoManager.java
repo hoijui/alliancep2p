@@ -21,6 +21,7 @@ public class CryptoManager  {
 
     public CryptoManager(CoreSubsystem core) throws Exception {
         this.cryptoLayer = new SSLCryptoLayer(core);
+//        this.cryptoLayer = new NoEncryptionCryptoLayer(core);
         this.core = core;
     }
 

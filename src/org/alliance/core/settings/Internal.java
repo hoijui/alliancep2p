@@ -34,7 +34,7 @@ public class Internal extends SettingClass {
     private Integer recordoutspeed=0, recordinspeed=0;
     private Integer connectionkeepaliveinterval=60;
     private Integer numberofblockstopipeline=2;
-    private Integer usedirectbuffers=0; // Should direct nio buffers be used? 0=no 1=yes
+    private Integer usedirectbuffers=1; // Should direct nio buffers be used? 0=no 1=yes
 
     private Integer daysnotconnectedwhenold=7*2; //after three weeks of disconnection from a friend hes concidered old
 
@@ -43,7 +43,7 @@ public class Internal extends SettingClass {
     private Integer minimumtimebetweeninvitations = 60*24*2; //in minutes
 
     /** Used to be polite when running on XP sp2 wich only allows 10 pending tcp/ip connections
-     * before ståpping the network stack. Set to 8 to be on the safe side. */
+     * before stopping the network stack. Set to 8 to be on the safe side. */
     private Integer maxpendingconnections = 8;
 
     private Integer hashspeedinmbpersecond=10;

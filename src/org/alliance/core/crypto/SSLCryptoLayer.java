@@ -1,6 +1,7 @@
 package org.alliance.core.crypto;
 
 import org.alliance.core.CoreSubsystem;
+import static org.alliance.core.CoreSubsystem.KB;
 import org.alliance.core.comm.Connection;
 
 import javax.net.ssl.SSLContext;
@@ -16,8 +17,7 @@ import java.util.List;
 
 /**
  *
- *
- *
+ * Implementation of CryptoLayer for Alliance using the SSLEngine API. 
  *
  * Created by IntelliJ IDEA.
  * User: maciek
@@ -28,8 +28,11 @@ public class SSLCryptoLayer extends BufferedCryptoLayer {
     private SSLContext sslContext;
     private HashMap<Object, Context> contexts = new HashMap<Object, Context>();
 
-    private static final String INTERESTING_CHIPHER_SUITES[] = {"TLS_DH_anon_WITH_AES_256_CBC_SHA", "TLS_DH_anon_WITH_AES_128_CBC_SHA"};
+//    private static final String INTERESTING_CHIPHER_SUITES[] = {"TLS_DH_anon_WITH_AES_256_CBC_SHA", "TLS_DH_anon_WITH_AES_128_CBC_SHA"};
+    private static final String INTERESTING_CHIPHER_SUITES[] = {"TLS_DH_anon_WITH_AES_128_CBC_SHA"};
+
     private String ALLOWED_CHIPHER_SUITES[]; //generated at runtime
+    private static final int START_SIZE_OF_INCOMING_ENCRYPTED_DATA_BUFFER = 17*KB; //should calculate this from getPacketBufferSize in SSLEngine API
 
     private class Context {
         SSLEngine engine;
@@ -104,14 +107,13 @@ public class SSLCryptoLayer extends BufferedCryptoLayer {
         Context cx = getContext(c);
 
         if (cx.incomingEncryptedData != null) {
-            if(T.t)T.warn("Old, buffered, encryption data available - merge it with new data");
-            ByteBuffer old = cx.incomingEncryptedData;
-            ByteBuffer n3w = src;
-            src = ByteBuffer.allocate(old.remaining()+n3w.remaining());
-            src.put(old);
-            src.put(n3w);
+            if (cx.incomingEncryptedData.remaining() < src.remaining()) {
+                cx.incomingEncryptedData = expandBufferAndAppend(cx.incomingEncryptedData, src);
+            } else {
+                cx.incomingEncryptedData.put(src);
+            }
+            src = cx.incomingEncryptedData;
             src.flip();
-            cx.incomingEncryptedData = null;
         }
 
         SSLEngine e = cx.engine;
@@ -122,21 +124,19 @@ public class SSLCryptoLayer extends BufferedCryptoLayer {
             if(T.t)T.trace("Left in src buffer: "+src.remaining());
 
             if (r.getStatus() == SSLEngineResult.Status.BUFFER_UNDERFLOW) {
-                if(T.t)T.trace("SLLEngine reported BUFFER_UNDERFLOW - buffer the data and wait for more");
-                ByteBuffer b = cx.incomingEncryptedData;
-                if (b != null) {
-                    if(T.t)T.warn("Appending new buffer with old one");
-                    ByteBuffer old = b;
-                    b = ByteBuffer.allocate(src.remaining()+b.position());
-                    b.put(old);
-                    b.put(src);
-                } else {
-                    if(T.t)T.warn("Creating new buffer");
-                    b = ByteBuffer.allocate(src.remaining());
-                    b.put(src);
+                if (cx.incomingEncryptedData == null) {
+                    if(T.t)T.warn("Creating new incoming data buffer");
+                    cx.incomingEncryptedData = ByteBuffer.allocate(src.remaining() > START_SIZE_OF_INCOMING_ENCRYPTED_DATA_BUFFER ? src.remaining() : START_SIZE_OF_INCOMING_ENCRYPTED_DATA_BUFFER);
                 }
-                b.flip();
-                cx.incomingEncryptedData = b;
+                if (cx.incomingEncryptedData != src) {
+                    if (cx.incomingEncryptedData.remaining() >= src.remaining()) {
+                        cx.incomingEncryptedData.put(src);
+                    } else {
+                        cx.incomingEncryptedData = expandBufferAndAppend(cx.incomingEncryptedData, src);
+                    }
+                } else {
+                    src.compact();
+                }
                 //nothing more to do. Wait for more data and then try to call unwrap again.
                 return;
             }
@@ -156,6 +156,11 @@ public class SSLCryptoLayer extends BufferedCryptoLayer {
                 ((r.getHandshakeStatus() == SSLEngineResult.HandshakeStatus.NEED_UNWRAP && r.bytesProduced() == 0) || //wants to unwrap more data
                         ( r.getHandshakeStatus() == SSLEngineResult.HandshakeStatus.NOT_HANDSHAKING && src.remaining() > 0 && r.bytesConsumed() > 0))); //has more data to decrypt
 
+        if (src == cx.incomingEncryptedData) {
+            if(T.t)T.ass(src.remaining() == 0, "unwrap did not read all data!");
+            src.clear(); //our buffer has been read and is ready for filling again (if necessary)
+        }
+
         checkSSLEngineResult(c, r);
 
         if (r.getStatus() != SSLEngineResult.Status.OK) throw new IOException("Status not ok: "+r.getStatus()+"!");
@@ -163,6 +168,16 @@ public class SSLCryptoLayer extends BufferedCryptoLayer {
             if(T.t)T.debug("Hmm. SSLEngine needs wrap in decrypt. This is a bit tricky.");
             send(c, ByteBuffer.allocate(0)); //bit shady but should be a safe way to call wrap in a controlled manner
         }
+    }
+
+    private ByteBuffer expandBufferAndAppend(ByteBuffer bufferToExpand, ByteBuffer bufferToAppend) {
+        if(T.t)T.warn("Need to expand buffer. Capacity before: "+bufferToExpand.capacity()+" remaining: "+bufferToExpand.remaining()+", need to add: "+bufferToAppend.remaining());
+        ByteBuffer old = bufferToExpand;
+        old.flip();
+        bufferToExpand = ByteBuffer.allocate(old.remaining()+bufferToAppend.remaining()+START_SIZE_OF_INCOMING_ENCRYPTED_DATA_BUFFER);
+        bufferToExpand.put(old);
+        bufferToExpand.put(bufferToAppend);
+        return bufferToExpand;
     }
 
     private void checkSSLEngineResult(final Connection c, SSLEngineResult r) throws IOException {

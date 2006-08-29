@@ -115,7 +115,7 @@
                 <!--</mlabel>-->
 
                 <mlabel html="yes">
-                    Here is a list of new connections found:
+                    Below is a list of new people found in your network:
                     [p]
                 </mlabel>
                 <scrollpanel bordertype="lowered" height="200" id="scrollpanel">
@@ -126,7 +126,7 @@
                 </panel>
                 <mlabel html="yes">
                     [p]
-                    Select the connections you are interested in and click next.
+                    Select the people you want to connect to and click next.
                     [p]
                 </mlabel>
             </step>

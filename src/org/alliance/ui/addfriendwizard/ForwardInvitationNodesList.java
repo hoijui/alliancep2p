@@ -1,6 +1,5 @@
 package org.alliance.ui.addfriendwizard;
 
-import com.stendahls.nif.ui.OptionDialog;
 import org.alliance.core.node.Friend;
 import org.alliance.core.node.UntrustedNode;
 import org.alliance.ui.UISubsystem;
@@ -11,7 +10,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Comparator;
 import java.util.TreeSet;
-import java.util.Collections;
 
 /**
  * Created by IntelliJ IDEA.
@@ -117,8 +115,8 @@ public class ForwardInvitationNodesList extends JList {
                     addElement(new ListRow(ui.getCore().getFriendManager().nickname(guid), createConnectedThroughList(guid), guid));
             }
 
-            if (getSize() == 0)
-                OptionDialog.showInformationDialog(ui.getMainWindow(), "No new connections where found for you to connect to.");
+//            if (getSize() == 0)
+//                OptionDialog.showInformationDialog(ui.getMainWindow(), "No new connections where found for you to connect to.");
         }
 
         private String createConnectedThroughList(int guid) {

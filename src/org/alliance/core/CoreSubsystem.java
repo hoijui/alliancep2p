@@ -295,7 +295,6 @@ public class CoreSubsystem implements Subsystem {
     }
 
     public void restartProgram(boolean openWithUI) throws IOException {
-        System.out.println("oj");
         shutdown();
 
         Main.stopStartSignalThread(); //such a fucking hack. When we run using the normal UI we need to signal the launcher that he needs to stop this startsignalthread
@@ -341,10 +340,6 @@ public class CoreSubsystem implements Subsystem {
     }
 
     public NeedsUserInteraction peekUserInteraction() {
-        System.out.println(userInternactionQue.size()+" interaction in que: ");
-        for(NeedsUserInteraction u : userInternactionQue) {
-            System.out.println("  "+u+" "+u.getClass().getName());
-        }
         if (userInternactionQue.size() > 0) {
             return userInternactionQue.get(0);
         }
@@ -356,7 +351,6 @@ public class CoreSubsystem implements Subsystem {
     }
 
     public boolean doesInterationQueContain(Class<? extends NeedsUserInteraction> c) {
-        System.out.println("que size "+userInternactionQue.size());
         for(NeedsUserInteraction u : userInternactionQue) {
             if (u.getClass().equals(c)) return true;
         }

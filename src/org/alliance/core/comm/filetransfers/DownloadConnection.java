@@ -2,7 +2,6 @@ package org.alliance.core.comm.filetransfers;
 
 import org.alliance.core.comm.NetworkManager;
 import org.alliance.core.comm.Packet;
-import org.alliance.core.comm.T;
 import org.alliance.core.file.hash.Hash;
 
 import java.io.IOException;
