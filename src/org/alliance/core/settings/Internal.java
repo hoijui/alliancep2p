@@ -36,6 +36,8 @@ public class Internal extends SettingClass {
     private Integer numberofblockstopipeline=2;
     private Integer usedirectbuffers=1; // Should direct nio buffers be used? 0=no 1=yes
 
+    private String chipersuite=""; //user defined chipher suite, none by default
+
     private Integer encryption=1;
 
     private Integer daysnotconnectedwhenold=7*2; //after three weeks of disconnection from a friend hes concidered old
@@ -337,5 +339,13 @@ public class Internal extends SettingClass {
 
     public void setEncryption(Integer encryption) {
         this.encryption = encryption;
+    }
+
+    public String getChiphersuite() {
+        return chipersuite;
+    }
+
+    public void setChipersuite(String chipersuite) {
+        this.chipersuite = chipersuite;
     }
 }

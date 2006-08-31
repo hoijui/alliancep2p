@@ -103,6 +103,11 @@ public final class BlockFile {
         return blockOffsets[blockNumber] != -1;
     }
 
+    public void blockCorrupted(int blockNumber) {
+        if(T.t)T.info("Block was downloaded but appears to be corrupt - marking as corrupt.");
+        blockOffsets[blockNumber] = -1;
+    }
+
     public boolean isComplete() {
         for(int i=0;i<getNumberOfBlocks();i++) {
             if (!blockMask.get(i)) {

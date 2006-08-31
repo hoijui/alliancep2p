@@ -162,13 +162,14 @@ public abstract class BlockStorage extends Thread {
                 bf.save();
             }
 
-            if (T.t) { //@todo: måste verkligen kolla nånstans. kan inte vara T.t på alla ställen
-                //verify that hash is correct on disk.
-                Hash h = bf.calculateHash(blockNumber);
-                if(T.t)T.ass(h.equals(bf.getFd().getSubHash(blockNumber)),"Tiger hash incorrect for block "+blockNumber+" when saved to disk!!!");
-            }
-
-            if (bf.isComplete()) {
+            //@todo: this is a stupid way of verifying hash - should do it while downloading
+            //verify that hash is correct on disk.
+            Hash h = bf.calculateHash(blockNumber);
+            if (!h.equals(bf.getFd().getSubHash(blockNumber))) {
+                bf.blockCorrupted(blockNumber);
+                core.getUICallback().statusMessage("Part of file corrupted while downloading!! Retrying...");
+                if(T.t)T.error("Tiger hash incorrect for block "+blockNumber+" when saved to disk!!!");
+            } else if (bf.isComplete()) {
                 if(T.t)T.info("Download complete!");
                 bf.save();
                 String dir = completeFilePath.toString();

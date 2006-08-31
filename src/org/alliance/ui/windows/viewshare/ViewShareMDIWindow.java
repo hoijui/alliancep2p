@@ -65,16 +65,18 @@ public class ViewShareMDIWindow extends AllianceMDIWindow {
             private void maybeShowPopup(MouseEvent e) {
                 if (e.isPopupTrigger()) {
                     TreePath underMouse = tree.getPathForLocation(e.getPoint().x, e.getPoint().y);
-                    ViewShareTreeNode n = (ViewShareTreeNode)underMouse.getLastPathComponent();
-                    boolean mouseClickedOnASelectedNode = false;
-                    if (tree.getSelectionPaths() != null) for(TreePath p : tree.getSelectionPaths()) {
-                        if (p.getLastPathComponent() == n) {
-                            mouseClickedOnASelectedNode = true;
-                            break;
+                    if (underMouse != null) {
+                        ViewShareTreeNode n = (ViewShareTreeNode)underMouse.getLastPathComponent();
+                        boolean mouseClickedOnASelectedNode = false;
+                        if (tree.getSelectionPaths() != null) for(TreePath p : tree.getSelectionPaths()) {
+                            if (p.getLastPathComponent() == n) {
+                                mouseClickedOnASelectedNode = true;
+                                break;
+                            }
                         }
+                        if (!mouseClickedOnASelectedNode) tree.setSelectionPath(underMouse);
+                        popup.show(e.getComponent(), e.getX(), e.getY());
                     }
-                    if (!mouseClickedOnASelectedNode) tree.setSelectionPath(underMouse);
-                    popup.show(e.getComponent(), e.getX(), e.getY());
                 }
             }
         });

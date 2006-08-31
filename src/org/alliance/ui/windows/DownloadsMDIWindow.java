@@ -62,7 +62,10 @@ public class DownloadsMDIWindow extends AllianceMDIWindow {
                             final String s;
                             for(DownloadConnection c : w.download.connections()) {
                                 if (text == null) text = "Downloading from ";
-                                text += c.getRemoteFriend().getNickname()+", ";
+                                if (c.getRemoteFriend() != null)
+                                    text += c.getRemoteFriend().getNickname()+", ";
+                                else
+                                    text += "<unknown>, ";
                             }
                             if (text != null) {
                                 text = text.substring(0,text.length()-2);

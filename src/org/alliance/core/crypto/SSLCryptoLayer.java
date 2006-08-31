@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  *
- * Implementation of CryptoLayer for Alliance using the SSLEngine API. 
+ * Implementation of CryptoLayer for Alliance using the SSLEngine API.
  *
  * Created by IntelliJ IDEA.
  * User: maciek
@@ -55,6 +55,15 @@ public class SSLCryptoLayer extends BufferedCryptoLayer {
 
         List<String> supportedChipherSuites = Arrays.asList(sslContext.createSSLEngine().getSupportedCipherSuites());
         ArrayList<String> allowedChipherSuites = new ArrayList<String>();
+        if (core.getSettings().getInternal().getChiphersuite() != null && core.getSettings().getInternal().getChiphersuite().trim().length() > 0) {
+            if (supportedChipherSuites.contains(core.getSettings().getInternal().getChiphersuite())) {
+                if(T.t)T.debug("Supported user defined chipher suite: "+core.getSettings().getInternal().getChiphersuite());
+                allowedChipherSuites.add(core.getSettings().getInternal().getChiphersuite());
+            } else {
+                if(T.t)T.debug("User defined chipher suite not supported by java runtime: "+core.getSettings().getInternal().getChiphersuite());
+            }
+        }
+
         for(String s : INTERESTING_CHIPHER_SUITES) if (supportedChipherSuites.contains(s)) {
             if(T.t)T.debug("Supported chipher suite: "+s);
             allowedChipherSuites.add(s);
@@ -66,7 +75,7 @@ public class SSLCryptoLayer extends BufferedCryptoLayer {
     public int encrypt(Connection c, ByteBuffer src, ByteBuffer dst) throws IOException {
         if(T.t)T.debug("Encrypt");
         SSLEngine e = getContext(c).engine;
-        
+
         SSLEngineResult r;
         int read = 0;
         do {
