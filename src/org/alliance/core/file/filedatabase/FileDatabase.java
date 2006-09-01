@@ -262,8 +262,10 @@ public class FileDatabase {
         FileDescriptor fd[] = search(path, 500, FileType.EVERYTHING);
         ArrayList<FileDescriptor> al = new ArrayList<FileDescriptor>();
         for(FileDescriptor f : fd) {
-            System.out.println("found: "+f.getFullPath()+" - "+path);
-            if (f.getFullPath().startsWith(path)) al.add(f);
+            if (f != null) {
+                if(T.t)T.trace("found: "+f.getFullPath()+" - "+path);
+                if (f.getFullPath().startsWith(path)) al.add(f);
+            }
         }
         return al;
     }

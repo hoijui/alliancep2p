@@ -87,6 +87,7 @@ public class InvitationConnection extends AuthenticatedConnection {
             close();
         } else {
             if(T.t)T.info("Received info of new friend!");
+            friendInfoReceived = true;
             int guid = p.readInt();
             String host = p.readUTF();
             int port = p.readInt();
@@ -112,7 +113,6 @@ public class InvitationConnection extends AuthenticatedConnection {
                 core.reportError(e, this);
             }
 
-            friendInfoReceived = true;
             send(netMan.createPacketForSend()); //send an empty packet to trigger packetReceived on other end again.
         }
     }

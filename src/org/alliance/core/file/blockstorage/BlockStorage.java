@@ -155,13 +155,6 @@ public abstract class BlockStorage extends Thread {
             if(T.t)T.ass(sliceOffset+r <= BlockFile.getBlockSize(blockNumber, fd.getSize()), "Writing outside of block!!!");
             if(T.t)T.debug("Block complete for "+fd.getRootHash());
 
-            bf.blockCompleted(blockNumber);
-            blocksCompletedCounter++;
-            if (blocksCompletedCounter > SAVE_INTERVAL_IN_BLOCKS_COMPLETED) {
-                blocksCompletedCounter = 0;
-                bf.save();
-            }
-
             //@todo: this is a stupid way of verifying hash - should do it while downloading
             //verify that hash is correct on disk.
             Hash h = bf.calculateHash(blockNumber);
@@ -170,6 +163,13 @@ public abstract class BlockStorage extends Thread {
                 core.getUICallback().statusMessage("Part of file corrupted while downloading!! Retrying...");
                 if(T.t)T.error("Tiger hash incorrect for block "+blockNumber+" when saved to disk!!!");
             } else if (bf.isComplete()) {
+                bf.blockCompleted(blockNumber);
+                blocksCompletedCounter++;
+                if (blocksCompletedCounter > SAVE_INTERVAL_IN_BLOCKS_COMPLETED) {
+                    blocksCompletedCounter = 0;
+                    bf.save();
+                }
+
                 if(T.t)T.info("Download complete!");
                 bf.save();
                 String dir = completeFilePath.toString();

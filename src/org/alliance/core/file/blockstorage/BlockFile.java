@@ -104,7 +104,7 @@ public final class BlockFile {
     }
 
     public void blockCorrupted(int blockNumber) {
-        if(T.t)T.info("Block was downloaded but appears to be corrupt - marking as corrupt.");
+        if(T.t)T.info("Block was downloaded but appears to be corrupt - marking as need to be downloaded.");
         blockOffsets[blockNumber] = -1;
     }
 

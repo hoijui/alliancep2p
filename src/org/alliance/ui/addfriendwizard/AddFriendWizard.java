@@ -203,7 +203,7 @@ public class AddFriendWizard extends JWizard {
                 goToEnterInvitation();
             }
         } else if (getStep() == STEP_FORWARD_INVITATIONS) {
-            forwardInvitationNodesList.forwardSelectedInvitations();
+            if (forwardInvitationNodesList != null) forwardInvitationNodesList.forwardSelectedInvitations();
             setStep(STEP_FORWARD_INVITATIONS_COMPLETE);
             next.setEnabled(false);
             cancel.setText("Finish");
