@@ -107,6 +107,7 @@ public class ViewShareMDIWindow extends AllianceMDIWindow {
     }
 
     public void EVENT_download(ActionEvent e) {
+        if (tree == null || tree.getSelectionPaths() == null) return;
         for(TreePath p : tree.getSelectionPaths()) {
             ViewShareTreeNode n = (ViewShareTreeNode)p.getLastPathComponent();
             if (!(n instanceof ViewShareFileNode)) {

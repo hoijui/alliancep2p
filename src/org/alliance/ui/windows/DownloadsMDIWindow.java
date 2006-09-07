@@ -57,6 +57,7 @@ public class DownloadsMDIWindow extends AllianceMDIWindow {
                 if (table.getSelectedRow() != -1) {
                     ui.getCore().invokeLater(new Runnable() {
                         public void run() {
+                            if (table.rowAtPoint(e.getPoint()) == -1) return;
                             DownloadWrapper w = rows.get(table.rowAtPoint(e.getPoint()));
                             String text = null;
                             final String s;

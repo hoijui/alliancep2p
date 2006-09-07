@@ -47,8 +47,11 @@ public class IsFriend extends RPC {
         } else {
             if (wantsToConnectToRemote.getFriendsFriend(con.getRemoteUserGUID()) != null &&
                 !wantsToConnectToRemote.getFriendsFriend(con.getRemoteUserGUID()).isConnected()) {
-                if(T.t)T.ass(wantsToConnectToRemote.getFriendConnection() != null, "What the heck! There's no connection!");
-                wantsToConnectToRemote.getFriendConnection().send(new ConnectionInfo(con.getRemoteFriend()));
+                if (wantsToConnectToRemote.getFriendConnection() == null) {
+                    if(T.t)T.warn("No connection for friend!");
+                } else {
+                    wantsToConnectToRemote.getFriendConnection().send(new ConnectionInfo(con.getRemoteFriend()));
+                }
             } else {
                 if(T.t)T.warn("Wanted to send connection info to remote but he already connected to connectee ("+wantsToConnectToRemote.getFriendsFriend(guid)+", "+guid+")");
             }

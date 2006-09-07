@@ -12,7 +12,7 @@ import java.util.Properties;
  * To change this template use File | Settings | File Templates.
  */
 public class Version {
-    public static final String VERSION="0.9.0.2";
+    public static final String VERSION="0.9.0.3";
     public static final int BUILD_NUMBER;
     public static final int PROTOCOL_VERSION = 2;
 

@@ -162,7 +162,7 @@ public abstract class BlockStorage extends Thread {
                 bf.blockCorrupted(blockNumber);
                 core.getUICallback().statusMessage("Part of file corrupted while downloading!! Retrying...");
                 if(T.t)T.error("Tiger hash incorrect for block "+blockNumber+" when saved to disk!!!");
-            } else if (bf.isComplete()) {
+            } else {
                 bf.blockCompleted(blockNumber);
                 blocksCompletedCounter++;
                 if (blocksCompletedCounter > SAVE_INTERVAL_IN_BLOCKS_COMPLETED) {
@@ -170,12 +170,14 @@ public abstract class BlockStorage extends Thread {
                     bf.save();
                 }
 
-                if(T.t)T.info("Download complete!");
-                bf.save();
-                String dir = completeFilePath.toString();
-                bf.getFd().setBasePath(dir);
-                recentlyDownloaded.add(root);
-                queForCompletion(bf);
+                if (bf.isComplete()) {
+                    if(T.t)T.info("Download complete!");
+                    bf.save();
+                    String dir = completeFilePath.toString();
+                    bf.getFd().setBasePath(dir);
+                    recentlyDownloaded.add(root);
+                    queForCompletion(bf);
+                }
             }
         }
         return r;
