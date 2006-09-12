@@ -75,7 +75,7 @@ public class Main {
                         if (i != -1) {
                             name = name.substring(i+3);
                             Main m = users.get(name.toLowerCase());
-//                            System.out.println(name+" "+message);
+                            System.out.println(name+" "+message);
                             if (m != null) {
                                 if (error == null) error = new Exception();
                                 m.core.propagateTraceMessage(level, String.valueOf(message), error);

@@ -127,8 +127,10 @@ public class SSLCryptoLayer extends BufferedCryptoLayer {
 
         SSLEngine e = cx.engine;
         SSLEngineResult r;
+        boolean forceAnotherUnwrap = false;
         do {
             r = e.unwrap(src, dst);
+            forceAnotherUnwrap = false;
             if(T.t)T.trace("SSLResult: "+r.getStatus()+" "+r.getHandshakeStatus()+" produced: "+r.bytesProduced()+" consumed: "+r.bytesConsumed());
             if(T.t)T.trace("Left in src buffer: "+src.remaining());
 
@@ -157,13 +159,15 @@ public class SSLCryptoLayer extends BufferedCryptoLayer {
                     task.run();
                     if(T.t)T.trace("Task complete.");
                 }
-                if(T.t)T.trace("Doing another unwrap after task delegation");
+                forceAnotherUnwrap=true; //force another unwrap after task delegation
+/*                if(T.t)T.trace("Doing another unwrap after task delegation");
                 r = e.unwrap(src, dst);
-                if(T.t)T.trace("SSLResult: "+r.getStatus()+" "+r.getHandshakeStatus()+" produced: "+r.bytesProduced()+" consumed: "+r.bytesConsumed());
+                if(T.t)T.trace("SSLResult: "+r.getStatus()+" "+r.getHandshakeStatus()+" produced: "+r.bytesProduced()+" consumed: "+r.bytesConsumed());*/
             }
-        } while (r.getStatus() == SSLEngineResult.Status.OK &&
+        } while (forceAnotherUnwrap ||
+                (r.getStatus() == SSLEngineResult.Status.OK &&
                 ((r.getHandshakeStatus() == SSLEngineResult.HandshakeStatus.NEED_UNWRAP && r.bytesProduced() == 0) || //wants to unwrap more data
-                        ( r.getHandshakeStatus() == SSLEngineResult.HandshakeStatus.NOT_HANDSHAKING && src.remaining() > 0 && r.bytesConsumed() > 0))); //has more data to decrypt
+                        ( r.getHandshakeStatus() == SSLEngineResult.HandshakeStatus.NOT_HANDSHAKING && src.remaining() > 0 && r.bytesConsumed() > 0)))); //has more data to decrypt
 
         if (src == cx.incomingEncryptedData) {
             if(T.t)T.ass(src.remaining() == 0, "unwrap did not read all data!");
@@ -226,5 +230,11 @@ public class SSLCryptoLayer extends BufferedCryptoLayer {
         e.setUseClientMode(c.getDirection() == Connection.Direction.OUT);
         e.beginHandshake();
         return e;
+    }
+
+    public void resendHandshake(Connection c) throws IOException {
+        Context cx = getContext(c);
+        cx.engine.getSession().invalidate();
+        cx.engine.beginHandshake();
     }
 }

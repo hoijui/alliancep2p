@@ -9,6 +9,7 @@ import org.alliance.core.comm.Connection;
 import org.alliance.core.comm.FriendConnection;
 import org.alliance.core.comm.rpc.GetDirectoryListing;
 import org.alliance.core.comm.rpc.GetShareBaseList;
+import org.alliance.core.crypto.SSLCryptoLayer;
 import org.alliance.core.file.blockstorage.BlockFile;
 import org.alliance.core.file.filedatabase.FileDescriptor;
 import org.alliance.core.file.filedatabase.FileType;
@@ -137,10 +138,21 @@ public class Console {
             scan();
         } else if ("bye".equals(command)) {
             bye();
+        } else if ("forcesslhandshake".equals(command)) {
+            forcesslhandshake();
         } else if ("error".equals(command)) {
             throw new Exception("test error");
         } else {
             printer.println("Unknown command "+command);
+        }
+    }
+
+    private void forcesslhandshake() throws IOException {
+        for(Friend f: manager.friends()) {
+            if (f.getFriendConnection() != null) {
+                printer.println("Starting SSL handshake for "+f);
+                ((SSLCryptoLayer)core.getCryptoManager().getCryptoLayer()).resendHandshake(f.getFriendConnection());
+            }
         }
     }
 
