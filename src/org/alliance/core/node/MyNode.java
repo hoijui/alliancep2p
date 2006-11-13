@@ -18,8 +18,7 @@ import java.net.URLConnection;
  * To change this template use File | Settings | File Templates.
  */
 public class MyNode extends Node {
-    private static final String WHATSMYIPURL = "http://www.whatsmyip.org";
-    private static final String IPPATTERN = "Whats My IP Address? Your IP is ";
+    private static final String WHATSMYIPURL = "http://www.alliancep2p.com/myip";
 
     private String externalIp;
 
@@ -47,7 +46,6 @@ public class MyNode extends Node {
     private boolean alreadyTriedAutodetect = false;
     public void autodetectExternalIp(CoreSubsystem core) throws IOException {
         if (externalIp == null && !alreadyTriedAutodetect) {
-            //superhack. Hope the guy at whatsmyip.org doesn't mind. This will only happen when a new, separate, cloud is created.
             try {
                 URLConnection c = new URL(WHATSMYIPURL).openConnection();
                 InputStream in = c.getInputStream();
@@ -57,13 +55,11 @@ public class MyNode extends Node {
                 while((line = r.readLine()) != null) result.append(line);
 
                 line = result.toString();
-                int i = line.indexOf(IPPATTERN);
-                if (i == -1) throw new Exception("Could not detect your external IP number. Can't find pattern in page.");
-
-                externalIp = line.substring(i+IPPATTERN.length(), line.indexOf('<', i));
+                externalIp = line.trim();
 
                 if(T.t)T.info("Detected external ip: "+externalIp);
             } catch(Exception e) {
+                if(T.t)T.error("Could not detected external ip: "+e);
                 throw new IOException("Could not detect your external IP: "+e);
             } finally{
                 alreadyTriedAutodetect = true;
