@@ -11,7 +11,7 @@ import java.nio.ByteBuffer;
 import java.nio.channels.*;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * TCP NIO implementation of network handling. To change to other network handling this class can be reimplemented.
@@ -27,7 +27,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 public class TCPNIONetworkLayer implements Runnable {
     private NetworkManager netMan;
     private Selector selector;
-    private ArrayBlockingQueue<Runnable> taskQue = new ArrayBlockingQueue<Runnable>(10000);
+    private LinkedBlockingQueue<Runnable> taskQue = new LinkedBlockingQueue<Runnable>(500000);
 
     private ByteBuffer buffer;
     private byte byteArray[];
