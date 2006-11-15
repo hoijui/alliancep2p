@@ -153,6 +153,7 @@ public class AddFriendWizard extends JWizard {
 
     private void goToEnterInvitation() {
         setStep(STEP_ENTER_INVITATION);
+        codeinput.requestFocus();
     }
 
     private void goToCreateInvitation() {
@@ -182,7 +183,7 @@ public class AddFriendWizard extends JWizard {
     }
 
     private void resetAllRadioButtons() {
-        for(JRadioButton b : radioButtons) b.setSelected(false);
+        for(JRadioButton b : radioButtons) if (b != null) b.setSelected(false);
     }
 
     public void nextStep() {
@@ -197,11 +198,12 @@ public class AddFriendWizard extends JWizard {
         } else if (getStep() == STEP_ENTER_INVITATION) {
             handleInvitationCode();
         } else if (getStep() == STEP_CONNECTION_FAILED) {
-            if (radioButtonSelected == 0) {
+            goToCreateInvitation();
+/*            if (radioButtonSelected == 0) {
                 goToCreateInvitation();
             } else {
                 goToEnterInvitation();
-            }
+            }*/
         } else if (getStep() == STEP_FORWARD_INVITATIONS) {
             if (forwardInvitationNodesList != null) forwardInvitationNodesList.forwardSelectedInvitations();
             setStep(STEP_FORWARD_INVITATIONS_COMPLETE);

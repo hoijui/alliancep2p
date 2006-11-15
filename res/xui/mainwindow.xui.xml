@@ -22,7 +22,7 @@
             <panel axis="y" border="0" id="toppanel">
                 <panel axis="x" border="0" expand="horiz" shaded="yes" >
                     <strut width="4"/>
-                    <button image="gfx/icons/addconnection.png" eventid="addfriendwizard" tooltip="Add new connection to a person"/>
+                    <button image="gfx/icons/addconnection.png" eventid="addfriendwizard" tooltip="You can either enter a connection code you received from a friend or create connection codes yourself" text="Add new connection to a person"/>
                     <strut width="4"/>
                     <panel axis="y" opaque="no">
                         <filler axis="y"/>

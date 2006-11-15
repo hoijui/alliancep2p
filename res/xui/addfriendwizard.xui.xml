@@ -44,7 +44,8 @@
                     If you want to invite several friends click on the link above several times. Send one e-mail per friend.
                     [p]
                     [p]
-                    [b]If the link above does not work[/b] or you do not want to use e-mail you can copy and paste the code below and send it to your friend in some other way. Send one code per friend.
+                    [b]If the link above does not work[/b] or you do not want to use e-mail:[br]
+                    Copy and paste the code below and send it to your friend in some way. Send one code per friend.
                 </mlabel>
                 <strut height="15"/>
                 <panel axis="x" border="0" expand="horiz">
@@ -58,7 +59,7 @@
                 <mlabel html="yes">Enter the connection code you got from your friend: </mlabel>
                 <strut height="15"/>
                 <panel axis="x" border="0" expand="horiz">
-                    <label text="Connection code: "/> <textfield text="" id="codeinput"/> <strut width="5"/>
+                    <label text="Connection code: "/> <textfield text="" id="codeinput" defaultfocus="true"/> <strut width="5"/>
                 </panel>
                 <strut height="15"/>
                 <mlabel html="yes">When you press next Alliance will attempt to connect using the code.</mlabel>
@@ -79,25 +80,26 @@
             </step>
 
             <step text="Connection failed!">
-                <mlabel html="yes">Connect failed!
+                <mlabel html="yes">[b]Could not connect[/b]
                     [p]
-                    The remote person has his Alliance turned off or his firewall is blocking the connection.
+                    Your friend has his Alliance turned off or his firewall is blocking the connection.
                     [p]
-                    You can either ask your friend to give you a new code or create a new code yourself and send it to him.
+                    It is recommended that you create a connection code for your friend instead.
                     [p]
-                    What would you like to do:
+                    Press next to continue
                 </mlabel>
-                <strut height="5"/>
+
+<!--                <strut height="5"/>
                 <panel axis="x" border="0" expand="horiz">
                     <strut width="10"/>
-                    <radiobutton eventid="radio2_1" group="a" text="Create a connection code for your friend"/>
+                    <radiobutton selected="true" eventid="radio2_1" group="a" text="Create a connection code for your friend (recommended)"/>
                     <filler/>
                 </panel>
                 <panel axis="x" border="0" expand="horiz">
                     <strut width="10"/>
-                    <radiobutton eventid="radio2_2" group="a" text="I've received a new connection code and want to try again"/>
+                    <radiobutton eventid="radio2_2" group="a" text="I've received a new connection code from my friend"/>
                     <filler/>
-                </panel>
+                </panel>-->
             </step>
 
 
