@@ -4,7 +4,7 @@ todo:
 efter 0.9:
     * lägg till option i options för krypteringslager:   Basic (weak encryption but works well) / SSL (Strong encryption but experimental and buggy)
 
-    * -> revconnect <-
+    * -> revconnect <-   - istället föra att detecta att man är bakom brandvägg så kan man se till så alla kopplingar är åt samma håll - det håller som friend connection är på
 
     * komprimera sökpaket - skulle göra så att sökresultat kommer tillbaka mycket snabbare
 
