@@ -9,7 +9,7 @@ import org.alliance.core.comm.Connection;
 import org.alliance.core.comm.FriendConnection;
 import org.alliance.core.comm.rpc.GetDirectoryListing;
 import org.alliance.core.comm.rpc.GetShareBaseList;
-import org.alliance.core.crypto.SSLCryptoLayer;
+import org.alliance.core.crypto.cryptolayers.SSLCryptoLayer;
 import org.alliance.core.file.blockstorage.BlockFile;
 import org.alliance.core.file.filedatabase.FileDescriptor;
 import org.alliance.core.file.filedatabase.FileType;

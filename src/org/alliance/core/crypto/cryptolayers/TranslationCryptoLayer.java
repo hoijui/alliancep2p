@@ -1,4 +1,4 @@
-package org.alliance.core.crypto;
+package org.alliance.core.crypto.cryptolayers;
 
 import org.alliance.core.CoreSubsystem;
 import org.alliance.core.comm.Connection;
@@ -18,6 +18,7 @@ import java.nio.ByteBuffer;
 public class TranslationCryptoLayer extends BufferedCryptoLayer {
     public TranslationCryptoLayer(CoreSubsystem core) {
         super(core);
+        if(org.alliance.core.crypto.T.t) T.info("Starting TranslationCryptoLayer");
     }
 
     public void closed(Connection c) {

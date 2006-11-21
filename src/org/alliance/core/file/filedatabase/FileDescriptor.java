@@ -81,7 +81,7 @@ public class FileDescriptor {
             if (callback != null && System.currentTimeMillis()-updateHashMessageTick > 500) {
                 String s2 = "";
                 if (hashSpeedInMbPerSecond > 0) s2 = " [hash speed limit: "+hashSpeedInMbPerSecond+"Mb/s]";
-                String s =  "Hasing "+
+                String s =  "Hashing "+
                         file.getName()+
                         " ("+
                         (totalRead*100/file.length())+

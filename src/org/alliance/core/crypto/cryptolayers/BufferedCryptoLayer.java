@@ -1,7 +1,9 @@
-package org.alliance.core.crypto;
+package org.alliance.core.crypto.cryptolayers;
 
 import org.alliance.core.CoreSubsystem;
 import org.alliance.core.comm.Connection;
+import org.alliance.core.comm.filetransfers.TransferConnection;
+import org.alliance.core.crypto.CryptoLayer;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -20,14 +22,12 @@ public abstract class BufferedCryptoLayer extends CryptoLayer {
     private HashMap<Object, ConnectionData> connectionData = new HashMap<Object, ConnectionData>();
 
     protected class ConnectionData {
-        ByteBuffer encryptionBuffer;
-        boolean connectionWantsToSendData;
+        public ByteBuffer encryptionBuffer;
+        public boolean connectionWantsToSendData;
 
-        public ConnectionData() {
-            //@todo this buffer should be allocated to alliance packet size at first (32kb), then, when additional size is needed (when it's a dl/ul connection), then it should be dynamically extended
-            //because this is very memory inefficient
-            if(T.t)debug("Creating new enryptionBuffer");
-            encryptionBuffer = ByteBuffer.allocate(core.getSettings().getInternal().getSocketsendbuffer()*12/10);
+        public ConnectionData(int approxBufferSize) {
+            if(org.alliance.core.crypto.T.t)debug("Creating new enryptionBuffer");
+            encryptionBuffer = ByteBuffer.allocate(approxBufferSize*12/10);
         }
     }
 
@@ -67,7 +67,9 @@ public abstract class BufferedCryptoLayer extends CryptoLayer {
         ConnectionData d = connectionData.get(c.getKey());
         if (d == null) {
             if(T.t)debug("Creating a ConnectionData for new connection "+c);
-            d = new ConnectionData();
+            d = new ConnectionData(c instanceof TransferConnection ?
+                    core.getSettings().getInternal().getSocketsendbuffer() :
+                    core.getSettings().getInternal().getMaximumAlliancePacketSize());
             connectionData.put(c.getKey(),d);
         }
         return d;

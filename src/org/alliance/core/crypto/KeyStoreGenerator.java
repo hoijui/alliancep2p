@@ -8,6 +8,11 @@ import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
 
 /**
+ *
+ *
+ * not used
+ *
+ *
  * Created by IntelliJ IDEA.
  * User: maciek
  * Date: 2006-aug-22

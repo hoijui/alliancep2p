@@ -107,7 +107,7 @@ public class TrayIconSubsystem implements Subsystem, Runnable {
         tray = SystemTray.getDefaultSystemTray();
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         JPopupMenu m = new JPopupMenu();
-        JMenuItem mi = new JMenuItem("Open");
+        JMenuItem mi = new JMenuItem("Open Alliance");
         mi.setFont(new Font(mi.getFont().getName(), mi.getFont().getStyle() | Font.BOLD, mi.getFont().getSize()));
         mi.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -118,7 +118,7 @@ public class TrayIconSubsystem implements Subsystem, Runnable {
 
         m.addSeparator();
 
-        mi = new JMenuItem("Restart Alliance");
+        mi = new JMenuItem("Restart");
         mi.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -132,14 +132,50 @@ public class TrayIconSubsystem implements Subsystem, Runnable {
         });
         m.add(mi);
 
+        JMenu shutdown = new JMenu("Shutdown");
 
-        mi = new JMenuItem("Shutdown Alliance");
+        mi = new JMenuItem("Forever (not recommended)");
         mi.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 shutdown();
             }
         });
-        m.add(mi);
+        shutdown.add(mi);
+        shutdown.addSeparator();
+
+        mi = new JMenuItem("for 6 hours");
+        mi.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                restart(60*6);
+            }
+        });
+        shutdown.add(mi);
+
+        mi = new JMenuItem("for 3 hours");
+        mi.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                restart(60*3);
+            }
+        });
+        shutdown.add(mi);
+
+        mi = new JMenuItem("for 1 hour");
+        mi.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                restart(60);
+            }
+        });
+        shutdown.add(mi);
+
+        mi = new JMenuItem("for 30 minutes");
+        mi.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                restart(30);
+            }
+        });
+        shutdown.add(mi);
+
+        m.add(shutdown);
 
         ti = new TrayIcon(new ImageIcon(rl.getResource("gfx/icons/alliance.png")), "Alliance v"+Version.VERSION+" build "+Version.BUILD_NUMBER, m);
 
@@ -172,6 +208,18 @@ public class TrayIconSubsystem implements Subsystem, Runnable {
                 }
             }
         });
+    }
+
+    private void restart(int delay) {
+        try {
+            if (tray != null && ti != null) {
+                ti.displayMessage("", "Shutting down...", TrayIcon.NONE_MESSAGE_TYPE);
+                balloonClickHandler = null;
+            }
+            core.restartProgram(false, delay);
+        } catch (IOException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
     }
 
     public synchronized void shutdown() {

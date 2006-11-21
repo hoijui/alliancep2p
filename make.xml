@@ -101,12 +101,4 @@
 
         <move file="${build.dir}/alliance.jar" tofile="${build.dir}/alliance.dat"/>
     </target>
-
-    <target name="asdf">
-        <signjar lazy="no" alias="blacknet" storepass="${keystorepassword}" keystore="${keystorelocation}">
-            <fileset dir="${build.dir}">
-                <include name="alliance.jar"/>
-            </fileset>
-        </signjar>
-    </target>
 </project>

@@ -8,6 +8,7 @@ import org.alliance.core.T;
 import org.alliance.launchers.OSInfo;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.net.ServerSocket;
@@ -29,7 +30,7 @@ public class Main {
         boolean allowMultipleInstances = argsContain(args, "/allowMultipleInstances");
         boolean runMinimized = argsContain(args, "/min");
 
-        if (!allowMultipleInstances) checkIfAlreadyRunning();
+        if (!allowMultipleInstances) checkIfAlreadyRunning(!runMinimized);
 
         Runnable r = null;
         if (!runMinimized) r = (Runnable)Class.forName("org.alliance.launchers.SplashWindow").newInstance();
@@ -58,13 +59,16 @@ public class Main {
         return false;
     }
 
-    private static void checkIfAlreadyRunning() {
+    private static void checkIfAlreadyRunning(boolean startUI) {
         try {
             Socket s = new Socket("127.0.0.1", STARTED_SIGNAL_PORT);
-            s.getInputStream();
+            OutputStream o = s.getOutputStream();
+            o.write(startUI ? 1 : 0);
+            o.flush();
+            Thread.sleep(1000);
             System.out.println("Program already running. Closing this program instance.");
             System.exit(0);
-        } catch(IOException e) {
+        } catch(Exception e) {
             System.out.println("Program does not seem to be running. Starting.");
         }
     }
@@ -80,8 +84,9 @@ public class Main {
                         try {
                             Socket s = signalServerSocket.accept(); //connection is made on this port if user wants to open the ui
                             if (signalThread == null) return;
+                            int b = s.getInputStream().read();
                             s.close();
-                            ((Runnable)tray).run(); //open ui
+                            if (b == 1) ((Runnable)tray).run(); //open ui
                         } catch(IOException e) {
                             if (signalThread == null) return;
                             e.printStackTrace();

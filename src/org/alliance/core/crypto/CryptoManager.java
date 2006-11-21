@@ -2,9 +2,10 @@ package org.alliance.core.crypto;
 
 import org.alliance.core.CoreSubsystem;
 import org.alliance.core.comm.networklayers.tcpnio.TCPNIONetworkLayer;
+import org.alliance.core.crypto.cryptolayers.SSLCryptoLayer;
+import org.alliance.core.crypto.cryptolayers.TranslationCryptoLayer;
 
 import java.io.IOException;
-import java.security.KeyStore;
 
 /**
  * Created by IntelliJ IDEA.
@@ -17,11 +18,19 @@ public class CryptoManager  {
     private CryptoLayer cryptoLayer;
     private CoreSubsystem core;
     private TCPNIONetworkLayer networkLayer;
-    private KeyStore keystore;
 
     public CryptoManager(CoreSubsystem core) throws Exception {
-//        this.cryptoLayer = core.getSettings().getInternal().getEncryption() > 0 ? new SSLCryptoLayer(core) : new NoEncryptionCryptoLayer(core);
-        this.cryptoLayer = new TranslationCryptoLayer(core);
+        switch(core.getSettings().getInternal().getEncryption()) {
+            case 1:
+                if(T.t)T.info("Launching SSL cryptolayer");
+                this.cryptoLayer = new SSLCryptoLayer(core);
+                break;
+            default:
+                if(T.t)T.info("Launching translation cryptolayer");
+                this.cryptoLayer = new TranslationCryptoLayer(core);
+                break;
+        }
+        
         this.core = core;
     }
 
@@ -30,23 +39,8 @@ public class CryptoManager  {
     }
 
     public void init() throws IOException, Exception {
-/*        File file = new File(core.getSettings().getInternal().getKeystorefilename());
-        if (!file.exists()) KeyStoreGenerator.generate("alliance", getKeystorePassword(), file.getPath());
-        keystore = KeyStore.getInstance("JKS");
-        if(T.t)T.info("Loading keystore...");
-        keystore.load(new FileInputStream(file), getKeystorePassword());
-        if(T.t)T.info("loaded.");*/
-
         this.networkLayer = core.getNetworkManager().getNetworkLayer();
         cryptoLayer.setNetworkLayer(networkLayer);
         cryptoLayer.init();
-    }
-
-    public KeyStore getKeystore() {
-        return keystore;
-    }
-
-    public char[] getKeystorePassword() {
-        return core.getSettings().getMy().getGuid().toString().toCharArray();
     }
 }

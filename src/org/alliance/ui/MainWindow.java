@@ -210,6 +210,20 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
                     ui.shutdown();
                     ui.getCore().shutdown();
                     System.exit(0);
+                } else {
+                    if (!ui.getCore().isRunningAsTestSuite()) {
+                        Thread t = new Thread(new Runnable() {
+                            public void run() {
+                                try {
+                                    Thread.sleep(100);
+                                    ui.getCore().restartProgram(false);
+                                } catch (Exception e1) {
+                                    ui.handleErrorInEventLoop(e1);
+                                }
+                            }
+                        });
+                        t.start();
+                    }
                 }
             }
         });

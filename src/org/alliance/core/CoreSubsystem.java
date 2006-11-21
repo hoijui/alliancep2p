@@ -50,7 +50,7 @@ import java.util.List;
  * Time: 16:38:25
  */
 public class CoreSubsystem implements Subsystem {
-    public final static boolean ALLOW_TO_SEND_UPGRADE_TO_FRIENDS = true;
+    public final static boolean ALLOW_TO_SEND_UPGRADE_TO_FRIENDS = false;
     private static final int STATE_FILE_VERSION = 3;
 
     public final static int KB = 1024;
@@ -96,6 +96,8 @@ public class CoreSubsystem implements Subsystem {
             };
         }
 
+        if(T.t)T.info("CoreSubsystem starting...");
+
         this.rl = rl;
         this.settingsFile = String.valueOf(params[0]);
 
@@ -125,6 +127,8 @@ public class CoreSubsystem implements Subsystem {
                 shutdown();
             }
         });
+
+        if(T.t)T.info("CoreSubsystem stated.");
     }
 
     public boolean isRunningAsTestSuite() {
@@ -295,10 +299,23 @@ public class CoreSubsystem implements Subsystem {
     }
 
     public void restartProgram(boolean openWithUI) throws IOException {
+        restartProgram(openWithUI, 0);
+    }
+
+    /**
+     * @param openWithUI true if the UI should open once the program is restarted
+     * @param restartDelay Wait this many minutes before actually starting the program. This is for "Shutdown for 30 minuters" etc..
+     * @throws java.io.IOException if the program cant be restarted
+     */
+    public void restartProgram(boolean openWithUI, int restartDelay) throws IOException {
         shutdown();
 
         Main.stopStartSignalThread(); //such a fucking hack. When we run using the normal UI we need to signal the launcher that he needs to stop this startsignalthread
-        Runtime.getRuntime().exec("."+System.getProperty("file.separator")+"alliance" + (openWithUI ? "" : " /min")); //must have exe/script/batch in current directory to start program
+        String s = "."+System.getProperty("file.separator")+"alliance" + //must have exe/script/batch in current directory to start program
+                (openWithUI ? "" : " /min") +
+                (restartDelay == 0 ? "" : " /w"+restartDelay); 
+
+        Runtime.getRuntime().exec(s);
         System.exit(0);
     }
 

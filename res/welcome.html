@@ -2,10 +2,14 @@
 <br><br>
 
 <p>
-<b>0.9.1</b> - not yet released
+<b>next version</b> - not yet released
 <dl>
-    <dd>+ Added support for three encryption types: "SSL", "Minimalistic" and "None"
-    <dd>+ Blocks that are downloaded and detected as corrupt are downloaded again
+    <dd>+ Added support for two encryption types: "SSL", "Basic". Basic is a really weak encryption algorithm but it works well (it's default). SSL is uses very strong encryption but is experimental and buggy
+    <dd>+ Added "Shutdown for X minutes" function
+    <dd>+ Improved options window sliglty: added help texts, added browse button for download directory, added excryption type
+    <dd>+ Blocks that are downloaded and detected as corrupt are correctly downloaded again
+    <dd>+ Reduced memory usage when UI is not visible 
+    <dd>+ Reduced core memory usage slightly
     <dd>+ fixed bug: SSL re-handshaking now works correctly
     <dd>+ fixed bug: NPE in download window
     <dd>+ fixed bug: Alliance sometimes crashed when moving files, on disk, out of share

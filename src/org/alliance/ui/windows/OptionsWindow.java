@@ -36,7 +36,8 @@ public class OptionsWindow extends XUIDialog {
             "my.nickname",
             "server.port",
             "internal.downloadfolder",
-            "internal.alwaysallowfriendstoconnect"
+            "internal.alwaysallowfriendstoconnect",
+            "internal.encryption"
     };
 
     private UISubsystem ui;
@@ -46,7 +47,7 @@ public class OptionsWindow extends XUIDialog {
     private DefaultListModel shareListModel;
     private boolean shareListHasBeenModified = false;
 
-    private JTextField nickname;
+    private JTextField nickname, downloadFolder;
 
     private boolean openedWithUndefiniedNickname;
 
@@ -67,6 +68,7 @@ public class OptionsWindow extends XUIDialog {
         xui.getComponent("server.port").setEnabled(false);
 
         nickname = (JTextField) xui.getComponent("my.nickname");
+        downloadFolder = (JTextField)xui.getComponent("internal.downloadfolder");
 
         shareList = (JList) xui.getComponent("shareList");
         shareListModel = new DefaultListModel();
@@ -113,6 +115,9 @@ public class OptionsWindow extends XUIDialog {
             } else {
                 b.setSelected(true);
             }
+        } else if (c instanceof JComboBox) {
+            JComboBox b = (JComboBox)c;
+            b.setSelectedIndex(Integer.parseInt(settingValue));
         }
     }
 
@@ -206,8 +211,9 @@ public class OptionsWindow extends XUIDialog {
     }
 
     private Object getComponentValue(JComponent c) {
-        if (c instanceof JTextField) return ((JTextField) c).getText();
-        if (c instanceof JCheckBox) return ((JCheckBox) c).isSelected() ? 1 : 0;
+        if (c instanceof JTextField) return ((JTextField)c).getText();
+        if (c instanceof JCheckBox) return ((JCheckBox)c).isSelected() ? 1 : 0;
+        if (c instanceof JComboBox) return ""+((JComboBox)c).getSelectedIndex();
         return null;
     }
 
@@ -230,7 +236,16 @@ public class OptionsWindow extends XUIDialog {
             shareListHasBeenModified = true;
             shareList.revalidate();
         }
+    }
 
+    public void EVENT_browse(ActionEvent e) {
+        JFileChooser fc = new JFileChooser(downloadFolder.getText());
+        fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        int returnVal = fc.showOpenDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            String path = fc.getSelectedFile().getPath();
+            downloadFolder.setText(path);
+        }
     }
 
     /**

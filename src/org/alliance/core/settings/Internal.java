@@ -38,7 +38,7 @@ public class Internal extends SettingClass {
 
     private String chipersuite=""; //user defined chipher suite, none by default
 
-    private Integer encryption=1;
+    private Integer encryption=0; // 0: TranslationCryptoLayer 1: SSLCryptoLayer
 
     private Integer daysnotconnectedwhenold=7*2; //after three weeks of disconnection from a friend hes concidered old
 
