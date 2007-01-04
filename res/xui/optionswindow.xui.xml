@@ -105,7 +105,7 @@
                     <mlabel html="true">
                         [b]Note that ALL your friends must change encryption layer and restart Alliance at the same time for a switch of encryption to work.[/b]
                         [p]
-                        Also note that the SSL encryption layer is experimental and buggy at this stage.</mlabel>
+                        Also note that the SSL encryption layer is experimental at this stage.</mlabel>
                 </panel>
                 <filler/>
             </tab>
