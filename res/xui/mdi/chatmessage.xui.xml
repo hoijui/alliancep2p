@@ -5,7 +5,7 @@
             <strut width="7"/>
             <toolbar opaque="false" id="toolbar" expand="horiz"/>
         </panel>
-        <scrollpanel expand="both" scrollbars="optional" id="treepanel" bordertype="lowered">
+        <scrollpanel expand="both" scrollbars="optional" id="scrollpanel" bordertype="lowered">
             <textarea id="textarea"/>
         </scrollpanel>
         <panel axis="x" expand="horiz">

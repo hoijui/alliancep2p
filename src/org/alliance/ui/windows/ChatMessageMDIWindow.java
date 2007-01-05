@@ -9,6 +9,8 @@ import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -19,15 +21,43 @@ import java.util.Date;
  * To change this template use File | Settings | File Templates.
  */
 public class ChatMessageMDIWindow extends AllianceMDIWindow {
+    private final static DateFormat FORMAT = new SimpleDateFormat("HH:mm");
+
     private int guid;
-    private JTextArea textarea;
+    private JEditorPane textarea;
     private JTextField chat;
+    private String html = "";
 
     public ChatMessageMDIWindow(UISubsystem ui, int guid) throws Exception {
         super(ui.getMainWindow().getMDIManager(), "chatmessage", ui);
         this.guid = guid;
 
-        textarea = (JTextArea)xui.getComponent("textarea");
+        textarea = new JEditorPane("text/html", "");
+/*
+        textarea.setCaret(new Caret() {
+            public void install(JTextComponent c){}
+            public void deinstall(JTextComponent c){}
+            public void paint(Graphics g){}
+            public void addChangeListener(ChangeListener l){}
+            public void removeChangeListener(ChangeListener l){}
+            public boolean isVisible(){return false;}
+            public void setVisible(boolean v){}
+            public boolean isSelectionVisible(){return false;}
+            public void setSelectionVisible(boolean v){}
+            public void setMagicCaretPosition(Point p){}
+            public Point getMagicCaretPosition(){return new Point(0,0);}
+            public void setBlinkRate(int rate){}
+            public int getBlinkRate(){return 10000;}
+            public int getDot(){return 0;}
+            public int getMark(){return 0;}
+            public void setDot(int dot){}
+            public void moveDot(int dot){}
+        });
+*/
+
+        JScrollPane sp = (JScrollPane)xui.getComponent("scrollpanel");
+        sp.setViewportView(textarea);
+
         chat = (JTextField)xui.getComponent("chat1");
 
         setTitle("Chat with "+ui.getCore().getFriendManager().nickname(guid));
@@ -62,7 +92,9 @@ public class ChatMessageMDIWindow extends AllianceMDIWindow {
     }
 
     public void addMessage(String from, String message, long tick) {
-        textarea.append("("+from+") "+message+" (at "+new Date(tick)+")\n");
+        String color = from.equals(ui.getCore().getFriendManager().getMe().getNickname()) ? "7a7a7a" : "000000";
+        html += "<font color=\"#"+color+"\">["+FORMAT.format(new Date(tick))+"] "+from+": "+message+"</font><br>";
+        textarea.setText(html);
     }
 
     public String getIdentifier() {
