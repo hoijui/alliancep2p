@@ -93,7 +93,8 @@ public class ChatMessageMDIWindow extends AllianceMDIWindow {
 
     public void addMessage(String from, String message, long tick) {
         String color = from.equals(ui.getCore().getFriendManager().getMe().getNickname()) ? "7a7a7a" : "000000";
-        html += "<font color=\"#"+color+"\">["+FORMAT.format(new Date(tick))+"] "+from+": "+message+"</font><br>";
+//        html += "<font color=\"#"+color+"\">["+FORMAT.format(new Date(tick))+"] "+from+": "+message+"</font><br>";
+        html += "<font color=\"#7a7a7a\">["+FORMAT.format(new Date(tick))+"] "+from+":</font> <font color=\"#"+color+"\">"+message+"</font><br>";
         textarea.setText(html);
     }
 
