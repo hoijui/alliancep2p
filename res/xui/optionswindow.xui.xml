@@ -90,6 +90,9 @@
                     <panel axis="x" expand="horiz">
                         <checkbox id="internal.alwaysallowfriendstoconnect" text="Always allow my friends to connect to each other"/><filler/>
                     </panel>
+                    <panel axis="x" expand="horiz">
+                        <checkbox id="internal.alwaysallowfriendsoffriendstoconnecttome" text="Always allow friends of my friends to connect to me"/><filler/>
+                    </panel>
                 </panel>
 
                 <panel axis="y" bordertype="etched" bordertitle="Encryption">

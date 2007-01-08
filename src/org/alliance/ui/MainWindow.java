@@ -19,6 +19,7 @@ import org.alliance.core.comm.BandwidthAnalyzer;
 import org.alliance.core.interactions.*;
 import org.alliance.core.node.Friend;
 import org.alliance.ui.addfriendwizard.AddFriendWizard;
+import org.alliance.ui.addfriendwizard.ForwardInvitationNodesList;
 import org.alliance.ui.windows.*;
 import org.alliance.ui.windows.search.SearchMDIWindow;
 import org.alliance.ui.windows.viewshare.ViewShareMDIWindow;
@@ -494,9 +495,10 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
                 String name = ui.getCore().getFriendManager().nickname(i.getGuid());
                 if (lastAddFriendWizard != null) lastAddFriendWizard.connectionWasSuccessful();
 
-                if (ui.getCore().doesInterationQueContain(ForwardedInvitationInteraction.class)) {
-                    if (lastAddFriendWizard != null) lastAddFriendWizard.getOuterDialog().dispose();
-                    OptionDialog.showInformationDialog(this, "You have successfully connected to "+name+"!");
+                if (ui.getCore().doesInterationQueContain(ForwardedInvitationInteraction.class) || new ForwardInvitationNodesList.ForwardInvitationListModel(ui).getSize() == 0) {
+                   if (lastAddFriendWizard != null) lastAddFriendWizard.getOuterDialog().dispose();
+//                  no need to show a dialog..  
+//                    OptionDialog.showInformationDialog(this, "You have successfully connected to "+name+"!");
                     //after this method completes the next pending interaction will be processed.
                 } else {
 //                    OptionDialog.showInformationDialog(this, "You have successfully connected to "+name+". Congratulations![p] You will now be shown a list of all connections "+name+" has. This way you can connect to even more people.[p]");

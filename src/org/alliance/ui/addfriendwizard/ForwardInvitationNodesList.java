@@ -85,7 +85,7 @@ public class ForwardInvitationNodesList extends JList {
         }
     }
 
-    private static class ForwardInvitationListModel extends DefaultListModel {
+    public static class ForwardInvitationListModel extends DefaultListModel {
         private UISubsystem ui;
 
         public ForwardInvitationListModel(final UISubsystem ui) {

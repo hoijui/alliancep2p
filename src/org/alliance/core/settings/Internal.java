@@ -42,7 +42,8 @@ public class Internal extends SettingClass {
 
     private Integer daysnotconnectedwhenold=7*2; //after three weeks of disconnection from a friend hes concidered old
 
-    private Integer alwaysallowfriendstoconnect=0;
+    private Integer alwaysallowfriendstoconnect=1;
+    private Integer alwaysallowfriendsoffriendstoconnecttome =1;
 
     private Integer minimumtimebetweeninvitations = 60*24*2; //in minutes
 
@@ -347,5 +348,13 @@ public class Internal extends SettingClass {
 
     public void setChipersuite(String chipersuite) {
         this.chipersuite = chipersuite;
+    }
+
+    public Integer getAlwaysallowfriendsoffriendstoconnecttome() {
+        return alwaysallowfriendsoffriendstoconnecttome;
+    }
+
+    public void setAlwaysallowfriendsoffriendstoconnecttome(Integer alwaysallowfriendsoffriendstoconnecttome) {
+        this.alwaysallowfriendsoffriendstoconnecttome = alwaysallowfriendsoffriendstoconnecttome;
     }
 }

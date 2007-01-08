@@ -17,6 +17,7 @@ import org.alliance.core.file.FileManager;
 import org.alliance.core.file.share.ShareManager;
 import org.alliance.core.interactions.NeedsToRestartBecauseOfUpgradeInteraction;
 import org.alliance.core.interactions.PleaseForwardInvitationInteraction;
+import org.alliance.core.interactions.ForwardedInvitationInteraction;
 import org.alliance.core.node.Friend;
 import org.alliance.core.node.FriendManager;
 import org.alliance.core.node.InvitaitonManager;
@@ -328,7 +329,8 @@ public class CoreSubsystem implements Subsystem {
     }
 
     public void queNeedsUserInteraction(NeedsUserInteraction ui) {
-        if (ui instanceof PleaseForwardInvitationInteraction && getSettings().getInternal().getAlwaysallowfriendstoconnect() > 0) {
+        if (ui instanceof PleaseForwardInvitationInteraction &&
+                getSettings().getInternal().getAlwaysallowfriendstoconnect() > 0) {
             try {
                 //automatically forward this user invitation - the settings are set to do this.
                 if(T.t)T.info("Automatically forwarding invitation: "+ui);
@@ -337,8 +339,16 @@ public class CoreSubsystem implements Subsystem {
             } catch (IOException e) {
                 reportError(e, ui);
             }
+        } else if (ui instanceof ForwardedInvitationInteraction &&
+                getSettings().getInternal().getAlwaysallowfriendsoffriendstoconnecttome() > 0) {
+            try {
+                ForwardedInvitationInteraction fii = (ForwardedInvitationInteraction)ui;
+                getInvitaitonManager().attemptToBecomeFriendWith(fii.getInvitationCode(), fii.getMiddleman(this));
+                return;
+            } catch(Exception e) {
+                reportError(e, ui);
+            }
         }
-
         userInternactionQue.add(ui);
     }
 

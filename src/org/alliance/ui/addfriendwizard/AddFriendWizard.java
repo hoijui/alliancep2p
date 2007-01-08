@@ -78,8 +78,12 @@ public class AddFriendWizard extends JWizard {
         radioButtons.add((JRadioButton)innerXUI.getComponent("radio2_1"));
         radioButtons.add((JRadioButton)innerXUI.getComponent("radio2_2"));
 
+
         //disable looking for friends in secondary connections if we have no friends
-        if (ui.getCore().getFriendManager().friends().size() == 0)  innerXUI.getComponent("radio1_3").setEnabled(false);
+        //or if we have no friends to forward invitations to  
+        if (new ForwardInvitationNodesList.ForwardInvitationListModel(ui).getSize() == 0 ||
+                ui.getCore().getFriendManager().friends().size() == 0)
+            innerXUI.getComponent("radio1_3").setEnabled(false);
 
         final JHtmlLabel l = (JHtmlLabel)innerXUI.getComponent("text");
         l.addHyperlinkListener(new HyperlinkListener() {
