@@ -146,7 +146,7 @@ public class OptionsWindow extends XUIDialog {
         }
         ui.getCore().getShareManager().updateShareBases();
         if (shareListHasBeenModified) {
-            ui.getCore().getShareManager().getShareMonitor().startScan();
+            ui.getCore().getShareManager().getShareMonitor().startScan(false);
         }
 
         ui.getCore().getFriendManager().getMe().setNickname(nickname.getText());

@@ -57,7 +57,7 @@
                     <panel axis="y" border="0,0,5,0" opaque="no">
                         <filler axis="y"/>
                         <strut height="1"/>
-                        <progressbar expand="vert" memorymonitor="yes" id="memMonitor" width="80"/>
+                        <progressbar expand="vert" memorymonitor="yes" id="memMonitor" width="80" minwidth="80"/>
                         <filler axis="y"/>
                     </panel>
 
@@ -66,6 +66,7 @@
                         <filler axis="x"/>
                     </panel>
                     <strut width="4"/>
+                    <panel axis="x" border="0">
                     <panel axis="x" bordertype="thinlowered" border="2,1,1,1">
                         <label text=" " id="totalup" tooltip="Total bytes uploaded"/>
                     </panel>
@@ -80,6 +81,7 @@
                     <strut width="4"/>
                     <button text="" image="gfx/icons/refresh.png" type="flat" eventid="rescan" border="0" tooltip="Refresh share - look for new files in shares"/>
                     <strut width="2"/>
+                        </panel>
                 </panel>
             </panel>
         </panel>

@@ -23,6 +23,7 @@ public class ShareScanner extends Thread {
     private ShareManager manager;
     private long bytesScanned;
     private CoreSubsystem core;
+    private boolean shouldBeFastScan = false;
 
     public ShareScanner(CoreSubsystem core, ShareManager manager) {
         this.core = core;
@@ -32,7 +33,7 @@ public class ShareScanner extends Thread {
     }
 
     public void run() {
-        try { Thread.sleep(6*1000); } catch (InterruptedException e) {}
+        try { Thread.sleep(6*1000); } catch (InterruptedException e) {} //wait a while before starting first scan
         while(alive) {
             manager.getFileDatabase().cleanupDuplicates();
 
@@ -54,6 +55,7 @@ public class ShareScanner extends Thread {
                 e.printStackTrace();
             }
 
+            shouldBeFastScan = false;
             manager.getCore().getUICallback().statusMessage("Share scan complete.");
             if (!alive) break;
 
@@ -103,6 +105,7 @@ public class ShareScanner extends Thread {
         if (files != null) for(int i=0;i<files.length;i++) {
             File file = files[i];
             file = file.getCanonicalFile();
+            if (!shouldBeFastScan) try {Thread.sleep(20);} catch (InterruptedException e) {}
             if (file.isDirectory()) {
                 if(T.t)T.trace("Scanning "+file.getPath()+"...");
                 manager.getCore().getUICallback().statusMessage("Scanning "+file.getPath()+"...");
@@ -127,7 +130,7 @@ public class ShareScanner extends Thread {
         if (manager.getFileDatabase().isDuplicate(file.getCanonicalPath())) return;
 
         SimpleTimer st = new SimpleTimer();
-        FileDescriptor fd = new FileDescriptor(base.getPath(), file, core.getSettings().getInternal().getHashspeedinmbpersecond(), manager.getCore().getUICallback());
+        FileDescriptor fd = new FileDescriptor(base.getPath(), file, shouldBeFastScan ? 0 : core.getSettings().getInternal().getHashspeedinmbpersecond(), manager.getCore().getUICallback());
         manager.getCore().getUICallback().statusMessage("Hashed "+fd.getFilename()+" in "+st.getTime()+" ("+TextUtils.formatByteSize((long)(fd.getSize()/(st.getTimeInMs()/1000.)))+"/s)");
         manager.getFileDatabase().add(fd);
 
@@ -152,7 +155,8 @@ public class ShareScanner extends Thread {
         interrupt();
     }
 
-    public void startScan() {
+    public void startScan(boolean fastScan) {
+        shouldBeFastScan = fastScan;
         interrupt();
     }
 }

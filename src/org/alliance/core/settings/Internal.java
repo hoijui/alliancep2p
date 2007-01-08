@@ -50,7 +50,7 @@ public class Internal extends SettingClass {
      * before stopping the network stack. Set to 8 to be on the safe side. */
     private Integer maxpendingconnections = 8;
 
-    private Integer hashspeedinmbpersecond=10;
+    private Integer hashspeedinmbpersecond=1; //when in background mode
 
     private Integer sosendbuf=-1, soreceivebuf=-1;
     private Integer discwritebuffer=256*KB, //one instance of this one per download
@@ -58,7 +58,7 @@ public class Internal extends SettingClass {
     private Integer socketreadbuffer=256*KB; //only one instance of this one - at the network layer
     private Integer maximumAlliancePacketSize=32*KB;
 
-    private Integer politehashingwaittimeinminutes=30;
+    private Integer politehashingwaittimeinminutes=10;
     private Integer politehashingintervalingigabytes=50;
 
     private Integer maxfileexpandinblocks=50; //don't exceed file system size of file we're downloading to by more than this number
