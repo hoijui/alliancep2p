@@ -15,9 +15,9 @@ import org.alliance.core.comm.upnp.UPnPManager;
 import org.alliance.core.crypto.CryptoManager;
 import org.alliance.core.file.FileManager;
 import org.alliance.core.file.share.ShareManager;
+import org.alliance.core.interactions.ForwardedInvitationInteraction;
 import org.alliance.core.interactions.NeedsToRestartBecauseOfUpgradeInteraction;
 import org.alliance.core.interactions.PleaseForwardInvitationInteraction;
-import org.alliance.core.interactions.ForwardedInvitationInteraction;
 import org.alliance.core.node.Friend;
 import org.alliance.core.node.FriendManager;
 import org.alliance.core.node.InvitaitonManager;
@@ -51,7 +51,7 @@ import java.util.List;
  * Time: 16:38:25
  */
 public class CoreSubsystem implements Subsystem {
-    public final static boolean ALLOW_TO_SEND_UPGRADE_TO_FRIENDS = false;
+    public final static boolean ALLOW_TO_SEND_UPGRADE_TO_FRIENDS = true;
     private static final int STATE_FILE_VERSION = 3;
 
     public final static int KB = 1024;

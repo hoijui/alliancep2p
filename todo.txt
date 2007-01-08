@@ -1,34 +1,17 @@
 todo:
     * kopplingar stängs inte ner - det måste fixas - gäller nog bara SLL? - verifiera
-
-efter 0.9:
-    * lägg till option i options för krypteringslager:   Basic (weak encryption but works well) / SSL (Strong encryption but experimental and buggy)
-
     * -> revconnect <-   - istället föra att detecta att man är bakom brandvägg så kan man se till så alla kopplingar är åt samma håll - det håller som friend connection är på
-
     * komprimera sökpaket - skulle göra så att sökresultat kommer tillbaka mycket snabbare
-
     * usability testa! roligt. testa allt från installation till .. allt annat
-
-    * när man är borta från alliance i fem sex dagar så fick jag HUNDRA connectioninvites - varav 99 var offline..  det får göras på ett annat sätt det här..
-      TA BORT dubbleterna åtminstone
-
     * katalogstrukturen i downloadkatalogen blirsuperrörig - tar inte dc en katalog bara? - bara när man laddar ner hel katalog - kan göra samma sak om jag implementerar nya sökuit
-
     * glöm inte att ta bort GetUserList flood grejjerna.. - det buggar fortfarande - dom kan ställa till med problem i framtiden - och det är en UI referens i CORE
-
-    * när man stänger ner UI:t borde den väl starta om. Det hade rockat stenhårt ur minnessynpunkt.
-
-    * "shutdown for 1 hour"
-
     * dubbelklick på nerladdad fil öppnar den
+    * filesize i view share
+    * mer info i tooltip - DL 100Kb/s UL 23 Kb/s typ
+    * Bubbla: "Alliance needs your attention. Click here for more information." - hade varit bra i anjas fall t.ex.
 
 LÅG PRIO:
-    * filesize i view share
-    * Bubbla: "Alliance needs your attention. Click here for more information." - hade varit bra i anjas fall t.ex.
     * dubbelklick på + ska inte ladda ner
-    * wizard när man startar med speed test: http://www.dslreports.com/stest ?
-    * download från share tar max 500 filer - och den varnar inte om det
     * pinsamt enkelt att DOS:a alliance till döds - öppna koppling, skicka 0xffff och sedan 64k av skräp så tar alliance emot det glädjeligen
     * ui för dups - lista där man kan ta bort filer
 
