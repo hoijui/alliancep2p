@@ -9,7 +9,8 @@ todo:
     * filesize i view share
     * mer info i tooltip - DL 100Kb/s UL 23 Kb/s typ
     * Bubbla: "Alliance needs your attention. Click here for more information." - hade varit bra i anjas fall t.ex.
-
+    * att browsa ens egen share hade varit bra för att kolla alla buggar med dups
+   
 LÅG PRIO:
     * dubbelklick på + ska inte ladda ner
     * pinsamt enkelt att DOS:a alliance till döds - öppna koppling, skicka 0xffff och sedan 64k av skräp så tar alliance emot det glädjeligen
