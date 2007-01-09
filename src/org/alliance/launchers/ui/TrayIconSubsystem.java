@@ -184,9 +184,7 @@ public class TrayIconSubsystem implements Subsystem, Runnable {
         m.add(shutdown);
 
         ti = new TrayIcon(new ImageIcon(rl.getResource("gfx/icons/alliance.png")),
-                "Alliance v"+Version.VERSION+" build "+Version.BUILD_NUMBER+"\n" +
-                "Download: "+core.getNetworkManager().getBandwidthIn().getHumanReadable()+"\n" +
-                "Upload: "+core.getNetworkManager().getBandwidthOut().getHumanReadable(), m);
+                "Alliance v"+Version.VERSION+" build "+Version.BUILD_NUMBER, m);
 
         ti.setIconAutoSize(false);
         ti.addBalloonActionListener(new ActionListener() {
