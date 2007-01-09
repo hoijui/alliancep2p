@@ -58,4 +58,8 @@ public class NonWindowUICallback implements UICallback {
 
     public void receivedDirectoryListing(Friend friend, int i, String s, String[] files) {
     }
+
+    public void newUserInteractionQueued(NeedsUserInteraction ui) {
+        
+    }
 }

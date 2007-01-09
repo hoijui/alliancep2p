@@ -1,5 +1,6 @@
 package org.alliance.ui;
 
+import org.alliance.core.NeedsUserInteraction;
 import org.alliance.core.UICallback;
 import org.alliance.core.comm.SearchHit;
 import org.alliance.core.node.Friend;
@@ -70,6 +71,9 @@ public class UIBridge implements UICallback {
                 ui.getMainWindow().directoryListingReceived(friend, shareBaseIndex, path, files);
             }
         });
+    }
+
+    public void newUserInteractionQueued(NeedsUserInteraction ui) {
     }
 
     public void noRouteToHost(final Node node) {

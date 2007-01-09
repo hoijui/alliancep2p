@@ -4,12 +4,10 @@ import com.stendahls.nif.util.SimpleTimer;
 import com.stendahls.resourceloader.ResourceLoader;
 import org.alliance.Subsystem;
 import org.alliance.Version;
-import org.alliance.core.CoreSubsystem;
+import org.alliance.core.*;
 import static org.alliance.core.CoreSubsystem.KB;
-import org.alliance.core.ResourceSingelton;
-import org.alliance.core.T;
-import org.alliance.core.UICallback;
 import org.alliance.core.comm.SearchHit;
+import org.alliance.core.interactions.PostMessageInteraction;
 import org.alliance.core.node.Friend;
 import org.alliance.core.node.Node;
 import org.jdesktop.jdic.tray.SystemTray;
@@ -58,6 +56,20 @@ public class TrayIconSubsystem implements Subsystem, Runnable {
             public void receivedShareBaseList(Friend friend, String[] shareBaseNames) {}
             public void receivedDirectoryListing(Friend friend, int i, String s, String[] files) {}
 
+            public void newUserInteractionQueued(NeedsUserInteraction ui) {
+                if (ui instanceof PostMessageInteraction) {
+                    PostMessageInteraction pmi = (PostMessageInteraction)ui;
+                    ti.displayMessage("Chat message", core.getFriendManager().nickname(pmi.getFromGuid())+": "+pmi.getMessage(), TrayIcon.INFO_MESSAGE_TYPE);
+                } else {
+                    ti.displayMessage("Alliance needs your attention.", "Click here to find out why.", TrayIcon.INFO_MESSAGE_TYPE);
+                }
+                balloonClickHandler = new Runnable() {
+                    public void run() {
+                        openUI();
+                    }
+                };
+            }
+
             public void handleError(final Throwable e, final Object source) {
                 ti.displayMessage(e.getClass().getName(), e+"\n"+source+"\n\nClick here to view detailed error (and send error report)", TrayIcon.ERROR_MESSAGE_TYPE);
                 e.printStackTrace();
@@ -69,18 +81,12 @@ public class TrayIconSubsystem implements Subsystem, Runnable {
                             //class - we want this class to load fast (ie load minimal amount of classes)
                             Object errorDialog = Class.forName("com.stendahls.ui.ErrorDialog").newInstance();
                             Method m = errorDialog.getClass().getMethod("init", Throwable.class, boolean.class);
-                            m.invoke(errorDialog, e, Boolean.valueOf(false));
+                            m.invoke(errorDialog, e, false);
                         } catch(Throwable t) {
                             t.printStackTrace();
                         }
                     }
                 };
-            }
-
-            public void messageRecieved(int srcGuid, String message) {
-                // @todo: handle this in some good way. should add it to ui - and balloon click should open ui with chat window
-                ti.displayMessage("Message from "+core.getFriendManager().nickname(srcGuid), message, TrayIcon.INFO_MESSAGE_TYPE);
-                balloonClickHandler = null;
             }
         });
     }

@@ -26,4 +26,5 @@ public interface UICallback {
     void logNetworkEvent(String event);
     void receivedShareBaseList(Friend friend, String[] shareBaseNames);
     void receivedDirectoryListing(Friend friend, int shareBaseIndex, String path, String[] files);
+    void newUserInteractionQueued(NeedsUserInteraction ui);
 }
