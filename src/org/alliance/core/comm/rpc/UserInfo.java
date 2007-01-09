@@ -38,8 +38,9 @@ public class UserInfo extends RPC {
         int port = in.readInt();
         f.updateLastKnownHostInfo(manager.getNetMan().getSocketFor(con).getInetAddress().getHostAddress(), port);
         f.setShareSize(in.readLong());
-
         int buildNumber = in.readInt();
+        f.setAllianceBuildNumber(buildNumber);
+
         if (CoreSubsystem.ALLOW_TO_SEND_UPGRADE_TO_FRIENDS) {
             if (buildNumber < Version.BUILD_NUMBER) {
                 //remote has old version

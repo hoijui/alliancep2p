@@ -26,6 +26,7 @@ public class Friend extends Node {
     private boolean newlyDiscoveredFriend; //true when friend was recently found using invitation
     private long lastSeenOnlineAt;
     private int middlemanGuid;
+    private int allianceBuildNumber;
 
     public Friend(FriendManager manager, org.alliance.core.settings.Friend f) {
         nickname = f.getNickname();
@@ -137,5 +138,13 @@ public class Friend extends Node {
 
     public int getMiddlemanGuid() {
         return middlemanGuid;
+    }
+
+    public int getAllianceBuildNumber() {
+        return allianceBuildNumber;
+    }
+
+    public void setAllianceBuildNumber(int allianceBuildNumber) {
+        this.allianceBuildNumber = allianceBuildNumber;
     }
 }

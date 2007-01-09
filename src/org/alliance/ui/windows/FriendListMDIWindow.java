@@ -145,6 +145,7 @@ public class FriendListMDIWindow extends AllianceMDIWindow {
                 setForeground(Color.lightGray);
                 setText(FriendListMDIWindow.this.ui.getCore().getFriendManager().nicknameWithContactPath(f.getGuid()));
             }
+            setToolTipText("Remote build number: "+f.getAllianceBuildNumber());
 
             return this;
         }
