@@ -6,7 +6,6 @@ todo:
     * glöm inte att ta bort GetUserList flood grejjerna.. - det buggar fortfarande - dom kan ställa till med problem i framtiden - och det är en UI referens i CORE
     * dubbelklick på nerladdad fil öppnar den
     * filesize i view share
-    * mer info i tooltip - DL 100Kb/s UL 23 Kb/s typ
     * att browsa ens egen share hade varit bra för att kolla alla buggar med dups
     * handshakeconnection klasserna är kvar och kanske kopplingarna också? inte så jättenoga just nu
 
