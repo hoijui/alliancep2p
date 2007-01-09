@@ -1,5 +1,7 @@
 todo:
-    * -> revconnect <- - istället föra att detecta att man är bakom brandvägg så kan man se till så alla kopplingar är åt samma håll - det håller som friend connection är på
+    * -> revconnect <- - istället föra att detecta att man är bakom brandvägg så kan man se till så alla kopplingar är åt samma håll - det hållet som friend connection är på
+    * event (runnable) när en connect failar - använd när man använder invitations så att christer kan koppla upp sig till nån
+
     * komprimera sökpaket - skulle göra så att sökresultat kommer tillbaka mycket snabbare
     * usability testa! roligt. testa allt från installation till .. allt annat
     * katalogstrukturen i downloadkatalogen blirsuperrörig - tar inte dc en katalog bara? - bara när man laddar ner hel katalog - kan göra samma sak om jag implementerar nya sökuit
