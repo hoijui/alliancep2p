@@ -68,6 +68,8 @@ public class Internal extends SettingClass {
 
     private Integer uploadthrottle=0; //zero to disable
 
+    private String serverlistenip = "";
+
     public Internal() {
     }
 
@@ -356,5 +358,13 @@ public class Internal extends SettingClass {
 
     public void setAlwaysallowfriendsoffriendstoconnecttome(Integer alwaysallowfriendsoffriendstoconnecttome) {
         this.alwaysallowfriendsoffriendstoconnecttome = alwaysallowfriendsoffriendstoconnecttome;
+    }
+
+    public String getServerlistenip() {
+        return serverlistenip;
+    }
+
+    public void setServerlistenip(String serverlistenip) {
+        this.serverlistenip = serverlistenip;
     }
 }

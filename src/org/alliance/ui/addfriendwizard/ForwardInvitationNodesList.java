@@ -105,7 +105,8 @@ public class ForwardInvitationNodesList extends JList {
             for (Friend f : ui.getCore().getFriendManager().friends()) {
                 if (f.friendsFriends() != null) {
                     for (UntrustedNode n : f.friendsFriends()) {
-                        if (ui.getCore().getFriendManager().getFriend(n.getGuid()) == null && ui.getCore().getFriendManager().getMyGUID() != n.getGuid())
+                        if (ui.getCore().getFriendManager().getFriend(n.getGuid()) == null &&
+                                ui.getCore().getFriendManager().getMyGUID() != n.getGuid())
                             secondaryNodeGuids.add(n.getGuid());
                     }
                 }

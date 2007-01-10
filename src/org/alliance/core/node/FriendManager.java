@@ -11,10 +11,7 @@ import org.alliance.core.settings.My;
 import org.alliance.core.settings.Settings;
 
 import java.io.IOException;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Random;
+import java.util.*;
 
 /**
  * The FriendManager keeps track of all nodes. Contains a list of friends and a list of all nodes
@@ -261,7 +258,15 @@ public class FriendManager extends Manager {
         return friendConnector;
     }
 
+    private ArrayList<Integer> latelyForwardedInvitaionGuids = new ArrayList<Integer>();
     public void forwardInvitationTo(final int guid) throws Exception {
+        if (latelyForwardedInvitaionGuids.contains(guid)) {
+            if(T.t)T.info("Tried to re-forward a recent invitation. Ignoring this invitation attempt");
+            return;
+        }
+        latelyForwardedInvitaionGuids.add(guid);
+        if (latelyForwardedInvitaionGuids.size() > 20) latelyForwardedInvitaionGuids.remove(0);
+
         if(T.t)T.trace("Forwarding invitaiton to "+nickname(guid));
         Friend route = null;
         for(Friend f : friends.values()) {

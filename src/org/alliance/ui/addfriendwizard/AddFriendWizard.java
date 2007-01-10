@@ -170,11 +170,12 @@ public class AddFriendWizard extends JWizard {
     private void goToConnectionFailed() {
         next.setEnabled(false);
         if (invitationFromGuid != null) {
+/*          this should not be needed - is made automatically
             try {
                 ui.getCore().getFriendManager().forwardInvitationTo(invitationFromGuid);
             } catch(Exception e) {
                 ui.handleErrorInEventLoop(e);
-            }
+            }*/
             setStep(STEP_CONNECTION_FAILED_FOR_FORWARD);
         } else {
             setStep(STEP_CONNECTION_FAILED);

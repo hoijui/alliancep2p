@@ -156,8 +156,33 @@
                         <label text=" GiB have been hashed."/>
                         <filler expand="horiz"/>
                     </panel>
+                </panel>
+
+                <panel axis="y" bordertype="etched" bordertitle="Server">
+                    <form expand="horiz" border="5">
+                        <row>
+                            <cell>
+                                <label text="IP number to listen on: "/>
+                            </cell>
+                            <cell>
+                                <panel border="0" axis="x">
+                                    <filler axis="x"/>
+                                    <textfield width="100" minwidth="100" maxwidth="100" id="internal.serverlistenip"/>
+                                </panel>
+                            </cell>
+                        </row>
+                        <row>
+                            <cell>
+                                <label text="(Leave this blank if you don't know what it is)"/>
+                            </cell>
+                            <cell>
+                                <label text=""/>
+                            </cell>
+                        </row>
+                    </form>
                     <filler/>
                 </panel>
+
             </tab>
         </tabbedpanel>
         <panel border="5" axis="x" expand="horiz">

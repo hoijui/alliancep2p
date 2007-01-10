@@ -49,6 +49,10 @@ public abstract class Connection {
     public abstract void readyToSend() throws IOException;
     protected abstract int getConnectionId();
 
+    //can be overridden by connection to perform stuff when connection breaks - used by 
+    public void signalConnectionAttemtError() {
+    }
+
     public int getConnectionIdForRemote() {
         return getConnectionId();
     }

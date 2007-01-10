@@ -564,7 +564,7 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
     public void EVENT_addally(ActionEvent e) throws IOException {
         String invitation = JOptionPane.showInputDialog(ui.getMainWindow(), "Enter the connection code you got from your friend: ");
         try {
-            if (invitation != null) ui.getCore().getInvitaitonManager().attemptToBecomeFriendWith(invitation.trim(), null);
+            if (invitation != null) ui.getCore().getInvitaitonManager().attemptToBecomeFriendWith(invitation.trim(), null, 0);
         } catch(EOFException ex) {
             OptionDialog.showErrorDialog(this, "Your connection code is corrupt. It seems to be too short. Maybe you did not enter all characters? Please try again. If that doesn't help try with a new code.");
         }

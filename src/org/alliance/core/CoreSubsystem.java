@@ -343,7 +343,7 @@ public class CoreSubsystem implements Subsystem {
                 getSettings().getInternal().getAlwaysallowfriendsoffriendstoconnecttome() > 0) {
             try {
                 ForwardedInvitationInteraction fii = (ForwardedInvitationInteraction)ui;
-                getInvitaitonManager().attemptToBecomeFriendWith(fii.getInvitationCode(), fii.getMiddleman(this));
+                getInvitaitonManager().attemptToBecomeFriendWith(fii.getInvitationCode(), fii.getMiddleman(this), fii.getFromGuid());
                 return;
             } catch(Exception e) {
                 reportError(e, ui);

@@ -3,10 +3,7 @@ package org.alliance.core.comm.networklayers.tcpnio;
 import org.alliance.core.comm.*;
 
 import java.io.IOException;
-import java.net.InetSocketAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.net.SocketAddress;
+import java.net.*;
 import java.nio.ByteBuffer;
 import java.nio.channels.*;
 import java.util.HashSet;
@@ -205,7 +202,11 @@ public class TCPNIONetworkLayer implements Runnable {
             serverSocket = ssc.socket();
             int bs = netMan.getCore().getSettings().getInternal().getSoreceivebuf();
             if (bs != -1) serverSocket.setReceiveBufferSize(bs);
-            InetSocketAddress address = new InetSocketAddress(netMan.getServerPort());
+            InetSocketAddress address;
+            if (netMan.getCore().getSettings().getInternal().getServerlistenip().trim().length() > 0)
+                address = new InetSocketAddress(netMan.getCore().getSettings().getInternal().getServerlistenip(), netMan.getServerPort());
+            else
+                address = new InetSocketAddress(netMan.getServerPort());
             serverSocket.bind(address);
             ssc.register(selector, SelectionKey.OP_ACCEPT);
             if(T.t) T.info("Server listening on port " + netMan.getServerPort());
@@ -245,7 +246,12 @@ public class TCPNIONetworkLayer implements Runnable {
         AuthenticatedConnection connection = (AuthenticatedConnection)key.attachment();
 
         SocketChannel sc = (SocketChannel)key.channel();
-        sc.finishConnect();
+        try {
+            sc.finishConnect();
+        } catch(ConnectException e) {
+            connection.signalConnectionAttemtError();
+            throw e;
+        }
         SelectionKey newKey = sc.register(selector, SelectionKey.OP_READ);
         if(T.t)T.info("Established connection to "+sc.socket().getRemoteSocketAddress()+"!");
         connection.setKey(newKey);

@@ -48,6 +48,10 @@ public class InvitaitonManager {
     }
 
     public void attemptToBecomeFriendWith(String invitation, Friend middleman) throws IOException {
+        attemptToBecomeFriendWith(invitation,  middleman, null);
+    }
+
+    public void attemptToBecomeFriendWith(String invitation, Friend middleman, final Integer fromGuid) throws IOException {
         byte data[] = HumanReadableEncoder.fromBase64String(invitation);
         DataInputStream in = new DataInputStream(new ByteArrayInputStream(data));
 
@@ -60,8 +64,19 @@ public class InvitaitonManager {
 
         if(T.t)T.info("Deserialized invitation: "+ip+", "+port+", "+passkey);
 
-        core.getNetworkManager().connect(
-                ip.getHostAddress(), port, new InvitationConnection(core.getNetworkManager(), Connection.Direction.OUT, passkey, middleman));
+        InvitationConnection ic = new InvitationConnection(core.getNetworkManager(), Connection.Direction.OUT, passkey, middleman);
+        ic.setConnectionFailedEvent(new Runnable() {
+            public void run() {
+                if(T.t)T.info("Attemted to connect using invitation but failed");
+                if (fromGuid != null) try {
+                    if(T.t)T.info(" - trying to send an invitation the other way around (in order to get around a firewall)");
+                    core.getFriendManager().forwardInvitationTo(fromGuid);
+                } catch (Exception e) {
+                    core.reportError(e, this);
+                }
+            }
+        });
+        core.getNetworkManager().connect(ip.getHostAddress(), port, ic);
     }
 
     public Invitation getInvitation(int key) {

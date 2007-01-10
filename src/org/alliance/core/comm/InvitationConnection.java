@@ -22,6 +22,9 @@ public class InvitationConnection extends AuthenticatedConnection {
     private int passkey;
     private Friend middleman;
 
+    private Runnable connectionFailedEvent;
+
+
     public InvitationConnection(NetworkManager netMan, Direction direction, int passkey, Friend middleman) {
         super(netMan, direction);
         this.passkey = passkey;
@@ -33,7 +36,7 @@ public class InvitationConnection extends AuthenticatedConnection {
         this.passkey = passkey;
         if (middlemanGuid != null) {
             middleman = core.getFriendManager().getFriend(middlemanGuid);
-            if (middleman == null) if(T.t)T.error("COuld not find middleman: "+middlemanGuid);
+            if (middleman == null) if(T.t)T.error("Could not find middleman: "+middlemanGuid);
         }
 
         if(T.t)T.ass(direction == Direction.IN, "Only supports incoming connections!");
@@ -41,6 +44,9 @@ public class InvitationConnection extends AuthenticatedConnection {
     }
 
     public void sendConnectionIdentifier() throws IOException {
+        if(T.t)T.trace("InvitationConnection succeded - remove connection error event");
+        connectionFailedEvent = null;
+
         if(T.t)T.trace("Sending special authentication for InvitationConnection");
         Packet p = netMan.createPacketForSend();
         p.writeInt(Version.PROTOCOL_VERSION);
@@ -119,5 +125,17 @@ public class InvitationConnection extends AuthenticatedConnection {
 
     protected int getConnectionId() {
         return CONNECTION_ID;
+    }
+
+    public void signalConnectionAttemtError() {
+        super.signalConnectionAttemtError();
+        if (connectionFailedEvent != null) {
+            connectionFailedEvent.run();
+            connectionFailedEvent = null;
+        }
+    }
+
+    public void setConnectionFailedEvent(Runnable connectionFailedEvent) {
+        this.connectionFailedEvent = connectionFailedEvent;
     }
 }

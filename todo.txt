@@ -1,16 +1,16 @@
 todo:
-    * -> revconnect <- - istället föra att detecta att man är bakom brandvägg så kan man se till så alla kopplingar är åt samma håll - det hållet som friend connection är på
     * event (runnable) när en connect failar - använd när man använder invitations så att christer kan koppla upp sig till nån - samma event kan användas i wizard också
+    * mer färg i chat - publik chat också
 
-    * MA behöver välja vilket internt ipnummer den ska lyssna på
-    * mer färg i chat
-
-    * rename på friend
+    * -> revconnect <- - istället föra att detecta att man är bakom brandvägg så kan man se till så alla kopplingar är åt samma håll - det hållet som friend connection är på
 
     * kom på något sätt att göra ett program för att testa överföring ordentligt hade varit bra.. 
 
-    * komprimera sökpaket - skulle göra så att sökresultat kommer tillbaka mycket snabbare
     * usability testa! roligt. testa allt från installation till .. allt annat
+
+sen:
+    * rename på friend
+    * komprimera sökpaket - skulle göra så att sökresultat kommer tillbaka mycket snabbare
     * katalogstrukturen i downloadkatalogen blirsuperrörig - tar inte dc en katalog bara? - bara när man laddar ner hel katalog - kan göra samma sak om jag implementerar nya sökuit
     * glöm inte att ta bort GetUserList flood grejjerna.. - det buggar fortfarande - dom kan ställa till med problem i framtiden - och det är en UI referens i CORE
     * dubbelklick på nerladdad fil öppnar den
