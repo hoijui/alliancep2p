@@ -2,6 +2,8 @@ todo:
     * event (runnable) när en connect failar - använd när man använder invitations så att christer kan koppla upp sig till nån - samma event kan användas i wizard också
     * mer färg i chat - publik chat också
 
+    * får inte visa hundra "you have successfully connected to"
+
     * -> revconnect <- - istället föra att detecta att man är bakom brandvägg så kan man se till så alla kopplingar är åt samma håll - det hållet som friend connection är på
 
     * kom på något sätt att göra ett program för att testa överföring ordentligt hade varit bra.. 

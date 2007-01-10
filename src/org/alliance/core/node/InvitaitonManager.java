@@ -67,7 +67,7 @@ public class InvitaitonManager {
         InvitationConnection ic = new InvitationConnection(core.getNetworkManager(), Connection.Direction.OUT, passkey, middleman);
         ic.setConnectionFailedEvent(new Runnable() {
             public void run() {
-                if(T.t)T.info("Attemted to connect using invitation but failed");
+                if(T.t)T.info("Attemted to connect using invitation but failed. From guid: "+fromGuid);
                 if (fromGuid != null) try {
                     if(T.t)T.info(" - trying to send an invitation the other way around (in order to get around a firewall)");
                     core.getFriendManager().forwardInvitationTo(fromGuid);
