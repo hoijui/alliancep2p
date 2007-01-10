@@ -1,12 +1,13 @@
 todo:
     * -> revconnect <- - istället föra att detecta att man är bakom brandvägg så kan man se till så alla kopplingar är åt samma håll - det hållet som friend connection är på
-    * event (runnable) när en connect failar - använd när man använder invitations så att christer kan koppla upp sig till nån
+    * event (runnable) när en connect failar - använd när man använder invitations så att christer kan koppla upp sig till nån - samma event kan användas i wizard också
 
     * MA behöver välja vilket internt ipnummer den ska lyssna på
+    * mer färg i chat
 
     * rename på friend
 
-    * kom på något sätt att göra ett program för att testa överföring ordentligt hade varit bra..   folk ser ut att vara offline ibland fastän dom borde inte vara det
+    * kom på något sätt att göra ett program för att testa överföring ordentligt hade varit bra.. 
 
     * komprimera sökpaket - skulle göra så att sökresultat kommer tillbaka mycket snabbare
     * usability testa! roligt. testa allt från installation till .. allt annat

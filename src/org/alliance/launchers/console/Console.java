@@ -9,6 +9,7 @@ import org.alliance.core.comm.Connection;
 import org.alliance.core.comm.FriendConnection;
 import org.alliance.core.comm.rpc.GetDirectoryListing;
 import org.alliance.core.comm.rpc.GetShareBaseList;
+import org.alliance.core.comm.rpc.Ping;
 import org.alliance.core.crypto.cryptolayers.SSLCryptoLayer;
 import org.alliance.core.file.blockstorage.BlockFile;
 import org.alliance.core.file.filedatabase.FileDescriptor;
@@ -105,6 +106,34 @@ public class Console {
             share(params);
         } else if ("sharebases".equals(command)) {
             sharebases();
+        } else if ("pingbomb".equals(command)) {
+            if (core.isRunningAsTestSuite()) {
+                printer.println("Sending a bunch of pings at random intervals");
+                Thread t = new Thread(new Runnable() {
+                    public void run() {
+                        for(int i=0;i<10000;i++) {
+                            Collection<Friend> c = core.getFriendManager().friends();
+                            Friend fa[] = new Friend[c.size()];
+                            c.toArray(fa);
+                            int n = (int)(c.size()*Math.random());
+                            final Friend f = fa[n];
+                            core.invokeLater(new Runnable() {
+                                public void run() {
+                                    try {
+                                        f.getFriendConnection().send(new Ping());
+                                    } catch (IOException e) {
+                                        e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                                    }
+                                }
+                            });
+                            try {Thread.sleep((long)(Math.random()*50));} catch (InterruptedException e) {}
+                        }
+                    }
+                });
+                t.start();
+            } else {
+                printer.println("No you won't");
+            }
         } else if ("gc".equals(command)) {
             gc();
         } else if ("dir".equals(command)) {

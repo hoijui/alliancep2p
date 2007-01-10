@@ -497,8 +497,7 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
 
                 if (ui.getCore().doesInterationQueContain(ForwardedInvitationInteraction.class) || new ForwardInvitationNodesList.ForwardInvitationListModel(ui).getSize() == 0) {
                    if (lastAddFriendWizard != null) lastAddFriendWizard.getOuterDialog().dispose();
-//                  no need to show a dialog..  
-//                    OptionDialog.showInformationDialog(this, "You have successfully connected to "+name+"!");
+                    OptionDialog.showInformationDialog(this, "You have successfully connected to "+name+"!");
                     //after this method completes the next pending interaction will be processed.
                 } else {
 //                    OptionDialog.showInformationDialog(this, "You have successfully connected to "+name+". Congratulations![p] You will now be shown a list of all connections "+name+" has. This way you can connect to even more people.[p]");
