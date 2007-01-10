@@ -3,6 +3,7 @@ package org.alliance.core.comm;
 import com.stendahls.util.TextUtils;
 import org.alliance.Version;
 import org.alliance.core.comm.filetransfers.UploadConnection;
+import org.alliance.core.comm.upnp.ReverseConnection;
 import org.alliance.core.node.Friend;
 
 import java.io.IOException;
@@ -63,6 +64,8 @@ public abstract class AuthenticatedConnection extends PacketConnection {
                 return new FriendConnection(netMan, key, Connection.Direction.IN, guid);
             case UploadConnection.CONNECTION_ID:
                 return new UploadConnection(netMan, key, Connection.Direction.IN, guid);
+            case ReverseConnection.CONNECTION_ID:
+                return new ReverseConnection(netMan, key, Connection.Direction.IN, guid);
             default:
                 throw new IOException("Unknown connection id "+connectiondId);
         }

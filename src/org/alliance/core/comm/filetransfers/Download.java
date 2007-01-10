@@ -121,7 +121,7 @@ public class Download {
         if(T.t)T.trace("Opending download connection to "+srcGuid);
         DownloadConnection d = new DownloadConnection(manager.getNetMan(), Connection.Direction.OUT, srcGuid, this);
         addConnection(d);
-        manager.getNetMan().connect(srcGuid, d);
+        manager.getNetMan().virtualConnect(srcGuid, d);
     }
 
     public void addConnection(DownloadConnection con) {

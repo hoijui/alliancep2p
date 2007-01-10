@@ -9,6 +9,7 @@ import org.alliance.core.comm.networklayers.tcpnio.TCPNIONetworkLayer;
 import org.alliance.core.comm.rpc.PersistantRPC;
 import org.alliance.core.comm.rpc.Ping;
 import org.alliance.core.comm.rpc.Search;
+import org.alliance.core.comm.rpc.ConnectToMe;
 import org.alliance.core.comm.throttling.BandwidthThrottle;
 import org.alliance.core.crypto.CryptoLayer;
 import org.alliance.core.file.filedatabase.FileType;
@@ -55,6 +56,8 @@ public class NetworkManager extends Manager {
     protected BandwidthAnalyzer bandwidthIn, bandwidthOut;
 
     private ArrayList<PersistantRPC> queuedPersistantRPCs = new ArrayList<PersistantRPC>();
+
+    private HashMap<Integer, AuthenticatedConnection> connectionsWaitingForReverseConnect = new HashMap<Integer, AuthenticatedConnection>();
 
     public NetworkManager(CoreSubsystem core, Settings settings) throws IOException {
         this.core = core;
@@ -182,9 +185,47 @@ public class NetworkManager extends Manager {
         return networkLayer.createPacketForReceive();
     }
 
+    /**
+     * Opens a connection of type <code>connection</code> to dstGuid. If there is a FriendConnection to dstGuid already
+     * and that connection is incoming then a reverse connect operation is performed. This way we circumvent a lot of
+     * firewall problems.
+     * @param dstGuid
+     * @param connection
+     * @throws IOException
+     */
+    public void virtualConnect(int dstGuid, AuthenticatedConnection connection) throws IOException {
+        Friend f = router.findClosestFriend(dstGuid);
+
+//        if (f.getFriendConnection() != null && f.getFriendConnection().getDirection() == Connection.Direction.IN) {
+        if (f.getFriendConnection() != null && false) {
+            //@todo: this does not work yet
+            if(T.t)T.info("Attemting reverse connect to circument firewall");
+            f.getFriendConnection().send(new ConnectToMe(registerForReverseConnect(connection)));
+        } else {
+            networkLayer.connect(f.getLastKnownHost(), f.getLastKnownPort(), connection);
+        }
+    }
+
     public void connect(int dstGuid, AuthenticatedConnection connection) throws IOException {
         Friend f = router.findClosestFriend(dstGuid);
         networkLayer.connect(f.getLastKnownHost(), f.getLastKnownPort(), connection);
+    }
+
+    private int registerForReverseConnect(AuthenticatedConnection connection) {
+        if(T.t)T.debug("Registering "+connection+" for reverse connect.");
+        int id = connection.hashCode();
+        connectionsWaitingForReverseConnect.put(id, connection);
+        return id;
+    }
+
+    public AuthenticatedConnection fetchReveresedConnection(int reverseConnectionId) {
+        if (connectionsWaitingForReverseConnect.containsKey(reverseConnectionId)) {
+            AuthenticatedConnection c = connectionsWaitingForReverseConnect.get(reverseConnectionId);
+            connectionsWaitingForReverseConnect.remove(reverseConnectionId);
+            return c;
+        } else {
+            return null;
+        }
     }
 
     public void connect(String host, int port, AuthenticatedConnection connection) throws IOException {
@@ -242,7 +283,7 @@ public class NetworkManager extends Manager {
 
     public void signalInterestToSend(final Connection c) throws IOException {
         cryptoLayer.signalInterestToSend(c);
-            }
+    }
 
     public void noInterestToSend(final Connection c) {
         cryptoLayer.noInterestToSend(c);

@@ -345,6 +345,7 @@ public class TCPNIONetworkLayer implements Runnable {
         } catch(Exception e) {
             //this happens when a channel is closed
             if(T.t)T.info("Could not get interest for write: "+e);
+            e.printStackTrace();
         }
     }
 
