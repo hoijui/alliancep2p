@@ -67,11 +67,19 @@ public class FriendConnection extends AuthenticatedConnection {
     private void signalReceived(RPC rpc) {
         rpcsReceived++;
         setStatusString("s:"+rpcsSent+" r: "+rpcsReceived+" (last: <-"+rpc+")");
+        if (rpcsReceived % 10 == 0) updateLastSeenOnline();
     }
 
     private void signalSent(RPC rpc) {
         rpcsSent++;
         setStatusString("s:"+rpcsSent+" r: "+rpcsReceived+" (last: ->"+rpc+")");
+        if (rpcsSent % 10 == 0) updateLastSeenOnline();
+    }
+
+    private void updateLastSeenOnline() {
+        if (core.getSettings().getFriend(remoteUserGUID) != null) {
+            core.getSettings().getFriend(remoteUserGUID).setLastseenonlineat(System.currentTimeMillis());
+        }
     }
 
     protected int getConnectionId() {
