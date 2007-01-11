@@ -137,11 +137,9 @@ public abstract class BufferedCryptoLayer extends CryptoLayer {
     protected void removeSendInterest(final Connection c) {
         if(T.t)trace("CrytptoLayer NOT interested in sending");
         if (!c.hasWriteInterest()) {
-            if(T.t)T.trace("hm");
         } else {
             networkLayer.invokeLater(new Runnable() {
                 public void run() {
-                    if(T.t)T.trace("Removing INTEREST");
                     c.setHasWriteInterest(false);
                     networkLayer.removeInterestForWrite(c.getKey());
                 }
