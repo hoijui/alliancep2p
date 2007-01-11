@@ -5,6 +5,7 @@ import org.alliance.core.comm.rpc.ChatMessage;
 import org.alliance.ui.UISubsystem;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -22,6 +23,16 @@ import java.util.Date;
  */
 public class ChatMessageMDIWindow extends AllianceMDIWindow {
     private final static DateFormat FORMAT = new SimpleDateFormat("HH:mm");
+    private final static Color COLORS[] = {
+            new Color(0x0068a7),
+            new Color(0x009606),
+            new Color(0xa13eaa),
+            new Color(0x008b76),
+            new Color(0xb77e24),
+            new Color(0xef0000),
+            new Color(0xb224b7),
+            new Color(0xb77e24)
+    };
 
     private int guid;
     private JEditorPane textarea;
@@ -92,10 +103,19 @@ public class ChatMessageMDIWindow extends AllianceMDIWindow {
     }
 
     public void addMessage(String from, String message, long tick) {
-        String color = from.equals(ui.getCore().getFriendManager().getMe().getNickname()) ? "7a7a7a" : "000000";
+        int n = from.hashCode();
+        if (n<0)n=-n;
+        n%=COLORS.length;
+        Color c = COLORS[n];
+
+//        String color = from.equals(ui.getCore().getFriendManager().getMe().getNickname()) ? "7a7a7a" : "000000";
 //        html += "<font color=\"#"+color+"\">["+FORMAT.format(new Date(tick))+"] "+from+": "+message+"</font><br>";
-        html += "<font color=\"#7a7a7a\">["+FORMAT.format(new Date(tick))+"] "+from+":</font> <font color=\"#"+color+"\">"+message+"</font><br>";
+        html += "<font color=\"#9f9f9f\">["+FORMAT.format(new Date(tick))+"] <font color=\""+toHexColor(c)+"\">"+from+":</font> <font color=\""+toHexColor(c.darker())+"\">"+message+"</font><br>";
         textarea.setText(html);
+    }
+
+    private String toHexColor(Color color) {
+        return "#"+Integer.toHexString(color.getRGB()&0xffffff);
     }
 
     public String getIdentifier() {
