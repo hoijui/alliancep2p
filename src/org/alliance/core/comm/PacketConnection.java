@@ -48,12 +48,8 @@ public abstract class PacketConnection extends Connection {
 
     public void readyToSend() throws IOException {
 //          looks like alliance can hang in an infitite loop here sometimes
-//        if(T.t)T.trace("OS send buffer space is available - try to send sometihing");
-//        try {
-//            Thread.sleep(100);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-//        }
+//        if(T.t)T.traceNoDup("OS send buffer space is available - try to send sometihing");
+        if(T.t)T.trace("OS send buffer space is available - try to send sometihing. Packets in que: "+packetsToSend.size()+ "packetCurrentlySending: "+packetCurrentlyInSending);
 
         while(true) {
             if (packetCurrentlyInSending == null) {
@@ -75,8 +71,10 @@ public abstract class PacketConnection extends Connection {
             }
         }
 
-        if (packetCurrentlyInSending == null && packetsToSend.size() == 0)
+        if (packetCurrentlyInSending == null && packetsToSend.size() == 0) {
+            if(T.t)T.trace("No more interest to send.");
             netMan.noInterestToSend(this);
+        }
     }
 
     public void received(ByteBuffer buf) throws IOException {

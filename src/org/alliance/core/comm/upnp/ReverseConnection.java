@@ -46,6 +46,9 @@ public class ReverseConnection extends AuthenticatedConnection {
             Packet p = netMan.createPacketForSend();
             p.writeInt(reverseConnectionId);
             send(p);
+            HandshakeConnection hc = new HandshakeConnection(netMan, key);
+            netMan.replaceConnection(getKey(), hc);
+            hc.init();
         }
     }
 
@@ -58,16 +61,12 @@ public class ReverseConnection extends AuthenticatedConnection {
                 if(T.t)T.error("Could not find reversed connection with ID "+reverseConnectionId+"!!!");
                 return;
             }
-            send(netMan.createPacketForSend()); //just send empty packet to trigger the else condition below on the opposite side of the connection
             netMan.replaceConnection(getKey(), c);
             c.setKey(getKey());
             c.sendConnectionIdentifier();
             c.init();
         } else {
-            if(T.t)T.debug("Received signal from other side to replace connection. Lets do it.");
-            HandshakeConnection hc = new HandshakeConnection(netMan, key);
-            netMan.replaceConnection(getKey(), hc);
-            hc.init();
+            if(T.t)T.error("Ehh! Should not receive any packets here!");
         }
     }
 

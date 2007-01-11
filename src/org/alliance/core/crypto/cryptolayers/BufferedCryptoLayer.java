@@ -2,6 +2,7 @@ package org.alliance.core.crypto.cryptolayers;
 
 import org.alliance.core.CoreSubsystem;
 import org.alliance.core.comm.Connection;
+import org.alliance.core.comm.upnp.ReverseConnection;
 import org.alliance.core.comm.filetransfers.TransferConnection;
 import org.alliance.core.crypto.CryptoLayer;
 
@@ -48,7 +49,8 @@ public abstract class BufferedCryptoLayer extends CryptoLayer {
         ConnectionData d = getConnectionDataFor(c);
 
         if (bytesToSend > d.encryptionBuffer.remaining()) {
-            if(T.t)trace("Encryption buffer overflow: wants to send "+bytesToSend+" remaining in buffer: "+d.encryptionBuffer.remaining()+" - wait for it to clear");
+            if(T.t)trace("Encryption buffer overflow: wants to send "+bytesToSend+" remaining in buffer: "+d.encryptionBuffer.remaining()+" - pos: "+d.encryptionBuffer.position()+" - wait for it to clear");
+            if (bytesToSend > d.encryptionBuffer.capacity()) if(T.t)T.error("Oh fuck. Wants to send more then our buffer allows. This will start an infinite loop.");
             addSendInterest(c);
             return 0;
         }
@@ -67,7 +69,7 @@ public abstract class BufferedCryptoLayer extends CryptoLayer {
         ConnectionData d = connectionData.get(c.getKey());
         if (d == null) {
             if(T.t)debug("Creating a ConnectionData for new connection "+c);
-            d = new ConnectionData(c instanceof TransferConnection ?
+            d = new ConnectionData(c instanceof TransferConnection || c instanceof ReverseConnection ? //@todo: this is such bullshit. Encryption buffers should be dynamic then this parameter would not be needed at all
                     core.getSettings().getInternal().getSocketsendbuffer() :
                     core.getSettings().getInternal().getMaximumAlliancePacketSize());
             connectionData.put(c.getKey(),d);
@@ -135,9 +137,11 @@ public abstract class BufferedCryptoLayer extends CryptoLayer {
     protected void removeSendInterest(final Connection c) {
         if(T.t)trace("CrytptoLayer NOT interested in sending");
         if (!c.hasWriteInterest()) {
+            if(T.t)T.trace("hm");
         } else {
             networkLayer.invokeLater(new Runnable() {
                 public void run() {
+                    if(T.t)T.trace("Removing INTEREST");
                     c.setHasWriteInterest(false);
                     networkLayer.removeInterestForWrite(c.getKey());
                 }

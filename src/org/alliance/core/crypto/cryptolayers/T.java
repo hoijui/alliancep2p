@@ -10,7 +10,7 @@ import com.stendahls.trace.TraceChannel;
 public class T {
     public static final boolean t = false && org.alliance.T.t;
 
-    private static TraceChannel tc = new TraceChannel("ssl");
+    private static TraceChannel tc = new TraceChannel("crypto");
 
     public static void trace(Object message) { tc.trace(message); }
     public static void debug(Object message) { tc.debug(message); }

@@ -13,7 +13,7 @@ import java.nio.ByteBuffer;
  * Time: 12:33:30
  */
 public abstract class Packet {
-    public static final boolean tracePacketContents = false & T.t;
+    public static final boolean tracePacketContents = true & T.t;
     public static TraceChannel tc = new TraceChannel("pack");
 
     public abstract int getAvailable();

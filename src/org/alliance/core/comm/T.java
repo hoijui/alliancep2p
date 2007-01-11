@@ -19,4 +19,11 @@ public class T {
     public static void warn(Object message, Exception stackTrace) { tc.warn(message, stackTrace); }
     public static void error(Object message) { tc.error(message); }
     public static void ass(boolean a, Object m) { tc.ass(a, m); }
+
+    private static String lastTraceNoDup;
+    public static void traceNoDup(String s) {
+        if (s != null && s.equals(lastTraceNoDup)) return;
+        trace(s);
+        lastTraceNoDup = s;
+    }
 }

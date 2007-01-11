@@ -35,7 +35,8 @@ import java.util.*;
  * To change this template use File | Settings | File Templates.
  */
 public class NetworkManager extends Manager {
-    public static final boolean DIRECTLY_CALL_READYTOSEND = false;  //setting fale here produces wierd results - not sure anymore now that encryption is implemented - anyway. It seems to be working well with this flag on.
+//    public static final boolean DIRECTLY_CALL_READYTOSEND = false;  //setting fale here produces wierd results - not sure anymore now that encryption is implemented - anyway. It seems to be working well with this flag on.
+    public static final boolean DIRECTLY_CALL_READYTOSEND = true;
 
     private int serverPort;
     private boolean alive = true;
@@ -196,9 +197,8 @@ public class NetworkManager extends Manager {
     public void virtualConnect(int dstGuid, AuthenticatedConnection connection) throws IOException {
         Friend f = router.findClosestFriend(dstGuid);
 
-//        if (f.getFriendConnection() != null && f.getFriendConnection().getDirection() == Connection.Direction.IN) {
-        if (f.getFriendConnection() != null && false) {
-            //@todo: this does not work yet
+        if (f.getFriendConnection() != null && f.getFriendConnection().getDirection() == Connection.Direction.IN) {
+//        if (f.getFriendConnection() != null && true) {
             if(T.t)T.info("Attemting reverse connect to circument firewall");
             f.getFriendConnection().send(new ConnectToMe(registerForReverseConnect(connection)));
         } else {
