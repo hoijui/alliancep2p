@@ -49,6 +49,7 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
     private AddFriendWizard lastAddFriendWizard;
 
     private int userInteractionsInProgress = 0;
+    private PublicChatMessageMDIWindow publicChat;
 
     public MainWindow() throws Exception {
     }
@@ -78,8 +79,9 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
         mdiManager.addWindow(new FriendListMDIWindow(mdiManager, ui));
         mdiManager.addWindow(new SearchMDIWindow(ui));
         mdiManager.addWindow(new DownloadsMDIWindow(ui));
+        mdiManager.addWindow(publicChat = new PublicChatMessageMDIWindow(ui));
 
-        mdiManager.selectWindow(getSearchWindow());
+        mdiManager.selectWindow(publicChat);
 
         RecursiveBackgroundSetter.setBackground(xui.getComponent("bottompanel"), new Color(0xE3E2E6), false);
 
@@ -303,12 +305,16 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
     }
 
     public void chatMessage(int guid, String message, long tick) throws Exception {
-        ChatMessageMDIWindow w = (ChatMessageMDIWindow)mdiManager.getWindow("msg"+guid);
+        PrivateChatMessageMDIWindow w = (PrivateChatMessageMDIWindow)mdiManager.getWindow("msg"+guid);
         if (w == null) {
-            w = new ChatMessageMDIWindow(ui, guid);
+            w = new PrivateChatMessageMDIWindow(ui, guid);
             mdiManager.addWindow(w);
         }
-        if (message != null) w.addMessage(message, tick);
+        if (message != null) w.addMessage(ui.getCore().getFriendManager().nickname(guid), message, tick);
+    }
+
+    public void publicChatMessage(int guid, String message, long tick) throws Exception {
+        if (message != null) publicChat.addMessage(ui.getCore().getFriendManager().nickname(guid), message, tick);
     }
 
     public void viewShare(Friend f) throws Exception {
@@ -436,7 +442,10 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
             if (nui instanceof PostMessageInteraction) {
                 PostMessageInteraction pmi = (PostMessageInteraction)nui;
                 try {
-                    chatMessage(pmi.getFromGuid(), pmi.getMessage(), pmi.getTick());
+                    if (pmi instanceof PostMessageToAllInteraction)
+                        publicChatMessage(pmi.getFromGuid(), pmi.getMessage(), pmi.getTick());
+                    else
+                        chatMessage(pmi.getFromGuid(), pmi.getMessage(), pmi.getTick());
                 } catch(Exception e) {
                     ui.handleErrorInEventLoop(e);
                 }
