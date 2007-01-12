@@ -3,6 +3,8 @@ todo:
 
     * drar vrålmycket cpu när en download är klar
 
+    * public chat fungerar bra - men den laggar. vad är det??
+
     * kom på något sätt att göra ett program för att testa överföring ordentligt hade varit bra..
 
     * usability testa! roligt. testa allt från installation till .. allt annat
