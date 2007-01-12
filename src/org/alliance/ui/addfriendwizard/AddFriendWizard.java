@@ -106,7 +106,7 @@ public class AddFriendWizard extends JWizard {
                                 "\n" +
                                 ui.getCore().getInvitaitonManager().createInvitation().getCompleteInvitaitonString()+"\n"+
                                 "\n" +
-                                "Using this code you will connect to my private Alliance network.\n" +
+                                "Using this code you will connect to our private Alliance network.\n" +
                                 "______________________________________________________________________________________________________";
 
                         body = body.replace("\n", "%0A");

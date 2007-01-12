@@ -77,9 +77,9 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
         setupMDIManager();
 
         mdiManager.addWindow(new FriendListMDIWindow(mdiManager, ui));
+        mdiManager.addWindow(publicChat = new PublicChatMessageMDIWindow(ui));
         mdiManager.addWindow(new SearchMDIWindow(ui));
         mdiManager.addWindow(new DownloadsMDIWindow(ui));
-        mdiManager.addWindow(publicChat = new PublicChatMessageMDIWindow(ui));
 
         mdiManager.selectWindow(publicChat);
 
