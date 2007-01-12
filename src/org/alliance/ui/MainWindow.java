@@ -15,6 +15,7 @@ import com.stendahls.util.TextUtils;
 import de.javasoft.plaf.synthetica.SyntheticaRootPaneUI;
 import org.alliance.Version;
 import org.alliance.core.NeedsUserInteraction;
+import org.alliance.core.PublicChatHistory;
 import org.alliance.core.comm.BandwidthAnalyzer;
 import org.alliance.core.interactions.*;
 import org.alliance.core.node.Friend;
@@ -80,6 +81,10 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
         mdiManager.addWindow(publicChat = new PublicChatMessageMDIWindow(ui));
         mdiManager.addWindow(new SearchMDIWindow(ui));
         mdiManager.addWindow(new DownloadsMDIWindow(ui));
+
+        for(PublicChatHistory.Entry e : ui.getCore().getPublicChatHistory().allMessages()) {
+            publicChat.addMessage(ui.getCore().getFriendManager().nickname(e.fromGuid), e.message, e.tick);
+        }
 
         mdiManager.selectWindow(publicChat);
 
@@ -314,7 +319,10 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
     }
 
     public void publicChatMessage(int guid, String message, long tick) throws Exception {
-        if (message != null) publicChat.addMessage(ui.getCore().getFriendManager().nickname(guid), message, tick);
+        if (message != null) {
+            publicChat.addMessage(ui.getCore().getFriendManager().nickname(guid), message, tick);
+            ui.getCore().getPublicChatHistory().addMessage(tick,  guid, message);
+        }
     }
 
     public void viewShare(Friend f) throws Exception {

@@ -1,20 +1,18 @@
 package org.alliance.ui.windows;
 
+import com.stendahls.nif.ui.mdi.MDIManager;
+import com.stendahls.nif.ui.mdi.MDIWindow;
 import org.alliance.ui.UISubsystem;
-import org.alliance.core.comm.rpc.ChatMessage;
 
 import javax.swing.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import com.stendahls.nif.ui.mdi.MDIWindow;
-import com.stendahls.nif.ui.mdi.MDIManager;
 
 /**
  * Created by IntelliJ IDEA.
@@ -45,7 +43,7 @@ public abstract class AbstractChatMessageMDIWindow extends AllianceMDIWindow {
         super(manager, mdiWindowIdentifier, ui);
     }
 
-    protected abstract void send(final String text) throws IOException;
+    protected abstract void send(final String text) throws IOException, Exception;
     public abstract String getIdentifier();
 
     protected void postInit() {
@@ -59,11 +57,11 @@ public abstract class AbstractChatMessageMDIWindow extends AllianceMDIWindow {
         super.postInit();
     }
 
-    public void EVENT_chat1(ActionEvent e) throws IOException {
+    public void EVENT_chat1(ActionEvent e) throws Exception {
         send(chat.getText());
     }
 
-    public void EVENT_chat2(ActionEvent e) throws IOException {
+    public void EVENT_chat2(ActionEvent e) throws Exception {
         send(chat.getText());
     }
 

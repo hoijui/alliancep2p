@@ -52,7 +52,7 @@ import java.util.List;
  */
 public class CoreSubsystem implements Subsystem {
     public final static boolean ALLOW_TO_SEND_UPGRADE_TO_FRIENDS = false;
-    private static final int STATE_FILE_VERSION = 3;
+    private static final int STATE_FILE_VERSION = 4;
 
     public final static int KB = 1024;
     public final static int MB = 1024*KB;
@@ -69,6 +69,7 @@ public class CoreSubsystem implements Subsystem {
     private InvitaitonManager invitaitonManager;
     private UPnPManager upnpManager;
     private CryptoManager cryptoManager;
+    private PublicChatHistory publicChatHistory;
 
     private UICallback uiCallback = new NonWindowUICallback();
 
@@ -112,6 +113,7 @@ public class CoreSubsystem implements Subsystem {
         networkManager = new NetworkManager(this, settings);
         invitaitonManager = new InvitaitonManager(this, settings);
         upnpManager = new UPnPManager(this);
+        publicChatHistory = new PublicChatHistory();
 
         loadState();
 
@@ -171,6 +173,7 @@ public class CoreSubsystem implements Subsystem {
         invitaitonManager.save(out);
         networkManager.save(out);
         out.writeObject(userInternactionQue);
+        out.writeObject(publicChatHistory);
         out.flush();
         out.close();
     }
@@ -188,6 +191,7 @@ public class CoreSubsystem implements Subsystem {
             invitaitonManager.load(in);
             networkManager.load(in);
             userInternactionQue = (ArrayList<NeedsUserInteraction>)in.readObject();
+            publicChatHistory = (PublicChatHistory)in.readObject();
             for(Iterator i = userInternactionQue.iterator();i.hasNext();) {
                 if (i.next() instanceof NeedsToRestartBecauseOfUpgradeInteraction) i.remove(); //we don't need to restart if it's a interaction from the last time we ran alliance
             }
@@ -443,5 +447,9 @@ public class CoreSubsystem implements Subsystem {
         } else {
             return ByteBuffer.allocate(size);
         }
+    }
+
+    public PublicChatHistory getPublicChatHistory() {
+        return publicChatHistory;
     }
 }

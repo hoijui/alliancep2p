@@ -1,16 +1,10 @@
 package org.alliance.ui.windows;
 
-import org.alliance.ui.UISubsystem;
 import org.alliance.core.comm.rpc.ChatMessageV2;
-import org.alliance.core.comm.Connection;
-import org.alliance.core.comm.FriendConnection;
-import org.alliance.core.comm.T;
 import org.alliance.core.node.Friend;
+import org.alliance.ui.UISubsystem;
 
 import java.io.IOException;
-import java.awt.*;
-import java.util.Date;
-import java.util.ArrayList;
 
 /**
  * Created by IntelliJ IDEA.
@@ -28,7 +22,7 @@ public class PublicChatMessageMDIWindow extends AbstractChatMessageMDIWindow {
         postInit();
     }
 
-    protected void send(final String text) throws IOException {
+    protected void send(final String text) throws Exception {
         ui.getCore().invokeLater(new Runnable() {
             public void run() {
                 try {
@@ -41,7 +35,7 @@ public class PublicChatMessageMDIWindow extends AbstractChatMessageMDIWindow {
             }
         });
         chat.setText("");
-        addMessage(ui.getCore().getFriendManager().getMe().getNickname(), text, System.currentTimeMillis());
+        ui.getMainWindow().publicChatMessage(ui.getCore().getFriendManager().getMe().getGuid(), text, System.currentTimeMillis());
     }
 
     public String getIdentifier() {
