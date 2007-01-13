@@ -322,7 +322,7 @@ public class DownloadsMDIWindow extends AllianceMDIWindow {
                 if (!d.isComplete()) {
                     if (OptionDialog.showQuestionDialog(
                             ui.getMainWindow(),
-                            "Are you sure you want to remove the selected downloads from you harddisc and download queue?")) {
+                            "Are you sure you want to remove the selected downloads from you harddrive and download queue?")) {
                         break;
                     } else return;
                 }

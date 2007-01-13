@@ -2,6 +2,7 @@ package org.alliance.ui.windows;
 
 import com.stendahls.nif.ui.mdi.MDIManager;
 import com.stendahls.nif.ui.mdi.MDIWindow;
+import com.stendahls.nif.ui.OptionDialog;
 import org.alliance.ui.UISubsystem;
 import org.alliance.launchers.OSInfo;
 import org.alliance.core.file.hash.Hash;
@@ -65,9 +66,11 @@ public abstract class AbstractChatMessageMDIWindow extends AllianceMDIWindow {
             public void hyperlinkUpdate(HyperlinkEvent e) {
                 if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
                     try {
-                        String hash = e.getDescription();
-                        ui.getCore().getNetworkManager().getDownloadManager().queDownload(new Hash(hash), "Link from chat", new ArrayList<Integer>());
-                        ui.getMainWindow().getMDIManager().selectWindow(ui.getMainWindow().getDownloadsWindow());
+                        if (OptionDialog.showQuestionDialog(ui.getMainWindow(), "Add file to downloads?")) {
+                            String hash = e.getDescription();
+                            ui.getCore().getNetworkManager().getDownloadManager().queDownload(new Hash(hash), "Link from chat", new ArrayList<Integer>());
+                            ui.getMainWindow().getMDIManager().selectWindow(ui.getMainWindow().getDownloadsWindow());
+                        }
                     } catch (IOException e1) {
                         ui.getCore().reportError(e1, this);
                     }

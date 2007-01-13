@@ -3,6 +3,8 @@ todo:
 
     * kom på något sätt att göra ett program för att testa överföring ordentligt hade varit bra..
 
+    * en temporär fix: ifall en ping tar mer än X sekunder så stäng ner kopplingen - då kommer man komma runt nätverksbuggen
+
     * usability testa! roligt. testa allt från installation till .. allt annat
 
 sen:
