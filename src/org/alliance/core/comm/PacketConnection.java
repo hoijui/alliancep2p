@@ -11,7 +11,7 @@ import java.util.concurrent.ArrayBlockingQueue;
  * Time: 16:10:48
  */
 public abstract class PacketConnection extends Connection {
-    private ArrayBlockingQueue<Packet> packetsToSend = new ArrayBlockingQueue<Packet>(50);
+    private ArrayBlockingQueue<Packet> packetsToSend = new ArrayBlockingQueue<Packet>(1000);
     private Packet packetCurrentlyInSending;
     private Packet receivePacket;
     private long lastPacketSentAt;

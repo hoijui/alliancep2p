@@ -320,6 +320,7 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
 
     public void publicChatMessage(int guid, String message, long tick) throws Exception {
         if (message != null) {
+            if(T.t)T.info("Received public chat message: "+message);
             publicChat.addMessage(ui.getCore().getFriendManager().nickname(guid), message, tick);
             ui.getCore().getPublicChatHistory().addMessage(tick,  guid, message);
         }
@@ -438,7 +439,8 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
                 }
             }
 
-            try { Thread.sleep(1000); } catch (InterruptedException e) {}
+            if (ui.getCore().getAllUserInteractionsInQue().size() == 0)
+                try { Thread.sleep(1000); } catch (InterruptedException e) {}
         }
     }
 
@@ -513,7 +515,7 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
                 if (lastAddFriendWizard != null) lastAddFriendWizard.connectionWasSuccessful();
 
                 if (ui.getCore().doesInterationQueContain(ForwardedInvitationInteraction.class) || new ForwardInvitationNodesList.ForwardInvitationListModel(ui).getSize() == 0) {
-                   if (lastAddFriendWizard != null) lastAddFriendWizard.getOuterDialog().dispose();
+                    if (lastAddFriendWizard != null) lastAddFriendWizard.getOuterDialog().dispose();
                     OptionDialog.showInformationDialog(this, "You have successfully connected to "+name+"!");
                     //after this method completes the next pending interaction will be processed.
                 } else {
