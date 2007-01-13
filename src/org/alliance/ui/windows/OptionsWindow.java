@@ -53,6 +53,10 @@ public class OptionsWindow extends XUIDialog {
     private boolean openedWithUndefiniedNickname;
 
     public OptionsWindow(UISubsystem ui) throws Exception {
+        this(ui, false);
+    }
+
+    public OptionsWindow(UISubsystem ui, boolean startInShareTab) throws Exception {
         super(ui.getMainWindow());
         this.ui = ui;
 
@@ -81,6 +85,8 @@ public class OptionsWindow extends XUIDialog {
         if (ui.getCore().getUpnpManager().isPortForwardSuccedeed()) {
             ((JHtmlLabel) xui.getComponent("portforward")).setText("Port successfully forwarded in your router using UPnP.");
         }
+
+        if (startInShareTab) ((JTabbedPane)xui.getComponent("tab")).setSelectedIndex(1);
 
         display();
 

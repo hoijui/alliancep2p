@@ -103,6 +103,11 @@ public class DownloadManager extends Manager implements Runnable {
 
         if (guidsCurrentlyDownloadingFrom.size() < core.getSettings().getInternal().getMaxdownloadconnections()) {
             for(Download d : downloadQue) if (d.getState() == Download.State.WAITING_TO_START) {
+                if (d.getAuxInfoGuids() == null || d.getAuxInfoGuids().size() == 0) {//if we don't know whos got the file then start downloading immidiatly 
+                    startDownload(d);
+                    return;
+                }
+
                 for(int guid : d.getAuxInfoGuids()) {
                     if (!guidsCurrentlyDownloadingFrom.contains(guid) && !guidsTryingToDownloadFrom.contains(guid)) {
                         startDownload(d);

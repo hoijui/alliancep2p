@@ -15,7 +15,7 @@ import java.io.IOException;
  */
 public class PublicChatMessageMDIWindow extends AbstractChatMessageMDIWindow {
     public PublicChatMessageMDIWindow(UISubsystem ui) throws Exception {
-        super(ui.getMainWindow().getMDIManager(), "chatmessage", ui);
+        super(ui.getMainWindow().getMDIManager(), "publicchat", ui);
 
         setTitle("Chat");
 

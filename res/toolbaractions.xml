@@ -97,6 +97,9 @@
                 mnemonic="c"/>
     </group>
 
+    <group id="publicchat">
+    </group>
+
     <group id="viewshare">
         <action
                 id="download"

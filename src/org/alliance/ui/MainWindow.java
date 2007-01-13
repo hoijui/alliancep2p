@@ -572,6 +572,10 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
 //        }
     }
 
+    public void EVENT_addshare(ActionEvent e) throws Exception {
+        new OptionsWindow(ui, true);
+    }
+
     public void EVENT_trace(ActionEvent e) throws Exception {
         createTraceWindow();
     }
