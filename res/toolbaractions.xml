@@ -9,15 +9,6 @@
                 addInMenu="file"
                 accelerator="ctrl-p"
                 mnemonic="a"/>
-        <action
-                id="removefriend"
-                name="Remove connection"
-                description="Permanently remove the selected connection"
-                menuimage="gfx/icons/removeconnection.png"
-                toolbarimage="gfx/icons/removeconnection.png"
-                addInMenu="file"
-                accelerator="Delete"
-                mnemonic="d"/>
         <action separator="yes"/>
         <action
                 id="chat"
@@ -46,6 +37,15 @@
                 addInMenu="file"
                 accelerator="F5"
                 mnemonic="r"/>
+        <action
+                id="removefriend"
+                name="Remove connection"
+                description="Permanently remove the selected connection"
+                menuimage="gfx/icons/removeconnection.png"
+                toolbarimage="gfx/icons/removeconnection.png"
+                addInMenu="file"
+                accelerator="Delete"
+                mnemonic="d"/>
         <action filler="true"/>
     </group>
 

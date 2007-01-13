@@ -70,8 +70,8 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
         xui.setMenuItemDescriptionListener(this);
         statusMessage = (JLabel)xui.getComponent("statusbar");
         shareMessage = (JLabel)xui.getComponent("sharing");
-        uploadMessage = (JLabel)xui.getComponent("totalup");
-        downloadMessage = (JLabel)xui.getComponent("totaldown");
+//        uploadMessage = (JLabel)xui.getComponent("totalup");
+//        downloadMessage = (JLabel)xui.getComponent("totaldown");
 
         setupToolbar();
         setupWindowEvents(shutdownOnClose);
@@ -389,8 +389,8 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
                         if (mdiManager != null && getFriendListMDIWindow() != null) getFriendListMDIWindow().update();
 
                         shareMessage.setText("Share: "+TextUtils.formatByteSize(ui.getCore().getShareManager().getFileDatabase().getTotalSize())+" in "+ui.getCore().getShareManager().getFileDatabase().getNumberOfFiles()+" files");
-                        uploadMessage.setText("Up: "+TextUtils.formatByteSize(ui.getCore().getNetworkManager().getBandwidthOut().getTotalBytes()));
-                        downloadMessage.setText("Down: "+TextUtils.formatByteSize(ui.getCore().getNetworkManager().getBandwidthIn().getTotalBytes()));
+//                        uploadMessage.setText("Up: "+TextUtils.formatByteSize(ui.getCore().getNetworkManager().getBandwidthOut().getTotalBytes()));
+//                        downloadMessage.setText("Down: "+TextUtils.formatByteSize(ui.getCore().getNetworkManager().getBandwidthIn().getTotalBytes()));
 
                         updateBandwidth("Downloading", "downloaded", bandwidthIn, ui.getCore().getNetworkManager().getBandwidthIn());
                         updateBandwidth("Uploading", "uploaded", bandwidthOut, ui.getCore().getNetworkManager().getBandwidthOut());
