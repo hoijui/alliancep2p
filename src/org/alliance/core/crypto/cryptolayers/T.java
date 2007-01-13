@@ -8,9 +8,9 @@ import com.stendahls.trace.TraceChannel;
  * Time: 09:38:09
  */
 public class T {
-    public static final boolean t = false && org.alliance.T.t;
+    public static final boolean t = true && org.alliance.T.t;
 
-    private static TraceChannel tc = new TraceChannel("crypto");
+    private static TraceChannel tc = new TraceChannel("cl");
 
     public static void trace(Object message) { tc.trace(message); }
     public static void debug(Object message) { tc.debug(message); }
