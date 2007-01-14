@@ -6,6 +6,7 @@ import com.stendahls.nif.ui.mdi.MDIWindow;
 import com.stendahls.util.TextUtils;
 import org.alliance.core.node.Friend;
 import org.alliance.ui.UISubsystem;
+import org.alliance.ui.T;
 
 import javax.swing.*;
 import java.awt.*;
@@ -159,12 +160,22 @@ public class FriendListMDIWindow extends AllianceMDIWindow {
 
     public void EVENT_reconnect(ActionEvent e) throws Exception {
         if (list.getSelectedValue() == null) return;
-        Friend f = (Friend)list.getSelectedValue();
+        final Friend f = (Friend)list.getSelectedValue();
         if (f.isConnected()) f.disconnect();
         Thread t = new Thread(new Runnable() {
             public void run() {
-                try {Thread.sleep(3500);} catch (InterruptedException e1) {}
-                ui.getCore().getFriendManager().getFriendConnector().wakeup();
+                try {Thread.sleep(3000);} catch (InterruptedException e1) {}
+                ui.getCore().invokeLater(new Runnable() {
+                    public void run() {
+                        if (f.isConnected()) try {
+                            f.getFriendConnection().close();
+                        } catch (IOException e1) {
+                            if(T.t)T.warn("Error when closing connection: "+e1);
+                        }
+                        try {Thread.sleep(500);} catch (InterruptedException e1) {}
+                        ui.getCore().getFriendManager().getFriendConnector().wakeup();
+                    }
+                });
             }
         });
         t.start();
