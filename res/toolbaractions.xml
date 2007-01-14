@@ -12,8 +12,8 @@
         <action separator="yes"/>
         <action
                 id="chat"
-                name="Post Message"
-                description="Post message to selected connection"
+                name="Private chat"
+                description="Open private chat window to selected friend"
                 menuimage="gfx/icons/chatmessage.png"
                 toolbarimage="gfx/icons/chatmessage.png"
                 addInMenu="file"
@@ -37,6 +37,16 @@
                 addInMenu="file"
                 accelerator="F5"
                 mnemonic="r"/>
+        <action
+                id="reconnect"
+                name="Reconnect"
+                description="Forcefully reconnect to selected friend"
+                menuimage="gfx/icons/reconnect.png"
+                toolbarimage="gfx/icons/reconnect.png"
+                addInMenu="file"
+                accelerator="ctrl-r"
+                mnemonic="r"/>
+        <action separator="yes"/>
         <action
                 id="removefriend"
                 name="Remove connection"

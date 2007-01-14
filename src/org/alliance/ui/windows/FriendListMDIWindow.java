@@ -157,6 +157,19 @@ public class FriendListMDIWindow extends AllianceMDIWindow {
         if (f != null) ui.getMainWindow().chatMessage(f.getGuid(), null, 0);
     }
 
+    public void EVENT_reconnect(ActionEvent e) throws Exception {
+        if (list.getSelectedValue() == null) return;
+        Friend f = (Friend)list.getSelectedValue();
+        if (f.isConnected()) f.disconnect();
+        Thread t = new Thread(new Runnable() {
+            public void run() {
+                try {Thread.sleep(3500);} catch (InterruptedException e1) {}
+                ui.getCore().getFriendManager().getFriendConnector().wakeup();
+            }
+        });
+        t.start();
+    }
+
     public void EVENT_viewshare(ActionEvent e) throws Exception {
         if (list.getSelectedValue() == null) return;
         Friend f = (Friend) list.getSelectedValue();
