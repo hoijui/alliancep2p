@@ -4,6 +4,7 @@ todo:
     inga nya inkommande kopplingar fungerar men datorn accepterar kopplingar
     utgående kopplingar fungerar perfekt
     COMM COULDN'T BIND PORT! Server not listening!
+    fick ett liknande fel där jag startade om kopplingen mot kungfoo - och då fungerade det igen
 
     man kanske ska ta och försöka stänga porten alltid? gör jag det redan kanske?  alltså stänga den när programmet stängs ner -det görs redan men man kanske skulle ha en shutdownhook bara för det också
 
