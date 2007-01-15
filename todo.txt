@@ -1,6 +1,34 @@
 todo:
 
     markus k fungerade INTE på två datorer men fungerade på en tredje. När jag gjorde om kopplingen så slutade han fungera på den tredje datorn också..
+    inga nya inkommande kopplingar fungerar men datorn accepterar kopplingar
+    utgående kopplingar fungerar perfekt
+    COMM COULDN'T BIND PORT! Server not listening!
+
+    man kanske ska ta och försöka stänga porten alltid? gör jag det redan kanske?  alltså stänga den när programmet stängs ner -det görs redan men man kanske skulle ha en shutdownhook bara för det också
+
+    * skriv nåt finare än:
+    java.lang.UnsatisfiedLinkError: no tray in java.library.path
+	at java.lang.ClassLoader.loadLibrary(ClassLoader.java:1682)
+	at java.lang.Runtime.loadLibrary0(Runtime.java:822)
+	at java.lang.System.loadLibrary(System.java:992)
+	at org.jdesktop.jdic.tray.internal.impl.DisplayThread.<clinit>(Unknown Source)
+	at org.jdesktop.jdic.tray.internal.impl.WinSystemTrayService.<clinit>(Unknown Source)
+	at org.jdesktop.jdic.tray.internal.impl.ServiceManagerStub.getService(Unknown Source)
+	at org.jdesktop.jdic.tray.internal.ServiceManager.getService(Unknown Source)
+	at org.jdesktop.jdic.tray.SystemTray.<clinit>(Unknown Source)
+	at org.alliance.launchers.ui.TrayIconSubsystem.initTray(TrayIconSubsystem.java:113)
+	at org.alliance.launchers.ui.TrayIconSubsystem.init(TrayIconSubsystem.java:45)
+	at org.alliance.launchers.ui.Main.initTrayIcon(Main.java:118)
+	at org.alliance.launchers.ui.Main.main(Main.java:43)
+
+	* nåt trams:
+	java.lang.NullPointerException
+	at org.alliance.launchers.ui.Main.stopStartSignalThread(Main.java:109)
+	at org.alliance.core.CoreSubsystem.restartProgram(CoreSubsystem.java:314)
+	at org.alliance.core.CoreSubsystem.restartProgram(CoreSubsystem.java:303)
+	at org.alliance.ui.MainWindow$5$1.run(MainWindow.java:220)
+	at java.lang.Thread.run(Unknown Source)
 
     * drar vrålmycket cpu när en download är klar?
 
