@@ -16,6 +16,8 @@ import java.io.IOException;
 public class FriendConnection extends AuthenticatedConnection {
     public static final int CONNECTION_ID=1;
     private int rpcsSent, rpcsReceived;
+    private long lastPingSentAt;
+    private long lastPongReceivedAt;
 
     public FriendConnection(NetworkManager netMan, Direction direction, int userGUID) {
         super(netMan, direction, userGUID);
@@ -139,4 +141,19 @@ public class FriendConnection extends AuthenticatedConnection {
         if (getRemoteFriend() == null) return super.toString();
         return getRemoteFriend().getNickname()+" (communication)";
     }
+
+    public void pingSent() {
+        lastPingSentAt = System.currentTimeMillis();
+    }
+
+    public void pongReceived() {
+        lastPongReceivedAt = System.currentTimeMillis();
+    }
+
+    public int getNetworkLatency() {
+        if (lastPingSentAt == 0) return 0;
+        if (lastPingSentAt > lastPongReceivedAt) return (int)(System.currentTimeMillis()-lastPingSentAt);
+        return (int)(lastPongReceivedAt - lastPingSentAt);
+    }
+
 }

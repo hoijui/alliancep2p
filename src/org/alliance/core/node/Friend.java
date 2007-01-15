@@ -147,4 +147,25 @@ public class Friend extends Node {
     public void setAllianceBuildNumber(int allianceBuildNumber) {
         this.allianceBuildNumber = allianceBuildNumber;
     }
+
+    public void reconnect() throws IOException {
+        disconnect();
+        Thread t = new Thread(new Runnable() {
+            public void run() {
+                try {Thread.sleep(3000);} catch (InterruptedException e1) {}
+                manager.getCore().invokeLater(new Runnable() {
+                    public void run() {
+                        if (isConnected()) try {
+                            getFriendConnection().close();
+                        } catch (IOException e1) {
+                            if(org.alliance.ui.T.t) org.alliance.ui.T.warn("Error when closing connection: "+e1);
+                        }
+                        try {Thread.sleep(500);} catch (InterruptedException e1) {}
+                        manager.getCore().getFriendManager().getFriendConnector().wakeup();
+                    }
+                });
+            }
+        });
+        t.start();
+    }
 }

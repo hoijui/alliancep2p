@@ -33,6 +33,7 @@ public class AddFriendWizard extends JWizard {
     public static final int STEP_FORWARD_INVITATIONS=6;
     public static final int STEP_FORWARD_INVITATIONS_COMPLETE=7;
     public static final int STEP_CONNECTION_FAILED_FOR_FORWARD=8;
+    public static final int STEP_MANUAL_INVITE=9;
 
     private int radioButtonSelected;
 
@@ -89,56 +90,60 @@ public class AddFriendWizard extends JWizard {
         l.addHyperlinkListener(new HyperlinkListener() {
             public void hyperlinkUpdate(HyperlinkEvent e) {
                 if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
-                    try {
-                        final JLabel label = (JLabel)innerXUI.getComponent("waittext");
-                        label.setText("Please wait...");
-                        String subject = "";
-                        String body = "\n\n\n" +
-                                "______________________________________________________________________________________________________\n" +
-                                "\n" +
-                                "You have been invited to my Alliance network! This is a private and secure network\n" +
-                                "where me and my friends share files.\n" +
-                                "\n" +
-                                "1. Download and run Alliance here:\n" +
-                                "http://www.alliancep2p.com/download\n" +
-                                "\n" +
-                                "2. After installation Alliance will ask you for a code. Enter this code:\n" +
-                                "\n" +
-                                ui.getCore().getInvitaitonManager().createInvitation().getCompleteInvitaitonString()+"\n"+
-                                "\n" +
-                                "Using this code you will connect to our private Alliance network.\n" +
-                                "______________________________________________________________________________________________________";
-
-                        body = body.replace("\n", "%0A");
-                        body = body.replace(" ", "%20");
-                        subject = subject.replace(" ", "%20");
-                        String s;
-                        if (OSInfo.isWindows())
-                            s = "cmd /k \"start mailto:?body="+body+"^&subject="+subject+"\"";
-                        else
-                            s = "mailto:?body="+body+"&subject="+subject;
-
-                        Runtime.getRuntime().exec(s);
-
-                        Thread t = new Thread(new Runnable() {
-                            public void run() {
-                                try { Thread.sleep(1000*10); } catch (InterruptedException e1) {}
-                                SwingUtilities.invokeLater(new Runnable() {
-                                    public void run() {
-                                        label.setText("");
-                                    }
-                                });
-                            }
-                        });
-                        t.start();
-                    } catch (Exception e1) {
-                        ui.handleErrorInEventLoop(e1);
-                    }
+                    goToManualInvite();
                 }
             }
         });
     }
 
+    public void EVENT_email(ActionEvent e) {
+        try {
+            final JLabel label = (JLabel)innerXUI.getComponent("waittext");
+            label.setText("Please wait...");
+            String subject = "";
+            String body = "\r\n\r\n\r\n" +
+                    "\r\n" +
+                    "You have been invited to my Alliance network! This is a private and secure network\r\n" +
+                    "where we can share files and chat.\r\n" +
+                    "\r\n" +
+                    "1. Download and run Alliance here:\r\n" +
+                    "http://www.alliancep2p.com/download\r\n" +
+                    "\r\n" +
+                    "2. After installation Alliance will ask you for a code. Enter this code:\r\n" +
+                    "\r\n" +
+                    ui.getCore().getInvitaitonManager().createInvitation().getCompleteInvitaitonString()+"\r\n"+
+                    "\r\n" +
+                    "Using this code you will connect to our private Alliance network.\r\n";
+
+            body = body.replace("\n", "%0A");
+            body = body.replace("\r", "%0D");
+            
+            body = body.replace(" ", "%20");
+            subject = subject.replace(" ", "%20");
+            String s;
+            if (OSInfo.isWindows())
+                s = "cmd /k \"start mailto:?body="+body+"^&subject="+subject+"\"";
+            else
+                s = "mailto:?body="+body+"&subject="+subject;
+
+            Runtime.getRuntime().exec(s);
+
+            Thread t = new Thread(new Runnable() {
+                public void run() {
+                    try { Thread.sleep(1000*10); } catch (InterruptedException e1) {}
+                    SwingUtilities.invokeLater(new Runnable() {
+                        public void run() {
+                            label.setText("");
+                        }
+                    });
+                }
+            });
+            t.start();
+        } catch (Exception e1) {
+            ui.handleErrorInEventLoop(e1);
+        }
+    }
+    
     public static AddFriendWizard open(UISubsystem ui, int startAtStep) throws Exception {
         XUIDialog f = new XUIDialog(ui.getRl(), ui.getRl().getResourceStream("xui/addfriendwizard.xui.xml"), ui.getMainWindow());
         final AddFriendWizard wizard = (AddFriendWizard)f.getXUI().getComponent("wizard");
@@ -158,6 +163,10 @@ public class AddFriendWizard extends JWizard {
     private void goToEnterInvitation() {
         setStep(STEP_ENTER_INVITATION);
         codeinput.requestFocus();
+    }
+
+    private void goToManualInvite() {
+        setStep(STEP_MANUAL_INVITE);
     }
 
     private void goToCreateInvitation() {
@@ -281,6 +290,8 @@ public class AddFriendWizard extends JWizard {
             setStep(STEP_INTRO);
         } else if (getStep() == STEP_CONNECTION_FAILED) {
             setStep(STEP_ENTER_INVITATION);
+        } else if (getStep() == STEP_MANUAL_INVITE) {
+            setStep(STEP_INTRO);
         } else {
             super.prevStep();
         }

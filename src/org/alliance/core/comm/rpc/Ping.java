@@ -20,6 +20,7 @@ public class Ping extends RPC {
     }
 
     public Packet serializeTo(Packet p) {
+        con.pingSent();
         return p;
     }
 }

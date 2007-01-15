@@ -6,10 +6,10 @@ import org.alliance.core.Manager;
 import org.alliance.core.comm.filetransfers.DownloadManager;
 import org.alliance.core.comm.networklayers.tcpnio.NIOPacket;
 import org.alliance.core.comm.networklayers.tcpnio.TCPNIONetworkLayer;
+import org.alliance.core.comm.rpc.ConnectToMe;
 import org.alliance.core.comm.rpc.PersistantRPC;
 import org.alliance.core.comm.rpc.Ping;
 import org.alliance.core.comm.rpc.Search;
-import org.alliance.core.comm.rpc.ConnectToMe;
 import org.alliance.core.comm.throttling.BandwidthThrottle;
 import org.alliance.core.crypto.CryptoLayer;
 import org.alliance.core.file.filedatabase.FileType;
@@ -98,8 +98,13 @@ public class NetworkManager extends Manager {
                                 for(Connection c : connections.values()) {
                                     if (c instanceof FriendConnection) {
                                         FriendConnection fc = (FriendConnection)c;
-                                        if (System.currentTimeMillis()-fc.getLastPacketSentAt() > ms) {
-                                            fc.send(new Ping());
+                                        if (fc.getNetworkLatency() > 15*1000) {
+                                            if(T.t)T.error(fc.getRemoteFriend().getNickname()+" has a very high network latency - this is probably a bug. Reconnecting to friend.");
+                                            fc.getRemoteFriend().reconnect();
+                                        } else {
+                                            if (System.currentTimeMillis()-fc.getLastPacketSentAt() > ms) {
+                                                fc.send(new Ping());
+                                            }
                                         }
                                     }
                                 }

@@ -210,6 +210,18 @@ public class TCPNIONetworkLayer implements Runnable {
                 address = new InetSocketAddress(netMan.getServerPort());
             serverSocket.bind(address);
             ssc.register(selector, SelectionKey.OP_ACCEPT);
+
+            //maybe a fix for a problem when the binding lingers.
+            Runtime.getRuntime().addShutdownHook(new Thread() {
+                public void run() {
+                    if (serverSocket.isBound()) try {
+                        serverSocket.close();
+                    } catch (IOException e) {
+                        if(T.t)T.warn("Error while trying to close server: "+e);
+                    }
+                }
+            });
+
             if(T.t) T.info("Server listening on port " + netMan.getServerPort());
         } catch(IOException e) {
             if(T.t)T.error("COULDN'T BIND PORT! Server not listening!");

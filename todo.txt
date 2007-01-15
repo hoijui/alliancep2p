@@ -4,6 +4,11 @@ todo:
     inga nya inkommande kopplingar fungerar men datorn accepterar kopplingar
     utgående kopplingar fungerar perfekt
     COMM COULDN'T BIND PORT! Server not listening! - lade till reuseaddress. Värt att lägga ut och testa en dag eller så.
+
+
+    hittar tusen nya versioner hos alla mina kontakter som den lägger i  en kö tills det blir för långsamt och krashar..
+
+
     
     fick ett liknande fel där jag startade om kopplingen mot kungfoo - och då fungerade det igen
 

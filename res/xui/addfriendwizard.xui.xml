@@ -28,30 +28,25 @@
             </step>
 
             <step text="Send connection code">
-                <mlabel id="text" html="yes">
-                    [b]Click the link below.[/b]
+                <mlabel html="yes">
+                    Click the button below.
                 </mlabel>
                 <strut height="15"/>
-                <panel border="0" axis="x" expand="horiz">
-                    <mlabel id="text" html="yes">
-                        [a href=mail]Create e-mail invitation for one friend[/a]
-                    </mlabel>
+                <panel axis="x" expand="horiz">
+                    <filler/>
+                    <button text="Create e-mail invitation for one friend" eventid="email"/>
+                    <filler/>
+                </panel>
+                <panel axis="x" expand="horiz">
+                    <filler/>
                     <label id="waittext" text=""/>
-                    <strut width="50"/>
+                    <filler/>
                 </panel>
                 <strut height="15"/>
-                <mlabel html="yes">
-                    If you want to invite several friends click on the link above several times. Send one e-mail per friend.
+                <mlabel id="text" html="yes">
+                    If you want to invite several friends click on the button several times. [b]Send one e-mail per friend.[/b]
                     [p]
-                    [p]
-                    [b]If the link above does not work[/b] or you do not want to use e-mail:[br]
-                    Copy and paste the code below and send it to your friend in some way. Send one code per friend.
-                </mlabel>
-                <strut height="15"/>
-                <panel axis="x" border="0" expand="horiz">
-                    <label text="Connection code: "/> <textfield text="" id="code"/> <strut width="5"/> <button eventid="createnew" text="New code"/>                </panel>
-                <strut height="15"/>
-                <mlabel html="yes">
+                    [b]If the button above does not work[/b] or you do not want to use email then [a href="problem"]click here[/a].
                 </mlabel>
             </step>
 
@@ -89,7 +84,7 @@
                     Press next to continue
                 </mlabel>
 
-<!--                <strut height="5"/>
+                <!--                <strut height="5"/>
                 <panel axis="x" border="0" expand="horiz">
                     <strut width="10"/>
                     <radiobutton selected="true" eventid="radio2_1" group="a" text="Create a connection code for your friend (recommended)"/>
@@ -153,6 +148,18 @@
                     Will automatically try to reconnect later.
                     [p]
                     Click Finish to complete the wizard.
+                </mlabel>
+            </step>
+
+            <step text="Manual connection code">
+                <mlabel html="yes">
+                    Copy and paste the code below and send it to your friend in some way. Send one code per friend.
+                </mlabel>
+                <strut height="15"/>
+                <panel axis="x" border="0" expand="horiz">
+                    <label text="Connection code: "/> <textfield text="" id="code"/> <strut width="5"/> <button eventid="createnew" text="New code"/>                </panel>
+                <strut height="15"/>
+                <mlabel html="yes">
                 </mlabel>
             </step>
         </wizard>
