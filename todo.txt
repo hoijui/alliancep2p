@@ -3,7 +3,8 @@ todo:
     markus k fungerade INTE på två datorer men fungerade på en tredje. När jag gjorde om kopplingen så slutade han fungera på den tredje datorn också..
     inga nya inkommande kopplingar fungerar men datorn accepterar kopplingar
     utgående kopplingar fungerar perfekt
-    COMM COULDN'T BIND PORT! Server not listening!
+    COMM COULDN'T BIND PORT! Server not listening! - lade till reuseaddress. Värt att lägga ut och testa en dag eller så.
+    
     fick ett liknande fel där jag startade om kopplingen mot kungfoo - och då fungerade det igen
 
     man kanske ska ta och försöka stänga porten alltid? gör jag det redan kanske?  alltså stänga den när programmet stängs ner -det görs redan men man kanske skulle ha en shutdownhook bara för det också
