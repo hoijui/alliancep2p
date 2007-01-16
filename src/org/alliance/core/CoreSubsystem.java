@@ -83,7 +83,6 @@ public class CoreSubsystem implements Subsystem {
     public CoreSubsystem() {
     }
 
-
     public void init(ResourceLoader rl, Object... params) throws Exception {
         errorLog = new Log("error.log");
         traceLog = new Log("trace.log");
@@ -227,18 +226,29 @@ public class CoreSubsystem implements Subsystem {
         if (shutdownInProgress) return;
         shutdownInProgress = true;
         if(T.t)T.info("Shutting down core..");
-        try {
-            updateLastSeenOnlineForFriends();
-            fileManager.shutdown();
-            friendManager.shutdown();
-            networkManager.shutdown();
-            upnpManager.shutdown();
-            saveSettings();
-            saveState();
-            Thread.sleep(1500); //wait for GracefulClose RPCs to be sent
-        } catch(Exception e) {
-            e.printStackTrace();
+        try { updateLastSeenOnlineForFriends(); } catch(Exception e) {
+            if(T.t)T.error("Problem when saving friends: "+e);
         }
+        try { fileManager.shutdown(); } catch(Exception e) {
+            if(T.t)T.error("Problem when shutting down filemanager: "+e);
+        }
+        try { friendManager.shutdown(); } catch(Exception e) {
+            if(T.t)T.error("Problem when shutting down friendmanager: "+e);
+        }
+        try { networkManager.shutdown(); } catch(Exception e) {
+            if(T.t)T.error("Problem when shutting down networkmanager: "+e);
+        }
+        try { upnpManager.shutdown(); } catch(Exception e) {
+            if(T.t)T.error("Problem when shutting down upnpmanager: "+e);
+        }
+        try { saveSettings(); } catch(Exception e) {
+            if(T.t)T.error("Problem when saving settings: "+e);
+        }
+        try { saveState(); } catch(Exception e) {
+            if(T.t)T.error("Problem when saving state: "+e);
+        }
+        try { Thread.sleep(1500); //wait for GracefulClose RPCs to be sent
+        } catch (InterruptedException e) {}
     }
 
     public void updateLastSeenOnlineForFriends() {
@@ -304,7 +314,7 @@ public class CoreSubsystem implements Subsystem {
     }
 
     public void restartProgram(boolean openWithUI) throws IOException {
-        restartProgram(openWithUI, 0);
+        restartProgram(openWithUI, openWithUI ? 0 : 2); //if user is not waiting for UI to show then we can delay restart a couple of minutes - this is so that the we're sure that the server port gets unbound.
     }
 
     /**
@@ -318,7 +328,7 @@ public class CoreSubsystem implements Subsystem {
         Main.stopStartSignalThread(); //such a fucking hack. When we run using the normal UI we need to signal the launcher that he needs to stop this startsignalthread
         String s = "."+System.getProperty("file.separator")+"alliance" + //must have exe/script/batch in current directory to start program
                 (openWithUI ? "" : " /min") +
-                (restartDelay == 0 ? "" : " /w"+restartDelay); 
+                (restartDelay == 0 ? "" : " /w"+restartDelay);
 
         Runtime.getRuntime().exec(s);
         System.exit(0);

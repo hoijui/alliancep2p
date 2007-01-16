@@ -124,6 +124,8 @@ public class TrayIconSubsystem implements Subsystem, Runnable {
 
         m.addSeparator();
 
+/*
+        disabled because there's a risk that port is still bound when starting up
         mi = new JMenuItem("Restart");
         mi.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -136,7 +138,7 @@ public class TrayIconSubsystem implements Subsystem, Runnable {
                 }
             }
         });
-        m.add(mi);
+        m.add(mi);*/
 
         JMenu shutdown = new JMenu("Shutdown");
 

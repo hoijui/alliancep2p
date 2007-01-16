@@ -15,6 +15,7 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.io.IOException;
@@ -36,6 +37,7 @@ public class DownloadsMDIWindow extends AllianceMDIWindow {
     private JLabel status;
 
     private ArrayList<DownloadWrapper> rows = new ArrayList<DownloadWrapper>();
+    private boolean inTable;
 
     public DownloadsMDIWindow(final UISubsystem ui) throws Exception {
         super(ui.getMainWindow().getMDIManager(), "downloads", ui);
@@ -58,22 +60,7 @@ public class DownloadsMDIWindow extends AllianceMDIWindow {
                     ui.getCore().invokeLater(new Runnable() {
                         public void run() {
                             if (table.rowAtPoint(e.getPoint()) == -1) return;
-                            DownloadWrapper w = rows.get(table.rowAtPoint(e.getPoint()));
-                            String text = null;
-                            final String s;
-                            for(DownloadConnection c : w.download.connections()) {
-                                if (text == null) text = "Downloading from ";
-                                if (c.getRemoteFriend() != null)
-                                    text += c.getRemoteFriend().getNickname()+", ";
-                                else
-                                    text += "<unknown>, ";
-                            }
-                            if (text != null) {
-                                text = text.substring(0,text.length()-2);
-                                s = text;
-                            } else {
-                                s = " ";
-                            }
+                            final String s = getDownloadingFromText(rows.get(table.rowAtPoint(e.getPoint())));
                             SwingUtilities.invokeLater(new Runnable() {
                                 public void run() {
                                     status.setText(s);
@@ -82,8 +69,19 @@ public class DownloadsMDIWindow extends AllianceMDIWindow {
                         }
                     });
                 } else {
-                    status.setText(" ");
+                    showTotalBytesReceived();
                 }
+            }
+        });
+        table.addMouseListener(new MouseAdapter() {
+
+            public void mouseEntered(MouseEvent e) {
+                inTable=true;
+            }
+
+            public void mouseExited(MouseEvent e) {
+                inTable=false;
+                showTotalBytesReceived();
             }
         });
 
@@ -103,6 +101,28 @@ public class DownloadsMDIWindow extends AllianceMDIWindow {
         postInit();
     }
 
+    private void showTotalBytesReceived() {
+        status.setText("Total bytes received: "+TextUtils.formatByteSize(ui.getCore().getNetworkManager().getBandwidthIn().getTotalBytes()));
+    }
+
+    private String getDownloadingFromText(DownloadWrapper w) {
+        String text = null;
+        final String s;
+        for(DownloadConnection c : w.download.connections()) {
+            if (text == null) text = "Downloading from ";
+            if (c.getRemoteFriend() != null)
+                text += c.getRemoteFriend().getNickname()+", ";
+            else
+                text += "<unknown>, ";
+        }
+        if (text != null) {
+            text = text.substring(0,text.length()-2);
+            s = text;
+        } else {
+            s = " ";
+        }
+        return s;
+    }
     private void setFixedColumnSize(TableColumn column, int i) {
         column.setPreferredWidth(i);
         column.setMaxWidth(i);
@@ -134,6 +154,8 @@ public class DownloadsMDIWindow extends AllianceMDIWindow {
             model.fireTableStructureChanged();
         } else
             model.fireTableRowsUpdated(0, rows.size());
+
+        if (!inTable) showTotalBytesReceived();
     }
 
     private DownloadWrapper getWrapperFor(Download d) {
@@ -375,6 +397,7 @@ public class DownloadsMDIWindow extends AllianceMDIWindow {
                     setValue(v);
                     setString(v+"%");
                 }
+                setToolTipText(getDownloadingFromText(w));
             }
 
             return this;

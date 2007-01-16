@@ -177,8 +177,10 @@ public class DownloadManager extends Manager implements Runnable {
     }
 
     public void remove(Download d) {
-        downloads.remove(d.getRoot());
-        downloadQue.remove(d);
+        Object o = downloads.remove(d.getRoot());
+        if (o == null) if(T.t)T.error("Could not remove download "+d+" hash: "+d.getRoot());
+        o = downloadQue.remove(d);
+        if (o == null) if(T.t)T.error("Could not remove download for que "+d+" hash: "+d.getRoot());
     }
 
     public void deleteDownload(Download d) throws IOException {
@@ -222,6 +224,7 @@ public class DownloadManager extends Manager implements Runnable {
         ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(core.getSettings().getInternal().getDownloadquefile()));
         ArrayList<Download> al = new ArrayList<Download>();
         for(Download d : downloadQue) if (!d.isComplete()) al.add(d);
+        if(T.t)T.trace("Saving download que with "+al.size()+" downloads in it.");
         out.writeByte(SERIALIZATION_VERSION);
         out.writeInt(al.size());
         for(Download d : al) d.serializeTo(out);
