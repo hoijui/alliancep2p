@@ -61,13 +61,11 @@ public class FriendListMDIWindow extends AllianceMDIWindow {
 
         list.addMouseListener(new MouseListener() {
             public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 2) {
                     try {
                         EVENT_viewshare(null);
                     } catch (Exception e1) {
                         ui.handleErrorInEventLoop(e1);
                     }
-                }
             }
 
             public void mousePressed(MouseEvent e) {

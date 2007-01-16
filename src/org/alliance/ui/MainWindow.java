@@ -32,6 +32,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.*;
+import java.util.ArrayList;
 
 /**
  * Created by IntelliJ IDEA.
@@ -327,7 +328,12 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
     }
 
     public void viewShare(Friend f) throws Exception {
-        ViewShareMDIWindow w = (ViewShareMDIWindow)mdiManager.getWindow("viewshare"+f.getGuid());
+        ArrayList<MDIWindow> al = new ArrayList<MDIWindow>();
+        for(MDIWindow w : mdiManager) al.add(w);
+        for(MDIWindow w : al) {
+            if (w instanceof ViewShareMDIWindow) mdiManager.removeWindow(w);
+        }
+        ViewShareMDIWindow w = (ViewShareMDIWindow)mdiManager.getWindow("viewshare" + f.getGuid());
         if (w == null) {
             w = new ViewShareMDIWindow(ui, f);
             mdiManager.addWindow(w);

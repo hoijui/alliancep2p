@@ -31,6 +31,9 @@ public class RootNode extends SearchTreeNode {
             //don't show files that i already have
             if (model.getCore().getFileManager().getFileDatabase().contains(h.getRoot())) continue;
 
+            //ignore alliance.upgade files
+            if (h.getPath().endsWith(".upgrade") && h.getPath().indexOf("alliance") != -1) continue;
+
             String fn = TextUtils.makeSurePathIsMultiplatform(h.getPath());
 
             String filename = fn;
