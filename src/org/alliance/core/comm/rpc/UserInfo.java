@@ -55,7 +55,7 @@ public class UserInfo extends RPC {
         if (con.getRemoteFriend().hasMultipleFriendConnections()) {
             if(T.t)T.trace("Has multple connections to a friend. Figuring out wich one of us should close the connection");
             if ((con.getDirection() == Connection.Direction.IN && con.getRemoteUserGUID() > manager.getMyGUID()) ||
-                   (con.getDirection() == Connection.Direction.OUT && manager.getMyGUID() > con.getRemoteUserGUID())) {
+                    (con.getDirection() == Connection.Direction.OUT && manager.getMyGUID() > con.getRemoteUserGUID())) {
                 //serveral connections. Its up to us to close one
                 if(T.t)T.info("Already connected to "+con.getRemoteFriend()+". Closing connection");
                 send(new GracefulClose(GracefulClose.DUPLICATE_CONNECTION));
@@ -65,12 +65,12 @@ public class UserInfo extends RPC {
         }
         if (guidMismatch) {
             send(new GracefulClose(GracefulClose.GUID_MISMATCH));
+        } else {
+            //this is the place for an event: "FriendSuccessfullyConnected".
+            core.getNetworkManager().signalFriendConnected(con.getRemoteFriend());
+
+            core.getUICallback().nodeOrSubnodesUpdated(con.getRemoteFriend());
         }
-
-        //this is the place for an event: "FriendSuccessfullyConnected".
-        core.getNetworkManager().signalFriendConnected(con.getRemoteFriend());
-
-        core.getUICallback().nodeOrSubnodesUpdated(con.getRemoteFriend());
     }
 
     public Packet serializeTo(Packet p) {

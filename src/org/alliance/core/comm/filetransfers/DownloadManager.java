@@ -84,6 +84,11 @@ public class DownloadManager extends Manager implements Runnable {
             return;
         }
 
+        if (downloads.containsKey(dl.getRoot())) {
+            if(T.t)T.warn("Already queued this item. Ignoring.");
+            return;
+        }
+
         downloads.put(dl.getRoot(), dl);
         if (highPrio)
             downloadQue.add(0,dl);
