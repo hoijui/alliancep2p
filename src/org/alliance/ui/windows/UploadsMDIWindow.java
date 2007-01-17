@@ -96,7 +96,7 @@ public class UploadsMDIWindow extends AllianceMDIWindow {
 
         public void update() {
             try {
-                nickname = upload.getRemoteFriend().getNickname();
+                nickname = upload.getRemoteFriend().nickname();
                 FileDescriptor fd = ui.getCore().getFileManager().getFd(upload.getRoot());
                 if (fd != null) filename = fd.getSubpath();
                 speed = TextUtils.formatByteSize((long)upload.getBandwidthOut().getCPS())+"/s";

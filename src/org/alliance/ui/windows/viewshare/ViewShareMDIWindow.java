@@ -41,7 +41,7 @@ public class ViewShareMDIWindow extends AllianceMDIWindow {
     public ViewShareMDIWindow(UISubsystem ui, Friend remote) throws Exception {
         super(ui.getMainWindow().getMDIManager(), "viewshare", ui);
         this.remote = remote;
-        setTitle("Share of "+remote.getNickname());
+        setTitle("Share of "+remote.nickname());
 
         iconLoading = new ImageIcon(ui.getRl().getResource("gfx/icons/loadingsharenode.png"));
         //@todo: this is done in other places too. AND it's a waste of reasources to load these every time

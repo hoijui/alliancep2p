@@ -11,6 +11,7 @@ public class Friend {
     private Integer guid, port;
     private Long lastseenonlineat;
     private Integer middlemanguid; //0 if a first degree friend, guid of middleman if introduced by someone to me
+    private String renamednickname; //used to display a different nickname then the "anonymous" one in ones UI
 
     public Friend() {
     }
@@ -77,5 +78,13 @@ public class Friend {
 
     public void setMiddlemanguid(Integer middlemanguid) {
         this.middlemanguid = middlemanguid;
+    }
+
+    public String getRenamednickname() {
+        return renamednickname;
+    }
+
+    public void setRenamednickname(String renamednickname) {
+        this.renamednickname = renamednickname;
     }
 }

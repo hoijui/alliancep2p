@@ -168,4 +168,8 @@ public class Friend extends Node {
         });
         t.start();
     }
+
+    public String nickname() {
+        return manager.nickname(guid);
+    }
 }

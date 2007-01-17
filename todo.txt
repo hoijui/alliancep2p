@@ -1,57 +1,20 @@
 todo:
-
-    markus k fungerade INTE på två datorer men fungerade på en tredje. När jag gjorde om kopplingen så slutade han fungera på den tredje datorn också..
-    inga nya inkommande kopplingar fungerar men datorn accepterar kopplingar
-    utgående kopplingar fungerar perfekt
-    COMM COULDN'T BIND PORT! Server not listening! - lade till reuseaddress. Värt att lägga ut och testa en dag eller så.
-
-    hittar tusen nya versioner hos alla mina kontakter som den lägger i  en kö tills det blir för långsamt och krashar..
-
     * restart väntar två minuter nu - om det inte gör någon skillnad så ta bort det
     
-    * skriv nåt finare än:
-    java.lang.UnsatisfiedLinkError: no tray in java.library.path
-	at java.lang.ClassLoader.loadLibrary(ClassLoader.java:1682)
-	at java.lang.Runtime.loadLibrary0(Runtime.java:822)
-	at java.lang.System.loadLibrary(System.java:992)
-	at org.jdesktop.jdic.tray.internal.impl.DisplayThread.<clinit>(Unknown Source)
-	at org.jdesktop.jdic.tray.internal.impl.WinSystemTrayService.<clinit>(Unknown Source)
-	at org.jdesktop.jdic.tray.internal.impl.ServiceManagerStub.getService(Unknown Source)
-	at org.jdesktop.jdic.tray.internal.ServiceManager.getService(Unknown Source)
-	at org.jdesktop.jdic.tray.SystemTray.<clinit>(Unknown Source)
-	at org.alliance.launchers.ui.TrayIconSubsystem.initTray(TrayIconSubsystem.java:113)
-	at org.alliance.launchers.ui.TrayIconSubsystem.init(TrayIconSubsystem.java:45)
-	at org.alliance.launchers.ui.Main.initTrayIcon(Main.java:118)
-	at org.alliance.launchers.ui.Main.main(Main.java:43)
-
-	* nåt trams:
-	java.lang.NullPointerException
-	at org.alliance.launchers.ui.Main.stopStartSignalThread(Main.java:109)
-	at org.alliance.core.CoreSubsystem.restartProgram(CoreSubsystem.java:314)
-	at org.alliance.core.CoreSubsystem.restartProgram(CoreSubsystem.java:303)
-	at org.alliance.ui.MainWindow$5$1.run(MainWindow.java:220)
-	at java.lang.Thread.run(Unknown Source)
-
     * drar vrålmycket cpu när en download är klar?
 
     * egna chatmeddelanden sparas inte ibland? 
-
-    * kom på något sätt att göra ett program för att testa överföring ordentligt hade varit bra..
-
-    * en temporär fix skulle vara att upptäcka när det blir fel på en klient och starta om den
 
     * usability testa! roligt. testa allt från installation till .. allt annat
 
 sen:
     * får inte visa hundra "you have successfully connected to"
-    * rename på friend
     * komprimera sökpaket - skulle göra så att sökresultat kommer tillbaka mycket snabbare
     * katalogstrukturen i downloadkatalogen blirsuperrörig - tar inte dc en katalog bara? - bara när man laddar ner hel katalog - kan göra samma sak om jag implementerar nya sökuit
     * glöm inte att ta bort GetUserList flood grejjerna.. - det buggar fortfarande - dom kan ställa till med problem i framtiden - och det är en UI referens i CORE
     * dubbelklick på nerladdad fil öppnar den
     * filesize i view share
     * att browsa ens egen share hade varit bra för att kolla alla buggar med dups
-    * handshakeconnection klasserna är kvar och kanske kopplingarna också? inte så jättenoga just nu
 
 LÅG PRIO:
     * dubbelklick på + ska inte ladda ner

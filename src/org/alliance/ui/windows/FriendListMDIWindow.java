@@ -122,7 +122,7 @@ public class FriendListMDIWindow extends AllianceMDIWindow {
                 else
                     setForeground(Color.black);
 //                setText(f.getNickname()+" ("+ TextUtils.formatByteSize(f.getShareSize())+")");
-                setText("<html>" + FriendListMDIWindow.this.ui.getCore().getFriendManager().nickname(f.getGuid()) +
+                setText("<html>" + nickname(f.getGuid()) +
                         "<font color=aaaaaa> " +
                         FriendListMDIWindow.this.ui.getCore().getFriendManager().contactPath(f.getGuid()) +
                         "</font> (" +
@@ -132,11 +132,11 @@ public class FriendListMDIWindow extends AllianceMDIWindow {
                 setIcon(iconFriendOld);
                 setForeground(Color.lightGray);
                 if (f.getLastSeenOnlineAt() != 0) {
-                    setText(f.getNickname() + " (offline for " +
+                    setText(nickname(f.getGuid()) + " (offline for " +
                             ((System.currentTimeMillis() - f.getLastSeenOnlineAt()) / 1000 / 60 / 60 / 24)
                             + " days)");
                 } else {
-                    setText(f.getNickname());
+                    setText(nickname(f.getGuid()));
                 }
             } else {
                 setIcon(iconFriendDimmed);
@@ -146,6 +146,20 @@ public class FriendListMDIWindow extends AllianceMDIWindow {
             setToolTipText("Remote build number: "+f.getAllianceBuildNumber());
 
             return this;
+        }
+    }
+
+    private String nickname(int guid) {
+        return ui.getCore().getFriendManager().nickname(guid);
+    }
+
+    public void EVENT_editname(ActionEvent e) {
+        if (list.getSelectedValue() == null) return;
+        Friend f = (Friend) list.getSelectedValue();
+        if (f != null) {
+            String pi = JOptionPane.showInputDialog("Enter nickname for friend: "+nickname(f.getGuid()), nickname(f.getGuid()));
+            if (pi != null) ui.getCore().getFriendManager().setNicknameToShowInUI(f, pi);
+            ui.getFriendListModel().signalFriendChanged(f);
         }
     }
 

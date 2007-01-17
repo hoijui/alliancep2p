@@ -110,7 +110,12 @@ public class TrayIconSubsystem implements Subsystem, Runnable {
     }
 
     private void initTray() throws Exception {
-        tray = SystemTray.getDefaultSystemTray();
+        try {
+            tray = SystemTray.getDefaultSystemTray();
+        } catch(UnsatisfiedLinkError e) {
+            System.err.println("If you are running on linux you might want to go to the forum at sourceforge and read how to run Alliance on linux.");
+            throw new Exception("Could not load native library for system tray.");
+        }
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         JPopupMenu m = new JPopupMenu();
         JMenuItem mi = new JMenuItem("Open Alliance");

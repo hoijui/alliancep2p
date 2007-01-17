@@ -10,6 +10,7 @@
                 accelerator="ctrl-p"
                 mnemonic="a"/>
         <action separator="yes"/>
+        <action separator="yes"/>
         <action
                 id="chat"
                 name="Private chat"
@@ -27,6 +28,16 @@
                 toolbarimage="gfx/icons/folder_view.png"
                 addInMenu="file"
                 mnemonic="v"/>
+        <action
+                id="editname"
+                name="Edit nickname"
+                description="Change the nick name of selected friend - only you see this change"
+                menuimage="gfx/icons/edit_friend.png"
+                toolbarimage="gfx/icons/edit_friend.png"
+                addInMenu="file"
+                mnemonic="e"
+                accelerator="F2"/>
+        <action separator="yes"/>
         <action separator="yes"/>
         <action
                 id="revert"
@@ -46,6 +57,7 @@
                 addInMenu="file"
                 accelerator="ctrl-r"
                 mnemonic="r"/>
+        <action separator="yes"/>
         <action separator="yes"/>
         <action
                 id="removefriend"

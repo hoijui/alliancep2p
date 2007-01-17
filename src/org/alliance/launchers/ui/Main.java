@@ -106,7 +106,7 @@ public class Main {
         if (signalThread != null) {
             Thread t = signalThread;
             signalThread = null;
-            try { signalServerSocket.close(); } catch(IOException e) {}
+            try { signalServerSocket.close(); } catch(Exception e) {}
             try { t.join(); } catch(InterruptedException e) {}
         }
     }

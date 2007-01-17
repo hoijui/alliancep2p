@@ -200,12 +200,6 @@ public class FriendManager extends Manager {
         return broadcastManager;
     }
 
-    public String nickname(int guid) {
-        Node n = getNode(guid);
-        if (n == null) return "unknown ("+Integer.toHexString(guid).toUpperCase()+")";
-        return n.getNickname();
-    }
-
     public String nicknameWithContactPath(int guid) {
         String s = nickname(guid);
         String s2 = contactPath(guid);
@@ -218,7 +212,7 @@ public class FriendManager extends Manager {
 
         Friend f = getFriend(guid);
         if (f != null && f.getMiddlemanGuid() != 0) {
-                s += "via "+nickname(f.getMiddlemanGuid());
+                s += "via "+ nickname(f.getMiddlemanGuid());
         }
         return s;
     }
@@ -301,5 +295,22 @@ public class FriendManager extends Manager {
 
     public int getNUsers() {
         return friends.size();
+    }
+
+    public String nicknameWithoutLocalRename(int guid) {
+        Node n = getNode(guid);
+        if (n == null) return "unknown ("+Integer.toHexString(guid).toUpperCase()+")";
+        return n.getNickname();
+    }
+
+    public String nickname(int guid) {
+        org.alliance.core.settings.Friend f = core.getSettings().getFriend(guid);
+        if (f != null && f.getRenamednickname() != null && f.getRenamednickname().trim().length() > 0) return f.getRenamednickname();
+        return nicknameWithoutLocalRename(guid);
+    }
+
+    public void setNicknameToShowInUI(Friend friend, String nn) {
+        org.alliance.core.settings.Friend f = core.getSettings().getFriend(friend.getGuid());
+        if (f != null) f.setRenamednickname(nn);
     }
 }
