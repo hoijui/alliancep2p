@@ -291,7 +291,7 @@ public class FriendManager extends Manager {
 
     public void permanentlyRemove(Friend f) {
         try {
-            if (f.isConnected()) f.disconnect();
+            if (f.isConnected()) f.disconnect(GracefulClose.DELETED);
         } catch(IOException e) {
             if(T.t)T.warn("Nonfatal: "+e);
         }

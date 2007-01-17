@@ -17,6 +17,8 @@ public class GracefulClose extends RPC {
     public static final byte DUPLICATE_CONNECTION = 10;
     public static final byte SHUTDOWN = 20;
     public static final byte DELETED = 30;
+    public static final byte GUID_MISMATCH = 40;
+    public static final byte RECONNECT = 50;
 
     private byte reason;
 
@@ -29,6 +31,7 @@ public class GracefulClose extends RPC {
 
     public void execute(Packet data) throws IOException {
         reason = data.readByte();
+        if(T.t)T.info("Closing connection because:");
         if (reason == DUPLICATE_CONNECTION) {
             if(T.t)T.trace("Detected multiple connections to one friend. Closing one down.");
 /*            if (con.getRemoteFriend().hasMultipleFriendConnections()) {
@@ -40,6 +43,10 @@ public class GracefulClose extends RPC {
             if(T.t)T.info("Remote computer shutting donw. Closing this connection.");
         } else if (reason == DELETED) {
             if(T.t)T.info("Buhuu! Remote removed me from it's userlist.");
+        } else if (reason == GUID_MISMATCH) {
+            if(T.t)T.info("Remote has a different GUID to me.");
+        } else if (reason == RECONNECT) {
+            if(T.t)T.info("Remote want to reconnect - our FriendConnection is probably corrupt.");
         } else {
             if(T.t)T.warn("Unknown connection close reason: "+reason);
         }

@@ -123,8 +123,8 @@ public class Friend extends Node {
         this.newlyDiscoveredFriend = newlyDiscoveredFriend;
     }
 
-    public void disconnect() throws IOException {
-        if (friendConnection != null) friendConnection.send(new GracefulClose(GracefulClose.DELETED));
+    public void disconnect(byte reason) throws IOException {
+        if (friendConnection != null) friendConnection.send(new GracefulClose(reason));
     }
 
     public long getLastSeenOnlineAt() {
@@ -149,7 +149,7 @@ public class Friend extends Node {
     }
 
     public void reconnect() throws IOException {
-        disconnect();
+        disconnect(GracefulClose.RECONNECT);
         Thread t = new Thread(new Runnable() {
             public void run() {
                 try {Thread.sleep(3000);} catch (InterruptedException e1) {}

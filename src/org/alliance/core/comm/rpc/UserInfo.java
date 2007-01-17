@@ -29,10 +29,12 @@ public class UserInfo extends RPC {
     public void execute(Packet in) throws IOException {
         Friend f = con.getRemoteFriend();
 
+        boolean guidMismatch = false;
         int remoteGUID = in.readInt();
         if (remoteGUID != f.getGuid()) {
-            if(T.t)T.warn("GUID mismatch!!!");
-            f.setGuid(remoteGUID);
+            if(T.t)T.warn("GUID mismatch!!! Closing connection.");
+//            f.setGuid(remoteGUID);
+            guidMismatch = true;
         }
 
         int port = in.readInt();
@@ -60,6 +62,9 @@ public class UserInfo extends RPC {
                 //con.close();
                 //close connection when we in turn receive a graceful close
             }
+        }
+        if (guidMismatch) {
+            send(new GracefulClose(GracefulClose.GUID_MISMATCH));
         }
 
         //this is the place for an event: "FriendSuccessfullyConnected".

@@ -166,7 +166,8 @@ public class FriendListMDIWindow extends AllianceMDIWindow {
         Friend f = (Friend) list.getSelectedValue();
         if (f != null) {
             if (!f.isConnected()) {
-                OptionDialog.showErrorDialog(ui.getMainWindow(), "User must be online in order to view his share.");
+//                  just ignore the request
+//                OptionDialog.showErrorDialog(ui.getMainWindow(), "User must be online in order to view his share.");
             } else {
                 ui.getMainWindow().viewShare(f);
             }
@@ -181,7 +182,7 @@ public class FriendListMDIWindow extends AllianceMDIWindow {
         if (list.getSelectedValue() == null) return;
         Object[] friends = list.getSelectedValues();
         if (friends != null && friends.length > 0) {
-            Boolean delete = OptionDialog.showConfirmDialog(ui.getMainWindow(), "Are you sure you want to permanently delete these (" + friends.length + ") connections?");
+            Boolean delete = OptionDialog.showQuestionDialog(ui.getMainWindow(), "Are you sure you want to permanently delete these (" + friends.length + ") connections?");
             if (delete == null) return;
             if (delete) {
                 for (Object friend : friends) {
