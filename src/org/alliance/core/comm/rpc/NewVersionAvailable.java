@@ -30,9 +30,18 @@ public class NewVersionAvailable extends RPC {
         p.readArray(hash.array());
         if(T.t)T.info("Received new version info. Queing for download.");
         core.getFileManager().getAutomaticUpgrade().setNewVersionHash(hash);
-        ArrayList<Integer> al = new ArrayList<Integer>();
-        al.add(con.getRemoteUserGUID());
-        core.getNetworkManager().getDownloadManager().queDownload(hash, core.getFileManager().getCache(), "Alliance Upgrade", al, true);
+        if (core.getFileManager().getFileDatabase().contains(hash)) {
+            if(T.t)T.info("Upgrade already in my share. Start upgrade.");
+            try {
+                core.getFileManager().getAutomaticUpgrade().performUpgrade();
+            } catch (Exception e) {
+                core.reportError(e, "Automatic Upgrade");
+            }
+        } else {
+            ArrayList<Integer> al = new ArrayList<Integer>();
+            al.add(con.getRemoteUserGUID());
+            core.getNetworkManager().getDownloadManager().queDownload(hash, core.getFileManager().getCache(), "Alliance Upgrade", al, true);
+        }
     }
 
     public Packet serializeTo(Packet p) {
