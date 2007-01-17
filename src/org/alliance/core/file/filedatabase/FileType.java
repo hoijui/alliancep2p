@@ -28,7 +28,7 @@ public enum FileType {
     DOCUMENT("Documents", 6, new ExtensionFileType(new String[] {"doc", "txt", "nfo"})),
     IMAGE("Pictures", 5, new ExtensionFileType(new String[] {"jpg", "jpeg", "gif", "png", "bmp", "tiff"})),
     PRESENTATION("Presentations", 7, new ExtensionFileType(new String[] {"key", "pps", "ppt"})),
-    VIDEO("Video", 2, new ExtensionFileType(new String[] {"avi", "mpg", "mpeg", "mov", "asf", "wmv", "divx", "xvid", "rmvb", "rm"}));
+    VIDEO("Video", 2, new ExtensionFileType(new String[] {"avi", "mkv", "mpg", "mpeg", "mov", "asf", "wmv", "divx", "xvid", "rmvb", "rm"}));
 
     private final String description;
     private final byte id;
