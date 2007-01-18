@@ -55,6 +55,7 @@ public class FileDescriptorConsumer implements DataConsumer {
                     return len;
                 }
             });
+            fd.simplifySubpath();
 
             if(T.t)T.trace("Signaling we've got "+fd);
             dc.fileDescriptorReceived(); //has to call this first so that the next line understands it and starts a download for our DownloadCOnnection

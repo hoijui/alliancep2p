@@ -265,4 +265,20 @@ public class FileDescriptor {
     public void updateModifiedAt() {
         setModifiedAt(new File(getFullPath()).lastModified());
     }
+
+    /**
+     * When a file is downloaded there's no point in having the entire subpath (for example apps/free/waste/waste.zip) it's better to simplify it to waste/waste.zip - one direcroty and then the file
+     */
+    public void simplifySubpath() {
+        while(countSeparators(subpath) > 1) {
+            subpath = subpath.substring(TextUtils.makeSurePathIsMultiplatform(subpath).indexOf('/')+1);
+        }
+    }
+
+    private int countSeparators(String subpath) {
+        String s = TextUtils.makeSurePathIsMultiplatform(subpath);
+        int n = 0;
+        for(int i=0;i<s.length();i++) if (s.charAt(i) == '/') n++;
+        return n;
+    }
 }

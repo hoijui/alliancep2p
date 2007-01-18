@@ -113,7 +113,7 @@ public class TrayIconSubsystem implements Subsystem, Runnable {
         try {
             tray = SystemTray.getDefaultSystemTray();
         } catch(UnsatisfiedLinkError e) {
-            System.err.println("If you are running on linux you might want to go to the forum at sourceforge and read how to run Alliance on linux.");
+            System.err.println("If you are running on linux you might want to go to the forum at sourceforge and read how to run Alliance on linux. You need to download native libraries to start it.");
             throw new Exception("Could not load native library for system tray.");
         }
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());

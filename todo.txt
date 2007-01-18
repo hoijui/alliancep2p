@@ -1,16 +1,15 @@
 todo:
-    * restart väntar två minuter nu - om det inte gör någon skillnad så ta bort det
-    
-    * drar vrålmycket cpu när en download är klar?
+    * måste bara ta katalogen ett steg upp - blir SKITKONSTIGT annars - ta bara en katalog. ALLTID. det kommer fungera bra
 
-    * egna chatmeddelanden sparas inte ibland? 
-
-    * usability testa! roligt. testa allt från installation till .. allt annat
+    * illegal argument händer hela tiden hos alla - titta i trace när det händer: vad är det för storlek på paketet som kommer?
 
 sen:
+    * restart väntar två minuter nu - om det inte gör någon skillnad så ta bort det
+    * drar vrålmycket cpu när en download är klar?
+    * egna chatmeddelanden sparas inte ibland?
+    * usability testa! roligt. testa allt från installation till .. allt annat
     * får inte visa hundra "you have successfully connected to"
     * komprimera sökpaket - skulle göra så att sökresultat kommer tillbaka mycket snabbare
-    * katalogstrukturen i downloadkatalogen blirsuperrörig - tar inte dc en katalog bara? - bara när man laddar ner hel katalog - kan göra samma sak om jag implementerar nya sökuit
     * glöm inte att ta bort GetUserList flood grejjerna.. - det buggar fortfarande - dom kan ställa till med problem i framtiden - och det är en UI referens i CORE
     * dubbelklick på nerladdad fil öppnar den
     * filesize i view share

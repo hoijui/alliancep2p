@@ -1,5 +1,6 @@
 package org.alliance.core.file.share;
 
+import com.stendahls.util.TextUtils;
 import org.alliance.core.CoreSubsystem;
 import org.alliance.core.file.filedatabase.FileDatabase;
 import org.alliance.core.settings.Settings;
@@ -40,11 +41,21 @@ public class ShareManager {
     public void updateShareBases() {
         shareBases.clear();
         shareBaseOrder.clear();
-        add(new ShareBase(settings.getInternal().getCachefolder()));
-        add(new ShareBase(settings.getInternal().getDownloadfolder()));
         for(Share s : settings.getSharelist()) {
             add(new ShareBase(s.getPath()));
         }
+        if (!isShared(settings.getInternal().getCachefolder()))
+            add(new ShareBase(settings.getInternal().getCachefolder()));
+        if (!isShared(settings.getInternal().getDownloadfolder()))
+            add(new ShareBase(settings.getInternal().getDownloadfolder()));
+    }
+
+    private boolean isShared(String folder) {
+        folder = TextUtils.makeSurePathIsMultiplatform(folder);
+        for(ShareBase sb : shareBases.values()) {
+            if (folder.startsWith(TextUtils.makeSurePathIsMultiplatform(sb.getPath()))) return true;
+        }
+        return false;
     }
 
     private void add(ShareBase sb) {
