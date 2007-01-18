@@ -104,7 +104,9 @@ public abstract class PacketConnection extends Connection {
                 packetsReceived++;
                 ((PacketConnection)c).packetReceived(receivePacket);
                 c = netMan.getConnection(getKey());
+                if(T.t)T.trace("Setting size: "+receiveLen);
                 receivePacket.setSize(receiveLen);
+                if(T.t)T.trace("Setting pos: "+(len+2));
                 receivePacket.setPos(len+2);
                 receivePacket.compact();
                 if(c != this && receivePacket.getPos() > 0) {
