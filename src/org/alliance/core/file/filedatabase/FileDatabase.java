@@ -68,8 +68,14 @@ public class FileDatabase {
             if(T.t)T.info("Maybe found duplicate: "+fd);
             FileDescriptor old = getFd(fd.getRootHash());
             if (old != null && old.existsAndSeemsEqual()) {
-                addDuplicate(fd.getCanonicalPath(), fd.getRootHash());
-                return old;
+                if (fd.getCanonicalPath().toLowerCase().indexOf("sample") != -1) {
+                    remove(old);
+                    addDuplicate(old.getCanonicalPath(), old.getRootHash());
+                    //continue adding fd
+                } else {
+                    addDuplicate(fd.getCanonicalPath(), fd.getRootHash());
+                    return old;
+                }
             } else {
                 if(T.t)T.info("Nope. Original did not exist.");
                 if (old != null) remove(old);
