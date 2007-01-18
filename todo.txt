@@ -1,6 +1,4 @@
 todo:
-    * måste bara ta katalogen ett steg upp - blir SKITKONSTIGT annars - ta bara en katalog. ALLTID. det kommer fungera bra
-
     * illegal argument händer hela tiden hos alla - titta i trace när det händer: vad är det för storlek på paketet som kommer?
 
 sen:
