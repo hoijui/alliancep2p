@@ -132,7 +132,8 @@ public class DownloadsMDIWindow extends AllianceMDIWindow {
     public void update() {
         boolean structureChanged = false;
 
-        for(Download d : ui.getCore().getNetworkManager().getDownloadManager().downloads()) {
+        ArrayList<Download> al = new ArrayList<Download>(ui.getCore().getNetworkManager().getDownloadManager().downloads());
+        for(Download d : al) {
             DownloadWrapper dw = getWrapperFor(d);
             if (dw == null) {
                 structureChanged = true;
