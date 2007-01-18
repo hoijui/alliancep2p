@@ -20,7 +20,7 @@ import java.util.*;
  * To change this template use File | Settings | File Templates.
  */
 public class DownloadManager extends Manager implements Runnable {
-    private static final int NUMBER_OF_GETBLOCKMASK_REQUESTS_TO_SEND = 100;
+    private static final int NUMBER_OF_GETBLOCKMASK_REQUESTS_TO_SEND = 160;
     private static final byte SERIALIZATION_VERSION = 2;
 
     private NetworkManager netMan;
@@ -52,23 +52,39 @@ public class DownloadManager extends Manager implements Runnable {
 
     public void run() {
         while(alive) {
-            try { Thread.sleep(1000); } catch(InterruptedException e) {}
+            for(int i=0;i<5;i++) {
+                try { Thread.sleep(200); } catch(InterruptedException e) {}
+                core.invokeLater(new Runnable() {
+                    public void run() {
+                        try {
+                            flushBlockMaskRequestQue();
+                        } catch(IOException e) {
+                            core.reportError(e, this);
+                        }
+                    }
+                });
+            }
+
             core.invokeLater(new Runnable() {
                 public void run() {
                     try {
                         checkForDownloadsToStart();
-                        flushBlockMaskRequestQue();
                     } catch(IOException e) {
                         core.reportError(e, this);
                     }
                 }
             });
+
             if (System.currentTimeMillis()-lastSaveTick > 1000*60*10) {
-                try {
-                    save(); //should be invokedLater?
-                } catch(IOException e) {
-                    if(T.t)T.error(e);
-                }
+                core.invokeLater(new Runnable() {
+                    public void run() {
+                        try {
+                            save();
+                        } catch(IOException e) {
+                            if(T.t)T.error(e);
+                        }
+                    }
+                });
             }
         }
     }
