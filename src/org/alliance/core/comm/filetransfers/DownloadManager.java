@@ -84,8 +84,8 @@ public class DownloadManager extends Manager implements Runnable {
                 r.friend.getFriendConnection().send(new GetBlockMask(r.download.getRoot()));
                 sent++;
             }
-            if(T.t)T.trace("Sent "+sent+" GetBlockMasks to friend(s)");
         }
+        if (sent != 0) if(T.t)T.trace("Sent "+sent+" GetBlockMasks to friend(s)");
     }
 
     public void queDownload(Hash root, String filename, ArrayList<Integer> guids) throws IOException {
