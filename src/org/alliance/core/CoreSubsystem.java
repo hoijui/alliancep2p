@@ -314,7 +314,7 @@ public class CoreSubsystem implements Subsystem {
     }
 
     public void restartProgram(boolean openWithUI) throws IOException {
-        restartProgram(openWithUI, openWithUI ? 0 : 2); //if user is not waiting for UI to show then we can delay restart a couple of minutes - this is so that the we're sure that the server port gets unbound.
+        restartProgram(openWithUI, 2);
     }
 
     /**
