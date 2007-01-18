@@ -71,7 +71,7 @@ public class Download {
             return;
         }
 
-        if (invalid || isComplete()) {
+        if (!isInterestedInBlockMasks()) {
             if(T.t)T.info("No longer interested in block masks for this download - ignore");
             return;
         }
@@ -108,6 +108,10 @@ public class Download {
                 if(T.t)T.info("Already connected to "+srcGuid+" - no need to open another download connection");
             }
         }
+    }
+
+    public boolean isInterestedInBlockMasks() {
+        return !invalid && !isComplete();
     }
 
     private Connection getConnectionByGUID(int srcGuid) {
@@ -332,11 +336,6 @@ public class Download {
 
     public void setInvalid(boolean invalid) {
         this.invalid = invalid;
-    }
-
-    public void signalFriendWentOnline(Friend friend) throws IOException {
-        if (invalid || isComplete()) return;
-        friend.getFriendConnection().send(new GetBlockMask(root));
     }
 
     private int signalBlockCompleteCounter=0;

@@ -3,6 +3,7 @@ package org.alliance.core.comm.filetransfers;
 import org.alliance.core.CoreSubsystem;
 import org.alliance.core.Manager;
 import org.alliance.core.comm.NetworkManager;
+import org.alliance.core.comm.rpc.GetBlockMask;
 import org.alliance.core.file.blockstorage.BlockMask;
 import org.alliance.core.file.blockstorage.BlockStorage;
 import org.alliance.core.file.hash.Hash;
@@ -19,6 +20,7 @@ import java.util.*;
  * To change this template use File | Settings | File Templates.
  */
 public class DownloadManager extends Manager implements Runnable {
+    private static final int NUMBER_OF_GETBLOCKMASK_REQUESTS_TO_SEND = 100;
     private static final byte SERIALIZATION_VERSION = 2;
 
     private NetworkManager netMan;
@@ -28,6 +30,8 @@ public class DownloadManager extends Manager implements Runnable {
 
     //list over what hashes a friend is interested in
     private HashMap<Hash, List<Friend>> interestedInHashes = new HashMap<Hash, List<Friend>>();
+
+    private ArrayList<BlockMaskRequest> blockMaskRequestQue = new ArrayList<BlockMaskRequest>();
 
     private boolean alive=true;
     private long lastSaveTick;
@@ -53,6 +57,7 @@ public class DownloadManager extends Manager implements Runnable {
                 public void run() {
                     try {
                         checkForDownloadsToStart();
+                        flushBlockMaskRequestQue();
                     } catch(IOException e) {
                         core.reportError(e, this);
                     }
@@ -60,11 +65,26 @@ public class DownloadManager extends Manager implements Runnable {
             });
             if (System.currentTimeMillis()-lastSaveTick > 1000*60*10) {
                 try {
-                    save();
+                    save(); //should be invokedLater?
                 } catch(IOException e) {
                     if(T.t)T.error(e);
                 }
             }
+        }
+    }
+
+    private void flushBlockMaskRequestQue() throws IOException {
+        int sent = 0;
+        while(sent < NUMBER_OF_GETBLOCKMASK_REQUESTS_TO_SEND && blockMaskRequestQue.size() > 0) {
+            BlockMaskRequest r = blockMaskRequestQue.get(blockMaskRequestQue.size()-1);
+            blockMaskRequestQue.remove(blockMaskRequestQue.size()-1);
+            if (r.friend.isConnected() &&
+                    downloads.containsKey(r.download.getRoot()) &&
+                    r.download.isInterestedInBlockMasks()) {
+                r.friend.getFriendConnection().send(new GetBlockMask(r.download.getRoot()));
+                sent++;
+            }
+            if(T.t)T.trace("Sent "+sent+" GetBlockMasks to friend(s)");
         }
     }
 
@@ -208,10 +228,13 @@ public class DownloadManager extends Manager implements Runnable {
     }
 
     public void signalFriendWentOnline(Friend friend) throws IOException {
-        for(Download d : downloadQue) d.signalFriendWentOnline(friend);
+        for(Download d : downloadQue) {
+            if (d.isInterestedInBlockMasks()) {
+                blockMaskRequestQue.add(new BlockMaskRequest(friend, d));
+            }
+        }
     }
 
-    //@todo: must clean this list up once in a while!
     public void interestedInHash(Friend remoteFriend, Hash root) {
         List<Friend> l = interestedInHashes.get(root);
         if (l == null) {
@@ -269,5 +292,15 @@ public class DownloadManager extends Manager implements Runnable {
         if (i==downloadQue.size()-1) return;
         downloadQue.remove(d);
         downloadQue.add(i+1, d);
+    }
+
+    private static class BlockMaskRequest {
+        public BlockMaskRequest(Friend friend, Download download) {
+            this.friend = friend;
+            this.download = download;
+        }
+
+        Friend friend;
+        Download download;
     }
 }
