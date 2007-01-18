@@ -88,7 +88,7 @@ public abstract class PacketConnection extends Connection {
             receivePacket.setPos(mark);
             if(T.t)T.trace("Packet length "+len+" received. "+receivePacket.getPos());
             if (len > core.getSettings().getInternal().getMaximumAlliancePacketSize()) throw new IOException("Received too large Alliance packet! Max: "+core.getSettings().getInternal().getMaximumAlliancePacketSize()+", received: "+len);
-            if (receivePacket.getPos() >= len) {
+            if (receivePacket.getPos() >= len+2) { //@todo: added 2 here - think this is correct. Remove this todo when verified
                 if(T.t)T.trace("Packet successfully received. Length: "+len);
                 int receiveLen = receivePacket.getPos();
                 receivePacket.setPos(2); //packet begins just after the length info
