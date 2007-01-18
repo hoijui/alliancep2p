@@ -20,7 +20,7 @@ import java.util.*;
  * To change this template use File | Settings | File Templates.
  */
 public class DownloadManager extends Manager implements Runnable {
-    private static final int NUMBER_OF_GETBLOCKMASK_REQUESTS_TO_SEND = 160;
+    private static final int NUMBER_OF_GETBLOCKMASK_REQUESTS_TO_SEND = 100;
     private static final byte SERIALIZATION_VERSION = 2;
 
     private NetworkManager netMan;
@@ -52,8 +52,8 @@ public class DownloadManager extends Manager implements Runnable {
 
     public void run() {
         while(alive) {
-            for(int i=0;i<5;i++) {
-                try { Thread.sleep(200); } catch(InterruptedException e) {}
+            for(int i=0;i<4;i++) {
+                try { Thread.sleep(250); } catch(InterruptedException e) {}
                 core.invokeLater(new Runnable() {
                     public void run() {
                         try {
