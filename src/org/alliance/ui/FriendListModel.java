@@ -5,6 +5,8 @@ import org.alliance.core.node.Friend;
 
 import javax.swing.*;
 import java.util.Collection;
+import java.util.Comparator;
+import java.util.TreeSet;
 
 /**
  * Created by IntelliJ IDEA.
@@ -24,11 +26,24 @@ public class FriendListModel extends DefaultListModel {
     private void updateFriendList() {
         clear();
         Collection<Friend> c = core.getFriendManager().friends();
+
+        TreeSet<Friend> ts = new TreeSet<Friend>(new Comparator<Friend>() {
+            public int compare(Friend o1, Friend o2) {
+                if (o1 == null || o2 == null) return 0;
+                String s1 = o1.nickname();
+                String s2 = o2.nickname();
+                if (s1.equalsIgnoreCase(s2)) return o1.getGuid()-o2.getGuid();
+                return o1.nickname().compareToIgnoreCase(o2.nickname());
+            }
+        });
         for(Friend f : c) {
+            ts.add(f);
+        }
+        for(Friend f : ts) {
             if (f.isConnected()) addElement(f);
         }
-        for(Friend f : c) if (!f.isConnected() && !f.hasNotBeenOnlineForLongTime()) addElement(f);
-        for(Friend f : c) if (!f.isConnected() && f.hasNotBeenOnlineForLongTime()) addElement(f);
+        for(Friend f : ts) if (!f.isConnected() && !f.hasNotBeenOnlineForLongTime()) addElement(f);
+        for(Friend f : ts) if (!f.isConnected() && f.hasNotBeenOnlineForLongTime()) addElement(f);
     }
 
     public void signalFriendChanged(Friend node) {

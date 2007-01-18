@@ -35,6 +35,12 @@ public class BandwidthAnalyzer {
         this.highestCps = highestCps;
     }
 
+    public BandwidthAnalyzer(int updateInterval, int highestCps, long totalBytesStartingAt) {
+        this.updateInterval = updateInterval;
+        this.highestCps = highestCps;
+        this.totalBytes = totalBytesStartingAt;
+    }
+
     public void update(int bytes) {
         if (tick == -1) tick = System.currentTimeMillis();
         nBytes+=bytes;

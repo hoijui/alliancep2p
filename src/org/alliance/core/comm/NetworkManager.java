@@ -2,6 +2,7 @@ package org.alliance.core.comm;
 
 import org.alliance.core.CoreSubsystem;
 import static org.alliance.core.CoreSubsystem.KB;
+import static org.alliance.core.CoreSubsystem.MB;
 import org.alliance.core.Manager;
 import org.alliance.core.comm.filetransfers.DownloadManager;
 import org.alliance.core.comm.networklayers.tcpnio.NIOPacket;
@@ -81,8 +82,8 @@ public class NetworkManager extends Manager {
         cryptoLayer = core.getCryptoManager().getCryptoLayer();
         downloadManager = new DownloadManager(friendManager.getCore());
         router = new Router(friendManager);
-        bandwidthIn = new BandwidthAnalyzer(BandwidthAnalyzer.OUTER_INTERVAL, settings.getInternal().getRecordinspeed());
-        bandwidthOut = new BandwidthAnalyzer(BandwidthAnalyzer.OUTER_INTERVAL, settings.getInternal().getRecordoutspeed());
+        bandwidthIn = new BandwidthAnalyzer(BandwidthAnalyzer.OUTER_INTERVAL, settings.getInternal().getRecordinspeed(), settings.getInternal().getTotalmegabytesdownloaded()*MB);
+        bandwidthOut = new BandwidthAnalyzer(BandwidthAnalyzer.OUTER_INTERVAL, settings.getInternal().getRecordoutspeed(), settings.getInternal().getTotalmegabytesuploaded()*MB);
 
         // keep-alive thread
         Thread t = new Thread(new Runnable() {
@@ -128,6 +129,8 @@ public class NetworkManager extends Manager {
     public void shutdown() throws IOException {
         core.getSettings().getInternal().setRecordinspeed((int)bandwidthIn.getHighestCPS());
         core.getSettings().getInternal().setRecordoutspeed((int)bandwidthOut.getHighestCPS());
+        core.getSettings().getInternal().setTotalmegabytesdownloaded((int)(bandwidthIn.getTotalBytes()/MB));
+        core.getSettings().getInternal().setTotalmegabytesuploaded((int)(bandwidthOut.getTotalBytes()/MB));
         alive = false;
         networkLayer.shutdown();
         downloadManager.shutdown();

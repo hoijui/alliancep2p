@@ -32,6 +32,7 @@ public class Internal extends SettingClass {
     private String keystorefilename = CURRENT_DIRECTORY+"me.ks";
     private Integer maxdownloadconnections=5;
     private Integer recordoutspeed=0, recordinspeed=0;
+    private Integer totalmegabytesdownloaded =0, totalmegabytesuploaded =0;
     private Integer connectionkeepaliveinterval=60;
     private Integer numberofblockstopipeline=2;
     private Integer usedirectbuffers=1; // Should direct nio buffers be used? 0=no 1=yes
@@ -366,5 +367,21 @@ public class Internal extends SettingClass {
 
     public void setServerlistenip(String serverlistenip) {
         this.serverlistenip = serverlistenip;
+    }
+
+    public Integer getTotalmegabytesdownloaded() {
+        return totalmegabytesdownloaded;
+    }
+
+    public void setTotalmegabytesdownloaded(Integer totalmegabytesdownloaded) {
+        this.totalmegabytesdownloaded = totalmegabytesdownloaded;
+    }
+
+    public Integer getTotalmegabytesuploaded() {
+        return totalmegabytesuploaded;
+    }
+
+    public void setTotalmegabytesuploaded(Integer totalmegabytesuploaded) {
+        this.totalmegabytesuploaded = totalmegabytesuploaded;
     }
 }
