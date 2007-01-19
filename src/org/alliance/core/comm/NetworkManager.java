@@ -82,8 +82,8 @@ public class NetworkManager extends Manager {
         cryptoLayer = core.getCryptoManager().getCryptoLayer();
         downloadManager = new DownloadManager(friendManager.getCore());
         router = new Router(friendManager);
-        bandwidthIn = new BandwidthAnalyzer(BandwidthAnalyzer.OUTER_INTERVAL, settings.getInternal().getRecordinspeed(), settings.getInternal().getTotalmegabytesdownloaded()*MB);
-        bandwidthOut = new BandwidthAnalyzer(BandwidthAnalyzer.OUTER_INTERVAL, settings.getInternal().getRecordoutspeed(), settings.getInternal().getTotalmegabytesuploaded()*MB);
+        bandwidthIn = new BandwidthAnalyzer(BandwidthAnalyzer.OUTER_INTERVAL, settings.getInternal().getRecordinspeed(), ((long)settings.getInternal().getTotalmegabytesdownloaded()*MB));
+        bandwidthOut = new BandwidthAnalyzer(BandwidthAnalyzer.OUTER_INTERVAL, settings.getInternal().getRecordoutspeed(), ((long)settings.getInternal().getTotalmegabytesuploaded()*MB));
 
         // keep-alive thread
         Thread t = new Thread(new Runnable() {
