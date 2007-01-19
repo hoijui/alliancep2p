@@ -153,6 +153,6 @@ public class UploadConnection extends TransferConnection {
     }
 
     public String toString() {
-        return getRemoteFriend().getNickname()+" (upload)";
+        return (getRemoteFriend() == null ? "unknown" : getRemoteFriend().getNickname()) +" (upload)";
     }
 }

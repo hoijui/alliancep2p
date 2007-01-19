@@ -83,7 +83,7 @@ public abstract class BlockStorage extends Thread {
                     core.invokeLater(new Runnable() {
                         public void run() {
                             try {
-                                if(T.t)T.ass(!bf.isOpen(),"");
+                                if(T.t)T.ass(!bf.isOpen(),"Not open!");
                                 remove(bf.getFd().getRootHash());
                                 bf.getFd().updateModifiedAt();
                                 core.getFileManager().getFileDatabase().add(bf.getFd());

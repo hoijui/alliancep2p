@@ -81,12 +81,12 @@ public abstract class PacketConnection extends Connection {
         if(T.t)T.trace("Received "+buf.remaining()+" bytes - "+receivePacket.getAvailable()+" bytes available in buffer.");
 //        Packet.printBuf(buf);
         receivePacket.writeBuffer(buf);
-        while (receivePacket.getPos() >= 2) {
+        while (receivePacket.getPos() >= 2) { //there's more than two bytes to read in packet - that mean we can read the packet length
             int mark = receivePacket.getPos();
             receivePacket.setPos(0);
             int len = receivePacket.readUnsignedShort();
             receivePacket.setPos(mark);
-            if(T.t)T.trace("Packet length "+len+" received. "+receivePacket.getPos());
+            if(T.t)T.trace("Packet length "+len+" received. In packet buffer: "+receivePacket.getPos());
             if (len > core.getSettings().getInternal().getMaximumAlliancePacketSize()) throw new IOException("Received too large Alliance packet! Max: "+core.getSettings().getInternal().getMaximumAlliancePacketSize()+", received: "+len);
             if (receivePacket.getPos() >= len+2) {
                 if(T.t)T.trace("Packet successfully received. Length: "+len);
