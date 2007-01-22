@@ -1,6 +1,6 @@
 todo:
     * får inte visa hundra "you have successfully connected to"
-    * drar hundra procent CPU - alltid när man får en ny vän och UI:t är igång..  tror jag      låter troligt   
+    * drar hundra procent CPU - alltid när man får en ny vän och UI:t är igång..  tror jag      låter troligt   . när man INTE har igång UI:t verkar det fungera
 sen:
     * restart väntar två minuter nu - om det inte gör någon skillnad så ta bort det
     * drar vrålmycket cpu när en download är klar?
