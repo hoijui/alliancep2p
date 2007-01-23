@@ -7,7 +7,7 @@ sen:
     * egna chatmeddelanden sparas inte ibland?
     * usability testa! roligt. testa allt från installation till .. allt annat
     * komprimera sökpaket - skulle göra så att sökresultat kommer tillbaka mycket snabbare
-    * glöm inte att ta bort GetUserList flood grejjerna.. - det buggar fortfarande - dom kan ställa till med problem i framtiden - och det är en UI referens i CORE
+    * det buggar väl inte längre? : glöm inte att ta bort GetUserList flood grejjerna.. - det buggar fortfarande - dom kan ställa till med problem i framtiden - och det är en UI referens i CORE
     * dubbelklick på nerladdad fil öppnar den
     * filesize i view share
     * att browsa ens egen share hade varit bra för att kolla alla buggar med dups

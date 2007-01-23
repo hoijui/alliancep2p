@@ -431,9 +431,10 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
 //            }
 
 //            if(T.t)T.trace("userInteractionsInProgress: "+userInteractionsInProgress+", in que: "+ui.getCore().getAllUserInteractionsInQue().size());
+            boolean removedAUserInteraction = false;
             for(NeedsUserInteraction nui : ui.getCore().getAllUserInteractionsInQue()) {
                 if (userInteractionsInProgress == 0 || nui.canRunInParallelWithOtherInteractions()) {
-//                    if(T.t)T.info("running user interaction: "+nui);
+                    if(T.t)T.info("running user interaction: "+nui);
                     ui.getCore().removeUserInteraction(nui);
                     final NeedsUserInteraction nui1 = nui;
                     SwingUtilities.invokeLater(new Runnable() {
@@ -441,12 +442,14 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
                             handleNeedsUserInteraction(nui1);
                         }
                     });
+                    removedAUserInteraction = true;
                     break;
                 }
             }
 
-            if (ui.getCore().getAllUserInteractionsInQue().size() == 0)
+            if (!removedAUserInteraction) {
                 try { Thread.sleep(1000); } catch (InterruptedException e) {}
+            }
         }
     }
 
