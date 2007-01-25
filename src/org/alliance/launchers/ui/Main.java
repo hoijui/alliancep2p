@@ -26,6 +26,7 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         System.out.println("Launching Alliance v"+ Version.VERSION+" build "+Version.BUILD_NUMBER);
+        System.setProperty("alliance.build", ""+Version.BUILD_NUMBER);
 
         boolean allowMultipleInstances = argsContain(args, "/allowMultipleInstances");
         boolean runMinimized = argsContain(args, "/min");
