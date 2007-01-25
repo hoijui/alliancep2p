@@ -51,7 +51,7 @@ import java.util.List;
  * Time: 16:38:25
  */
 public class CoreSubsystem implements Subsystem {
-    public final static boolean ALLOW_TO_SEND_UPGRADE_TO_FRIENDS = true;
+    public final static boolean ALLOW_TO_SEND_UPGRADE_TO_FRIENDS = false;
     private static final int STATE_FILE_VERSION = 4;
 
     public final static int KB = 1024;
