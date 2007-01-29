@@ -64,8 +64,13 @@ public class HashesForPath extends CompressedRPC {
         ArrayList<Integer> guid = new ArrayList<Integer>();
         guid.add(con.getRemoteUserGUID());
         for(int i=0;i<hashes.length;i++) {
-            core.getNetworkManager().getDownloadManager().queDownload(hashes[i], paths[i], guid);
+            if (core.getFileManager().containsComplete(hashes[i])) {
+                core.getUICallback().statusMessage("You already have the file "+paths[i]+"!");
+            } else if (core.getNetworkManager().getDownloadManager().getDownload(hashes[i]) != null) {
+                core.getUICallback().statusMessage("You are already downloading "+paths[i]+"!");
+            } else {
+                core.getNetworkManager().getDownloadManager().queDownload(hashes[i], paths[i], guid);
+            }
         }
     }
-
 }

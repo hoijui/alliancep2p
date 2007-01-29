@@ -29,7 +29,7 @@ public class RootNode extends SearchTreeNode {
     public void addSearchHits(int sourceGuid, int hops, java.util.List<SearchHit> hits) {
         for(SearchHit h : hits) {
             //don't show files that i already have
-            if (model.getCore().getFileManager().getFileDatabase().contains(h.getRoot())) continue;
+//            if (model.getCore().getFileManager().getFileDatabase().contains(h.getRoot())) continue;
 
             //ignore alliance.upgade files
             if (h.getPath().endsWith(".upgrade") && h.getPath().indexOf("alliance") != -1) continue;

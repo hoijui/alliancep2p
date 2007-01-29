@@ -113,7 +113,7 @@ public class ShareScanner extends Thread {
             } else {
                 try {
                     if (!manager.getFileDatabase().contains(file.toString())) {
-                        if (!file.isHidden()) {
+                        if (!file.isHidden() && file.length() != 0) {
                             hash(base, file);
                         } else {
                             if(T.t)T.debug("Skipping hidden file "+file);

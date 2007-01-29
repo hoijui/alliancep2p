@@ -29,14 +29,22 @@
                     <panel axis="y" opaque="no">
                         <filler axis="y"/>
                         <strut height="2"/>
-                        <progressbar id="bandwidthin" expand="none" width="80"/>
+                        <panel axis="x">
+                            <label text="Download:"/>
+                            <strut width="5"/>
+                            <progressbar id="bandwidthin" expand="none" width="80"/>
+                            </panel>
                         <filler axis="y"/>
                     </panel>
                     <strut width="1"/>
                     <panel axis="y" opaque="no">
                         <filler axis="y"/>
                         <strut height="2"/>
+                        <panel axis="x">
+                            <label text="Upload:"/>
+                            <strut width="5"/>
                         <progressbar id="bandwidthout" expand="none" width="80"/>
+                            </panel>
                         <filler axis="y"/>
                     </panel>
                 </panel>
