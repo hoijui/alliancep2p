@@ -240,6 +240,7 @@ public class Download {
 
     public int getPercentComplete() throws IOException {
         if (fd == null) return 0;
+        if (fd.getSize() == 0) return 0;
         int c = (int)(bytesComplete*100/fd.getSize());
         if (c>100) c=100;
         return c;
