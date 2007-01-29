@@ -1,6 +1,11 @@
 todo:
     * får inte visa hundra "you have successfully connected to"
+    * fungerar verkligen sample-fixen?
+    * ta upp dialog när man försöker ladda ner nåt som man redan har
+    * går inte att ladda ner filer som är 0 bytes
 
+    * gör så man kan se enga filer i search resulnt
+skriv upload och dl på barsen
     java.lang.NumberFormatException: For input string: "0.7"
 	at java.lang.NumberFormatException.forInputString(Unknown Source)
 	at java.lang.Integer.parseInt(Unknown Source)
