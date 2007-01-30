@@ -1,24 +1,22 @@
 todo:
     * får inte visa hundra "you have successfully connected to"
-    * när man laddar ner igenom share borde den ta sökvägen från där man klickade
+    * inte släppa ny version! nya splashen verkar hänga sig ibland
 
 sen:
-    * restart väntar två minuter nu - om det inte gör någon skillnad så ta bort det
+    * när man laddar ner igenom share borde den ta sökvägen från där man klickade
     * drar vrålmycket cpu när en download är klar?
-    * egna chatmeddelanden sparas inte ibland?
     * usability testa! roligt. testa allt från installation till .. allt annat
     * komprimera sökpaket - skulle göra så att sökresultat kommer tillbaka mycket snabbare
     * det buggar väl inte längre? : glöm inte att ta bort GetUserList flood grejjerna.. - det buggar fortfarande - dom kan ställa till med problem i framtiden - och det är en UI referens i CORE
-    * dubbelklick på nerladdad fil öppnar den
     * filesize i view share
     * att browsa ens egen share hade varit bra för att kolla alla buggar med dups
 
 LÅG PRIO:
+    * dubbelklick på nerladdad fil öppnar den
     * dubbelklick på + ska inte ladda ner
     * pinsamt enkelt att DOS:a alliance till döds - öppna koppling, skicka 0xffff och sedan 64k av skräp så tar alliance emot det glädjeligen
     * ui för dups - lista där man kan ta bort filer
 
 TODO SOM ANDRA SKULLE KUNNA GÖRA:
     * droppa fil på en användare - en lite speciell process i download och uploadconnection. borde inte vara några problem. eller någon annan slags implementation - det hade rockat iaf. Bra om den använder standard downloadförfarandet så man får allt från det. Inget fel att tanka från två heller ifall filen råkar finnas på fler ställen
-    * forum
     * win32 api med file system events

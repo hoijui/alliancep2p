@@ -1,18 +1,10 @@
 package org.alliance.ui.windows;
 
-import com.stendahls.nif.ui.mdi.MDIWindow;
 import org.alliance.core.comm.rpc.ChatMessage;
-import org.alliance.core.comm.rpc.ChatMessageV2;
 import org.alliance.ui.UISubsystem;
 
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -38,7 +30,7 @@ public class PrivateChatMessageMDIWindow extends AbstractChatMessageMDIWindow {
         ui.getCore().invokeLater(new Runnable() {
             public void run() {
                 try {
-                    ui.getCore().getFriendManager().getNetMan().sendPersistantly(new ChatMessageV2(text, false), ui.getCore().getFriendManager().getFriend(guid));
+                    ui.getCore().getFriendManager().getNetMan().sendPersistantly(new ChatMessage(text, false), ui.getCore().getFriendManager().getFriend(guid));
                 } catch(IOException e) {
                     ui.getCore().reportError(e, this);
                 }

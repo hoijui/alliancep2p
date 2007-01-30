@@ -19,7 +19,6 @@ public class RPCFactory {
             case 11: rpc = new NoRouteToHost(); break;
             case 12: rpc = new Ping(); break;
             case 13: rpc = new Pong(); break;
-            case 14: rpc = new ChatMessage(); break;
             case 15: rpc = new Route(); break;
             case 16: rpc = new Search(); break;
             case 17: rpc = new SearchHits(); break;
@@ -35,7 +34,7 @@ public class RPCFactory {
             case 27: rpc = new GetHashesForPath(); break;
             case 28: rpc = new HashesForPath(); break;
             case 29: rpc = new ConnectToMe(); break;
-            case 30: rpc = new ChatMessageV2(); break;
+            case 30: rpc = new ChatMessage(); break;
         }
         if (rpc == null) if (T.t) T.error("UNRECOGNIZED rpc id: "+packetId);
         return rpc;
@@ -55,7 +54,6 @@ public class RPCFactory {
         if (rpc instanceof NoRouteToHost) return 11;
         if (rpc instanceof Ping) return 12;
         if (rpc instanceof Pong) return 13;
-        if (rpc instanceof ChatMessage) return 14;
         if (rpc instanceof Route) return 15;
         if (rpc instanceof Search) return 16;
         if (rpc instanceof SearchHits) return 17;
@@ -71,7 +69,7 @@ public class RPCFactory {
         if (rpc instanceof GetHashesForPath) return 27;
         if (rpc instanceof HashesForPath) return 28;
         if (rpc instanceof ConnectToMe) return 29;
-        if (rpc instanceof ChatMessageV2) return 30;
+        if (rpc instanceof ChatMessage) return 30;
         if(T.t)T.error("Could not identify RPC: "+rpc);
         return -1;
    }

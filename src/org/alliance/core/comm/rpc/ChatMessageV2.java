@@ -8,22 +8,22 @@ import java.io.IOException;
 
 /**
  *
- * version 2 of chat message - the old class (ChatMessage) will only be used in the transition to the next version (0.9.6)
+ * version 2 of chat message 
  *
  * Created by IntelliJ IDEA.
  * User: maciek
  * Date: 2005-dec-28
  * Time: 18:42:48
  */
-public class ChatMessageV2 extends PersistantRPC {
+public class ChatMessage extends PersistantRPC {
     private String message;
     private boolean messageToAll;
 
-    public ChatMessageV2() {
+    public ChatMessage() {
         routable = true;
     }
 
-    public ChatMessageV2(String message, boolean messageToAll) {
+    public ChatMessage(String message, boolean messageToAll) {
         this.message = message;
         this.messageToAll = messageToAll;
     }
