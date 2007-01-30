@@ -4,24 +4,28 @@ import org.alliance.Version;
 import org.alliance.core.ResourceSingelton;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 /**
  * User: maciek
  * Date: 2004-sep-14
  * Time: 10:49:44
  */
-public class SplashWindow extends Window implements Runnable, StartupProgressListener {
+public class SplashWindowOld extends Window implements Runnable {
     private Image image;
     private String statusMessage="";
     private long startTick;
     private int progressPercent=-1;
 
     private int lastWidth, lastHeight;
+    private Image backBuffer;
+    private Graphics2D backBufferGraphics;
 
-    public SplashWindow() throws Exception {
+    public SplashWindowOld() throws Exception {
         super(new Frame());
+        setStatusMessage("Launching...");
         image = Toolkit.getDefaultToolkit().getImage(ResourceSingelton.getRl().getResource("gfx/splash.jpg"));
-        MediaTracker mt = new MediaTracker(SplashWindow.this);
+        MediaTracker mt = new MediaTracker(SplashWindowOld.this);
         mt.addImage(image,0);
         try { mt.waitForAll(); } catch(InterruptedException e) {}
         Dimension ss = Toolkit.getDefaultToolkit().getScreenSize();
@@ -29,6 +33,8 @@ public class SplashWindow extends Window implements Runnable, StartupProgressLis
         setLocation(ss.width/2-image.getWidth(null)/2,
                 ss.height/2-image.getHeight(null)/2);
         setSize(new Dimension(image.getWidth(null),image.getHeight(null)));
+
+        init();
 
         startTick = System.currentTimeMillis();
         setVisible(true);
@@ -38,7 +44,8 @@ public class SplashWindow extends Window implements Runnable, StartupProgressLis
 
     private int progressBarLength = 100, progressBarHeight=8;
     public void paint(Graphics frontG) {
-        Graphics2D g = (Graphics2D)frontG;
+        init();
+        Graphics2D g = backBufferGraphics;
 
         g.drawImage(image,0,0,null);
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -48,7 +55,7 @@ public class SplashWindow extends Window implements Runnable, StartupProgressLis
         g.setColor(Color.white);
         int texty = image.getHeight(null)-10;
         g.drawString(statusMessage, 10, texty);
-        String s = "Version "+Version.VERSION+" "+Version.BUILD_NUMBER;
+        String s = "Version "+ Version.VERSION+" "+Version.BUILD_NUMBER;
         g.drawString(s, image.getWidth(null)-10-g.getFontMetrics().stringWidth(s), texty);
 
         if (progressPercent >= 0) {
@@ -64,6 +71,17 @@ public class SplashWindow extends Window implements Runnable, StartupProgressLis
         }
 
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
+
+        frontG.drawImage(backBuffer, 0, 0, null);
+    }
+
+    private void init() {
+        if (backBuffer == null || lastWidth != getWidth() || lastHeight != getHeight()) {
+            lastHeight = getHeight();
+            lastWidth = getWidth();
+            backBuffer = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
+            backBufferGraphics = (Graphics2D)backBuffer.getGraphics();
+        }
     }
 
     public void update(Graphics g) {
@@ -72,7 +90,7 @@ public class SplashWindow extends Window implements Runnable, StartupProgressLis
 
     public void setStatusMessage(String statusMessage) {
         this.statusMessage = statusMessage;
-        if (getGraphics() != null) paint(getGraphics());
+        repaint();
     }
 
     public void setProgressPercent(int i) {
@@ -82,9 +100,5 @@ public class SplashWindow extends Window implements Runnable, StartupProgressLis
     public void run() {
         setVisible(false);
         dispose();
-    }
-
-    public void updateProgress(String message) {
-        setStatusMessage(message+"...");
     }
 }

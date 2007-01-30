@@ -3,7 +3,6 @@ package org.alliance.ui;
 import com.stendahls.XUI.MenuItemDescriptionListener;
 import com.stendahls.XUI.XUIFrame;
 import com.stendahls.nif.ui.OptionDialog;
-import com.stendahls.nif.ui.framework.ProgressMessageListener;
 import com.stendahls.nif.ui.mdi.MDIManager;
 import com.stendahls.nif.ui.mdi.MDIManagerEventListener;
 import com.stendahls.nif.ui.mdi.MDIWindow;
@@ -19,6 +18,7 @@ import org.alliance.core.PublicChatHistory;
 import org.alliance.core.comm.BandwidthAnalyzer;
 import org.alliance.core.interactions.*;
 import org.alliance.core.node.Friend;
+import org.alliance.launchers.StartupProgressListener;
 import org.alliance.ui.addfriendwizard.AddFriendWizard;
 import org.alliance.ui.addfriendwizard.ForwardInvitationNodesList;
 import org.alliance.ui.windows.*;
@@ -40,12 +40,11 @@ import java.util.ArrayList;
  * Date: 2005-dec-30
  * Time: 16:25:12
  */
-public class MainWindow extends XUIFrame implements MenuItemDescriptionListener, ProgressMessageListener, MDIManagerEventListener, Runnable {
+public class MainWindow extends XUIFrame implements MenuItemDescriptionListener, MDIManagerEventListener, Runnable {
     private UISubsystem ui;
     private JLabel statusMessage, shareMessage, uploadMessage, downloadMessage;
     private JProgressBar bandwidthIn, bandwidthOut;
     private ToolbarActionManager toolbarActionManager;
-    private ProgressMessageListener pml;
     protected MDIManager mdiManager;
 
     private AddFriendWizard lastAddFriendWizard;
@@ -56,10 +55,10 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
     public MainWindow() throws Exception {
     }
 
-    public void init(final UISubsystem ui, ProgressMessageListener pml, final boolean shutdownOnClose) throws Exception {
+    public void init(final UISubsystem ui, StartupProgressListener pml, final boolean shutdownOnClose) throws Exception {
         this.ui = ui;
-        this.pml = pml;
 
+        pml.updateProgress("Loading main window");
         init(ui.getRl(), "xui/mainwindow.xui.xml");
 
         bandwidthIn = (JProgressBar)xui.getComponent("bandwidthin");
@@ -75,14 +74,21 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
 //        downloadMessage = (JLabel)xui.getComponent("totaldown");
 
         setupToolbar();
+
         setupWindowEvents(shutdownOnClose);
+
         setupMDIManager();
 
+        pml.updateProgress("Loading main window (friend list)");
         mdiManager.addWindow(new FriendListMDIWindow(mdiManager, ui));
+        pml.updateProgress("Loading main window (publc chat)");
         mdiManager.addWindow(publicChat = new PublicChatMessageMDIWindow(ui));
+        pml.updateProgress("Loading main window (search)");
         mdiManager.addWindow(new SearchMDIWindow(ui));
+        pml.updateProgress("Loading main window (download)");
         mdiManager.addWindow(new DownloadsMDIWindow(ui));
 
+        pml.updateProgress("Loading main window");
         for(PublicChatHistory.Entry e : ui.getCore().getPublicChatHistory().allMessages()) {
             publicChat.addMessage(ui.getCore().getFriendManager().nickname(e.fromGuid), e.message, e.tick);
         }
@@ -124,14 +130,6 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
         mdiManager.setEventListener(this);
         ((InfoNodeMDIManager)mdiManager).setMaximumNumberOfWindowsByClass(10);
         ((JPanel)xui.getComponent("applicationArea")).add(mdiManager);
-    }
-
-    public void progressPercent(int steps) {
-        if (pml != null) pml.progressPercent(steps);
-    }
-
-    public void progressMessage(String message) {
-        if (pml != null) pml.progressMessage(message);
     }
 
     private void setupToolbar() throws Exception {

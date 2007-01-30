@@ -6,6 +6,7 @@ import org.alliance.Version;
 import org.alliance.core.ResourceSingelton;
 import org.alliance.core.T;
 import org.alliance.launchers.OSInfo;
+import org.alliance.launchers.StartupProgressListener;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -38,7 +39,7 @@ public class Main {
 
         String s = "settings.xml";
         for(int i=0;i<args.length;i++) if (!args[i].startsWith("/")) s = args[i];
-        Subsystem core = initCore(s);
+        Subsystem core = initCore(s, (StartupProgressListener)r);
 
         if (OSInfo.supportsTrayIcon()) {
             Subsystem tray = initTrayIcon(core);
@@ -125,11 +126,11 @@ public class Main {
         }
     }
 
-    private static Subsystem initCore(String settings) {
+    private static Subsystem initCore(String settings, StartupProgressListener l) {
         try {
             SimpleTimer s = new SimpleTimer();
             Subsystem core = (Subsystem)Class.forName("org.alliance.core.CoreSubsystem").newInstance();
-            core.init(ResourceSingelton.getRl(), settings);
+            core.init(ResourceSingelton.getRl(), settings, l);
             if(T.t)T.info("" +
                     "Subsystem CORE started in "+s.getTime());
             return core;

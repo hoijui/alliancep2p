@@ -22,6 +22,7 @@ import org.alliance.core.node.Friend;
 import org.alliance.core.node.FriendManager;
 import org.alliance.core.node.InvitaitonManager;
 import org.alliance.core.settings.Settings;
+import org.alliance.launchers.StartupProgressListener;
 import org.alliance.launchers.ui.Main;
 import org.w3c.dom.Document;
 
@@ -84,6 +85,10 @@ public class CoreSubsystem implements Subsystem {
     }
 
     public void init(ResourceLoader rl, Object... params) throws Exception {
+        StartupProgressListener progress = new StartupProgressListener() {public void updateProgress(String message) {}};
+        if (params != null && params.length >= 2) progress = (StartupProgressListener)params[1];
+
+        progress.updateProgress("Loading core");
         errorLog = new Log("error.log");
         traceLog = new Log("trace.log");
         if (T.t && !isRunningAsTestSuite()) {
@@ -117,10 +122,24 @@ public class CoreSubsystem implements Subsystem {
         loadState();
 
         cryptoManager.init();
+        progress.updateProgress("Loading core (file database)");
         fileManager.init();
+        progress.updateProgress("Loading core");
         friendManager.init();
         networkManager.init();
-        if (!isRunningAsTestSuite()) upnpManager.init();
+
+        if (!isRunningAsTestSuite()) {
+            Thread t = new Thread(new Runnable() {
+                public void run() {
+                    try {
+                        upnpManager.init();
+                    } catch (IOException e) {
+                        reportError(e, "upnp");
+                    }
+                }
+            });
+            t.start();
+        }
 
         Thread.currentThread().setName(friendManager.getMe()+" main");
 

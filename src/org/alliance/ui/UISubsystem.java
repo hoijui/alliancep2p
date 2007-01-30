@@ -10,6 +10,7 @@ import de.javasoft.plaf.synthetica.SyntheticaBlackStarLookAndFeel;
 import org.alliance.Subsystem;
 import org.alliance.core.CoreSubsystem;
 import static org.alliance.core.CoreSubsystem.ERROR_URL;
+import org.alliance.launchers.StartupProgressListener;
 import org.alliance.ui.nodetreemodel.NodeTreeModel;
 import org.alliance.ui.nodetreemodel.NodeTreeNode;
 
@@ -30,6 +31,8 @@ public class UISubsystem implements UINexus, Subsystem {
     private NodeTreeModel nodeTreeModel;
     private FriendListModel friendListModel;
 
+    private StartupProgressListener progress;
+
     public UISubsystem() {
     }
 
@@ -40,6 +43,10 @@ public class UISubsystem implements UINexus, Subsystem {
     public void init(ResourceLoader rl, final Object... params) throws Exception {
         this.rl = rl;
         core = (CoreSubsystem)params[0];
+
+        progress = new StartupProgressListener() {public void updateProgress(String message) {}};
+        if (params != null && params.length >= 3) progress = (StartupProgressListener)params[2];
+        progress.updateProgress("Loading user interface");
 
         if (SwingUtilities.isEventDispatchThread()) {
             realInit(params);
@@ -79,7 +86,7 @@ public class UISubsystem implements UINexus, Subsystem {
 
         try {
             mainWindow = new MainWindow();
-            mainWindow.init(UISubsystem.this, null, params.length > 1 && (Boolean)params[1]);
+            mainWindow.init(UISubsystem.this, progress, params.length > 1 && (Boolean)params[1]);
         } catch(Exception e) {
             handleErrorInEventLoop(e);
         }
