@@ -1,7 +1,8 @@
 todo:
     * får inte visa hundra "you have successfully connected to"
     * inte släppa ny version! nya splashen verkar hänga sig ibland - det är hela UI:t som deadlockar ibland - har det med user interactions att göra?
-
+    * ta bort trackers från sourceforge - fungerar inget bra ändå.
+    
 sen:
     * när man laddar ner igenom share borde den ta sökvägen från där man klickade
     * drar vrålmycket cpu när en download är klar?
