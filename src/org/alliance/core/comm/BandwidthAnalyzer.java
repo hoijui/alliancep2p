@@ -65,7 +65,8 @@ public class BandwidthAnalyzer {
             averageCps /= n;
         }
 
-        if (highestCps < averageCps) highestCps = averageCps;
+//        if (highestCps < averageCps) highestCps = averageCps;
+        if (highestCps < cps) highestCps = cps;
     }
 
     public double getCPS() {

@@ -2,6 +2,7 @@
 <project name="alliance" default="Build release">
     <property name="lib.dir" value="lib"/>
     <property name="build.dir" value="build"/>
+    <property name="web.deploy" value="v:\\maciek.tv\\t"/>
     <fileset dir="C:\" id="3ppjars">
         <include name="java\tools\synthetica-2.0.1\synthetica.jar"/>
         <include name="java\tools\synthetica-2.0.1\syntheticaBlackStar.jar"/>
@@ -100,5 +101,6 @@
         </delete>
 
         <move file="${build.dir}/alliance.jar" tofile="${build.dir}/alliance.dat"/>
+        <copyfile src="${build.dir}/alliance.dat" dest="${web.deploy}\alliance.dat"/>
     </target>
 </project>

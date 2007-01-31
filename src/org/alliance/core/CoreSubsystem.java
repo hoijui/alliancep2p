@@ -11,6 +11,7 @@ import com.stendahls.ui.ErrorDialog;
 import org.alliance.Subsystem;
 import org.alliance.core.comm.NetworkManager;
 import org.alliance.core.comm.rpc.GetUserInfo;
+import org.alliance.core.comm.rpc.GetUserInfoV2;
 import org.alliance.core.comm.upnp.UPnPManager;
 import org.alliance.core.crypto.CryptoManager;
 import org.alliance.core.file.FileManager;
@@ -86,7 +87,7 @@ public class CoreSubsystem implements Subsystem {
 
     public void init(ResourceLoader rl, Object... params) throws Exception {
         StartupProgressListener progress = new StartupProgressListener() {public void updateProgress(String message) {}};
-        if (params != null && params.length >= 2) progress = (StartupProgressListener)params[1];
+        if (params != null && params.length >= 2 && params[1] != null) progress = (StartupProgressListener)params[1];
 
         progress.updateProgress("Loading core");
         errorLog = new Log("error.log");
@@ -271,11 +272,13 @@ public class CoreSubsystem implements Subsystem {
     }
 
     public void updateLastSeenOnlineForFriends() {
-        for(Friend f : friendManager.friends()) {
-            if (f.isConnected()) {
-                if (settings.getFriend(f.getGuid()) != null) {
-                    settings.getFriend(f.getGuid()).setLastseenonlineat(System.currentTimeMillis());
-                }
+        for(Friend f : friendManager.friends()) updateLastSeenOnlineFor(f);
+    }
+
+    public void updateLastSeenOnlineFor(Friend f) {
+        if (f.isConnected()) {
+            if (settings.getFriend(f.getGuid()) != null) {
+                settings.getFriend(f.getGuid()).setLastseenonlineat(System.currentTimeMillis());
             }
         }
     }
@@ -420,6 +423,7 @@ public class CoreSubsystem implements Subsystem {
 
     public void refreshFriendInfo() throws IOException {
         networkManager.sendToAllFriends(new GetUserInfo());
+        networkManager.sendToAllFriends(new GetUserInfoV2());
     }
 
     public void softRestart() throws IOException {
@@ -480,5 +484,13 @@ public class CoreSubsystem implements Subsystem {
 
     public PublicChatHistory getPublicChatHistory() {
         return publicChatHistory;
+    }
+
+    /**
+     * Every time the user using this alliance installation sucessfully invites a new friend to the network he gets
+     * an invitation point
+     */
+    public void incInvitationPoints() {
+        getSettings().getMy().setInvitations(getSettings().getMy().getInvitations()+1);
     }
 }

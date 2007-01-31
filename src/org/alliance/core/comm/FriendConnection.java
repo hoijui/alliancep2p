@@ -31,6 +31,7 @@ public class FriendConnection extends AuthenticatedConnection {
         super.init();
         send(new GetUserList());
         send(new GetUserInfo());
+        send(new GetUserInfoV2());
         send(new GetMyExternalIp());
         if (direction == Direction.OUT && getRemoteFriend().isNewlyDiscoveredFriend()) {
             core.queNeedsUserInteraction(new NewFriendConnectedUserInteraction(remoteUserGUID));

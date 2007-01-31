@@ -45,7 +45,7 @@ public class UISubsystem implements UINexus, Subsystem {
         core = (CoreSubsystem)params[0];
 
         progress = new StartupProgressListener() {public void updateProgress(String message) {}};
-        if (params != null && params.length >= 3) progress = (StartupProgressListener)params[2];
+        if (params != null && params.length >= 3 && params[2] != null) progress = (StartupProgressListener)params[2];
         progress.updateProgress("Loading user interface");
 
         if (SwingUtilities.isEventDispatchThread()) {

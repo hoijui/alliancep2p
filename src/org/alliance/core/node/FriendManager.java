@@ -104,6 +104,7 @@ public class FriendManager extends Manager {
 
     private void sendMyInfoToAllMyFriends() throws IOException {
         netMan.sendToAllFriends(new UserInfo());
+        netMan.sendToAllFriends(new UserInfoV2());
         netMan.sendToAllFriends(new UserList());
     }
 

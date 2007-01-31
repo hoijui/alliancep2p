@@ -82,4 +82,8 @@ public class Invitation implements Serializable {
     public int getMiddlemanGuid() {
         return middlemanGuid;
     }
+
+    public boolean isForwardedInvitation() {
+        return middlemanGuid != 0;
+    }
 }

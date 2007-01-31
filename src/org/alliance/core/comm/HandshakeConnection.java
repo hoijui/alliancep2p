@@ -48,9 +48,19 @@ public class HandshakeConnection extends PacketConnection {
                     if(T.t)T.info("And the key is valid! Let's go!");
                     InvitationConnection c = new InvitationConnection(netMan, Connection.Direction.IN, key, guid,
                             core.getInvitaitonManager().getInvitation(guid).getMiddlemanGuid());
-                    core.getInvitaitonManager().consume(guid);
                     netMan.replaceConnection(key, c);
                     c.init();
+
+                    if (!core.getInvitaitonManager().getInvitation(guid).isForwardedInvitation()) {
+                        if(T.t)T.info("Succesfully connected to a new friend - this was not a forwarded invitation.");
+                        if(T.t)T.info("Award user with one invitation point");
+                        core.incInvitationPoints();
+                    }
+
+                    core.getInvitaitonManager().consume(guid);
+
+                    if(T.t)T.info("Invitation that");
+
                     return;
                 } else {
                     core.getUICallback().statusMessage("Invitation code used second time! Connection ignored.");

@@ -155,16 +155,16 @@ public class Main {
 
     public void EVENT_openui(ActionEvent e) throws Exception {
         Main m = (Main)list.getSelectedValue();
-        m.launchUI();
+        if (m != null) m.launchUI();
     }
 
     public void EVENT_start(ActionEvent e) throws Exception {
         Main m = (Main)list.getSelectedValue();
-        m.launchCore();
+        if (m != null) m.launchCore();
     }
 
     public void EVENT_stop(ActionEvent e) throws Exception {
         Main m = (Main)list.getSelectedValue();
-        m.shutdown();
+        if (m != null) m.shutdown();
     }
 }

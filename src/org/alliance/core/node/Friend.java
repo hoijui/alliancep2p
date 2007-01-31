@@ -28,6 +28,10 @@ public class Friend extends Node {
     private int middlemanGuid;
     private int allianceBuildNumber;
 
+    private long totalBytesSent, totalBytesReceived;
+    private double highestIncomingCPS, highestOutgoingCPS;
+    private int numberOfFilesShared, numberOfInvitedFriends;
+    
     public Friend(FriendManager manager, org.alliance.core.settings.Friend f) {
         nickname = f.getNickname();
         guid = f.getGuid();
@@ -171,5 +175,54 @@ public class Friend extends Node {
 
     public String nickname() {
         return manager.nickname(guid);
+    }
+
+
+    public int getNumberOfFilesShared() {
+        return numberOfFilesShared;
+    }
+
+    public double getHighestOutgoingCPS() {
+        return highestOutgoingCPS;
+    }
+
+    public double getHighestIncomingCPS() {
+        return highestIncomingCPS;
+    }
+
+    public long getTotalBytesReceived() {
+        return totalBytesReceived;
+    }
+
+    public long getTotalBytesSent() {
+        return totalBytesSent;
+    }
+
+    public void setTotalBytesSent(long totalBytesSent) {
+        this.totalBytesSent = totalBytesSent;
+    }
+
+    public void setTotalBytesReceived(long totalBytesReceived) {
+        this.totalBytesReceived = totalBytesReceived;
+    }
+
+    public void setHighestIncomingCPS(double highestIncomingCPS) {
+        this.highestIncomingCPS = highestIncomingCPS;
+    }
+
+    public void setHighestOutgoingCPS(double highestOutgoingCPS) {
+        this.highestOutgoingCPS = highestOutgoingCPS;
+    }
+
+    public void setNumberOfFilesShared(int numberOfFilesShared) {
+        this.numberOfFilesShared = numberOfFilesShared;
+    }
+
+    public int getNumberOfInvitedFriends() {
+        return numberOfInvitedFriends;
+    }
+
+    public void setNumberOfInvitedFriends(int numberOfInvitedFriends) {
+        this.numberOfInvitedFriends = numberOfInvitedFriends;
     }
 }

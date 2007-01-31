@@ -429,7 +429,7 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
 //            }
 
 //            if(T.t)T.trace("userInteractionsInProgress: "+userInteractionsInProgress+", in que: "+ui.getCore().getAllUserInteractionsInQue().size());
-            boolean removedAUserInteraction = false;
+            final boolean[] removedAUserInteraction = new boolean[]{false};
             for(NeedsUserInteraction nui : ui.getCore().getAllUserInteractionsInQue()) {
                 if (userInteractionsInProgress == 0 || nui.canRunInParallelWithOtherInteractions()) {
                     if(T.t)T.info("running user interaction: "+nui);
@@ -440,12 +440,12 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
                             handleNeedsUserInteraction(nui1);
                         }
                     });
-                    removedAUserInteraction = true;
+                    removedAUserInteraction[0] = true;
                     break;
                 }
             }
 
-            if (!removedAUserInteraction) {
+            if (!removedAUserInteraction[0]) {
                 try { Thread.sleep(1000); } catch (InterruptedException e) {}
             }
         }

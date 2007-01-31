@@ -13,6 +13,7 @@ public class My extends SettingClass {
 
     private Integer guid = new Random().nextInt();
     private String nickname = UNDEFINED_NICKNAME;
+    private Integer invitations = 0; //every time this user completes an invitation successfully he gets a point
 
     public My() {
     }
@@ -40,5 +41,13 @@ public class My extends SettingClass {
 
     public boolean hasUndefinedNickname() {
         return UNDEFINED_NICKNAME.equals(nickname);
+    }
+
+    public Integer getInvitations() {
+        return invitations;
+    }
+
+    public void setInvitations(Integer invitations) {
+        this.invitations = invitations;
     }
 }

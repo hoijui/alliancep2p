@@ -35,6 +35,8 @@ public class RPCFactory {
             case 28: rpc = new HashesForPath(); break;
             case 29: rpc = new ConnectToMe(); break;
             case 30: rpc = new ChatMessage(); break;
+            case 31: rpc = new GetUserInfoV2(); break;
+            case 32: rpc = new UserInfoV2(); break;
         }
         if (rpc == null) if (T.t) T.error("UNRECOGNIZED rpc id: "+packetId);
         return rpc;
@@ -70,6 +72,8 @@ public class RPCFactory {
         if (rpc instanceof HashesForPath) return 28;
         if (rpc instanceof ConnectToMe) return 29;
         if (rpc instanceof ChatMessage) return 30;
+        if (rpc instanceof GetUserInfoV2) return 31;
+        if (rpc instanceof UserInfoV2) return 32;
         if(T.t)T.error("Could not identify RPC: "+rpc);
         return -1;
    }

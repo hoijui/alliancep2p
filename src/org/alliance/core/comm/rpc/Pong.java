@@ -16,6 +16,7 @@ public class Pong extends RPC {
         String s = "Received Pong from "+con.getRemoteFriend().getNickname()+". RTT: "+(System.currentTimeMillis()-con.getLastPacketSentAt())+"ms";
         if(T.t)T.info(s);
         con.pongReceived();
+        core.updateLastSeenOnlineFor(con.getRemoteFriend());
     }
 
     public Packet serializeTo(Packet p) {

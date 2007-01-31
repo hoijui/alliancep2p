@@ -8,10 +8,10 @@ import org.alliance.core.node.Friend;
 import org.alliance.ui.UISubsystem;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -59,25 +59,17 @@ public class FriendListMDIWindow extends AllianceMDIWindow {
         list.setCellRenderer(new FriendListRenderer());
         ((JScrollPane) xui.getComponent("scrollpanel")).setViewportView(list);
 
-        list.addMouseListener(new MouseListener() {
-            public void mouseClicked(MouseEvent e) {
-                    try {
+        list.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            private int selectedIndex = -1;
+            public void valueChanged(ListSelectionEvent e) {
+                try {
+                    if (!e.getValueIsAdjusting() && selectedIndex != list.getSelectedIndex()) {
+                        selectedIndex = list.getSelectedIndex();
                         EVENT_viewshare(null);
-                    } catch (Exception e1) {
-                        ui.handleErrorInEventLoop(e1);
                     }
-            }
-
-            public void mousePressed(MouseEvent e) {
-            }
-
-            public void mouseReleased(MouseEvent e) {
-            }
-
-            public void mouseEntered(MouseEvent e) {
-            }
-
-            public void mouseExited(MouseEvent e) {
+                } catch (Exception e1) {
+                    ui.handleErrorInEventLoop(e1);
+                }
             }
         });
 
@@ -143,7 +135,17 @@ public class FriendListMDIWindow extends AllianceMDIWindow {
                 setForeground(Color.lightGray);
                 setText(FriendListMDIWindow.this.ui.getCore().getFriendManager().nicknameWithContactPath(f.getGuid()));
             }
-            setToolTipText("Remote build number: "+f.getAllianceBuildNumber());
+
+
+//            setToolTipText("Remote build number: "+f.getAllianceBuildNumber());
+
+            setToolTipText("<html>Build number: "+f.getAllianceBuildNumber()+"<br>" +
+                    "Share: "+TextUtils.formatByteSize(f.getShareSize())+" in "+f.getNumberOfFilesShared()+" files<br>" +
+                    "Invited friends: "+f.getNumberOfInvitedFriends()+"<br>" +
+                    "Upload speed record: "+TextUtils.formatByteSize((long)f.getHighestOutgoingCPS())+"/s<br>" +
+                    "Download speed record: "+TextUtils.formatByteSize((long)f.getHighestIncomingCPS())+"/s<br>" +
+                    "Bytes uploaded: "+TextUtils.formatByteSize(f.getTotalBytesSent())+"<br>" +
+                    "Bytes downloaded: "+TextUtils.formatByteSize(f.getTotalBytesReceived())+"</html>");
 
             return this;
         }
@@ -172,7 +174,7 @@ public class FriendListMDIWindow extends AllianceMDIWindow {
     public void EVENT_reconnect(ActionEvent e) throws Exception {
         if (list.getSelectedValue() == null) return;
         final Friend f = (Friend)list.getSelectedValue();
-        if (f.isConnected()) f.reconnect(); 
+        if (f.isConnected()) f.reconnect();
     }
 
     public void EVENT_viewshare(ActionEvent e) throws Exception {
