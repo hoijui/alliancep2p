@@ -26,7 +26,7 @@ public class FriendListMDIWindow extends AllianceMDIWindow {
     private UISubsystem ui;
     private JList list;
 
-    private ImageIcon iconFriend, iconFriendDimmed, iconFriendOld;
+    private ImageIcon iconFriend, iconFriendCool, iconFriendLame, iconFriendDimmed, iconFriendOld;
 
     private JLabel statusleft, statusright;
 
@@ -38,6 +38,8 @@ public class FriendListMDIWindow extends AllianceMDIWindow {
         this.ui = ui;
 
         iconFriend = new ImageIcon(ui.getRl().getResource("gfx/icons/friend.png"));
+        iconFriendCool = new ImageIcon(ui.getRl().getResource("gfx/icons/friend_cool.png"));
+        iconFriendLame = new ImageIcon(ui.getRl().getResource("gfx/icons/friend_lame.png"));
         iconFriendDimmed = new ImageIcon(ui.getRl().getResource("gfx/icons/friend_dimmed.png"));
         iconFriendOld = new ImageIcon(ui.getRl().getResource("gfx/icons/friend_old.png"));
 
@@ -108,7 +110,14 @@ public class FriendListMDIWindow extends AllianceMDIWindow {
 
             Friend f = (Friend) value;
             if (f.isConnected()) {
-                setIcon(iconFriend);
+
+                if (f.getNumberOfInvitedFriends() <= 1) {
+                    setIcon(iconFriendLame);
+                } else if (f.getNumberOfInvitedFriends() >= 4) {
+                    setIcon(iconFriendCool);
+                } else {
+                    setIcon(iconFriend);
+                }
                 if (isSelected)
                     setForeground(Color.white);
                 else

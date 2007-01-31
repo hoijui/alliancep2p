@@ -1,8 +1,6 @@
 todo:
     * får inte visa hundra "you have successfully connected to"
-    * inte släppa ny version! nya splashen verkar hänga sig ibland
-    * fungerar upnp forfarnde?
-    * nu har jag ändrat i hur den hämtar user interaction - fungerar det då?  
+    * inte släppa ny version! nya splashen verkar hänga sig ibland - det är hela UI:t som deadlockar ibland - har det med user interactions att göra?
 
 sen:
     * när man laddar ner igenom share borde den ta sökvägen från där man klickade
