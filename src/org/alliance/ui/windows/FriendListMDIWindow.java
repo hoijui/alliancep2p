@@ -30,7 +30,7 @@ public class FriendListMDIWindow extends AllianceMDIWindow {
 
     private JLabel statusleft, statusright;
 
-    private String[] LEVEL_NAMES = {"Beginner", "Member", "Skilled"};
+    private String[] LEVEL_NAMES = {"Rookie", "True Member", "Experienced"};
     private String[] LEVEL_ICONS = {"friend_lame", "friend", "friend_cool"};
 
     public FriendListMDIWindow() {
