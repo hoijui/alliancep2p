@@ -51,6 +51,8 @@ public class OptionsWindow extends XUIDialog {
     private JTextField nickname, downloadFolder;
 
     private boolean openedWithUndefiniedNickname;
+    private int uploadThrottleBefore;
+
 
     public OptionsWindow(UISubsystem ui) throws Exception {
         this(ui, false);
@@ -87,6 +89,8 @@ public class OptionsWindow extends XUIDialog {
         }
 
         if (startInShareTab) ((JTabbedPane)xui.getComponent("tab")).setSelectedIndex(1);
+
+        uploadThrottleBefore = ui.getCore().getSettings().getInternal().getUploadthrottle();
 
         display();
 
@@ -163,7 +167,7 @@ public class OptionsWindow extends XUIDialog {
         ui.getCore().saveSettings();
 
         ui.getCore().getNetworkManager().getUploadThrottle().setRate(settings.getInternal().getUploadthrottle() * KB);
-
+        if (uploadThrottleBefore != settings.getInternal().getUploadthrottle()) ui.getCore().getNetworkManager().getBandwidthOut().resetHighestCPS();
         return true;
     }
 

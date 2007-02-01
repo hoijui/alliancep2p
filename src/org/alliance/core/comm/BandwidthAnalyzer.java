@@ -38,6 +38,7 @@ public class BandwidthAnalyzer {
     public BandwidthAnalyzer(int updateInterval, int highestCps, long totalBytesStartingAt) {
         this.updateInterval = updateInterval;
         this.highestCps = highestCps;
+        if (totalBytesStartingAt < 0) totalBytesStartingAt = 0;
         this.totalBytes = totalBytesStartingAt;
     }
 
@@ -101,5 +102,9 @@ public class BandwidthAnalyzer {
 
     public boolean hasGoodAverage() {
         return index > 4;
+    }
+
+    public void resetHighestCPS() {
+        highestCps = 0;
     }
 }
