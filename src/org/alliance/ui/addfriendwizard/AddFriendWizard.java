@@ -224,8 +224,7 @@ public class AddFriendWizard extends JWizard {
             next.setEnabled(false);
             cancel.setText("Finish");
         } else {
-//            detta händer!!
-            if(T.t)T.ass(false, "Reached step in wizard that was unexcpected");
+            if(T.t)T.ass(false, "Reached step in wizard that was unexcpected ("+getStep()+")");
         }
     }
 

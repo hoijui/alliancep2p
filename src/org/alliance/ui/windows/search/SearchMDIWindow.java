@@ -89,12 +89,14 @@ public class SearchMDIWindow extends AllianceMDIWindow {
             }
 
             public void mouseMoved(MouseEvent e) {
-                SearchTreeNode n = (SearchTreeNode)table.getPathForLocation(e.getX(), e.getY()).getLastPathComponent();
-                if (n != null) {
-                    if (n instanceof FileNode) {
-                        FileNode fn = (FileNode)n;
-                        left.setText(fn.getSh().getPath()+" ("+TextUtils.formatByteSize(fn.getSize())+")");
-                        right.setText(fn.getListOfUsers(ui.getCore()));
+                if (table.getPathForLocation(e.getX(), e.getY()) != null) {
+                    SearchTreeNode n = (SearchTreeNode)table.getPathForLocation(e.getX(), e.getY()).getLastPathComponent();
+                    if (n != null) {
+                        if (n instanceof FileNode) {
+                            FileNode fn = (FileNode)n;
+                            left.setText(fn.getSh().getPath()+" ("+TextUtils.formatByteSize(fn.getSize())+")");
+                            right.setText(fn.getListOfUsers(ui.getCore()));
+                        }
                     }
                 }
             }

@@ -12,16 +12,15 @@
 
         <panel axis="y" border="5"  expand="horiz">
             <panel axis="x" expand="horiz">
-            <panel axis="y" expand="vert" border="0" color="ffffff">
-                <panel axis="x" border="5" color="ffffff">
-                    <image src="gfx/icons/friend_lame_big.png"/>
+            <panel axis="y" expand="vert" border="0">
+                <panel axis="x" border="5">
+                    <image src="gfx/icons/friend_lame_big.png" id="myicon"/>
                     <panel axis="y" border="0">
                         <filler/>
-                        <panel axis="x" border="0" color="ffffff">
-                            <label text="Maciek"/>
-                        </panel>
-                        <panel axis="x" border="0" color="ffffff">
-                            <label text="(Rookie)"/>
+                        <panel axis="x" border="10,7,0,0">
+                            <label text="Maciek" id="myname"/>
+                            <label text=" - "/>
+                            <label text="(Member)" id="mylevel"/>
                         </panel>
                         <filler/>
                     </panel>
@@ -31,7 +30,8 @@
                 </panel>
             <panel axis="y" border="0">
                 <filler/>
-                <panel border="0" axis="x" expand="horiz"><label text="Invite two more friends to become a True Member ("/><image border="0" src="gfx/icons/friend.png"/><label text=")."/><filler/></panel>
+                <panel border="0" axis="x" expand="horiz"><strut width="5"/>
+                    <label text="Invite 2 friends to become " id="nextLevelText"/><image border="0" src="gfx/icons/friend.png" id="nextLevelIcon"/><label text=")" id="levelEnding"/><filler/></panel>
             </panel>
         </panel>
 

@@ -30,6 +30,9 @@ public class FriendListMDIWindow extends AllianceMDIWindow {
 
     private JLabel statusleft, statusright;
 
+    private String[] LEVEL_NAMES = {"Beginner", "Member", "Skilled"};
+    private String[] LEVEL_ICONS = {"friend_lame", "friend", "friend_cool"};
+
     public FriendListMDIWindow() {
     }
 
@@ -75,7 +78,53 @@ public class FriendListMDIWindow extends AllianceMDIWindow {
             }
         });
 
+        updateMyLevelInformation();
+
         postInit();
+    }
+
+    public void updateMyLevelInformation() throws IOException {
+        ((JLabel)xui.getComponent("myname")).setText(ui.getCore().getFriendManager().getMe().getNickname());
+        ((JLabel)xui.getComponent("mylevel")).setText(getLevelName(getMyLevel()));
+        ((JLabel)xui.getComponent("myicon")).setIcon(new ImageIcon(ui.getRl().getResource(getLevelIcon(getMyLevel(), true))));
+        String s = "";
+        switch(getMyNumberOfInvites()) {
+            case 0: s = "Invite 2 friends to become "; break;
+            case 1: s = "Invite 1 friend to become "; break;
+            case 2: s = "Invite 2 friends to become "; break;
+            case 3: s = "Invite 1 friend to become "; break;
+        }
+        if (getMyLevel() < LEVEL_NAMES.length-1) {
+            s += "'"+getLevelName(getMyLevel()+1)+"' (";
+            ((JLabel)xui.getComponent("nextLevelText")).setText(s);
+            ((JLabel)xui.getComponent("nextLevelIcon")).setIcon(new ImageIcon(ui.getRl().getResource(getLevelIcon(getMyLevel()+1, false))));
+            ((JLabel)xui.getComponent("levelEnding")).setText(")");
+        } else {
+            ((JLabel)xui.getComponent("nextLevelText")).setText("");
+            ((JLabel)xui.getComponent("nextLevelIcon")).setText("");
+            ((JLabel)xui.getComponent("nextLevelIcon")).setIcon(null);
+            ((JLabel)xui.getComponent("levelEnding")).setText("");
+        }
+    }
+
+    private String getLevelIcon(int myLevel, boolean big) {
+        if (myLevel < 0) myLevel = 0;
+        if (myLevel >= LEVEL_ICONS.length) myLevel = LEVEL_ICONS.length-1;
+        return "gfx/icons/"+LEVEL_ICONS[myLevel]+(big ? "_big" : "")+".png";
+    }
+
+    private String getLevelName(int myLevel) {
+        if (myLevel < 0) myLevel = 0;
+        if (myLevel >= LEVEL_NAMES.length) myLevel = LEVEL_NAMES.length-1;
+        return LEVEL_NAMES[myLevel];
+    }
+
+    private int getMyLevel() {
+        return getMyNumberOfInvites()/2;
+    }
+
+    private int getMyNumberOfInvites() {
+        return ui.getCore().getSettings().getMy().getInvitations();
     }
 
     public void save() throws Exception {
