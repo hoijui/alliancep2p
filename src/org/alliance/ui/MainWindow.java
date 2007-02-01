@@ -533,6 +533,11 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
                         ui.handleErrorInEventLoop(e);
                     }
                 }
+                try {
+                    getFriendListMDIWindow().updateMyLevelInformation();
+                } catch (IOException e) {
+                    ui.handleErrorInEventLoop(e);
+                }
             } else if (nui instanceof FriendAlreadyInListUserInteraction) {
                 FriendAlreadyInListUserInteraction i = (FriendAlreadyInListUserInteraction)nui;
                 String name = ui.getCore().getFriendManager().nickname(i.getGuid());
