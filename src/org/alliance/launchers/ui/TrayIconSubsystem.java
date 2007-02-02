@@ -114,7 +114,7 @@ public class TrayIconSubsystem implements Subsystem, Runnable {
             tray = SystemTray.getDefaultSystemTray();
         } catch(UnsatisfiedLinkError e) {
             System.err.println("If you are running on linux you might want to go to the forum at sourceforge and read how to run Alliance on linux. You need to download native libraries to start it.");
-            throw new Exception("Could not load native library for system tray.");
+            throw new Exception("Native library for system tray missing. If you are running linux you need to download it manually. Look in the forum on sourceforge for more information.");
         }
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         JPopupMenu m = new JPopupMenu();

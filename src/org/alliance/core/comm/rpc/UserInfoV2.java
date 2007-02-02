@@ -42,8 +42,8 @@ public class UserInfoV2 extends RPC {
         f.setShareSize(in.readLong());
         int buildNumber = in.readInt();
         f.setAllianceBuildNumber(buildNumber);
-        f.setTotalBytesSent(in.readLong());
         f.setTotalBytesReceived(in.readLong());
+        f.setTotalBytesSent(in.readLong());
         f.setHighestIncomingCPS(in.readInt());
         f.setHighestOutgoingCPS(in.readInt());
         f.setNumberOfFilesShared(in.readInt());
