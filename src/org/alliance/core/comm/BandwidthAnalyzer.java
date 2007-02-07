@@ -75,7 +75,7 @@ public class BandwidthAnalyzer {
         return cps;
     }
 
-    public String getHumanReadable() {
+    public String getCPSHumanReadable() {
         updateCps();
         return getHumanReadable(cps);
     }

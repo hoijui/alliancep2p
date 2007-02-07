@@ -191,7 +191,7 @@ public class TrayIconSubsystem implements Subsystem, Runnable {
         m.add(shutdown);
 
         ti = new TrayIcon(new ImageIcon(rl.getResource("gfx/icons/alliance.png")),
-                "Alliance v"+Version.VERSION+" build "+Version.BUILD_NUMBER, m);
+                "Alliance", m);
 
         ti.setIconAutoSize(false);
         ti.addBalloonActionListener(new ActionListener() {
@@ -222,6 +222,25 @@ public class TrayIconSubsystem implements Subsystem, Runnable {
                 }
             }
         });
+        
+        // Update tooltip periodically with current transfer rates
+        Thread t = new Thread(new Runnable() {
+            public void run() {
+                try {
+                    while(true) {
+                        SwingUtilities.invokeLater(new Runnable() {
+                            public void run() {
+                                ti.setToolTip("Alliance v" + Version.VERSION + " build " + Version.BUILD_NUMBER + "\nDownload: " + core.getNetworkManager().getBandwidthOut().getCPSHumanReadable() + "\nUpload: " + core.getNetworkManager().getBandwidthIn().getCPSHumanReadable());
+                            }
+                        });
+
+                        Thread.sleep(5000);
+                    }
+                } catch(InterruptedException e) {}
+            }
+        });
+        t.setDaemon(true);
+        t.start();
     }
 
     private void restart(int delay) {

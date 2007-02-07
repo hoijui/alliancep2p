@@ -202,7 +202,7 @@ public class DownloadsMDIWindow extends AllianceMDIWindow {
                 }
                 percentComplete = download.getPercentComplete();
                 numberOfConnections = download.getNConnections();
-                speed = download.getBandwidth().getHumanReadable();
+                speed = download.getBandwidth().getCPSHumanReadable();
                 complete = download.isComplete();
                 state = download.getState();
                 if (download.getBandwidth().hasGoodAverage())

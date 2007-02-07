@@ -93,8 +93,8 @@ public class ConnectionsMDIWindow extends AllianceMDIWindow {
         public void update() {
             name = connection.toString();
             status = connection.getStatusString();
-            sent = TextUtils.formatByteSize(connection.getBytesSent())+" ("+connection.getBandwidthOut().getHumanReadable()+")";
-            received = TextUtils.formatByteSize(connection.getBytesReceived())+" ("+connection.getBandwidthIn().getHumanReadable()+")";
+            sent = TextUtils.formatByteSize(connection.getBytesSent())+" ("+connection.getBandwidthOut().getCPSHumanReadable()+")";
+            received = TextUtils.formatByteSize(connection.getBytesReceived())+" ("+connection.getBandwidthIn().getCPSHumanReadable()+")";
         }
     }
 

@@ -403,13 +403,13 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
                     private void updateBandwidth(String s, String s2, JProgressBar pb, BandwidthAnalyzer a) {
                         double curr = a.getCPS();
                         double max = a.getHighestCPS();
-                        pb.setString(a.getHumanReadable());
+                        pb.setString(a.getCPSHumanReadable());
                         pb.setStringPainted(true);
                         if (max == 0)
                             pb.setValue(0);
                         else
                             pb.setValue((int)(curr*100/max));
-                        pb.setToolTipText("<html>"+s+" at "+a.getHumanReadable()+"<br>Speed record: "+a.getHighestCPSHumanReadable()+"<br>Total bytes "+s2+": "+TextUtils.formatByteSize(a.getTotalBytes())+"</html>");
+                        pb.setToolTipText("<html>"+s+" at "+a.getCPSHumanReadable()+"<br>Speed record: "+a.getHighestCPSHumanReadable()+"<br>Total bytes "+s2+": "+TextUtils.formatByteSize(a.getTotalBytes())+"</html>");
                     }
                 });
             }
