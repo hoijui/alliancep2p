@@ -147,7 +147,9 @@ public class ViewShareMDIWindow extends AllianceMDIWindow {
     }
 
     public void save() throws Exception {}
-    public void revert() throws Exception {}
+    public void revert() throws Exception {
+        manager.recreateWindow(this, new ViewShareMDIWindow(ui, remote));
+    }
     public void serialize(ObjectOutputStream out) throws IOException {}
     public MDIWindow deserialize(ObjectInputStream in) throws IOException { return null; }
 

@@ -6,7 +6,10 @@
         </menu>
         <menu text="View" mnemonic="w">
             <menuitem eventid="uploads" accelerator="ctrl-u" mnemonic="u" text="Uploads"/>
-            <menuitem eventid="myshare" text="My shared files" mnemonic="m" accelerator="ctrl-m"/>
+            <menu text="My share">
+                <menuitem eventid="myshare" text="Shared files" mnemonic="m" accelerator="ctrl-m"/>
+                <menuitem eventid="dups" text="Duplicates" mnemonic="d" accelerator="ctrl-y"/>
+            </menu>
             <menuitem eventid="changelog" mnemonic="l" text="Change Log"/>
             <menu text="Debug">
                 <menuitem eventid="trace" mnemonic="t" accelerator="ctrl-t" text="Trace"/>
@@ -36,7 +39,7 @@
                             <label text="Download:"/>
                             <strut width="5"/>
                             <progressbar id="bandwidthin" expand="none" width="80"/>
-                            </panel>
+                        </panel>
                         <filler axis="y"/>
                     </panel>
                     <strut width="1"/>
@@ -46,8 +49,8 @@
                         <panel axis="x">
                             <label text="Upload:"/>
                             <strut width="5"/>
-                        <progressbar id="bandwidthout" expand="none" width="80"/>
-                            </panel>
+                            <progressbar id="bandwidthout" expand="none" width="80"/>
+                        </panel>
                         <filler axis="y"/>
                     </panel>
                 </panel>
@@ -68,10 +71,10 @@
                    <strut width="5"/>-->
 
                     <!--<panel axis="y" border="0,0,5,0" opaque="no">-->
-                        <!--<filler axis="y"/>-->
-                        <!--<strut height="1"/>-->
-                        <!--<progressbar expand="vert" memorymonitor="yes" id="memMonitor" width="80" minwidth="80"/>-->
-                        <!--<filler axis="y"/>-->
+                    <!--<filler axis="y"/>-->
+                    <!--<strut height="1"/>-->
+                    <!--<progressbar expand="vert" memorymonitor="yes" id="memMonitor" width="80" minwidth="80"/>-->
+                    <!--<filler axis="y"/>-->
                     <!--</panel>-->
 
                     <panel axis="x" bordertype="thinlowered" border="2,1,1,1">
@@ -80,21 +83,21 @@
                     </panel>
                     <strut width="4"/>
                     <panel axis="x" border="0">
-                    <!--<panel axis="x" bordertype="thinlowered" border="2,1,1,1">-->
+                        <!--<panel axis="x" bordertype="thinlowered" border="2,1,1,1">-->
                         <!--<label text=" " id="totalup" tooltip="Total bytes uploaded"/>-->
-                    <!--</panel>-->
-                    <!--<strut width="4"/>-->
-                    <!--<panel axis="x" bordertype="thinlowered" border="2,1,1,1">-->
+                        <!--</panel>-->
+                        <!--<strut width="4"/>-->
+                        <!--<panel axis="x" bordertype="thinlowered" border="2,1,1,1">-->
                         <!--<label text=" " id="totaldown" tooltip="Total bytes downloaded"/>-->
-                    <!--</panel>-->
-                    <!--<strut width="4"/>-->
-                    <panel axis="x" bordertype="thinlowered" border="2,1,1,1">
-                        <label text="Share: 40,1MiB in 7 files" id="sharing" tooltip="Your share"/>
-                    </panel>
-                    <strut width="4"/>
-                    <button text="" image="gfx/icons/refresh.png" type="flat" eventid="rescan" border="0" tooltip="Refresh share - look for new files in shares"/>
-                    <strut width="2"/>
+                        <!--</panel>-->
+                        <!--<strut width="4"/>-->
+                        <panel axis="x" bordertype="thinlowered" border="2,1,1,1">
+                            <label text="Share: 40,1MiB in 7 files" id="sharing" tooltip="Your share"/>
                         </panel>
+                        <strut width="4"/>
+                        <button text="" image="gfx/icons/refresh.png" type="flat" eventid="rescan" border="0" tooltip="Refresh share - look for new files in shares"/>
+                        <strut width="2"/>
+                    </panel>
                 </panel>
             </panel>
         </panel>

@@ -629,6 +629,10 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
         mdiManager.addWindow(new UploadsMDIWindow(ui));
     }
 
+    public void EVENT_dups(ActionEvent e) throws Exception {
+        mdiManager.addWindow(new DuplicatesMDIWindow(ui));
+    }
+
     public void EVENT_friendtree(ActionEvent e) throws Exception {
         mdiManager.addWindow(new FriendsTreeMDIWindow(mdiManager, ui));
     }
