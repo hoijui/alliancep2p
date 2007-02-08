@@ -10,6 +10,7 @@ import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 import java.util.TreeMap;
+import java.util.TreeSet;
 import java.io.ObjectOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -41,7 +42,8 @@ public class DuplicatesMDIWindow extends AllianceMDIWindow {
 
         setTitle("Duplicates in my share");
 
-        for(String s : ui.getCore().getFileManager().getFileDatabase().getDuplicates()) {
+        TreeSet<String> ts = new TreeSet<String>(ui.getCore().getFileManager().getFileDatabase().getDuplicates());
+        for(String s : ts) {
             Hash h = ui.getCore().getFileManager().getFileDatabase().getHashForDuplicate(s);
             if (h == null) {
                 dups.add(new Dup(s, "<lost>"));
