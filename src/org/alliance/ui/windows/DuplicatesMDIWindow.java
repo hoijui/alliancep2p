@@ -53,7 +53,7 @@ public class DuplicatesMDIWindow extends AllianceMDIWindow {
                 dups.add(new Dup(s, "<lost>"));
             } else {
                 FileDescriptor fd = ui.getCore().getFileManager().getFd(h);
-                dups.add(new Dup(s, fd.getFullPath()));
+                if (fd != null) dups.add(new Dup(s, fd.getFullPath()));
             }
         }
 
@@ -132,8 +132,8 @@ public class DuplicatesMDIWindow extends AllianceMDIWindow {
 
     private class Dup {
         public Dup(String inShare, String duplicate) {
-            this.inShare = inShare;
-            this.duplicate = duplicate;
+            this.inShare = TextUtils.makeSurePathIsMultiplatform(inShare);
+            this.duplicate = TextUtils.makeSurePathIsMultiplatform(duplicate);
         }
         String inShare, duplicate;
     }

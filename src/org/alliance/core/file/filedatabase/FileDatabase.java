@@ -68,8 +68,8 @@ public class FileDatabase {
             if(T.t)T.info("Maybe found duplicate: "+fd);
             FileDescriptor old = getFd(fd.getRootHash());
             if (old != null && old.existsAndSeemsEqual()) {
-                if (old.getCanonicalPath().toLowerCase().indexOf("sample") != -1) {
-                    if(T.t)T.trace("Fould duplicate with sample folder");
+                if (old.getCanonicalPath().toLowerCase().indexOf("sample") != -1 || TextUtils.makeSurePathIsMultiplatform(old.getCanonicalPath().toLowerCase()).indexOf("/old/") != -1) {
+                    if(T.t)T.trace("Fould duplicate with sample or old folder");
                     remove(old);
                     addDuplicate(old.getCanonicalPath(), old.getRootHash());
                     //continue adding fd
