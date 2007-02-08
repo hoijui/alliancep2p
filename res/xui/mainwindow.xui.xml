@@ -8,12 +8,12 @@
             <menuitem eventid="uploads" accelerator="ctrl-u" mnemonic="u" text="Uploads"/>
             <menu text="My share">
                 <menuitem eventid="myshare" text="Shared files" mnemonic="m" accelerator="ctrl-m"/>
-                <menuitem eventid="dups" text="Duplicates" mnemonic="d" accelerator="ctrl-y"/>
+                <menuitem eventid="dups" text="Duplicates" mnemonic="d" accelerator="ctrl-d"/>
             </menu>
             <menuitem eventid="changelog" mnemonic="l" text="Change Log"/>
             <menu text="Debug">
                 <menuitem eventid="trace" mnemonic="t" accelerator="ctrl-t" text="Trace"/>
-                <menuitem eventid="console" mnemonic="d" accelerator="ctrl-d" text="Debug Console"/>
+                <menuitem eventid="console" mnemonic="d" accelerator="ctrl-y" text="Debug Console"/>
                 <menuitem eventid="connections" mnemonic="c" accelerator="ctrl-p" text="TCP/IP Connections"/>
                 <menuitem eventid="friendtree" mnemonic="c" accelerator="ctrl-n"  text="Network Topology"/>
             </menu>

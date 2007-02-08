@@ -226,6 +226,17 @@
                 addInMenu="window"
                 accelerator="F5"
                 mnemonic="r"/>
+        <action separator="yes"/>
+        <action separator="yes"/>
+        <action
+                id="delete"
+                name="Delete"
+                description="Delete the selected files"
+                menuimage="gfx/icons/delete.png"
+                toolbarimage="gfx/icons/delete.png"
+                addInMenu="window"
+                accelerator="del"
+                mnemonic="d"/>
         <action filler="true"/>
         <action
                 id="close"

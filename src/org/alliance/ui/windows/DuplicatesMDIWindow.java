@@ -14,10 +14,12 @@ import java.util.TreeSet;
 import java.io.ObjectOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.File;
 import java.awt.event.ActionEvent;
 
 import com.stendahls.util.TextUtils;
 import com.stendahls.nif.ui.mdi.MDIWindow;
+import com.stendahls.nif.ui.OptionDialog;
 
 /**
  * Created by IntelliJ IDEA.
@@ -39,6 +41,8 @@ public class DuplicatesMDIWindow extends AllianceMDIWindow {
         table.setAutoCreateColumnsFromModel(false);
         table.getColumnModel().getColumn(0).setPreferredWidth(100);
         table.getColumnModel().getColumn(1).setPreferredWidth(100);
+        table.getColumnModel().getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        table.setColumnSelectionAllowed(true);
 
         setTitle("Duplicates in my share");
 
@@ -55,6 +59,32 @@ public class DuplicatesMDIWindow extends AllianceMDIWindow {
 
         ((JLabel)xui.getComponent("status")).setText("Number of duplicates: "+dups.size());
         postInit();
+    }
+
+    public void EVENT_delete(ActionEvent e) {
+        if (table.getSelectedColumnCount() <= 0 && table.getSelectedRowCount() <= 0) return;
+        if (table.getSelectedColumnCount() > 1) {
+            OptionDialog.showErrorDialog(ui.getMainWindow(), "Please select files on only one column - not both.");
+            return;
+        }
+        ArrayList<String> al = new ArrayList<String>();
+        for(int i : table.getSelectedRows()) {
+            if (table.getSelectedColumn() == 0) {
+                al.add(dups.get(i).inShare);
+            } else {
+                al.add(dups.get(i).duplicate);
+            }
+        } 
+
+        if (OptionDialog.showQuestionDialog(ui.getMainWindow(), "Are you sure you want to delete "+al.size()+" file(s)?")) {
+            for(String s : al) {
+                if (!new File(s).delete()) {
+                    OptionDialog.showErrorDialog(ui.getMainWindow(), "Could not delete "+s+".");
+                    return;
+                }
+            }
+            OptionDialog.showInformationDialog(ui.getMainWindow(), al.size()+" files deleted. Changes in duplicates will occur when a new share scan is complete.");
+        }
     }
 
     public String getIdentifier() {
