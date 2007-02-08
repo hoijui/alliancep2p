@@ -4,6 +4,7 @@ import com.stendahls.nif.ui.OptionDialog;
 import com.stendahls.nif.ui.mdi.MDIManager;
 import com.stendahls.nif.ui.mdi.MDIWindow;
 import com.stendahls.util.TextUtils;
+import com.stendahls.ui.JHtmlLabel;
 import org.alliance.core.node.Friend;
 import org.alliance.ui.UISubsystem;
 

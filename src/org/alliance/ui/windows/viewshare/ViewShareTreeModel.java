@@ -2,12 +2,15 @@ package org.alliance.ui.windows.viewshare;
 
 import com.stendahls.ui.T;
 import org.alliance.core.CoreSubsystem;
+import org.alliance.core.file.share.ShareBase;
 import org.alliance.core.comm.rpc.GetShareBaseList;
 import org.alliance.core.node.Friend;
+import org.alliance.core.node.Node;
 import org.alliance.ui.UISubsystem;
 
 import javax.swing.tree.DefaultTreeModel;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Created by IntelliJ IDEA.
@@ -16,32 +19,47 @@ import java.io.IOException;
  * Time: 18:14:33
  */
 public class ViewShareTreeModel extends DefaultTreeModel {
-    private Friend friend;
+    private Node node;
     private CoreSubsystem core;
     private UISubsystem ui;
+    private ViewShareMDIWindow win;
 
-    public ViewShareTreeModel(final Friend friend, final UISubsystem ui) throws IOException {
+    public ViewShareTreeModel(final Node node, final UISubsystem ui, ViewShareMDIWindow win) throws IOException {
         super(new ViewShareRootNode());
-        this.friend = friend;
+        this.node = node;
+        this.win = win;
         this.ui = ui;
         core = ui.getCore();
 
         getRoot().setModel(this);
 
-        //send get share base list to remote - answer will come asynchronously
-        core.invokeLater(new Runnable() {
-            public void run() {
-                if (friend.isConnected()) {
-                    try {
-                        friend.getFriendConnection().send(new GetShareBaseList());
-                    } catch (IOException e) {
-                        core.reportError(e, this);
+        if (node instanceof Friend) {
+            //send get share base list to remote - answer will come asynchronously
+            core.invokeLater(new Runnable() {
+                public void run() {
+                    if (node.isConnected()) {
+                        try {
+                            ((Friend)node).getFriendConnection().send(new GetShareBaseList());
+                        } catch (IOException e) {
+                            core.reportError(e, this);
+                        }
+                    } else {
+                        if(T.t)T.error("Friend is not connected! "+node);
                     }
-                } else {
-                    if(T.t)T.error("Friend is not connected! "+friend);
                 }
+            });
+        } else {
+            ArrayList<String> al = new ArrayList<String>();
+            for(ShareBase sb : core.getFileManager().getShareManager().shareBases()) {
+                al.add(sb.getName());
             }
-        });
+            getRoot().fill(al.toArray(new String[al.size()]));
+        }
+    }
+
+
+    public ViewShareMDIWindow getWin() {
+        return win;
     }
 
     public void shareBaseNamesRevieved(String[] shareBaseNames) {
@@ -57,8 +75,8 @@ public class ViewShareTreeModel extends DefaultTreeModel {
         return core;
     }
 
-    public Friend getFriend() {
-        return friend;
+    public Node getNode() {
+        return node;
     }
 
     public UISubsystem getUi() {

@@ -81,4 +81,8 @@ public abstract class Node {
     public void setShareSize(long shareSize) {
         this.shareSize = shareSize;
     }
+
+    public String nickname() {
+        return nickname;
+    }
 }

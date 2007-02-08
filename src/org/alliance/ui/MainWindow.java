@@ -18,6 +18,7 @@ import org.alliance.core.PublicChatHistory;
 import org.alliance.core.comm.BandwidthAnalyzer;
 import org.alliance.core.interactions.*;
 import org.alliance.core.node.Friend;
+import org.alliance.core.node.Node;
 import org.alliance.launchers.StartupProgressListener;
 import org.alliance.ui.addfriendwizard.AddFriendWizard;
 import org.alliance.ui.addfriendwizard.ForwardInvitationNodesList;
@@ -325,7 +326,7 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
         }
     }
 
-    public void viewShare(Friend f) throws Exception {
+    public void viewShare(Node f) throws Exception {
         ArrayList<MDIWindow> al = new ArrayList<MDIWindow>();
         for(MDIWindow w : mdiManager) al.add(w);
         for(MDIWindow w : al) {
@@ -337,6 +338,10 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
             mdiManager.addWindow(w);
         }
         mdiManager.selectWindow(w);
+    }
+
+    public void EVENT_myshare(ActionEvent e) throws Exception {
+        viewShare(ui.getCore().getFriendManager().getMe());
     }
 
     public SearchMDIWindow getSearchWindow() {

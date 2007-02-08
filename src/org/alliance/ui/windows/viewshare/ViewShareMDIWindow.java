@@ -5,6 +5,7 @@ import com.stendahls.nif.ui.mdi.MDIWindow;
 import org.alliance.core.comm.rpc.GetHashesForPath;
 import org.alliance.core.file.filedatabase.FileType;
 import org.alliance.core.node.Friend;
+import org.alliance.core.node.Node;
 import org.alliance.ui.T;
 import org.alliance.ui.UISubsystem;
 import org.alliance.ui.windows.AllianceMDIWindow;
@@ -29,7 +30,7 @@ import java.util.ArrayList;
  * To change this template use File | Settings | File Templates.
  */
 public class ViewShareMDIWindow extends AllianceMDIWindow {
-    private Friend remote;
+    private Node remote;
     private JTree tree;
     private ViewShareTreeModel model;
 
@@ -38,7 +39,7 @@ public class ViewShareMDIWindow extends AllianceMDIWindow {
     private final Icon iconLoading;
     private ImageIcon[] fileTypeIcons;
 
-    public ViewShareMDIWindow(UISubsystem ui, Friend remote) throws Exception {
+    public ViewShareMDIWindow(UISubsystem ui, Node remote) throws Exception {
         super(ui.getMainWindow().getMDIManager(), "viewshare", ui);
         this.remote = remote;
         setTitle("Share of "+remote.nickname());
@@ -48,7 +49,7 @@ public class ViewShareMDIWindow extends AllianceMDIWindow {
         fileTypeIcons = new ImageIcon[8];
         for(int i=0;i<fileTypeIcons.length;i++) fileTypeIcons[i] = new ImageIcon(ui.getRl().getResource("gfx/filetypes/"+i+".png"));
 
-        model = new ViewShareTreeModel(remote, ui);
+        model = new ViewShareTreeModel(remote, ui, this);
         tree = new JTree(model);
         tree.setRootVisible(false);
         tree.setCellRenderer(new ViewShareTreeRenderer());
@@ -107,6 +108,7 @@ public class ViewShareMDIWindow extends AllianceMDIWindow {
     }
 
     public void EVENT_download(ActionEvent e) {
+        if (!(remote instanceof Friend)) return; //ignore if user tries to download a file from himself (remote is instanceof MyNode then)
         if (tree == null || tree.getSelectionPaths() == null) return;
         for(TreePath p : tree.getSelectionPaths()) {
             ViewShareTreeNode n = (ViewShareTreeNode)p.getLastPathComponent();
@@ -127,7 +129,7 @@ public class ViewShareMDIWindow extends AllianceMDIWindow {
                 for(ViewShareFileNode p : paths) {
                     if (remote.isConnected()) {
                         try {
-                            remote.getFriendConnection().send(new GetHashesForPath(p.getShareBaseIndex(), p.getFileItemPath()));
+                            ((Friend)remote).getFriendConnection().send(new GetHashesForPath(p.getShareBaseIndex(), p.getFileItemPath()));
                         } catch (IOException e1) {
                             ui.getCore().reportError(e1, this);
                         }

@@ -6,6 +6,7 @@
         </menu>
         <menu text="View" mnemonic="w">
             <menuitem eventid="uploads" accelerator="ctrl-u" mnemonic="u" text="Uploads"/>
+            <menuitem eventid="myshare" text="My shared files" mnemonic="m" accelerator="ctrl-m"/>
             <menuitem eventid="changelog" mnemonic="l" text="Change Log"/>
             <menu text="Debug">
                 <menuitem eventid="trace" mnemonic="t" accelerator="ctrl-t" text="Trace"/>

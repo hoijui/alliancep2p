@@ -56,7 +56,7 @@
                 toolbarimage="gfx/icons/reconnect.png"
                 addInMenu="file"
                 accelerator="ctrl-r"
-                mnemonic="r"/>
+                mnemonic="r"/>        
         <action separator="yes"/>
         <action separator="yes"/>
         <action
