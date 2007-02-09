@@ -1,8 +1,12 @@
 todo:
-    * får inte visa hundra "you have successfully connected to"
+    * får inte visa hundra "you have successfully connected to" - tänk på noobs - fast det är lite krångligt
     * < fungerar inte i chat
+    * tre checkboxar för chatmeddelanden - och default ska vara att publik chat inte visas som bubblor
+    * ingen fattar hur man ser vem man laddar ner från - gör det bättre både i search och download
 
 sen:
+    * stöd för dyndns namn i my ip
+    * away
     * när man laddar ner igenom share borde den ta sökvägen från där man klickade
     * drar vrålmycket cpu när en download är klar?
     * usability testa! roligt. testa allt från installation till .. allt annat
@@ -18,5 +22,5 @@ LÅG PRIO:
     * ui för dups - lista där man kan ta bort filer
 
 TODO SOM ANDRA SKULLE KUNNA GÖRA:
-    * droppa fil på en användare - en lite speciell process i download och uploadconnection. borde inte vara några problem. eller någon annan slags implementation - det hade rockat iaf. Bra om den använder standard downloadförfarandet så man får allt från det. Inget fel att tanka från två heller ifall filen råkar finnas på fler ställen
+    * droppa fil på en användare - en lite speciell process i download och uploadconnection. borde inte vara några problem. eller någon annan slags implementation - det hade rockat iaf. Bra om den använder standard downloadförfarandet så man får allt från det. Inget fel att tanka från två heller ifall filen råkar finnas på fler ställen. Det får nog bli att man lägger till en fil i share som är markerad som att den bara får downloadas från en person - sedan skickar man tth nyckeln till denna person
     * win32 api med file system events

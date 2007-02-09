@@ -5,6 +5,7 @@ import com.stendahls.nif.ui.mdi.MDIWindow;
 import org.alliance.core.comm.rpc.GetHashesForPath;
 import org.alliance.core.file.filedatabase.FileType;
 import org.alliance.core.node.Friend;
+import org.alliance.core.node.MyNode;
 import org.alliance.core.node.Node;
 import org.alliance.ui.T;
 import org.alliance.ui.UISubsystem;
@@ -40,7 +41,7 @@ public class ViewShareMDIWindow extends AllianceMDIWindow {
     private ImageIcon[] fileTypeIcons;
 
     public ViewShareMDIWindow(UISubsystem ui, Node remote) throws Exception {
-        super(ui.getMainWindow().getMDIManager(), "viewshare", ui);
+        super(ui.getMainWindow().getMDIManager(), (remote instanceof MyNode) ? "viewmyshare" : "viewshare", ui);
         this.remote = remote;
         setTitle("Share of "+remote.nickname());
 
@@ -86,7 +87,7 @@ public class ViewShareMDIWindow extends AllianceMDIWindow {
 
         ((JScrollPane)xui.getComponent("treepanel")).setViewportView(tree);
 
-        popup = (JPopupMenu)xui.getComponent("popup");
+        popup = (JPopupMenu)xui.getComponent(remote instanceof MyNode ? "popupme" : "popup");
 
 
         postInit();

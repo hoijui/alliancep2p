@@ -124,6 +124,16 @@
 
     <group id="viewshare">
         <action
+                id="revert"
+                name="Refresh"
+                description="Refresh list"
+                menuimage="gfx/icons/refresh.png"
+                toolbarimage="gfx/icons/refresh.png"
+                addInMenu="file"
+                accelerator="F5"
+                mnemonic="r"/>
+        <action separator="yes"/>
+        <action
                 id="download"
                 name="Download"
                 description="Download selected files"
@@ -132,6 +142,19 @@
                 addInMenu="file"
                 accelerator="enter"
                 mnemonic="d"/>
+        <action filler="true"/>
+        <action
+                id="close"
+                name="Close"
+                description="Close"
+                menuimage="gfx/icons/close.png"
+                toolbarimage="gfx/icons/close.png"
+                addInMenu="window"
+                accelerator="ctrl-w"
+                mnemonic="c"/>
+    </group>
+
+    <group id="viewmyshare">
         <action
                 id="revert"
                 name="Refresh"
@@ -141,6 +164,15 @@
                 addInMenu="file"
                 accelerator="F5"
                 mnemonic="r"/>
+        <action separator="yes"/>
+        <action
+                id="sendtochat"
+                name="Create link in chat"
+                description="Create link in chat to selected files"
+                menuimage="gfx/icons/sendtochat.png"
+                toolbarimage="gfx/icons/sendtochat.png"
+                addInMenu="window"
+                mnemonic="c"/>
         <action filler="true"/>
         <action
                 id="close"
