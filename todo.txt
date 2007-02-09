@@ -1,7 +1,6 @@
 todo:
     * får inte visa hundra "you have successfully connected to"
     * < fungerar inte i chat
-    * pontus testar commit :)
 
 sen:
     * när man laddar ner igenom share borde den ta sökvägen från där man klickade
