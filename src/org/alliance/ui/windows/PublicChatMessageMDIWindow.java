@@ -22,7 +22,7 @@ public class PublicChatMessageMDIWindow extends AbstractChatMessageMDIWindow {
         postInit();
     }
 
-    protected void send(final String text) throws Exception {
+    public void send(final String text) throws Exception {
         ui.getCore().invokeLater(new Runnable() {
             public void run() {
                 try {

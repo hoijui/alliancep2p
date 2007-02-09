@@ -270,7 +270,6 @@ public class FileDatabase {
         ArrayList<FileDescriptor> al = new ArrayList<FileDescriptor>();
         for(FileDescriptor f : fd) {
             if (f != null) {
-                if(T.t)T.trace("found: "+f.getFullPath()+" - "+path);
                 if (f.getFullPath().startsWith(path)) al.add(f);
             }
         }

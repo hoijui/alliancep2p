@@ -684,4 +684,8 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
             w.directoryListingReceived(shareBaseIndex, path, files);
         }
     }
+
+    public PublicChatMessageMDIWindow getPublicChat() {
+        return publicChat;
+    }
 }

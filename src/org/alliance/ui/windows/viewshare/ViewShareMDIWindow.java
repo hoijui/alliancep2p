@@ -2,8 +2,10 @@ package org.alliance.ui.windows.viewshare;
 
 import com.stendahls.nif.ui.OptionDialog;
 import com.stendahls.nif.ui.mdi.MDIWindow;
+import com.stendahls.util.TextUtils;
 import org.alliance.core.comm.rpc.GetHashesForPath;
 import org.alliance.core.file.filedatabase.FileType;
+import org.alliance.core.file.filedatabase.FileDescriptor;
 import org.alliance.core.node.Friend;
 import org.alliance.core.node.MyNode;
 import org.alliance.core.node.Node;
@@ -22,6 +24,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Created by IntelliJ IDEA.
@@ -106,6 +109,43 @@ public class ViewShareMDIWindow extends AllianceMDIWindow {
         } else {
             if(T.t)T.error("Could not find share with sharebase "+shareBaseIndex);
         }
+    }
+
+    public void EVENT_sendtochat(ActionEvent e) throws Exception {
+        if (!(remote instanceof MyNode)) return;
+        if (tree == null || tree.getSelectionPaths() == null) return;
+        if (tree.getSelectionPaths().length > 1) {
+            OptionDialog.showErrorDialog(ui.getMainWindow(), "You can only send one folder or file to the chat");
+            return;
+        }
+
+        ViewShareTreeNode node = (ViewShareTreeNode)tree.getSelectionPath().getLastPathComponent();
+        if (!(node instanceof ViewShareFileNode)) {
+            OptionDialog.showErrorDialog(ui.getMainWindow(), "You can not send entire root folders to the chat");
+            return;
+        }
+
+        String path = ui.getCore().getShareManager().getBaseByIndex(node.getShareBaseIndex()).getPath() + "/" + node.getFileItemPath();
+        if(T.t)T.info("Sending "+path+" to chat");
+
+        Collection<FileDescriptor> files = ui.getCore().getFileManager().getFileDatabase().getFDsByPath(path);
+
+        String link = "<a href=\"";
+        long totalSize = 0;
+        for(FileDescriptor f : files) {
+            link += f.getRootHash().getRepresentation()+"|";
+            totalSize += f.getSize();
+            if(T.t)T.debug("found: "+f);
+        }
+        link = link.substring(0,link.length()-1);
+
+        String name = node.getName();
+        if (name.endsWith("/")) name = name.substring(0,name.length()-1);
+        link += "\">"+name+"</a> ("+TextUtils.formatByteSize(totalSize)+" in "+files.size()+" files)";
+        if(T.t)T.info("Sending link: "+link);
+
+        ui.getMainWindow().getPublicChat().send(link);
+        ui.getMainWindow().getMDIManager().selectWindow(ui.getMainWindow().getPublicChat());
     }
 
     public void EVENT_download(ActionEvent e) {
