@@ -130,7 +130,7 @@ public class ViewShareMDIWindow extends AllianceMDIWindow {
 
         Collection<FileDescriptor> files = ui.getCore().getFileManager().getFileDatabase().getFDsByPath(path);
 
-        String link = "<a href=\"";
+        String link = "<a href=\"" + ui.getCore().getFriendManager().getMyGUID()+"|";
         long totalSize = 0;
         for(FileDescriptor f : files) {
             link += f.getRootHash().getRepresentation()+"|";

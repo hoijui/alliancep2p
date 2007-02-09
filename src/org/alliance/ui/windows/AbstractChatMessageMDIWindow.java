@@ -20,6 +20,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by IntelliJ IDEA.
@@ -69,10 +70,13 @@ public abstract class AbstractChatMessageMDIWindow extends AllianceMDIWindow {
                     try {
                         String link = e.getDescription();
                         String[] hashes = link.split("\\|");
-                        for(String s : hashes) if(T.t) T.trace("File: "+s);
-                        if (OptionDialog.showQuestionDialog(ui.getMainWindow(), "Add "+hashes.length+" files to downloads?")) {
-                            for(String hash : hashes) {
-                                ui.getCore().getNetworkManager().getDownloadManager().queDownload(new Hash(hash), "Link from chat", new ArrayList<Integer>());
+                        for(String s : hashes) if(T.t) T.trace("Part: "+s);
+                        int guid = Integer.parseInt(hashes[0]);
+                        if (OptionDialog.showQuestionDialog(ui.getMainWindow(), "Add "+(hashes.length-1)+" files to downloads?")) {
+                            ArrayList<Integer> al = new ArrayList<Integer>();
+                            al.add(guid);
+                            for(int i=1;i<hashes.length;i++) {
+                                ui.getCore().getNetworkManager().getDownloadManager().queDownload(new Hash(hashes[i]), "Link from chat", al);
                             }
                             ui.getMainWindow().getMDIManager().selectWindow(ui.getMainWindow().getDownloadsWindow());
                         }
