@@ -230,7 +230,7 @@ public class TrayIconSubsystem implements Subsystem, Runnable {
                     while(true) {
                         SwingUtilities.invokeLater(new Runnable() {
                             public void run() {
-                                ti.setToolTip("Alliance v" + Version.VERSION + " build " + Version.BUILD_NUMBER + "\nDownload: " + core.getNetworkManager().getBandwidthOut().getCPSHumanReadable() + "\nUpload: " + core.getNetworkManager().getBandwidthIn().getCPSHumanReadable());
+                                ti.setToolTip("Alliance v" + Version.VERSION + " build " + Version.BUILD_NUMBER + "\nDownload: " + core.getNetworkManager().getBandwidthIn().getCPSHumanReadable() + "\nUpload: " + core.getNetworkManager().getBandwidthOut().getCPSHumanReadable());
                             }
                         });
 
