@@ -15,6 +15,7 @@ import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.lang.reflect.Method;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -67,16 +68,27 @@ public abstract class AbstractChatMessageMDIWindow extends AllianceMDIWindow {
                 if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
                     try {
                         String link = e.getDescription();
-                        String[] hashes = link.split("\\|");
-                        for(String s : hashes) if(T.t) T.trace("Part: "+s);
-                        int guid = Integer.parseInt(hashes[0]);
-                        if (OptionDialog.showQuestionDialog(ui.getMainWindow(), "Add "+(hashes.length-1)+" files to downloads?")) {
-                            ArrayList<Integer> al = new ArrayList<Integer>();
-                            al.add(guid);
-                            for(int i=1;i<hashes.length;i++) {
-                                ui.getCore().getNetworkManager().getDownloadManager().queDownload(new Hash(hashes[i]), "Link from chat", al);
+                        if (link.startsWith("http://")) {
+                            String allowedChars ="abcdefghijklmnopqrstuvwxyzåäö0123456789-.;/?:@&=+$_.!~*'()#";
+                            for(int i=0;i<link.length();i++) {
+                                if (allowedChars.indexOf(link.toLowerCase().charAt(i)) == -1) {
+                                    OptionDialog.showInformationDialog(ui.getMainWindow(), "Character "+link.charAt(i)+" is not allowed in link.");
+                                    return;
+                                }
                             }
-                            ui.getMainWindow().getMDIManager().selectWindow(ui.getMainWindow().getDownloadsWindow());
+                            openURL(link);
+                        } else {
+                            String[] hashes = link.split("\\|");
+                            for(String s : hashes) if(T.t) T.trace("Part: "+s);
+                            int guid = Integer.parseInt(hashes[0]);
+                            if (OptionDialog.showQuestionDialog(ui.getMainWindow(), "Add "+(hashes.length-1)+" files to downloads?")) {
+                                ArrayList<Integer> al = new ArrayList<Integer>();
+                                al.add(guid);
+                                for(int i=1;i<hashes.length;i++) {
+                                    ui.getCore().getNetworkManager().getDownloadManager().queDownload(new Hash(hashes[i]), "Link from chat", al);
+                                }
+                                ui.getMainWindow().getMDIManager().selectWindow(ui.getMainWindow().getDownloadsWindow());
+                            }
                         }
                     } catch (IOException e1) {
                         ui.getCore().reportError(e1, this);
@@ -90,11 +102,27 @@ public abstract class AbstractChatMessageMDIWindow extends AllianceMDIWindow {
     }
 
     public void EVENT_chat1(ActionEvent e) throws Exception {
-        send(chat.getText());
+        send(escapeHTML(chat.getText()));
     }
 
     public void EVENT_chat2(ActionEvent e) throws Exception {
-        send(chat.getText());
+        send(escapeHTML(chat.getText()));
+    }
+
+    private String escapeHTML(String text) {
+        text = text.replace("<", "&lt;");
+        String pattern = "http://";
+        int i=0;
+        while((i = text.indexOf(pattern, i)) != -1) {
+            int end = text.indexOf(' ', i);
+            if (end == -1) end = text.length();
+            String s = text.substring(0, i);
+            s += "<a href=\""+text.substring(i, end)+"\">"+text.substring(i, end)+"</a>";
+            i = s.length();
+            if (end < text.length()-1) s += text.substring(end);
+            text = s;
+        }
+        return text;
     }
 
     public void addMessage(String from, String message, long tick) {
@@ -115,4 +143,36 @@ public abstract class AbstractChatMessageMDIWindow extends AllianceMDIWindow {
     public void revert() throws Exception {}
     public void serialize(ObjectOutputStream out) throws IOException {}
     public MDIWindow deserialize(ObjectInputStream in) throws IOException { return null; }
+
+    //borrowed from BareBonesBrowserLaunch
+    public void openURL(String url) {
+        String osName = System.getProperty("os.name");
+        try {
+            if (osName.startsWith("Mac OS")) {
+                Class fileMgr = Class.forName("com.apple.eio.FileManager");
+                Method openURL = fileMgr.getDeclaredMethod("openURL",
+                        new Class[] {String.class});
+                openURL.invoke(null, new Object[] {url});
+            }
+            else if (osName.startsWith("Windows")) {
+                String s = "rundll32 url.dll,FileProtocolHandler " + url;
+                Runtime.getRuntime().exec(s);
+            } else { //assume Unix or Linux
+                String[] browsers = {
+                        "firefox", "opera", "konqueror", "epiphany", "mozilla", "netscape" };
+                String browser = null;
+                for (int count = 0; count < browsers.length && browser == null; count++)
+                    if (Runtime.getRuntime().exec(
+                            new String[] {"which", browsers[count]}).waitFor() == 0)
+                        browser = browsers[count];
+                if (browser == null)
+                    throw new Exception("Could not find web browser");
+                else
+                    Runtime.getRuntime().exec(new String[] {browser, url});
+            }
+        }
+        catch (Exception e) {
+            OptionDialog.showErrorDialog(ui.getMainWindow(), "Could not open url: "+e);
+        }
+    }
 }
