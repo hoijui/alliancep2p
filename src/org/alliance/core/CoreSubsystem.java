@@ -182,7 +182,17 @@ public class CoreSubsystem implements Subsystem {
         if(T.t)T.info("Loading settings...");
         XMLSerializer s = new XMLSerializer();
         try {
-            settings = s.deserialize(SXML.loadXML(new File(settingsFile)), Settings.class);
+            File file = new File(settingsFile);
+            if (!file.exists()) {
+                file = new File("settings.xml"); //old location of settingsfile - this code is here for backwards compatibility
+                if (file.exists()) {
+                    if(T.t)T.info("Old settingsfile exists. Moving to new location.");
+                    File f2 = new File(settingsFile);
+                    if (f2.getParentFile() != null) f2.getParentFile().mkdirs();
+                    file.renameTo(f2);
+                }
+            }
+            settings = s.deserialize(SXML.loadXML(file), Settings.class);
         } catch(FileNotFoundException e) {
             if(T.t)T.info("No settings file - creating default settings.");
             settings = new Settings();

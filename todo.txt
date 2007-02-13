@@ -1,5 +1,5 @@
 todo:
-    * får inte visa hundra "you have successfully connected to" - tänk på noobs - fast det är lite krångligt
+    * får inte visa hundra "you have successfully connected to" - tänk på noobs - fast det är lite krångligt att fixa
     * < fungerar inte i chat
     * http:// ska länkas i chat
     * tre checkboxar för chatmeddelanden - och default ska vara att publik chat inte visas som bubblor

@@ -178,6 +178,7 @@ public class FileDatabase {
     private void saveIndices() throws IOException {
         String fn = indexFilePath;
         File file = new File(fn);
+        if (file.getParentFile() != null) file.getParentFile().mkdirs();
         File bak = new File(fn+".bak");
         bak.delete();
         file.renameTo(bak);

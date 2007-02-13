@@ -265,7 +265,9 @@ public class DownloadManager extends Manager implements Runnable {
     }
 
     public void save() throws IOException {
-        ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(core.getSettings().getInternal().getDownloadquefile()));
+        File file = new File(core.getSettings().getInternal().getDownloadquefile());
+        if (file.getParentFile() != null) file.getParentFile().mkdirs();
+        ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file));
         ArrayList<Download> al = new ArrayList<Download>();
         for(Download d : downloadQue) if (!d.isComplete()) al.add(d);
         if(T.t)T.trace("Saving download que with "+al.size()+" downloads in it.");

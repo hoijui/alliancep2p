@@ -37,7 +37,7 @@ public class Main {
         Runnable r = null;
         if (!runMinimized) r = (Runnable)Class.forName("org.alliance.launchers.SplashWindow").newInstance();
 
-        String s = "settings.xml";
+        String s = "data/settings.xml";
         for(int i=0;i<args.length;i++) if (!args[i].startsWith("/")) s = args[i];
         Subsystem core = initCore(s, (StartupProgressListener)r);
 
