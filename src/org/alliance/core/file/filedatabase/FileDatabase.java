@@ -68,7 +68,8 @@ public class FileDatabase {
             if(T.t)T.info("Maybe found duplicate: "+fd);
             FileDescriptor old = getFd(fd.getRootHash());
             if (old != null && old.existsAndSeemsEqual()) {
-                if (TextUtils.makeSurePathIsMultiplatform(old.getCanonicalPath()).equals(TextUtils.makeSurePathIsMultiplatform(fd.getCanonicalPath()))) {
+                if (TextUtils.makeSurePathIsMultiplatform(old.getCanonicalPath()).equals(
+                    TextUtils.makeSurePathIsMultiplatform(fd.getCanonicalPath()))) {
                     if(T.t)T.warn("Problem in file database! Tried to add identical file as duplicate! "+fd);
                     return old;
                 }
@@ -104,7 +105,7 @@ public class FileDatabase {
         //index keywords
         keywordIndex.add(index, fd);
 
-        indexedFilenames.addPath(fd.getFullPath());
+        indexedFilenames.addPath(fd.getCanonicalPath());
 
         totalSize += fd.getSize();
 
@@ -147,7 +148,7 @@ public class FileDatabase {
         chunkStorage.markAsRemoved(off);
         baseHashTable.remove(fd.getRootHash());
         fileDescriptorCache.remove(fd.getRootHash());
-        indexedFilenames.removePath(fd.getFullPath());
+        indexedFilenames.removePath(fd.getCanonicalPath());
         totalSize -= fd.getSize();
     }
 
@@ -291,6 +292,7 @@ public class FileDatabase {
     }
 
     public boolean isDuplicate(String fullPath) throws IOException {
+        fullPath = new File(fullPath).getCanonicalPath();
         if (duplicates.containsKey(fullPath)) {
             FileDescriptor fd = getFd(duplicates.get(fullPath));
             if (fd != null) {
