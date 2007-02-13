@@ -196,6 +196,8 @@ public class CoreSubsystem implements Subsystem {
             settings = s.deserialize(SXML.loadXML(file), Settings.class);
         } catch(FileNotFoundException e) {
             if(T.t)T.info("No settings file - creating default settings.");
+            File file = new File(settingsFile);
+            if (file.getParentFile() != null) file.getParentFile().mkdirs();
             settings = new Settings();
             saveSettings();
         }
