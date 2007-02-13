@@ -1,7 +1,9 @@
 package org.alliance.core.file.filedatabase;
 
+import com.stendahls.nif.util.SimpleTimer;
 import com.stendahls.nif.util.WeakValueHashMap;
 import com.stendahls.util.TextUtils;
+import org.alliance.core.CoreSubsystem;
 import org.alliance.core.file.ChunkStorage;
 import org.alliance.core.file.filedatabase.searchindex.KeywordIndex;
 import org.alliance.core.file.hash.Hash;
@@ -38,8 +40,10 @@ public class FileDatabase {
     private String indexFilePath;
     private long totalSize;
     private long lastFlushedAt;
+    private CoreSubsystem core;
 
-    public FileDatabase(String indexFilePath, String databaseFilePath) throws IOException {
+    public FileDatabase(CoreSubsystem core, String indexFilePath, String databaseFilePath) throws IOException {
+        this.core = core;
         this.indexFilePath = indexFilePath;
 
         keywordIndex = new KeywordIndex();
@@ -171,9 +175,12 @@ public class FileDatabase {
     }
 
     public synchronized void flush() throws IOException {
+        SimpleTimer st = new SimpleTimer();
+        core.getUICallback().statusMessage("Flushing file database and search index...");
         chunkStorage.flush();
         saveIndices();
         lastFlushedAt = System.currentTimeMillis();
+        core.getUICallback().statusMessage("Flushed file database and search index in "+st.getTime());
     }
 
     private void saveIndices() throws IOException {
