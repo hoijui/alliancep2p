@@ -378,4 +378,12 @@ public class Internal extends SettingClass {
     public String getDownloadquefile() {
         return downloadquefile;
     }
+
+    public void setFiledatabaseindexfile(String filedatabaseindexfile) {
+        this.filedatabaseindexfile = filedatabaseindexfile;
+    }
+
+    public void setDownloadquefile(String downloadquefile) {
+        this.downloadquefile = downloadquefile;
+    }
 }
