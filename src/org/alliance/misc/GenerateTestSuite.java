@@ -171,11 +171,9 @@ public class GenerateTestSuite {
         s.setMy(new My(user.getGuid(), user.getNickname()));
         s.setServer(new Server(user.getPort()));
         String path = "testsuite/data/"+user.getNickname()+"/";
-        s.getInternal().setFiledatabaseindexfile(path+"share.idx");
         s.getInternal().setFiledatabasefile(path+"share.dat");
         s.getInternal().setCachefolder(path+"cache");
         s.getInternal().setDownloadfolder(path+"downloads");
-        s.getInternal().setDownloadquefile(path+"downloads.dat");
         s.getInternal().setCorestatefile(path+"core.dat");
         s.getInternal().setKeystorefilename(path+"me.ks");
         s.addShare(getRandomShare());

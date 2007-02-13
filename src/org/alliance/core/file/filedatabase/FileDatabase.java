@@ -68,6 +68,10 @@ public class FileDatabase {
             if(T.t)T.info("Maybe found duplicate: "+fd);
             FileDescriptor old = getFd(fd.getRootHash());
             if (old != null && old.existsAndSeemsEqual()) {
+                if (TextUtils.makeSurePathIsMultiplatform(old.getCanonicalPath()).equals(TextUtils.makeSurePathIsMultiplatform(fd.getCanonicalPath()))) {
+                    if(T.t)T.warn("Problem in file database! Tried to add identical file as duplicate! "+fd);
+                    return old;
+                }
                 if (old.getCanonicalPath().toLowerCase().indexOf("sample") != -1 || TextUtils.makeSurePathIsMultiplatform(old.getCanonicalPath().toLowerCase()).indexOf("/old/") != -1) {
                     if(T.t)T.trace("Fould duplicate with sample or old folder");
                     remove(old);

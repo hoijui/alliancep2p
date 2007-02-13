@@ -1,16 +1,15 @@
 package org.alliance.ui.windows;
 
+import com.stendahls.nif.ui.OptionDialog;
 import com.stendahls.nif.ui.mdi.MDIManager;
 import com.stendahls.nif.ui.mdi.MDIWindow;
-import com.stendahls.nif.ui.OptionDialog;
-import org.alliance.ui.UISubsystem;
-import org.alliance.ui.T;
-import org.alliance.launchers.OSInfo;
 import org.alliance.core.file.hash.Hash;
+import org.alliance.ui.T;
+import org.alliance.ui.UISubsystem;
 
 import javax.swing.*;
-import javax.swing.event.HyperlinkListener;
 import javax.swing.event.HyperlinkEvent;
+import javax.swing.event.HyperlinkListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
@@ -18,9 +17,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Date;
 
 /**
  * Created by IntelliJ IDEA.

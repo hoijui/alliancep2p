@@ -4,8 +4,10 @@ todo:
     * http:// ska länkas i chat
     * tre checkboxar för chatmeddelanden - och default ska vara att publik chat inte visas som bubblor
     * ingen fattar hur man ser vem man laddar ner från - gör det bättre både i search och download
+    * när man tankar från fem personer och dl är klar så fortsätter den med de sista paketen - länge. Liknande problem som i startster och flera nedladdningar
 
 sen:
+    * limit på antal uploads
     * stöd för dyndns namn i my ip
     * away
     * när man laddar ner igenom share borde den ta sökvägen från där man klickade

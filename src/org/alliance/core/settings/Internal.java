@@ -20,16 +20,18 @@ public class Internal extends SettingClass {
 
     private Integer tempcleareddups=0;
 
-    private Integer reconnectinterval = 60*10;
-    private Integer connectFriendInterval = 1;
-    private Integer sharemanagercycle = 30;
-    private String filedatabasefile = "share.dat";
-    private String filedatabaseindexfile = "share.idx";
-    private String downloadquefile = "downloads.dat";
-    private String corestatefile = "core.dat";
+    private String filedatabasefile = "data/share.dat";
+    private String filedatabaseindexfile = "data/share.idx";
+    private String downloadquefile = "data/downloads.dat";
+    private String corestatefile = "data/core.dat";
+
     private String downloadfolder = CURRENT_DIRECTORY+"downloads";
     private String cachefolder = CURRENT_DIRECTORY+"cache";
     private String keystorefilename = CURRENT_DIRECTORY+"me.ks";
+
+    private Integer reconnectinterval = 60*10;
+    private Integer connectFriendInterval = 1;
+    private Integer sharemanagercycle = 30;
     private Integer maxdownloadconnections=5;
     private Integer recordoutspeed=0, recordinspeed=0;
     private Integer totalmegabytesdownloaded =0, totalmegabytesuploaded =0;
@@ -100,14 +102,6 @@ public class Internal extends SettingClass {
 
     public void setFiledatabasefile(String filedatabasefile) {
         this.filedatabasefile = filedatabasefile;
-    }
-
-    public String getFiledatabaseindexfile() {
-        return filedatabaseindexfile;
-    }
-
-    public void setFiledatabaseindexfile(String filedatabaseindexfile) {
-        this.filedatabaseindexfile = filedatabaseindexfile;
     }
 
     public String getDownloadfolder() {
@@ -212,14 +206,6 @@ public class Internal extends SettingClass {
 
     public void setMaximumAlliancePacketSize(Integer maximumAlliancePacketSize) {
         this.maximumAlliancePacketSize = maximumAlliancePacketSize;
-    }
-
-    public String getDownloadquefile() {
-        return downloadquefile;
-    }
-
-    public void setDownloadquefile(String downloadquefile) {
-        this.downloadquefile = downloadquefile;
     }
 
     public Integer getPolitehashingwaittimeinminutes() {
@@ -383,5 +369,13 @@ public class Internal extends SettingClass {
 
     public void setTotalmegabytesuploaded(Integer totalmegabytesuploaded) {
         this.totalmegabytesuploaded = totalmegabytesuploaded;
+    }
+
+    public String getFiledatabaseindexfile() {
+        return filedatabaseindexfile;
+    }
+
+    public String getDownloadquefile() {
+        return downloadquefile;
     }
 }

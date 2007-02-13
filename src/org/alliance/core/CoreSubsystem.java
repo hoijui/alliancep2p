@@ -54,7 +54,7 @@ import java.util.List;
  */
 public class CoreSubsystem implements Subsystem {
     public final static boolean ALLOW_TO_SEND_UPGRADE_TO_FRIENDS = false;
-    private static final int STATE_FILE_VERSION = 4;
+    private static final int STATE_FILE_VERSION = 5;
 
     public final static int KB = 1024;
     public final static int MB = 1024*KB;
@@ -90,8 +90,7 @@ public class CoreSubsystem implements Subsystem {
         if (params != null && params.length >= 2 && params[1] != null) progress = (StartupProgressListener)params[1];
 
         progress.updateProgress("Loading core");
-        errorLog = new Log("error.log");
-        traceLog = new Log("trace.log");
+        setupLog();
         if (T.t && !isRunningAsTestSuite()) {
             final TraceHandler old = Trace.handler;
             Trace.handler = new TraceHandler() {
@@ -153,6 +152,12 @@ public class CoreSubsystem implements Subsystem {
         if(T.t)T.info("CoreSubsystem stated.");
     }
 
+    private void setupLog() throws FileNotFoundException {
+        new File("logs").mkdirs();
+        errorLog = new Log("logs/error.log");
+        traceLog = new Log("logs/trace.log");
+    }
+
     public boolean isRunningAsTestSuite() {
         return System.getProperty("testsuite") != null;
     }
@@ -187,7 +192,9 @@ public class CoreSubsystem implements Subsystem {
 
     public void saveState() throws IOException {
         if(T.t)T.info("Saving core state");
-        ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(settings.getInternal().getCorestatefile()));
+        File file = new File(settings.getInternal().getCorestatefile());
+        if (file.getParentFile() != null) file.getParentFile().mkdirs();
+        ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file));
         out.writeInt(STATE_FILE_VERSION);
         invitaitonManager.save(out);
         networkManager.save(out);
