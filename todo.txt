@@ -1,6 +1,7 @@
 todo:
     * får inte visa hundra "you have successfully connected to" - tänk på noobs - fast det är lite krångligt
     * < fungerar inte i chat
+    * http:// ska länkas i chat
     * tre checkboxar för chatmeddelanden - och default ska vara att publik chat inte visas som bubblor
     * ingen fattar hur man ser vem man laddar ner från - gör det bättre både i search och download
 
