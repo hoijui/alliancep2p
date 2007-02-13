@@ -50,7 +50,7 @@ public class Internal extends SettingClass {
 
     private Integer minimumtimebetweeninvitations = 60*24*2; //in minutes
 
-    /** Used to be polite when running on XP sp2 wich only allows 10 pending tcp/ip connections
+    /** Be polite when running on XP sp2 wich only allows 10 pending tcp/ip connections
      * before stopping the network stack. Set to 8 to be on the safe side. */
     private Integer maxpendingconnections = 8;
 

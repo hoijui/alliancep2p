@@ -190,6 +190,7 @@ public class CoreSubsystem implements Subsystem {
                     File f2 = new File(settingsFile);
                     if (f2.getParentFile() != null) f2.getParentFile().mkdirs();
                     file.renameTo(f2);
+                    file = f2;
                 }
             }
             settings = s.deserialize(SXML.loadXML(file), Settings.class);
