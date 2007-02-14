@@ -1,19 +1,18 @@
 todo:
-    * får inte visa hundra "you have successfully connected to" - tänk på noobs - fast det är lite krångligt att fixa
-    * < fungerar inte i chat
-    * http:// ska länkas i chat
     * tre checkboxar för chatmeddelanden - och default ska vara att publik chat inte visas som bubblor
     * ingen fattar hur man ser vem man laddar ner från - gör det bättre både i search och download
     * när man tankar från fem personer och dl är klar så fortsätter den med de sista paketen - länge. Liknande problem som i startster och flera nedladdningar
+    * komprimera sökpaket - skulle göra så att sökresultat kommer tillbaka mycket snabbare
+    * ändra sökuit lite (det är ju krångligt nu). Ha ett par länkar istället: Search for: <new video> <new audio> ...
 
 sen:
+    * får inte visa hundra "you have successfully connected to" - tänk på noobs - fast det är lite krångligt att fixa
     * limit på antal uploads
     * stöd för dyndns namn i my ip
     * away
     * när man laddar ner igenom share borde den ta sökvägen från där man klickade
     * drar vrålmycket cpu när en download är klar?
     * usability testa! roligt. testa allt från installation till .. allt annat
-    * komprimera sökpaket - skulle göra så att sökresultat kommer tillbaka mycket snabbare
     * det buggar väl inte längre? : glöm inte att ta bort GetUserList flood grejjerna.. - det buggar fortfarande - dom kan ställa till med problem i framtiden - och det är en UI referens i CORE
     * filesize i view share
     * att browsa ens egen share hade varit bra för att kolla alla buggar med dups

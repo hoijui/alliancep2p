@@ -5,7 +5,6 @@ import com.stendahls.nif.ui.OptionDialog;
 import com.stendahls.ui.JHtmlLabel;
 import com.stendahls.ui.JWizard;
 import org.alliance.core.node.Invitation;
-import org.alliance.launchers.OSInfo;
 import org.alliance.ui.T;
 import org.alliance.ui.UISubsystem;
 
@@ -121,12 +120,13 @@ public class AddFriendWizard extends JWizard {
             body = body.replace(" ", "%20");
             subject = subject.replace(" ", "%20");
             String s;
-            if (OSInfo.isWindows())
-                s = "cmd /k \"start mailto:?body="+body+"^&subject="+subject+"\"";
-            else
-                s = "mailto:?body="+body+"&subject="+subject;
+            s = "mailto:?body="+body+"&subject="+subject+"\"";
+//            if (OSInfo.isWindows())
+//                s = "cmd /k \"start mailto:?body="+body+"^&subject="+subject+"\"";
+//            else
+//                s = "mailto:?body="+body+"&subject="+subject;
 
-            Runtime.getRuntime().exec(s);
+            ui.openURL(s);
 
             Thread t = new Thread(new Runnable() {
                 public void run() {

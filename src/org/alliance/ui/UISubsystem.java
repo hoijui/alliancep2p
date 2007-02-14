@@ -1,5 +1,6 @@
 package org.alliance.ui;
 
+import com.stendahls.nif.ui.OptionDialog;
 import com.stendahls.nif.ui.framework.GlobalExceptionHandler;
 import com.stendahls.nif.ui.framework.SwingDeadlockWarningRepaintManager;
 import com.stendahls.nif.ui.framework.UINexus;
@@ -17,6 +18,7 @@ import org.alliance.ui.nodetreemodel.NodeTreeNode;
 import javax.swing.*;
 import java.awt.*;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 /**
  * Created by IntelliJ IDEA.
@@ -177,4 +179,35 @@ public class UISubsystem implements UINexus, Subsystem {
         if (friendListModel == null) friendListModel = new FriendListModel(core);
         return friendListModel;
     }
-}
+
+    //borrowed from BareBonesBrowserLaunch
+    public void openURL(String url) {
+        String osName = System.getProperty("os.name");
+        try {
+            if (osName.startsWith("Mac OS")) {
+                Class fileMgr = Class.forName("com.apple.eio.FileManager");
+                Method openURL = fileMgr.getDeclaredMethod("openURL",
+                        new Class[] {String.class});
+                openURL.invoke(null, new Object[] {url});
+            }
+            else if (osName.startsWith("Windows")) {
+                String s = "rundll32 url.dll,FileProtocolHandler " + url;
+                Runtime.getRuntime().exec(s);
+            } else { //assume Unix or Linux
+                String[] browsers = {
+                        "firefox", "opera", "konqueror", "epiphany", "mozilla", "netscape" };
+                String browser = null;
+                for (int count = 0; count < browsers.length && browser == null; count++)
+                    if (Runtime.getRuntime().exec(
+                            new String[] {"which", browsers[count]}).waitFor() == 0)
+                        browser = browsers[count];
+                if (browser == null)
+                    throw new Exception("Could not find web browser");
+                else
+                    Runtime.getRuntime().exec(new String[] {browser, url});
+            }
+        }
+        catch (Exception e) {
+            OptionDialog.showErrorDialog(getMainWindow(), "Could not open url: "+e);
+        }
+    }}

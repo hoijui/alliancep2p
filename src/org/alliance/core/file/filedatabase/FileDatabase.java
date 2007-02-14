@@ -75,6 +75,17 @@ public class FileDatabase {
                 if (TextUtils.makeSurePathIsMultiplatform(old.getCanonicalPath()).equals(
                     TextUtils.makeSurePathIsMultiplatform(fd.getCanonicalPath()))) {
                     if(T.t)T.warn("Problem in file database! Tried to add identical file as duplicate! "+fd);
+                    if (contains(fd.getCanonicalPath())) {
+                        if(T.t)T.info("File is contained in filename index! wtf?");
+                    } else {
+                        if (contains(fd.getFullPath())) {
+                            if(T.t)T.info("AHA! Cannonical file not in filename index - but regular filename is.");
+                        } else {
+                            if(T.t)T.info("Neither cannonical or regular filename is in filename index.");
+                        }
+                        if(T.t)T.info("Adding connocinal filename to filename index.");
+                        indexedFilenames.addPath(fd.getCanonicalPath());
+                    }
                     return old;
                 }
                 if (old.getCanonicalPath().toLowerCase().indexOf("sample") != -1 || TextUtils.makeSurePathIsMultiplatform(old.getCanonicalPath().toLowerCase()).indexOf("/old/") != -1) {

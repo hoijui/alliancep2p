@@ -15,7 +15,6 @@ import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.lang.reflect.Method;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -76,7 +75,7 @@ public abstract class AbstractChatMessageMDIWindow extends AllianceMDIWindow {
                                     return;
                                 }
                             }
-                            openURL(link);
+                            ui.openURL(link);
                         } else {
                             String[] hashes = link.split("\\|");
                             for(String s : hashes) if(T.t) T.trace("Part: "+s);
@@ -143,36 +142,4 @@ public abstract class AbstractChatMessageMDIWindow extends AllianceMDIWindow {
     public void revert() throws Exception {}
     public void serialize(ObjectOutputStream out) throws IOException {}
     public MDIWindow deserialize(ObjectInputStream in) throws IOException { return null; }
-
-    //borrowed from BareBonesBrowserLaunch
-    public void openURL(String url) {
-        String osName = System.getProperty("os.name");
-        try {
-            if (osName.startsWith("Mac OS")) {
-                Class fileMgr = Class.forName("com.apple.eio.FileManager");
-                Method openURL = fileMgr.getDeclaredMethod("openURL",
-                        new Class[] {String.class});
-                openURL.invoke(null, new Object[] {url});
-            }
-            else if (osName.startsWith("Windows")) {
-                String s = "rundll32 url.dll,FileProtocolHandler " + url;
-                Runtime.getRuntime().exec(s);
-            } else { //assume Unix or Linux
-                String[] browsers = {
-                        "firefox", "opera", "konqueror", "epiphany", "mozilla", "netscape" };
-                String browser = null;
-                for (int count = 0; count < browsers.length && browser == null; count++)
-                    if (Runtime.getRuntime().exec(
-                            new String[] {"which", browsers[count]}).waitFor() == 0)
-                        browser = browsers[count];
-                if (browser == null)
-                    throw new Exception("Could not find web browser");
-                else
-                    Runtime.getRuntime().exec(new String[] {browser, url});
-            }
-        }
-        catch (Exception e) {
-            OptionDialog.showErrorDialog(ui.getMainWindow(), "Could not open url: "+e);
-        }
-    }
 }
