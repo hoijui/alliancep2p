@@ -39,7 +39,7 @@
                         <panel axis="x">
                             <label text="Download:"/>
                             <strut width="5"/>
-                            <progressbar id="bandwidthin" expand="none" width="80"/>
+                            <progressbar id="bandwidthin" expand="none" minwidth="80" width="80"/>
                         </panel>
                         <filler axis="y"/>
                     </panel>
@@ -50,7 +50,7 @@
                         <panel axis="x">
                             <label text="Upload:"/>
                             <strut width="5"/>
-                            <progressbar id="bandwidthout" expand="none" width="80"/>
+                            <progressbar id="bandwidthout" expand="none" minwidth="80" width="80"/>
                         </panel>
                         <filler axis="y"/>
                     </panel>
