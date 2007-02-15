@@ -266,11 +266,11 @@ public class CoreSubsystem implements Subsystem {
         if (shutdownInProgress) return;
         shutdownInProgress = true;
         if(T.t)T.info("Shutting down core..");
-        try { updateLastSeenOnlineForFriends(); } catch(Exception e) {
-            if(T.t)T.error("Problem when saving friends: "+e);
-        }
         try { fileManager.shutdown(); } catch(Exception e) {
             if(T.t)T.error("Problem when shutting down filemanager: "+e);
+        }
+        try { updateLastSeenOnlineForFriends(); } catch(Exception e) {
+            if(T.t)T.error("Problem when saving friends: "+e);
         }
         try { friendManager.shutdown(); } catch(Exception e) {
             if(T.t)T.error("Problem when shutting down friendmanager: "+e);

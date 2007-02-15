@@ -24,7 +24,7 @@ import java.util.zip.InflaterInputStream;
  * To change this template use File | Settings | File Templates.
  */
 public class FileDatabase {
-    public static final int MINIMUM_TIME_BETWEEN_FLUSHES_IN_MS = 1000*60;
+    public static final int MINIMUM_TIME_BETWEEN_FLUSHES_IN_MS = 1000*60*10;
     public static final int VERSION=12;
 
     private ChunkStorage chunkStorage;

@@ -1,9 +1,9 @@
 todo:
     * ingen fattar hur man ser vem man laddar ner från - gör det bättre både i search och download - nytt dl ui
-    * när man tankar från fem personer och dl är klar så fortsätter den med de sista paketen - länge. Liknande problem som i startster och flera nedladdningar
-    * flush på FileDatabase tar år och dagar 
 
 sen:
+    * när man tankar från fem personer och dl är klar så fortsätter den med de sista paketen - länge. Liknande problem som i startster och flera nedladdningar
+    * timestamp på chatmeddelanden - så att dom kommer i rätt ordning
     * får inte visa hundra "you have successfully connected to" - tänk på noobs - fast det är lite krångligt att fixa
     * limit på antal uploads
     * stöd för dyndns namn i my ip

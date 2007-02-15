@@ -87,7 +87,6 @@ public abstract class BlockStorage extends Thread {
                                 remove(bf.getFd().getRootHash());
                                 bf.getFd().updateModifiedAt();
                                 core.getFileManager().getFileDatabase().add(bf.getFd());
-                                core.getFileManager().getFileDatabase().flush();
                                 signalFileComplete(bf);
                             } catch(IOException e) {
                                 core.reportError(e, bf.getFd().getSubpath());
