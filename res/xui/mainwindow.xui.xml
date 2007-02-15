@@ -29,10 +29,11 @@
                     <button image="gfx/icons/addconnection.png" eventid="addfriendwizard" tooltip="You can either enter a connection code you received from a friend or create connection codes yourself" text="Add friends to my network" width="240"/>
                     <strut width="4"/>
                     <button image="gfx/icons/addshare.png" eventid="addshare" tooltip="Add folder on your computer that you want to share with your friends." text="Add files to share" width="240"/>
+                    <strut width="4"/>
 
-                    <filler axis="x"/>
+                    <genericcomponent class="org.alliance.ui.JSpeedDiagram" id="speeddiagram"/>
 
-                    <panel axis="y" opaque="no">
+                    <panel axis="y" opaque="no" detached="yes">
                         <filler axis="y"/>
                         <strut height="2"/>
                         <panel axis="x">
@@ -43,7 +44,7 @@
                         <filler axis="y"/>
                     </panel>
                     <strut width="1"/>
-                    <panel axis="y" opaque="no">
+                    <panel axis="y" opaque="no" detached="yes">
                         <filler axis="y"/>
                         <strut height="2"/>
                         <panel axis="x">

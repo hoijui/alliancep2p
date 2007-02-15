@@ -403,6 +403,8 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
 
                         updateBandwidth("Downloading", "downloaded", bandwidthIn, ui.getCore().getNetworkManager().getBandwidthIn());
                         updateBandwidth("Uploading", "uploaded", bandwidthOut, ui.getCore().getNetworkManager().getBandwidthOut());
+
+                        ((JSpeedDiagram)xui.getComponent("speeddiagram")).update(ui.getCore());
                     }
 
                     private void updateBandwidth(String s, String s2, JProgressBar pb, BandwidthAnalyzer a) {
