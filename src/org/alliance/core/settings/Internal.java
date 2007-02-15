@@ -46,7 +46,11 @@ public class Internal extends SettingClass {
     private Integer daysnotconnectedwhenold=7*2; //after three weeks of disconnection from a friend hes concidered old
 
     private Integer alwaysallowfriendstoconnect=1;
-    private Integer alwaysallowfriendsoffriendstoconnecttome =1;
+    private Integer alwaysallowfriendsoffriendstoconnecttome=1;
+
+    private Integer showpublicchatmessagesintray=0;
+    private Integer showprivatechatmessagesintray=1;
+    private Integer showsystemmessagesintray=1;
 
     private Integer minimumtimebetweeninvitations = 60*24*2; //in minutes
 
@@ -385,5 +389,29 @@ public class Internal extends SettingClass {
 
     public void setDownloadquefile(String downloadquefile) {
         this.downloadquefile = downloadquefile;
+    }
+
+    public Integer getShowpublicchatmessagesintray() {
+        return showpublicchatmessagesintray;
+    }
+
+    public void setShowpublicchatmessagesintray(Integer showpublicchatmessagesintray) {
+        this.showpublicchatmessagesintray = showpublicchatmessagesintray;
+    }
+
+    public Integer getShowprivatechatmessagesintray() {
+        return showprivatechatmessagesintray;
+    }
+
+    public void setShowprivatechatmessagesintray(Integer showprivatechatmessagesintray) {
+        this.showprivatechatmessagesintray = showprivatechatmessagesintray;
+    }
+
+    public Integer getShowsystemmessagesintray() {
+        return showsystemmessagesintray;
+    }
+
+    public void setShowsystemmessagesintray(Integer showsystemmessagesintray) {
+        this.showsystemmessagesintray = showsystemmessagesintray;
     }
 }

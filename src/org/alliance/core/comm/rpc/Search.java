@@ -38,7 +38,7 @@ public class Search extends RPC {
         if (FileType.getFileTypeById(ftid) != null) ft = FileType.getFileTypeById(ftid);
 
         FileDescriptor fd[] = manager.getCore().getFileManager().search(query, SearchHits.MAX_SEARCH_HITS, ft);
-        SearchHits sh = new SearchHits();
+        SearchHitsV2 sh = new SearchHitsV2();
         for(FileDescriptor f : fd) if (f != null) sh.addHit(f);
 
         if(T.t)T.info("Found "+sh.getNHits()+" hits.");

@@ -32,7 +32,7 @@ public abstract class CompressedRPC extends RPC {
     }
 
     public Packet serializeTo(Packet p) throws IOException {
-        ByteArrayOutputStream buf = new ByteArrayOutputStream();
+        ByteArrayOutputStream buf = new ByteArrayOutputStream(1024); //in general compressed RPC are fairly big packets - that's why we crank up the starting byte array size
         DataOutputStream out = new DataOutputStream(new DeflaterOutputStream(buf, new Deflater(9)));
 
         serializeCompressed(out);

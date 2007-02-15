@@ -1,9 +1,8 @@
 todo:
     * tre checkboxar för chatmeddelanden - och default ska vara att publik chat inte visas som bubblor
-    * ingen fattar hur man ser vem man laddar ner från - gör det bättre både i search och download
+    * ingen fattar hur man ser vem man laddar ner från - gör det bättre både i search och download - nytt dl ui
     * när man tankar från fem personer och dl är klar så fortsätter den med de sista paketen - länge. Liknande problem som i startster och flera nedladdningar
-    * komprimera sökpaket - skulle göra så att sökresultat kommer tillbaka mycket snabbare
-    * ändra sökuit lite (det är ju krångligt nu). Ha ett par länkar istället: Search for: <new video> <new audio> ...
+    * flush på FileDatabase tar år och dagar 
 
 sen:
     * får inte visa hundra "you have successfully connected to" - tänk på noobs - fast det är lite krångligt att fixa
@@ -11,17 +10,14 @@ sen:
     * stöd för dyndns namn i my ip
     * away
     * när man laddar ner igenom share borde den ta sökvägen från där man klickade
-    * drar vrålmycket cpu när en download är klar?
     * usability testa! roligt. testa allt från installation till .. allt annat
     * det buggar väl inte längre? : glöm inte att ta bort GetUserList flood grejjerna.. - det buggar fortfarande - dom kan ställa till med problem i framtiden - och det är en UI referens i CORE
     * filesize i view share
-    * att browsa ens egen share hade varit bra för att kolla alla buggar med dups
 
 LÅG PRIO:
     * dubbelklick på nerladdad fil öppnar den
     * dubbelklick på + ska inte ladda ner
     * pinsamt enkelt att DOS:a alliance till döds - öppna koppling, skicka 0xffff och sedan 64k av skräp så tar alliance emot det glädjeligen
-    * ui för dups - lista där man kan ta bort filer
 
 TODO SOM ANDRA SKULLE KUNNA GÖRA:
     * droppa fil på en användare - en lite speciell process i download och uploadconnection. borde inte vara några problem. eller någon annan slags implementation - det hade rockat iaf. Bra om den använder standard downloadförfarandet så man får allt från det. Inget fel att tanka från två heller ifall filen råkar finnas på fler ställen. Det får nog bli att man lägger till en fil i share som är markerad som att den bara får downloadas från en person - sedan skickar man tth nyckeln till denna person

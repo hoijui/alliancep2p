@@ -85,7 +85,7 @@
                 </panel>
             </tab>
 
-            <tab text="Security" tooltip="Encryption and network expansion details">
+            <tab text="Security &amp; System tray" tooltip="Encryption and network expansion details">
                 <panel axis="y" bordertype="etched" bordertitle="Network expansion defaults">
                     <panel axis="x" expand="horiz">
                         <checkbox id="internal.alwaysallowfriendstoconnect" text="Always allow my friends to connect to each other"/><filler/>
@@ -109,6 +109,28 @@
                         [b]Note that ALL your friends must change encryption layer and restart Alliance at the same time for a switch of encryption to work.[/b]
                         [p]
                         Also note that the SSL encryption layer is experimental at this stage.</mlabel>
+                </panel>
+
+                <panel axis="y" bordertype="etched" bordertitle="System tray notification">
+                    <panel axis="x" expand="horiz">
+                        <label text="Show bubble in system tray when:"/>
+                        <filler/>
+                    </panel>
+                    <panel border="0" axis="x" expand="horiz">
+                        <strut width="15"/>
+                        <checkbox id="internal.showpublicchatmessagesintray" text="Public chat message is received"/>
+                        <filler/>
+                    </panel>
+                    <panel border="0" axis="x" expand="horiz">
+                        <strut width="15"/>
+                        <checkbox id="internal.showprivatechatmessagesintray" text="Private chat messages is received"/>
+                        <filler/>
+                    </panel>
+                    <panel border="0" axis="x" expand="horiz">
+                        <strut width="15"/>
+                        <checkbox id="internal.showsystemmessagesintray" text="Alliance needs my attention"/><filler/>
+                        <filler/>
+                    </panel>
                 </panel>
                 <filler/>
             </tab>

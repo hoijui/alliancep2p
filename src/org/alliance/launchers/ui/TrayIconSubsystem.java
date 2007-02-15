@@ -8,6 +8,7 @@ import org.alliance.core.*;
 import static org.alliance.core.CoreSubsystem.KB;
 import org.alliance.core.comm.SearchHit;
 import org.alliance.core.interactions.PostMessageInteraction;
+import org.alliance.core.interactions.PostMessageToAllInteraction;
 import org.alliance.core.node.Friend;
 import org.alliance.core.node.Node;
 import org.jdesktop.jdic.tray.SystemTray;
@@ -59,9 +60,16 @@ public class TrayIconSubsystem implements Subsystem, Runnable {
             public void newUserInteractionQueued(NeedsUserInteraction ui) {
                 if (ui instanceof PostMessageInteraction) {
                     PostMessageInteraction pmi = (PostMessageInteraction)ui;
-                    ti.displayMessage("Chat message", core.getFriendManager().nickname(pmi.getFromGuid())+": "+pmi.getMessage(), TrayIcon.INFO_MESSAGE_TYPE);
+                    if (pmi instanceof PostMessageToAllInteraction) {
+                        if (core.getSettings().getInternal().getShowpublicchatmessagesintray() != 0)
+                            ti.displayMessage("Chat message", core.getFriendManager().nickname(pmi.getFromGuid())+": "+pmi.getMessage(), TrayIcon.INFO_MESSAGE_TYPE);
+                    } else {
+                        if (core.getSettings().getInternal().getShowprivatechatmessagesintray() != 0)
+                            ti.displayMessage("Chat message", core.getFriendManager().nickname(pmi.getFromGuid())+": "+pmi.getMessage(), TrayIcon.INFO_MESSAGE_TYPE);
+                    }
                 } else {
-                    ti.displayMessage("Alliance needs your attention.", "Click here to find out why.", TrayIcon.INFO_MESSAGE_TYPE);
+                    if (core.getSettings().getInternal().getShowsystemmessagesintray() != 0)
+                        ti.displayMessage("Alliance needs your attention.", "Click here to find out why.", TrayIcon.INFO_MESSAGE_TYPE);
                 }
                 balloonClickHandler = new Runnable() {
                     public void run() {
@@ -222,7 +230,7 @@ public class TrayIconSubsystem implements Subsystem, Runnable {
                 }
             }
         });
-        
+
         // Update tooltip periodically with current transfer rates
         Thread t = new Thread(new Runnable() {
             public void run() {

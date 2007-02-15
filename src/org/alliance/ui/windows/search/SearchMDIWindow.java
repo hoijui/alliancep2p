@@ -1,6 +1,7 @@
 package org.alliance.ui.windows.search;
 
 import com.stendahls.nif.ui.mdi.MDIWindow;
+import com.stendahls.ui.JHtmlLabel;
 import com.stendahls.util.TextUtils;
 import org.alliance.core.comm.SearchHit;
 import org.alliance.core.file.filedatabase.FileType;
@@ -9,6 +10,8 @@ import org.alliance.ui.windows.AllianceMDIWindow;
 import org.jdesktop.swingx.JXTreeTable;
 
 import javax.swing.*;
+import javax.swing.event.HyperlinkEvent;
+import javax.swing.event.HyperlinkListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
@@ -38,7 +41,6 @@ public class SearchMDIWindow extends AllianceMDIWindow {
     private JXTreeTable table;
     private SearchTreeTableModel model;
     private JComboBox type;
-    private JRadioButton newfiles, keywords;
     private JPopupMenu popup;
     private JLabel left, right;
 
@@ -55,6 +57,26 @@ public class SearchMDIWindow extends AllianceMDIWindow {
         left = (JLabel)xui.getComponent("left");
         right = (JLabel)xui.getComponent("right");
         search = (JTextField)xui.getComponent("search1");
+
+        JHtmlLabel label = (JHtmlLabel)xui.getComponent("label");
+        label.addHyperlinkListener(new HyperlinkListener() {
+            public void hyperlinkUpdate(HyperlinkEvent e) {
+                String s = e.getURL().toString();
+                s = s.substring(s.length()-1);
+                FileType ft = FileType.getFileTypeById(Integer.parseInt(s));
+
+                if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
+                    try {
+                        ui.getMainWindow().getMDIManager().selectWindow(ui.getMainWindow().getSearchWindow());
+                        ui.getMainWindow().getSearchWindow().searchForNewFilesOfType(ft);
+                    } catch (IOException e1) {
+                        ui.handleErrorInEventLoop(e1);
+                    }
+                } else if (e.getEventType() == HyperlinkEvent.EventType.ENTERED) {
+                    ui.getMainWindow().setStatusMessage("Click here to search for new files in type "+ft.description());
+                }
+            }
+        });
 
         table = new JXTreeTable(model = new SearchTreeTableModel(ui.getCore()));
         table.setColumnControlVisible(true);
@@ -153,10 +175,6 @@ public class SearchMDIWindow extends AllianceMDIWindow {
         type = (JComboBox)xui.getComponent("type");
         popup = (JPopupMenu)xui.getComponent("popup");
 
-        newfiles = (JRadioButton)xui.getComponent("newfiles");
-        keywords = (JRadioButton)xui.getComponent("keywords");
-        keywords.setSelected(true);
-
         for(FileType v : FileType.values()) type.addItem(v.description());
 
         setTitle("File search");
@@ -234,7 +252,7 @@ public class SearchMDIWindow extends AllianceMDIWindow {
 
     private void search(String text) throws IOException {
         search(text, FileType.values()[type.getSelectedIndex()]);
-        if (keywords.isSelected()) search.setText("");
+//        if (keywords.isSelected()) search.setText("");
     }
 
     public void searchForNewFilesOfType(FileType ft) throws IOException {
@@ -242,9 +260,9 @@ public class SearchMDIWindow extends AllianceMDIWindow {
     }
 
     public void search(String text, final FileType ft) throws IOException {
-        if (newfiles.isSelected()) {
-            text = "";
-        }
+//        if (newfiles.isSelected()) {
+//            text = "";
+//        }
         final String t = text;
 
         String s;
