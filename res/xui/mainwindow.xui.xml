@@ -33,7 +33,7 @@
 
                     <genericcomponent class="org.alliance.ui.JSpeedDiagram" id="speeddiagram"/>
 
-                    <panel axis="y" opaque="no" detached="yes">
+                    <panel axis="y" opaque="no">
                         <filler axis="y"/>
                         <strut height="2"/>
                         <panel axis="x">
@@ -44,7 +44,7 @@
                         <filler axis="y"/>
                     </panel>
                     <strut width="1"/>
-                    <panel axis="y" opaque="no" detached="yes">
+                    <panel axis="y" opaque="no">
                         <filler axis="y"/>
                         <strut height="2"/>
                         <panel axis="x">
