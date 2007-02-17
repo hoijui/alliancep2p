@@ -12,6 +12,7 @@ import org.alliance.Subsystem;
 import org.alliance.core.comm.NetworkManager;
 import org.alliance.core.comm.rpc.GetUserInfo;
 import org.alliance.core.comm.rpc.GetUserInfoV2;
+import org.alliance.core.comm.rpc.AwayStatus;
 import org.alliance.core.comm.upnp.UPnPManager;
 import org.alliance.core.crypto.CryptoManager;
 import org.alliance.core.file.FileManager;
@@ -35,6 +36,7 @@ import java.nio.channels.UnresolvedAddressException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.awt.*;
 
 /**
  * This is the core of the entire Alliance system. Theres not too much code here, it's more of a hub for the entire
@@ -71,6 +73,8 @@ public class CoreSubsystem implements Subsystem {
     private InvitaitonManager invitaitonManager;
     private UPnPManager upnpManager;
     private CryptoManager cryptoManager;
+    private AwayManager awayManager;
+
     private PublicChatHistory publicChatHistory;
 
     private UICallback uiCallback = new NonWindowUICallback();
@@ -117,6 +121,8 @@ public class CoreSubsystem implements Subsystem {
         networkManager = new NetworkManager(this, settings);
         invitaitonManager = new InvitaitonManager(this, settings);
         upnpManager = new UPnPManager(this);
+        awayManager = new AwayManager(this);
+
         publicChatHistory = new PublicChatHistory();
 
         loadState();
@@ -127,6 +133,7 @@ public class CoreSubsystem implements Subsystem {
         progress.updateProgress("Loading core");
         friendManager.init();
         networkManager.init();
+        awayManager.init();
 
         if (!isRunningAsTestSuite()) {
             Thread t = new Thread(new Runnable() {
@@ -280,6 +287,9 @@ public class CoreSubsystem implements Subsystem {
         }
         try { upnpManager.shutdown(); } catch(Exception e) {
             if(T.t)T.error("Problem when shutting down upnpmanager: "+e);
+        }
+        try { awayManager.shutdown(); } catch(Exception e) {
+            if(T.t)T.error("Problem when shutting down awaymanager: "+e);
         }
         try { saveSettings(); } catch(Exception e) {
             if(T.t)T.error("Problem when saving settings: "+e);
@@ -512,5 +522,9 @@ public class CoreSubsystem implements Subsystem {
      */
     public void incInvitationPoints() {
         getSettings().getMy().setInvitations(getSettings().getMy().getInvitations()+1);
+    }
+
+    public void informFriendsOfAwayStatus(boolean away) throws IOException {
+        getNetworkManager().sendToAllFriends(new AwayStatus(away));    
     }
 }

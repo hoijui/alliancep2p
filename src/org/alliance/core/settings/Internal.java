@@ -39,6 +39,8 @@ public class Internal extends SettingClass {
     private Integer numberofblockstopipeline=2;
     private Integer usedirectbuffers=1; // Should direct nio buffers be used? 0=no 1=yes
 
+    private Integer secondstoaway=60*10;
+
     private String chipersuite=""; //user defined chipher suite, none by default
 
     private Integer encryption=0; // 0: TranslationCryptoLayer 1: SSLCryptoLayer
@@ -413,5 +415,13 @@ public class Internal extends SettingClass {
 
     public void setShowsystemmessagesintray(Integer showsystemmessagesintray) {
         this.showsystemmessagesintray = showsystemmessagesintray;
+    }
+
+    public Integer getSecondstoaway() {
+        return secondstoaway;
+    }
+
+    public void setSecondstoaway(Integer secondstoaway) {
+        this.secondstoaway = secondstoaway;
     }
 }

@@ -27,7 +27,7 @@ public class FriendListMDIWindow extends AllianceMDIWindow {
     private UISubsystem ui;
     private JList list;
 
-    private ImageIcon iconFriend, iconFriendCool, iconFriendLame, iconFriendDimmed, iconFriendOld;
+    private ImageIcon iconFriend, iconFriendCool, iconFriendLame, iconFriendAway, iconFriendCoolAway, iconFriendLameAway, iconFriendDimmed, iconFriendOld;
 
     private JLabel statusleft, statusright;
 
@@ -44,6 +44,9 @@ public class FriendListMDIWindow extends AllianceMDIWindow {
         iconFriend = new ImageIcon(ui.getRl().getResource("gfx/icons/friend.png"));
         iconFriendCool = new ImageIcon(ui.getRl().getResource("gfx/icons/friend_cool.png"));
         iconFriendLame = new ImageIcon(ui.getRl().getResource("gfx/icons/friend_lame.png"));
+        iconFriendAway = new ImageIcon(ui.getRl().getResource("gfx/icons/friend_away.png"));
+        iconFriendCoolAway = new ImageIcon(ui.getRl().getResource("gfx/icons/friend_cool_away.png"));
+        iconFriendLameAway = new ImageIcon(ui.getRl().getResource("gfx/icons/friend_lame_away.png"));
         iconFriendDimmed = new ImageIcon(ui.getRl().getResource("gfx/icons/friend_dimmed.png"));
         iconFriendOld = new ImageIcon(ui.getRl().getResource("gfx/icons/friend_old.png"));
 
@@ -90,10 +93,9 @@ public class FriendListMDIWindow extends AllianceMDIWindow {
         ((JLabel)xui.getComponent("myicon")).setIcon(new ImageIcon(ui.getRl().getResource(getLevelIcon(getMyLevel(), true))));
         String s = "";
         switch(getMyNumberOfInvites()) {
-            case 0: s = "Invite 2 friends to become "; break;
-            case 1: s = "Invite 1 friend to become "; break;
-            case 2: s = "Invite 2 friends to become "; break;
-            case 3: s = "Invite 1 friend to become "; break;
+            case 0: s = "Invite 1 friends to become "; break;
+            case 1: s = "Invite 2 friend to become "; break;
+            case 2: s = "Invite 1 friends to become "; break;
         }
         if (getMyLevel() < LEVEL_NAMES.length-1) {
             s += "'"+getLevelName(getMyLevel()+1)+"' (";
@@ -121,7 +123,13 @@ public class FriendListMDIWindow extends AllianceMDIWindow {
     }
 
     private int getMyLevel() {
-        return getMyNumberOfInvites()/2;
+        switch(getMyNumberOfInvites()) {
+            case 0 : return 0;
+            case 1 : return 1;
+            case 2 : return 1;
+            case 3 : return 2;
+            default: return 2;
+        }
     }
 
     private int getMyNumberOfInvites() {
@@ -161,12 +169,21 @@ public class FriendListMDIWindow extends AllianceMDIWindow {
             Friend f = (Friend) value;
             if (f.isConnected()) {
 
-                if (f.getNumberOfInvitedFriends() <= 1) {
-                    setIcon(iconFriendLame);
-                } else if (f.getNumberOfInvitedFriends() >= 4) {
-                    setIcon(iconFriendCool);
+                if (f.getNumberOfInvitedFriends() <= 0) {
+                    if (f.isAway())
+                        setIcon(iconFriendLameAway);
+                    else
+                        setIcon(iconFriendLame);
+                } else if (f.getNumberOfInvitedFriends() >= 3) {
+                    if (f.isAway())
+                        setIcon(iconFriendCoolAway);
+                    else
+                        setIcon(iconFriendCool);
                 } else {
-                    setIcon(iconFriend);
+                    if (f.isAway())
+                        setIcon(iconFriendAway);
+                    else
+                        setIcon(iconFriend);
                 }
                 if (isSelected)
                     setForeground(Color.white);

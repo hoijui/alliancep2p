@@ -31,6 +31,8 @@ public class Friend extends Node {
     private long totalBytesSent, totalBytesReceived;
     private double highestIncomingCPS, highestOutgoingCPS;
     private int numberOfFilesShared, numberOfInvitedFriends;
+
+    private boolean isAway;
     
     public Friend(FriendManager manager, org.alliance.core.settings.Friend f) {
         nickname = f.getNickname();
@@ -224,5 +226,13 @@ public class Friend extends Node {
 
     public void setNumberOfInvitedFriends(int numberOfInvitedFriends) {
         this.numberOfInvitedFriends = numberOfInvitedFriends;
+    }
+
+    public boolean isAway() {
+        return isAway;
+    }
+
+    public void setAway(boolean away) {
+        isAway = away;
     }
 }
