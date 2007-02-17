@@ -7,7 +7,6 @@ sen:
     * får inte visa hundra "you have successfully connected to" - tänk på noobs - fast det är lite krångligt att fixa
     * limit på antal uploads
     * stöd för dyndns namn i my ip
-    * away
     * när man laddar ner igenom share borde den ta sökvägen från där man klickade
     * usability testa! roligt. testa allt från installation till .. allt annat
     * det buggar väl inte längre? : glöm inte att ta bort GetUserList flood grejjerna.. - det buggar fortfarande - dom kan ställa till med problem i framtiden - och det är en UI referens i CORE
