@@ -10,9 +10,9 @@ import com.stendahls.trace.TraceHandler;
 import com.stendahls.ui.ErrorDialog;
 import org.alliance.Subsystem;
 import org.alliance.core.comm.NetworkManager;
+import org.alliance.core.comm.rpc.AwayStatus;
 import org.alliance.core.comm.rpc.GetUserInfo;
 import org.alliance.core.comm.rpc.GetUserInfoV2;
-import org.alliance.core.comm.rpc.AwayStatus;
 import org.alliance.core.comm.upnp.UPnPManager;
 import org.alliance.core.crypto.CryptoManager;
 import org.alliance.core.file.FileManager;
@@ -36,7 +36,6 @@ import java.nio.channels.UnresolvedAddressException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.awt.*;
 
 /**
  * This is the core of the entire Alliance system. Theres not too much code here, it's more of a hub for the entire
