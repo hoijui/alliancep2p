@@ -526,4 +526,8 @@ public class CoreSubsystem implements Subsystem {
     public void informFriendsOfAwayStatus(boolean away) throws IOException {
         getNetworkManager().sendToAllFriends(new AwayStatus(away));    
     }
+
+    public AwayManager getAwayManager() {
+        return awayManager;
+    }
 }

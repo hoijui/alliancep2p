@@ -5,19 +5,21 @@ import com.stendahls.nif.ui.mdi.MDIWindow;
 import com.stendahls.util.TextUtils;
 import org.alliance.core.comm.filetransfers.Download;
 import org.alliance.core.comm.filetransfers.DownloadConnection;
+import org.alliance.core.comm.filetransfers.UploadConnection;
+import org.alliance.core.comm.Connection;
 import org.alliance.ui.T;
 import org.alliance.ui.UISubsystem;
+import org.alliance.ui.JDownloadGrid;
 import org.jdesktop.swingx.JXTable;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -33,8 +35,9 @@ import java.util.Iterator;
  */
 public class DownloadsMDIWindow extends AllianceMDIWindow {
     private DownloadsTableModel model;
+    private JDownloadGrid downloadGrid;
     private JXTable table;
-    private JLabel status;
+    private JLabel status, downloadingFromText, uploadingToText;
 
     private ArrayList<DownloadWrapper> rows = new ArrayList<DownloadWrapper>();
     private boolean inTable;
@@ -50,41 +53,8 @@ public class DownloadsMDIWindow extends AllianceMDIWindow {
         table.getColumnModel().getColumn(1).setPreferredWidth(80);
 
         status = (JLabel)xui.getComponent("status");
-
-        table.addMouseMotionListener(new MouseMotionListener() {
-            public void mouseDragged(MouseEvent e) {
-            }
-
-            public void mouseMoved(final MouseEvent e) {
-                if (table.getSelectedRow() != -1) {
-                    ui.getCore().invokeLater(new Runnable() {
-                        public void run() {
-                            if (table.rowAtPoint(e.getPoint()) == -1) return;
-                            final String s = getDownloadingFromText(rows.get(table.rowAtPoint(e.getPoint())));
-                            SwingUtilities.invokeLater(new Runnable() {
-                                public void run() {
-                                    status.setText(s);
-                                }
-                            });
-                        }
-                    });
-                } else {
-                    showTotalBytesReceived();
-                }
-            }
-        });
-        table.addMouseListener(new MouseAdapter() {
-
-            public void mouseEntered(MouseEvent e) {
-                inTable=true;
-            }
-
-            public void mouseExited(MouseEvent e) {
-                inTable=false;
-                showTotalBytesReceived();
-            }
-        });
-
+        downloadingFromText = (JLabel) xui.getComponent("downloadingfromtext");
+        uploadingToText = (JLabel) xui.getComponent("uploadingtotext");
 
         setFixedColumnSize(table.getColumnModel().getColumn(2), 60);
         setFixedColumnSize(table.getColumnModel().getColumn(3), 60);
@@ -92,6 +62,26 @@ public class DownloadsMDIWindow extends AllianceMDIWindow {
         setFixedColumnSize(table.getColumnModel().getColumn(5), 10);
 
         table.setColumnControlVisible(true);
+
+        downloadGrid = (JDownloadGrid)xui.getComponent("downloadgrid");
+        table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent e) {
+                if (e.getFirstIndex() < 0 || e.getFirstIndex() >= rows.size()) {
+                    downloadGrid.setDownload(null);
+                    updateDownloadingFromAndUploadingToText();
+                    return;
+                }
+                DownloadWrapper dw = rows.get(e.getFirstIndex());
+                if (dw != null && dw.download != null) {
+                    downloadGrid.setDownload(dw.download);
+                } else {
+                    downloadGrid.setDownload(null);
+                }
+                updateDownloadingFromAndUploadingToText();
+            }
+        });
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        table.setColumnSelectionAllowed(false);
 
         ((JScrollPane)xui.getComponent("scroll")).setViewportView(table);
 
@@ -111,7 +101,7 @@ public class DownloadsMDIWindow extends AllianceMDIWindow {
         for(DownloadConnection c : w.download.connections()) {
             if (text == null) text = "Downloading from ";
             if (c.getRemoteFriend() != null)
-                text += c.getRemoteFriend().nickname()+", ";
+                text += c.getRemoteFriend().nickname()+" ("+c.getBandwidthIn().getCPSHumanReadable()+"), ";
             else
                 text += "<unknown>, ";
         }
@@ -123,6 +113,31 @@ public class DownloadsMDIWindow extends AllianceMDIWindow {
         }
         return s;
     }
+
+    private String getUploadingToText(DownloadWrapper w) {
+        String text = null;
+        final String s;
+        for(Connection c : ui.getCore().getNetworkManager().connections()) {
+            if (c instanceof UploadConnection) {
+                UploadConnection uc = (UploadConnection)c;
+                if (uc.getRoot() != null && uc.getRoot().equals(w.download.getRoot())) {
+                    if (text == null) text = "Uploading to ";
+                    if (uc.getRemoteFriend() != null)
+                        text += uc.getRemoteFriend().nickname()+" ("+c.getBandwidthOut().getCPSHumanReadable()+"), ";
+                    else
+                        text += "<unknown>, ";
+                }
+            }
+        }
+        if (text != null) {
+            text = text.substring(0,text.length()-2);
+            s = text;
+        } else {
+            s = " ";
+        }
+        return s;
+    }
+
     private void setFixedColumnSize(TableColumn column, int i) {
         column.setPreferredWidth(i);
         column.setMaxWidth(i);
@@ -153,10 +168,22 @@ public class DownloadsMDIWindow extends AllianceMDIWindow {
 
         if (structureChanged) {
             model.fireTableStructureChanged();
-        } else
+        } else {
             model.fireTableRowsUpdated(0, rows.size());
+        }
 
-        if (!inTable) showTotalBytesReceived();
+        showTotalBytesReceived();
+
+        updateDownloadingFromAndUploadingToText();
+
+        downloadGrid.repaint();
+    }
+
+    private void updateDownloadingFromAndUploadingToText() {
+        if (table.getSelectedRow() != -1) {
+            downloadingFromText.setText(getDownloadingFromText(rows.get(table.getSelectedRow())));
+            uploadingToText.setText(getUploadingToText(rows.get(table.getSelectedRow())));
+        }
     }
 
     private DownloadWrapper getWrapperFor(Download d) {

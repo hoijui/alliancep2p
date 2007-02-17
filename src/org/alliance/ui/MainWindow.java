@@ -486,7 +486,7 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
                     ui.handleErrorInEventLoop(e);
                 }
             } else if (nui instanceof NeedsToRestartBecauseOfUpgradeInteraction) {
-                if (OptionDialog.showQuestionDialog(this, "A new version of Alliance has been downloaded and installed in the background (the upgrade was verified using a 2048 bit RSA certificate).[p] You need to restart Alliance to use the new version. Note that it will take about two minutes before Alliance starts again. Would you like to do this now?[p]")) {
+                if (ui.getCore().getAwayManager().isAway() || OptionDialog.showQuestionDialog(this, "A new version of Alliance has been downloaded and installed in the background (the upgrade was verified using a 2048 bit RSA certificate).[p] You need to restart Alliance to use the new version. Note that it will take about two minutes before Alliance starts again. Would you like to do this now?[p]")) {
                     try {
                         ui.getCore().restartProgram(true);
                     } catch (IOException e) {

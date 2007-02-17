@@ -64,4 +64,8 @@ public class AwayManager extends Manager implements Runnable {
     public void shutdown() {
         thread.interrupt();
     }
+
+    public boolean isAway() {
+        return away;
+    }
 }

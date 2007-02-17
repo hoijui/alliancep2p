@@ -18,6 +18,7 @@ public class GetUserInfoV2 extends RPC {
 
     public void execute(Packet data) throws IOException {
         send(new UserInfoV2());
+        send(new AwayStatus(core.getAwayManager().isAway()));
     }
 
     public Packet serializeTo(Packet p) {

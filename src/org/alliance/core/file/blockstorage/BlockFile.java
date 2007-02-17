@@ -12,6 +12,7 @@ import org.alliance.core.file.hash.Tiger;
 import java.io.*;
 import java.nio.ByteBuffer;
 import java.util.BitSet;
+import java.util.HashMap;
 
 /**
  *
@@ -34,6 +35,8 @@ public final class BlockFile {
     private BlockStorage parent;
 
     private CoreSubsystem core;
+
+    private HashMap<Integer, Integer> bytesCompleteForBlock = new HashMap<Integer, Integer>();
 
     public BlockFile(FileDescriptor fd, BlockStorage parent) {
         this.fd = fd;
@@ -61,6 +64,7 @@ public final class BlockFile {
     }
 
     public void blockCompleted(int blockNumber) {
+        bytesCompleteForBlock.remove(blockNumber);
         blockMask.set(blockNumber);
     }
 
@@ -209,6 +213,9 @@ public final class BlockFile {
         slice.get(buf);
         if(T.t)T.ass(sliceOffset+buf.length <= getBlockSize(blockNumber), "Writing outside of block!!! "+(sliceOffset+buf.length)+" - "+getBlockSize(blockNumber));
         raf.write(buf);
+
+        bytesCompleteForBlock.put(blockNumber, sliceOffset+buf.length);
+
         return buf.length;
     }
 
@@ -336,5 +343,12 @@ public final class BlockFile {
         int max = 0;
         for(int off : blockOffsets) if (off > max) max = off;
         return max;
+    }
+
+    public int getBytesCompleteForBlock(int blockNumber) {
+        if (isBlockComplete(blockNumber)) return BLOCK_SIZE;
+        Integer integer = bytesCompleteForBlock.get(blockNumber);
+        if (integer == null) return 0;
+        return integer;
     }
 }
