@@ -7,7 +7,7 @@
         </panel>
         <scrollpanel expand="both" scrollbars="optional" id="scroll" bordertype="lowered">
         </scrollpanel>
-        <panel axis="y">
+        <panel axis="y" border="5">
             <genericcomponent class="org.alliance.ui.JDownloadGrid" id="downloadgrid"/>
             <panel axis="x" border="0" expand="horiz">
                 <label text=" " id="downloadingfromtext"/><filler/><label text=" " id="uploadingtotext"/>

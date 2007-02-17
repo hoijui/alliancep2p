@@ -46,11 +46,15 @@ public class JDownloadGrid extends JComponent {
         for(int y=0;y<gridHeight;y++) {
             for(int x=0;x<gridWidth;x++) {
                 double d = getPercentCompleteForRange(fileOffset, fileOffset+bytesPerBlock);
-                g.setColor(new Color((float)d,(float)d,(float)d));
+                g.setColor(new Color(interpolate(0x5a, 0x98, d), interpolate(0x8a, 0xbd, d), interpolate(0xbd, 0xe6, d)));
                 g.fillRect(x*BLOCK_WIDTH, y*BLOCK_HEIGHT, BLOCK_WIDTH-1, BLOCK_HEIGHT-1);
                 fileOffset += bytesPerBlock;
             }
         }
+    }
+
+    private int interpolate(int a, int b, double v) {
+        return (int) (a + (b-a)*v);
     }
 
     private double getPercentCompleteForRange(long from, long to) {
