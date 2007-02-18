@@ -73,7 +73,7 @@ public class JSpeedDiagram extends JComponent {
     private int counter=0;
     public synchronized void update(CoreSubsystem core) {
         counter++;
-//        if (counter % 10 == 0) {
+        if (counter % 10 == 0) {
             for(int i=1;i<diagramr.length;i++)
                 diagramr[i-1] = diagramr[i];
             diagramr[diagramr.length-1] = core.getNetworkManager().getBandwidthIn().getCPS()/1024;
@@ -82,6 +82,6 @@ public class JSpeedDiagram extends JComponent {
                 diagramw[i-1] = diagramw[i];
             diagramw[diagramw.length-1] = core.getNetworkManager().getBandwidthOut().getCPS()/1024;
             repaint();
-//        }
+        }
     }
 }
