@@ -39,8 +39,6 @@ public class Internal extends SettingClass {
     private Integer numberofblockstopipeline=2;
     private Integer usedirectbuffers=1; // Should direct nio buffers be used? 0=no 1=yes
 
-    private Integer downloadspeedconcideredasfast = 150000;
-
     private Integer secondstoaway=60*5;
 
     private String chipersuite=""; //user defined chipher suite, none by default
@@ -425,13 +423,5 @@ public class Internal extends SettingClass {
 
     public void setSecondstoaway(Integer secondstoaway) {
         this.secondstoaway = secondstoaway;
-    }
-
-    public Integer getDownloadspeedconcideredasfast() {
-        return downloadspeedconcideredasfast;
-    }
-
-    public void setDownloadspeedconcideredasfast(Integer downloadspeedconcideredasfast) {
-        this.downloadspeedconcideredasfast = downloadspeedconcideredasfast;
     }
 }

@@ -116,14 +116,9 @@ public class SearchMDIWindow extends AllianceMDIWindow {
                     if (n != null) {
                         if (n instanceof FileNode) {
                             FileNode fn = (FileNode)n;
-                            String color;
                             double d = fn.getTotalMaxCPS(ui.getCore());
-                            if (d < ui.getCore().getSettings().getInternal().getDownloadspeedconcideredasfast())
-                                color = "#ee0000";
-                            else
-                                color = "#00aa00";
-                            left.setText("<html>"+fn.getListOfUsers(ui.getCore())+" (Speed: <font color=\""+color+"\"><b>"+TextUtils.formatByteSize((long)d)+"/s</b></font>)</html>");
-                            right.setText(simplifyPath(fn));
+                            left.setText("<html>"+fn.getListOfUsers(ui.getCore())+" (Max speed: <b>"+TextUtils.formatByteSize((long)d)+"/s</b></font>)</html>");
+                            right.setText("<html><b>"+simplifyPath(fn)+"</b></html>");
                         }
                     }
                 }
@@ -193,6 +188,7 @@ public class SearchMDIWindow extends AllianceMDIWindow {
         if (fn.getParent() != null && fn.getParent() instanceof FolderNode) s = ((FolderNode)fn.getParent()).getOriginalName()+"/"+s;
         if (path.endsWith(s)) path = path.substring(0,path.length()-s.length());
         if (path.endsWith("/")) path = path.substring(0,path.length()-1);
+        if (path.equalsIgnoreCase(fn.getName())) path = "";
         return path;
     }
 
