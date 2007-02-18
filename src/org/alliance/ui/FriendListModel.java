@@ -40,7 +40,10 @@ public class FriendListModel extends DefaultListModel {
             ts.add(f);
         }
         for(Friend f : ts) {
-            if (f.isConnected()) addElement(f);
+            if (f.isConnected() && f.getNumberOfInvitedFriends() > 0) addElement(f);
+        }
+        for(Friend f : ts) {
+            if (f.isConnected() && f.getNumberOfInvitedFriends() == 0) addElement(f);
         }
         for(Friend f : ts) if (!f.isConnected() && !f.hasNotBeenOnlineForLongTime()) addElement(f);
         for(Friend f : ts) if (!f.isConnected() && f.hasNotBeenOnlineForLongTime()) addElement(f);
