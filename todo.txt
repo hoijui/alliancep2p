@@ -1,8 +1,10 @@
 todo:
     * cut/copy/paste popup
+    * download speed i search hits. byt plats på sources och hela filnamnet och lägg till max speed. ta bort allt från filnamnet som redan finns i vyn
+    * snygga till download och diagramkomponenterna?
+    * logga fel när away inte fungerar - verakr inte funka för kungfoo
         
 sen:
-    * ingen fattar hur man ser vem man laddar ner från - gör det bättre både i search och download - nytt dl ui
     * när man tankar från fem personer och dl är klar så fortsätter den med de sista paketen - länge. Liknande problem som i startster och flera nedladdningar
     * timestamp på chatmeddelanden - så att dom kommer i rätt ordning
     * får inte visa hundra "you have successfully connected to" - tänk på noobs - fast det är lite krångligt att fixa
