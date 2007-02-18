@@ -55,6 +55,7 @@ public class AwayManager extends Manager implements Runnable {
             core.invokeLater(new Runnable() {
                 public void run() {
                     try {
+                        if(T.t)T.info("Away status changed for me: "+away);
                         core.informFriendsOfAwayStatus(away);
                     } catch (IOException e) {
                         core.reportError(e, this);
