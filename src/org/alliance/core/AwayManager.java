@@ -1,7 +1,9 @@
 package org.alliance.core;
 
-import java.io.IOException;
+import org.alliance.launchers.OSInfo;
+
 import java.awt.*;
+import java.io.IOException;
 
 /**
  * Created by IntelliJ IDEA.
@@ -20,6 +22,7 @@ public class AwayManager extends Manager implements Runnable {
     }
 
     public void init() throws IOException, Exception {
+        if(T.t)T.info("AwayManger - <init>");
         thread = new Thread(this);
         thread.setDaemon(true);
         thread.start();
@@ -27,11 +30,14 @@ public class AwayManager extends Manager implements Runnable {
 
     public void run() {
         try {
+            if(T.t)T.info("Away manager thread starting.");
             long lastTimeMouseMoved = System.currentTimeMillis();
             while(true) {
                 Point p = MouseInfo.getPointerInfo().getLocation();
                 Thread.sleep(1000);
-                if (p.equals(MouseInfo.getPointerInfo().getLocation())) {
+                if ((p.y > 1000000 || p.x > 1000000) && OSInfo.isWindows()) {
+                    updateAway(true); //when running remote desktop on windows y coord becomes very large when remote desktop window is minimized
+                } else if (p.equals(MouseInfo.getPointerInfo().getLocation())) {
                     //mouse has not moved
                     if (System.currentTimeMillis()-lastTimeMouseMoved > core.getSettings().getInternal().getSecondstoaway()*1000) {
                         updateAway(true);

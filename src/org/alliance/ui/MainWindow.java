@@ -12,7 +12,6 @@ import com.stendahls.nif.util.SXML;
 import com.stendahls.ui.util.RecursiveBackgroundSetter;
 import com.stendahls.util.TextUtils;
 import de.javasoft.plaf.synthetica.SyntheticaRootPaneUI;
-import org.alliance.Version;
 import org.alliance.core.NeedsUserInteraction;
 import org.alliance.core.PublicChatHistory;
 import org.alliance.core.comm.BandwidthAnalyzer;
@@ -98,7 +97,7 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
 
         RecursiveBackgroundSetter.setBackground(xui.getComponent("bottompanel"), new Color(0xE3E2E6), false);
 
-        setTitle(ui.getCore().getFriendManager().getMe().getNickname()+" - Alliance v"+ Version.VERSION+" build "+Version.BUILD_NUMBER);
+        setTitle("Alliance");
 
         getRootPane().setWindowDecorationStyle(JRootPane.NONE);
         getRootPane().setWindowDecorationStyle(JRootPane.FRAME);
