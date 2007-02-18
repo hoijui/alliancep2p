@@ -118,7 +118,7 @@ public class SearchMDIWindow extends AllianceMDIWindow {
                     if (n != null) {
                         if (n instanceof FileNode) {
                             FileNode fn = (FileNode)n;
-                            double d = fn.getTotalMaxCPS(ui.getCore());
+                            double d = fn.getTotalMaxCPS(ui.getCore())*0.8; //the absolute top speed is almost never reached - reduce it ny 20%
                             left.setText("<html>"+fn.getListOfUsers(ui.getCore())+" (Max speed: <b>"+TextUtils.formatByteSize((long)d)+"/s</b></font>)</html>");
                             right.setText("<html><b>"+simplifyPath(fn)+"</b></html>");
                         }
