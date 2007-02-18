@@ -6,6 +6,7 @@ import com.stendahls.nif.ui.mdi.MDIWindow;
 import org.alliance.core.file.hash.Hash;
 import org.alliance.ui.T;
 import org.alliance.ui.UISubsystem;
+import org.alliance.ui.util.CutCopyPastePopup;
 
 import javax.swing.*;
 import javax.swing.event.HyperlinkEvent;
@@ -54,11 +55,13 @@ public abstract class AbstractChatMessageMDIWindow extends AllianceMDIWindow {
 
     protected void postInit() {
         textarea = new JEditorPane("text/html", "");
+        new CutCopyPastePopup(textarea);
 
         JScrollPane sp = (JScrollPane)xui.getComponent("scrollpanel");
         sp.setViewportView(textarea);
 
         chat = (JTextField)xui.getComponent("chat1");
+        new CutCopyPastePopup(chat);
 
         textarea.setEditable(false);
         textarea.setBackground(Color.white);

@@ -6,6 +6,7 @@ import com.stendahls.util.TextUtils;
 import org.alliance.core.comm.SearchHit;
 import org.alliance.core.file.filedatabase.FileType;
 import org.alliance.ui.UISubsystem;
+import org.alliance.ui.util.CutCopyPastePopup;
 import org.alliance.ui.windows.AllianceMDIWindow;
 import org.jdesktop.swingx.JXTreeTable;
 
@@ -57,6 +58,7 @@ public class SearchMDIWindow extends AllianceMDIWindow {
         left = (JLabel)xui.getComponent("left");
         right = (JLabel)xui.getComponent("right");
         search = (JTextField)xui.getComponent("search1");
+        new CutCopyPastePopup(search);
 
         JHtmlLabel label = (JHtmlLabel)xui.getComponent("label");
         label.addHyperlinkListener(new HyperlinkListener() {

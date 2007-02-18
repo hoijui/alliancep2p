@@ -7,8 +7,10 @@ import com.stendahls.ui.JWizard;
 import org.alliance.core.node.Invitation;
 import org.alliance.ui.T;
 import org.alliance.ui.UISubsystem;
+import org.alliance.ui.util.CutCopyPastePopup;
 
 import javax.swing.*;
+import javax.swing.text.JTextComponent;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 import java.awt.*;
@@ -68,8 +70,12 @@ public class AddFriendWizard extends JWizard {
         innerXUI.setEventHandler(this);
         next.setEnabled(false);
 
+        new CutCopyPastePopup((JTextComponent) innerXUI.getComponent("dlurl"));
+
         invitationCode = (JTextField)innerXUI.getComponent("code");
+        new CutCopyPastePopup(invitationCode);
         codeinput = (JTextField)innerXUI.getComponent("codeinput");
+        new CutCopyPastePopup(codeinput);
         listScrollPane = (JScrollPane)innerXUI.getComponent("scrollpanel");
 
         radioButtons.add((JRadioButton)innerXUI.getComponent("radio1_1"));
