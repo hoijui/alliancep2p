@@ -27,11 +27,17 @@ public class FolderNode extends SearchTreeNode {
 
     private RootNode parent;
     private String name;
+    private String originalName;
 
     public FolderNode(RootNode parent, String name) {
         this.parent = parent;
+        originalName = name;
         name = name.replace('_', ' ');
         this.name = name;
+    }
+
+    public String getOriginalName() {
+        return originalName;
     }
 
     public TreeNode getChildAt(int childIndex) {

@@ -35,7 +35,7 @@ public class AwayManager extends Manager implements Runnable {
                     //mouse has not moved
                     if (System.currentTimeMillis()-lastTimeMouseMoved > core.getSettings().getInternal().getSecondstoaway()*1000) {
                         updateAway(true);
-                    } 
+                    }
                 } else {
                     //mouse has moved
                     updateAway(false);
@@ -43,6 +43,9 @@ public class AwayManager extends Manager implements Runnable {
                 }
             }
         } catch (InterruptedException e) {
+            if(T.t)T.warn("Away loop interrupted");
+        } catch (Throwable e) {
+            if(T.t)T.error("Error in away loop: "+e);
         }
     }
 

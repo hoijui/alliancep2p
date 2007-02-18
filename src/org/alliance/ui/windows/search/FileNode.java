@@ -1,6 +1,7 @@
 package org.alliance.ui.windows.search;
 
 import org.alliance.core.CoreSubsystem;
+import org.alliance.core.node.Friend;
 import org.alliance.core.comm.SearchHit;
 import org.alliance.core.file.filedatabase.FileType;
 
@@ -25,13 +26,16 @@ public class FileNode extends SearchTreeNode implements Comparable {
     private SearchHit sh;
 
     private String extension;
+    private String originalFilename;
 
     public FileNode(SearchTreeNode parent, String filename, SearchHit h, int guid) {
         this.parent = parent;
         this.sh = h;
 
+        originalFilename = filename;
+
         filename = filename.replace('_', ' ');
-        
+
         int i = filename.lastIndexOf('.');
         if (i == -1 || FileType.getByFileName(filename) == FileType.EVERYTHING) {
             this.filename = filename;
@@ -48,6 +52,10 @@ public class FileNode extends SearchTreeNode implements Comparable {
         hits =1;
         daysAgo = h.getHashedDaysAgo();
         userGuids.add(guid);
+    }
+
+    public String getOriginalFilename() {
+        return originalFilename;
     }
 
     public TreeNode getChildAt(int childIndex) {
@@ -128,6 +136,15 @@ public class FileNode extends SearchTreeNode implements Comparable {
             cachedListOfUsers = sb.toString();
         }
         return cachedListOfUsers;
+    }
+
+    public double getTotalMaxCPS(CoreSubsystem core) {
+        double d = 0;
+        for(int i=0;i<userGuids.size();i++) {
+            Friend f = core.getFriendManager().getFriend(userGuids.get(i));
+            if (f != null) d += f.getHighestOutgoingCPS();
+        }
+        return d;
     }
 
     public ArrayList<Integer> getUserGuids() {

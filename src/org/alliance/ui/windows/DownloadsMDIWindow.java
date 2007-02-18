@@ -80,7 +80,7 @@ public class DownloadsMDIWindow extends AllianceMDIWindow {
                 updateDownloadingFromAndUploadingToText();
             }
         });
-        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+//        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.setColumnSelectionAllowed(false);
 
         ((JScrollPane)xui.getComponent("scroll")).setViewportView(table);

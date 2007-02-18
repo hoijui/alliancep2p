@@ -33,24 +33,28 @@ public class JSpeedDiagram extends JComponent {
      /*   g.setColor(new Color(82/2,199/2,156/2));
         g.fillRect(0,0,xlen,ylen);*/
 
-        g.setColor(new Color(0,0,0,50));
         for(int x = 0;x<xlen;x++) {
             int l = (int)((diagramr[x+(diagramr.length-xlen)]/scale)*ylen);
+            if (x <= 50) {
+                g.setColor(new Color(0,0,0,x));
+            }
             g.drawLine(x,ylen-l,x,ylen);
         }
 
-        g.setColor(new Color(0,0,0,50));
         for(int x = 0;x<xlen;x++) {
             int l = (int)((diagramw[x+(diagramw.length-xlen)]/scale)*ylen);
+            if (x <= 50) {
+                g.setColor(new Color(0,0,0,x));
+            }
             g.drawLine(x,ylen-l,x,ylen);
         }
 
-        ((Graphics2D)g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g.setColor(new Color(0,0,0,100));
-        g.setFont(new Font("Arial Black, Arial", 0, 10));
-        g.drawString((int)scale+"KiB/s",2,10);
-        g.drawString("0KiB/s",2,ylen-3);
-        ((Graphics2D)g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
+//        ((Graphics2D)g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+//        g.setColor(new Color(0,0,0,100));
+//        g.setFont(new Font("Arial Black, Arial", 0, 10));
+//        g.drawString((int)scale+"KiB/s",2,10);
+//        g.drawString("0KiB/s",2,ylen-3);
+//        ((Graphics2D)g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
     }
 
     private double getNewScale() {
@@ -69,7 +73,7 @@ public class JSpeedDiagram extends JComponent {
     private int counter=0;
     public synchronized void update(CoreSubsystem core) {
         counter++;
-        if (counter % 10 == 0) {
+//        if (counter % 10 == 0) {
             for(int i=1;i<diagramr.length;i++)
                 diagramr[i-1] = diagramr[i];
             diagramr[diagramr.length-1] = core.getNetworkManager().getBandwidthIn().getCPS()/1024;
@@ -78,6 +82,6 @@ public class JSpeedDiagram extends JComponent {
                 diagramw[i-1] = diagramw[i];
             diagramw[diagramw.length-1] = core.getNetworkManager().getBandwidthOut().getCPS()/1024;
             repaint();
-        }
+//        }
     }
 }

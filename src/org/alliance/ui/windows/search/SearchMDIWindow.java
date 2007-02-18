@@ -116,8 +116,8 @@ public class SearchMDIWindow extends AllianceMDIWindow {
                     if (n != null) {
                         if (n instanceof FileNode) {
                             FileNode fn = (FileNode)n;
-                            left.setText(fn.getSh().getPath()+" ("+TextUtils.formatByteSize(fn.getSize())+")");
-                            right.setText(fn.getListOfUsers(ui.getCore()));
+                            left.setText(fn.getListOfUsers(ui.getCore())+" ("+TextUtils.formatByteSize((long)fn.getTotalMaxCPS(ui.getCore()))+"/s)");
+                            right.setText(simplifyPath(fn));
                         }
                     }
                 }
@@ -179,6 +179,14 @@ public class SearchMDIWindow extends AllianceMDIWindow {
 
         setTitle("File search");
         postInit();
+    }
+
+    private String simplifyPath(FileNode fn) {
+        String path = fn.getSh().getPath();
+        String s = fn.getOriginalFilename();
+        if (fn.getParent() != null && fn.getParent() instanceof FolderNode) s = ((FolderNode)fn.getParent()).getOriginalName()+"/"+s;
+        if (path.endsWith(s)) path = path.substring(0,path.length()-s.length());
+        return path;
     }
 
     private void setFixedColumnSize(TableColumn column, int i) {
