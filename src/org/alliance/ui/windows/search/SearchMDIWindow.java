@@ -186,6 +186,7 @@ public class SearchMDIWindow extends AllianceMDIWindow {
         String s = fn.getOriginalFilename();
         if (fn.getParent() != null && fn.getParent() instanceof FolderNode) s = ((FolderNode)fn.getParent()).getOriginalName()+"/"+s;
         if (path.endsWith(s)) path = path.substring(0,path.length()-s.length());
+        if (path.endsWith("/")) path = path.substring(0,path.length()-1);
         return path;
     }
 
