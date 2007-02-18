@@ -1,5 +1,4 @@
 todo:
-    * cut/copy/paste popup
 
 sen:
     * när man tankar från fem personer och dl är klar så fortsätter den med de sista paketen - länge. Liknande problem som i startster och flera nedladdningar
