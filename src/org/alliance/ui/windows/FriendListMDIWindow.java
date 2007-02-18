@@ -4,7 +4,6 @@ import com.stendahls.nif.ui.OptionDialog;
 import com.stendahls.nif.ui.mdi.MDIManager;
 import com.stendahls.nif.ui.mdi.MDIWindow;
 import com.stendahls.util.TextUtils;
-import com.stendahls.ui.JHtmlLabel;
 import org.alliance.core.node.Friend;
 import org.alliance.ui.UISubsystem;
 
@@ -93,9 +92,9 @@ public class FriendListMDIWindow extends AllianceMDIWindow {
         ((JLabel)xui.getComponent("myicon")).setIcon(new ImageIcon(ui.getRl().getResource(getLevelIcon(getMyLevel(), true))));
         String s = "";
         switch(getMyNumberOfInvites()) {
-            case 0: s = "Invite 1 friends to become "; break;
-            case 1: s = "Invite 2 friend to become "; break;
-            case 2: s = "Invite 1 friends to become "; break;
+            case 0: s = "Invite 1 friend to become "; break;
+            case 1: s = "Invite 2 friends to become "; break;
+            case 2: s = "Invite 1 friend to become "; break;
         }
         if (getMyLevel() < LEVEL_NAMES.length-1) {
             s += "'"+getLevelName(getMyLevel()+1)+"' (";
