@@ -116,7 +116,13 @@ public class SearchMDIWindow extends AllianceMDIWindow {
                     if (n != null) {
                         if (n instanceof FileNode) {
                             FileNode fn = (FileNode)n;
-                            left.setText(fn.getListOfUsers(ui.getCore())+" ("+TextUtils.formatByteSize((long)fn.getTotalMaxCPS(ui.getCore()))+"/s)");
+                            String color;
+                            double d = fn.getTotalMaxCPS(ui.getCore());
+                            if (d < ui.getCore().getSettings().getInternal().getDownloadspeedconcideredasfast())
+                                color = "#ee0000";
+                            else
+                                color = "#00aa00";
+                            left.setText("<html>"+fn.getListOfUsers(ui.getCore())+" (Speed: <font color=\""+color+"\"><b>"+TextUtils.formatByteSize((long)d)+"/s</b></font>)</html>");
                             right.setText(simplifyPath(fn));
                         }
                     }
