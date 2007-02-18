@@ -164,7 +164,7 @@
                     [p]
                 </mlabel>
                 <panel axis="x" border="0" expand="horiz">
-                    <label text="Alliance download address"/> <textfield text="http://www.alliancep2p.com/download" id="dlurl"/>
+                    <label text="Alliance download address: "/> <textfield text="http://www.alliancep2p.com/download" id="dlurl"/>
                 </panel>
             </step>
         </wizard>
