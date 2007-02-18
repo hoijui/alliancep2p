@@ -40,6 +40,7 @@ public class JDownloadGrid extends JComponent {
         int gridWidth = getWidth()/BLOCK_WIDTH;
         int gridHeight = getHeight()/BLOCK_HEIGHT;
         int nBlocks = gridWidth*gridHeight;
+        if (nBlocks == 0) return;
         int bytesPerBlock = (int)(download.getFd() == null ? 0 : download.getFd().getSize() / nBlocks);
 
         long fileOffset = 0;
