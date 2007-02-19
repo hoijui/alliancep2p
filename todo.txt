@@ -1,5 +1,10 @@
 todo:
+I found a bug, I happen to have two folders named D:\DCDL and D:\DCDL2 that I would like to share.
+Alliance reports that I can't share 'DCDL2' since 'DCDL' is already shared.
+It seems the checking for duplicated folders is not comparing the whole string?
 
+    * markeringen försvinner när man väljen en användare - selectWindowByIdentifyer ska fixa
+ 
 sen:
     * när man tankar från fem personer och dl är klar så fortsätter den med de sista paketen - länge. Liknande problem som i startster och flera nedladdningar
     * timestamp på chatmeddelanden - så att dom kommer i rätt ordning
