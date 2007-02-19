@@ -4,7 +4,15 @@ Alliance reports that I can't share 'DCDL2' since 'DCDL' is already shared.
 It seems the checking for duplicated folders is not comparing the whole string?
 
     * markeringen försvinner när man väljen en användare - selectWindowByIdentifyer ska fixa - hm. det är nog så att när man refresjhar listan så försvinner selection
- 
+
+
+ java.lang.NullPointerException
+	at org.alliance.ui.windows.UploadsMDIWindow$UploadWrapper.update(UploadsMDIWindow.java:99)
+	at org.alliance.ui.windows.UploadsMDIWindow.update(UploadsMDIWindow.java:63)
+User Comment:
+delete user downloading off me
+
+
 sen:
     * när man tankar från fem personer och dl är klar så fortsätter den med de sista paketen - länge. Liknande problem som i startster och flera nedladdningar
     * timestamp på chatmeddelanden - så att dom kommer i rätt ordning
