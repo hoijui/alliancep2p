@@ -1,9 +1,9 @@
 package org.alliance.ui.windows.search;
 
 import org.alliance.core.CoreSubsystem;
-import org.alliance.core.node.Friend;
 import org.alliance.core.comm.SearchHit;
 import org.alliance.core.file.filedatabase.FileType;
+import org.alliance.core.node.Friend;
 
 import javax.swing.tree.TreeNode;
 import java.util.ArrayList;
@@ -52,6 +52,14 @@ public class FileNode extends SearchTreeNode implements Comparable {
         hits =1;
         daysAgo = h.getHashedDaysAgo();
         userGuids.add(guid);
+
+        addToTreeNodeCache();
+    }
+
+    private void addToTreeNodeCache() {
+        SearchTreeNode n = (SearchTreeNode)getParent();
+        if (!(n instanceof RootNode)) n = (SearchTreeNode)n.getParent();
+        ((RootNode)n).addToCache(this);
     }
 
     public String getOriginalFilename() {

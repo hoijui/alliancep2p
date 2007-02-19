@@ -4,7 +4,7 @@ Alliance reports that I can't share 'DCDL2' since 'DCDL' is already shared.
 It seems the checking for duplicated folders is not comparing the whole string?
 
     * markeringen försvinner när man väljen en användare - selectWindowByIdentifyer ska fixa - hm. det är nog så att när man refresjhar listan så försvinner selection
-
+    * det kanske är bättre att inte visa träffar man redan har ändå - så blir det inte lika mycket ointressant i sökträffarna..   det är inte så jättenoga ändå iofs - nu är det max 5 pers av 40 som har en och samma fil ändå
 
  java.lang.NullPointerException
 	at org.alliance.ui.windows.UploadsMDIWindow$UploadWrapper.update(UploadsMDIWindow.java:99)

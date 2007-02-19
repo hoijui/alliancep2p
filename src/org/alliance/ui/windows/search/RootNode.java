@@ -3,6 +3,7 @@ package org.alliance.ui.windows.search;
 import com.stendahls.nif.util.EnumerationIteratorConverter;
 import com.stendahls.util.TextUtils;
 import org.alliance.core.comm.SearchHit;
+import org.alliance.core.file.hash.Hash;
 
 import javax.swing.tree.TreeNode;
 import java.util.*;
@@ -19,6 +20,8 @@ public class RootNode extends SearchTreeNode {
 
     private SearchTreeTableModel model;
     private Comparator<SearchTreeNode> comparator, secondaryComparator;
+
+    private HashMap<Hash, FileNode> nodeCache = new HashMap<Hash, FileNode>();
 
     public void setModel(SearchTreeTableModel model) {
         this.model = model;
@@ -66,26 +69,35 @@ public class RootNode extends SearchTreeNode {
 
             if (folder.equalsIgnoreCase(filenameWithoutExtention)) folder = ""; //skip folder if is has same name as file
 
-            if (folder.length() == 0) {
-                for(SearchTreeNode n : children) {
-                    if (n instanceof FileNode) {
-                        FileNode f = (FileNode)n;
-                        if (f.getSh().getRoot().equals(h.getRoot())) {
-                            f.addHit(sourceGuid);
-                            h=null;
-                            break;
+            if (nodeCache.get(h.getRoot()) != null) {
+                FileNode n = nodeCache.get(h.getRoot());
+                if (n.getParent() instanceof FolderNode) {
+                    ((FolderNode)n.getParent()).addHit(sourceGuid,  filename, h);
+                } else {
+                    n.addHit(sourceGuid);
+                }
+            } else {
+                if (folder.length() == 0) {
+                    for(SearchTreeNode n : children) {
+                        if (n instanceof FileNode) {
+                            FileNode f = (FileNode)n;
+                            if (f.getSh().getRoot().equals(h.getRoot())) {
+                                f.addHit(sourceGuid);
+                                h=null;
+                                break;
+                            }
                         }
                     }
+                    if (h != null) children.add(new FileNode(this, filename, h, sourceGuid));
+                } else {
+                    FolderNode n = folderMapping.get(folder.toLowerCase());
+                    if (n == null) {
+                        n = new FolderNode(this, folder);
+                        children.add(n);
+                        folderMapping.put(folder.toLowerCase(),  n);
+                    }
+                    n.addHit(sourceGuid, filename, h);
                 }
-                if (h != null) children.add(new FileNode(this, filename, h, sourceGuid));
-            } else {
-                FolderNode n = folderMapping.get(folder.toLowerCase());
-                if (n == null) {
-                    n = new FolderNode(this, folder);
-                    children.add(n);
-                    folderMapping.put(folder.toLowerCase(),  n);
-                }
-                n.addHit(sourceGuid, filename, h);
             }
         }
 
@@ -168,5 +180,9 @@ public class RootNode extends SearchTreeNode {
         comparator = model.createSourcesComparator();
         secondaryComparator = null;
         resortTable();
+    }
+
+    public void addToCache(FileNode fileNode) {
+        nodeCache.put(fileNode.getSh().getRoot(), fileNode);
     }
 }
