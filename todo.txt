@@ -1,4 +1,7 @@
 todo:
+    * lägg till en själv i friendlist
+    * man kan stega sina invites igenom att invita varanndra
+    
 I found a bug, I happen to have two folders named D:\DCDL and D:\DCDL2 that I would like to share.
 Alliance reports that I can't share 'DCDL2' since 'DCDL' is already shared.
 It seems the checking for duplicated folders is not comparing the whole string?
