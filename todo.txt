@@ -12,6 +12,20 @@ It seems the checking for duplicated folders is not comparing the whole string?
 User Comment:
 delete user downloading off me
 
+java.util.ConcurrentModificationException
+	at org.alliance.core.settings.Settings.getFriend(Settings.java:59)
+	at org.alliance.core.node.FriendManager.nickname(FriendManager.java:308)
+	at org.alliance.core.node.Friend.nickname(Friend.java:179)
+	at org.alliance.ui.FriendListModel$1.compare(FriendListModel.java:33)
+	at org.alliance.ui.FriendListModel$1.compare(FriendListModel.java:31)
+	at java.util.TreeMap.compare(Unknown Source)
+	at java.util.TreeMap.put(Unknown Source)
+	at java.util.TreeSet.add(Unknown Source)
+	at org.alliance.ui.FriendListModel.updateFriendList(FriendListModel.java:40)
+	at org.alliance.ui.FriendListModel.signalFriendChanged$1edb257c(FriendListModel.java:56)
+	at org.alliance.ui.UIBridge$1.run(UIBridge.java:32)
+User Comment:
+fin ruta som kom upp nu nÃ¤r jag logga in pÃ¥ min server
 
 sen:
     * när man tankar från fem personer och dl är klar så fortsätter den med de sista paketen - länge. Liknande problem som i startster och flera nedladdningar
