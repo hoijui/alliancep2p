@@ -51,15 +51,7 @@ public class HandshakeConnection extends PacketConnection {
                     netMan.replaceConnection(key, c);
                     c.init();
 
-                    if (!core.getInvitaitonManager().getInvitation(guid).isForwardedInvitation()) {
-                        if(T.t)T.info("Succesfully connected to a new friend - this was not a forwarded invitation.");
-                        if(T.t)T.info("Award user with one invitation point");
-                        core.incInvitationPoints();
-                    }
-
                     core.getInvitaitonManager().consume(guid);
-
-                    if(T.t)T.info("Invitation that");
 
                     return;
                 } else {

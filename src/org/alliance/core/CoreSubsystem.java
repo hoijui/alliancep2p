@@ -155,6 +155,10 @@ public class CoreSubsystem implements Subsystem {
             }
         });
 
+        System.setProperty("alliance.share.nfiles", ""+fileManager.getFileDatabase().getNumberOfFiles());
+        System.setProperty("alliance.share.size", ""+fileManager.getFileDatabase().getTotalSize());
+        System.setProperty("alliance.network.nfriends", ""+friendManager.getNFriendsConnected()+"/"+friendManager.getNFriends());
+
         if(T.t)T.info("CoreSubsystem stated.");
     }
 

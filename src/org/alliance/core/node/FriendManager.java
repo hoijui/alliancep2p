@@ -79,16 +79,21 @@ public class FriendManager extends Manager {
         me = new MyNode(settings.getMy().getNickname(), settings.getMy().getGuid());
         me.setShareSize(core.getFileManager().getTotalBytesShared());
 
-        for(org.alliance.core.settings.Friend f : settings.getFriendlist()) addFriend(f, false);
+        for(org.alliance.core.settings.Friend f : settings.getFriendlist()) addFriend(f, false, false);
     }
 
-    public void addFriend(org.alliance.core.settings.Friend f, boolean foundFriendUsingInvitation) throws Exception {
+    public void addFriend(org.alliance.core.settings.Friend f, boolean foundFriendUsingInvitation, boolean invitationWasForwarded) throws Exception {
         if (f.getGuid() == me.getGuid()) {
             if(T.t)T.warn("You have yourself in your friendlist!");
         } else if (f.getNickname() == null) {
             throw new Exception("No nickname for guid: "+f.getGuid());
         } else {
             if(T.t)T.info("Found "+f.getNickname()+". GUID: "+f.getGuid()+" introducted by: "+f.getMiddlemanguid());
+            if (!invitationWasForwarded) {
+                if(T.t)T.info("Succesfully connected to a new friend - this was not a forwarded invitation.");
+                if(T.t)T.info("Award user with one invitation point");
+                core.incInvitationPoints();
+            }
             Friend friend = new Friend(this, f);
             if (friend.getGuid() == getMyGUID()) throw new Exception("You have configured a friend that has your own GUID.");
             friends.put(f.getGuid(), friend);
@@ -243,7 +248,7 @@ public class FriendManager extends Manager {
         netMan.sendPersistantly(new ForwardedInvitation(from, invitationCode), to);
     }
 
-    public int getNUsersConnected() {
+    public int getNFriendsConnected() {
         int n=0;
         for(Friend f : friends.values()) if (f.isConnected()) n++;
         return n;
@@ -294,7 +299,7 @@ public class FriendManager extends Manager {
         for(Iterator i = settings.getFriendlist().iterator();i.hasNext();) if (((org.alliance.core.settings.Friend)i.next()).getGuid() == f.getGuid()) i.remove();
     }
 
-    public int getNUsers() {
+    public int getNFriends() {
         return friends.size();
     }
 

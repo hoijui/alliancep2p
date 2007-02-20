@@ -1,6 +1,6 @@
 todo:
-    * lägg till en själv i friendlist
-    * man kan stega sina invites igenom att invita varanndra
+    * lägg till en själv i friendlist - fixat nu - men inte testat
+    * man kan stega sina invites igenom att invita varanndra - fixat nu - men inte testat
     
 I found a bug, I happen to have two folders named D:\DCDL and D:\DCDL2 that I would like to share.
 Alliance reports that I can't share 'DCDL2' since 'DCDL' is already shared.

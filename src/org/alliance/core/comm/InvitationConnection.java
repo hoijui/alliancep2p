@@ -34,7 +34,7 @@ public class InvitationConnection extends AuthenticatedConnection {
     public InvitationConnection(NetworkManager netMan, Direction direction, Object key,  int passkey, Integer middlemanGuid) {
         super(netMan, direction, key);
         this.passkey = passkey;
-        if (middlemanGuid != null) {
+        if (middlemanGuid != null && middlemanGuid != 0) {
             middleman = core.getFriendManager().getFriend(middlemanGuid);
             if (middleman == null) if(T.t)T.error("Could not find middleman: "+middlemanGuid);
         }
@@ -101,6 +101,7 @@ public class InvitationConnection extends AuthenticatedConnection {
 
             org.alliance.core.settings.Friend newFriend = new org.alliance.core.settings.Friend(name, host, guid, port, middleman == null ? null : middleman.getGuid());
             for(org.alliance.core.settings.Friend f : core.getSettings().getFriendlist()) if (f.getGuid() == guid) {
+                //friend already my friend, update ip number
                 org.alliance.core.node.Friend friend = core.getFriendManager().getFriend(f.getGuid());
                 if (friend != null && !friend.isConnected()) {
                     friend.updateLastKnownHostInfo(host, port);
@@ -110,10 +111,11 @@ public class InvitationConnection extends AuthenticatedConnection {
                 return;
             }
 
+            //new friend connected!
             core.getSettings().getFriendlist().add(newFriend);
             try {
                 core.saveSettings();
-                core.getFriendManager().addFriend(newFriend, true);
+                core.getFriendManager().addFriend(newFriend, true, middleman != null);
                 core.getFriendManager().runFriendConnectorIn((int)(Math.random()*1000+1000));
             } catch(Exception e) {
                 core.reportError(e, this);

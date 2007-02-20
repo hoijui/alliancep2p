@@ -59,7 +59,7 @@ public class FriendListMDIWindow extends AllianceMDIWindow {
     }
 
     public void update() {
-        statusright.setText("Online: " + ui.getCore().getFriendManager().getNUsersConnected() + "/" + ui.getCore().getFriendManager().getNUsers() + " (" + TextUtils.formatByteSize(ui.getCore().getFriendManager().getTotalBytesShared()) + ")");
+        statusright.setText("Online: " + ui.getCore().getFriendManager().getNFriendsConnected() + "/" + ui.getCore().getFriendManager().getNFriends() + " (" + TextUtils.formatByteSize(ui.getCore().getFriendManager().getTotalBytesShared()) + ")");
     }
 
     private void createUI() throws Exception {
