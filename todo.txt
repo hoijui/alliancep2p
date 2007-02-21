@@ -1,6 +1,13 @@
 todo:
     * lägg till en själv i friendlist - fixat nu - men inte testat
     * man kan stega sina invites igenom att invita varanndra - fixat nu - men inte testat
+    * konsollkomando för att ta bort invites
+    * skriv "look for files in:" istället för new.. det är väl ok..  och så kanske ett tips om att man kan klicka på "age"?
+    * ^ eller..  så gör man verkligen så den söker på nya filer men man har en grafisk representation av dl hastighet - rött/gult/grönt och progress bar så kan ingen missa det..
+    * ^ fast det är svårt. om nån har en 100mbit lina och delar bara ut skit kommer hans skit komma först - det är en kombination av kvalitet och dl hastigheter? eller?
+    * ta inte portar över 40000
+    
+    * sources blir 1 istället för 10.. =)
     
 I found a bug, I happen to have two folders named D:\DCDL and D:\DCDL2 that I would like to share.
 Alliance reports that I can't share 'DCDL2' since 'DCDL' is already shared.
