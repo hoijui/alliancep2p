@@ -20,6 +20,8 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -37,6 +39,7 @@ public class DownloadsMDIWindow extends AllianceMDIWindow {
     private DownloadsTableModel model;
     private JDownloadGrid downloadGrid;
     private JXTable table;
+    private JPopupMenu popup;
     private JLabel status, downloadingFromText, uploadingToText;
 
     private ArrayList<DownloadWrapper> rows = new ArrayList<DownloadWrapper>();
@@ -80,10 +83,41 @@ public class DownloadsMDIWindow extends AllianceMDIWindow {
                 updateDownloadingFromAndUploadingToText();
             }
         });
+        
+        table.addMouseListener(new MouseAdapter() {
+            public void mouseReleased(MouseEvent e) {
+                maybeShowPopup(e);
+            }
+
+            public void mousePressed(MouseEvent e) {
+                maybeShowPopup(e);
+            }
+
+            public void mouseClicked(MouseEvent e) {
+            }
+
+            private void maybeShowPopup(MouseEvent e) {
+                if (e.isPopupTrigger()) {
+                    int row = table.rowAtPoint(e.getPoint());
+                    boolean b = false;
+                    for(int r : table.getSelectedRows()) {
+                        if (r == row) {
+                            b = true;
+                            break;
+                        }
+                    }
+                    if (!b) table.getSelectionModel().setSelectionInterval(row,row);
+                    popup.show(e.getComponent(), e.getX(), e.getY());
+                }
+            }
+        });
+        
 //        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.setColumnSelectionAllowed(false);
 
         ((JScrollPane)xui.getComponent("scroll")).setViewportView(table);
+
+        popup = (JPopupMenu)xui.getComponent("popup");
 
         update();
 
