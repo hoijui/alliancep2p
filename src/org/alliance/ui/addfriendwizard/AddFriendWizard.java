@@ -158,8 +158,6 @@ public class AddFriendWizard extends JWizard {
             wizard.goToForwardInvitations();
         else if (startAtStep == STEP_ATTEMPT_CONNECT)
             wizard.goToAttemptConnect();
-        else if (startAtStep == STEP_FORWARD_INVITATIONS)
-            wizard.goToForwardInvitations();
         else if (startAtStep != STEP_INTRO)
             throw new Exception("No support for starting at step "+startAtStep);
 
