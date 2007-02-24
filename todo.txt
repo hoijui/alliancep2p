@@ -1,43 +1,18 @@
 todo:
-    * lägg till en själv i friendlist - fixat nu - men inte testat
+    * lägg till en själv i friendlist
     * man kan stega sina invites igenom att invita varanndra - fixat nu - men inte testat
     * konsollkomando för att ta bort invites
     * skriv "look for files in:" istället för new.. det är väl ok..  och så kanske ett tips om att man kan klicka på "age"?
     * ^ eller..  så gör man verkligen så den söker på nya filer men man har en grafisk representation av dl hastighet - rött/gult/grönt och progress bar så kan ingen missa det..
     * ^ fast det är svårt. om nån har en 100mbit lina och delar bara ut skit kommer hans skit komma först - det är en kombination av kvalitet och dl hastigheter? eller?
     * ta inte portar över 40000
-    
-    * sources blir 1 istället för 10.. =)
-    
-I found a bug, I happen to have two folders named D:\DCDL and D:\DCDL2 that I would like to share.
-Alliance reports that I can't share 'DCDL2' since 'DCDL' is already shared.
-It seems the checking for duplicated folders is not comparing the whole string?
-
-    * markeringen försvinner när man väljen en användare - selectWindowByIdentifyer ska fixa - hm. det är nog så att när man refresjhar listan så försvinner selection
-    * det kanske är bättre att inte visa träffar man redan har ändå - så blir det inte lika mycket ointressant i sökträffarna..   det är inte så jättenoga ändå iofs - nu är det max 5 pers av 40 som har en och samma fil ändå
-
- java.lang.NullPointerException
-	at org.alliance.ui.windows.UploadsMDIWindow$UploadWrapper.update(UploadsMDIWindow.java:99)
-	at org.alliance.ui.windows.UploadsMDIWindow.update(UploadsMDIWindow.java:63)
-User Comment:
-delete user downloading off me
-
-java.util.ConcurrentModificationException
-	at org.alliance.core.settings.Settings.getFriend(Settings.java:59)
-	at org.alliance.core.node.FriendManager.nickname(FriendManager.java:308)
-	at org.alliance.core.node.Friend.nickname(Friend.java:179)
-	at org.alliance.ui.FriendListModel$1.compare(FriendListModel.java:33)
-	at org.alliance.ui.FriendListModel$1.compare(FriendListModel.java:31)
-	at java.util.TreeMap.compare(Unknown Source)
-	at java.util.TreeMap.put(Unknown Source)
-	at java.util.TreeSet.add(Unknown Source)
-	at org.alliance.ui.FriendListModel.updateFriendList(FriendListModel.java:40)
-	at org.alliance.ui.FriendListModel.signalFriendChanged$1edb257c(FriendListModel.java:56)
-	at org.alliance.ui.UIBridge$1.run(UIBridge.java:32)
-User Comment:
-fin ruta som kom upp nu nÃ¤r jag logga in pÃ¥ min server
+    * sources blir 1.0 istället för 10.. =)
+    * markeringen försvinner när man väljen en användare - selectWindowByIdentifyer ska fixa - hm. det är nog så att när man refresjhar listan så försvinner selection - kom ihåg selection innan uppdatering
+    * det kanske är bättre att inte visa träffar man redan har ändå - så blir det inte lika mycket ointressant i sökträffarna..  dimma ens egna hade varit sweet.  det är inte så jättenoga ändå iofs - nu är det max 5 pers av 40 som har en och samma fil ändå
+    * I found a bug, I happen to have two folders named D:\DCDL and D:\DCDL2 that I would like to share. Alliance reports that I can't share 'DCDL2' since 'DCDL' is already shared. It seems the checking for duplicated folders is not comparing the whole string?
 
 sen:
+    * enligt en artikel jag läste ska det räcka med en io diskbuffer på 64kb - för det är det XP har - vista kan ha större
     * när man tankar från fem personer och dl är klar så fortsätter den med de sista paketen - länge. Liknande problem som i startster och flera nedladdningar
     * timestamp på chatmeddelanden - så att dom kommer i rätt ordning
     * får inte visa hundra "you have successfully connected to" - tänk på noobs - fast det är lite krångligt att fixa
