@@ -1,5 +1,6 @@
 todo:
     * lägg till en själv i friendlist
+    * detaljerade download komponenten ska välja något då inget är selekterat och hoppa till nästa dl om den selekterade är klar
     * man kan stega sina invites igenom att invita varanndra - fixat nu - men inte testat
     * konsollkomando för att ta bort invites
     * skriv "look for files in:" istället för new.. det är väl ok..  och så kanske ett tips om att man kan klicka på "age"?
