@@ -126,7 +126,10 @@ public class TrayIconSubsystem implements Subsystem, Runnable {
         }
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         JPopupMenu m = new JPopupMenu();
+        Font f = new Font("Tahoma", 0, 11);
+        m.setFont(f);
         JMenuItem mi = new JMenuItem("Open Alliance");
+        mi.setFont(f);
         mi.setFont(new Font(mi.getFont().getName(), mi.getFont().getStyle() | Font.BOLD, mi.getFont().getSize()));
         mi.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -135,7 +138,7 @@ public class TrayIconSubsystem implements Subsystem, Runnable {
         });
         m.add(mi);
 
-        m.addSeparator();
+//        m.addSeparator();
 
 /*
         disabled because there's a risk that port is still bound when starting up
@@ -154,8 +157,10 @@ public class TrayIconSubsystem implements Subsystem, Runnable {
         m.add(mi);*/
 
         JMenu shutdown = new JMenu("Shutdown");
+        shutdown.setFont(f);
 
         mi = new JMenuItem("Forever (not recommended)");
+        mi.setFont(f);
         mi.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 shutdown();
@@ -165,6 +170,7 @@ public class TrayIconSubsystem implements Subsystem, Runnable {
         shutdown.addSeparator();
 
         mi = new JMenuItem("for 6 hours");
+        mi.setFont(f);
         mi.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 restart(60*6);
@@ -173,6 +179,7 @@ public class TrayIconSubsystem implements Subsystem, Runnable {
         shutdown.add(mi);
 
         mi = new JMenuItem("for 3 hours");
+        mi.setFont(f);
         mi.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 restart(60*3);
@@ -181,6 +188,7 @@ public class TrayIconSubsystem implements Subsystem, Runnable {
         shutdown.add(mi);
 
         mi = new JMenuItem("for 1 hour");
+        mi.setFont(f);
         mi.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 restart(60);
@@ -189,6 +197,7 @@ public class TrayIconSubsystem implements Subsystem, Runnable {
         shutdown.add(mi);
 
         mi = new JMenuItem("for 30 minutes");
+        mi.setFont(f);
         mi.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 restart(30);

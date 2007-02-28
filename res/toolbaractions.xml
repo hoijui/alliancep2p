@@ -2,8 +2,8 @@
     <group id="friendlist">
         <action
                 id="addfriendwizard"
-                name="Add connection"
-                description="Add new connections to a people. Enter/create connection codes."
+                name="Add new friend"
+                description="Add new connections to a friend. Enter/create connection codes."
                 menuimage="gfx/icons/addconnection_small.png"
                 toolbarimage="gfx/icons/addconnection_small.png"
                 addInMenu="file"
@@ -61,8 +61,8 @@
         <action separator="yes"/>
         <action
                 id="removefriend"
-                name="Remove connection"
-                description="Permanently remove the selected connection"
+                name="Remove friend"
+                description="Permanently remove the selected friend"
                 menuimage="gfx/icons/removeconnection.png"
                 toolbarimage="gfx/icons/removeconnection.png"
                 addInMenu="file"

@@ -1,6 +1,12 @@
 <xui>
     <title value=""/>
     <body>
+        <popupmenu id="popup" detached="yes">
+            <menuitem image="gfx/icons/chatmessage.png" text="Chat" eventid="chat"/>
+            <menuitem image="gfx/icons/edit_friend.png" text="Edit nickname" eventid="editname"/>
+            <menuitem image="gfx/icons/reconnect.png" text="Reconnect" eventid="reconnect"/>
+            <menuitem image="gfx/icons/removeconnection.png" text="Remove" eventid="removefriend"/>
+        </popupmenu>
         <panel opaque="false" border="0" axis="x" expand="horiz" height="24">
             <strut width="7"/>
             <toolbar opaque="false" id="toolbar" expand="horiz"/>
@@ -12,22 +18,22 @@
 
         <panel axis="y" border="5"  expand="horiz">
             <panel axis="x" expand="horiz">
-            <panel axis="y" expand="vert" border="0">
-                <panel axis="x" border="5">
-                    <image src="gfx/icons/friend_lame_big.png" id="myicon"/>
-                    <panel axis="y" border="0">
-                        <filler/>
-                        <panel axis="x" border="10,7,0,0">
-                            <label text="Maciek" id="myname"/>
-                            <label text=" - "/>
-                            <label text="(Member)" id="mylevel"/>
+                <panel axis="y" expand="vert" border="0">
+                    <panel axis="x" border="5">
+                        <image src="gfx/icons/friend_lame_big.png" id="myicon"/>
+                        <panel axis="y" border="0">
+                            <filler/>
+                            <panel axis="x" border="10,7,0,0">
+                                <label text="Maciek" id="myname"/>
+                                <label text=" - "/>
+                                <label text="(Member)" id="mylevel"/>
+                            </panel>
+                            <filler/>
                         </panel>
-                        <filler/>
                     </panel>
                 </panel>
-            </panel>
                 <filler/>
-                </panel>
+            </panel>
             <panel axis="y" border="0">
                 <filler/>
                 <panel border="0" axis="x" expand="horiz"><strut width="5"/>

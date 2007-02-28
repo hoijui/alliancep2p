@@ -8,11 +8,12 @@ todo:
     * ^ fast det är svårt. om nån har en 100mbit lina och delar bara ut skit kommer hans skit komma först - det är en kombination av kvalitet och dl hastigheter? eller?
     * ta inte portar över 40000
     * sources blir 1.0 istället för 10.. =)
-    * markeringen försvinner när man väljen en användare - selectWindowByIdentifyer ska fixa - hm. det är nog så att när man refresjhar listan så försvinner selection - kom ihåg selection innan uppdatering
     * det kanske är bättre att inte visa träffar man redan har ändå - så blir det inte lika mycket ointressant i sökträffarna..  dimma ens egna hade varit sweet.  det är inte så jättenoga ändå iofs - nu är det max 5 pers av 40 som har en och samma fil ändå
     * I found a bug, I happen to have two folders named D:\DCDL and D:\DCDL2 that I would like to share. Alliance reports that I can't share 'DCDL2' since 'DCDL' is already shared. It seems the checking for duplicated folders is not comparing the whole string?
+    * personer som varit offline länge ska inte komma upp i freinds of friends
 
 sen:
+    * markeringen försvinner när man väljen en användare - selectWindowByIdentifyer ska fixa - hm. det är nog så att när man refresjhar listan så försvinner selection - kom ihåg selection innan uppdatering
     * enligt en artikel jag läste ska det räcka med en io diskbuffer på 64kb - för det är det XP har - vista kan ha större
     * när man tankar från fem personer och dl är klar så fortsätter den med de sista paketen - länge. Liknande problem som i startster och flera nedladdningar
     * timestamp på chatmeddelanden - så att dom kommer i rätt ordning

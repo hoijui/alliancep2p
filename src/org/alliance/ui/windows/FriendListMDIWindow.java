@@ -12,6 +12,8 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -32,6 +34,8 @@ public class FriendListMDIWindow extends AllianceMDIWindow {
 
     private String[] LEVEL_NAMES = {"Rookie", "True Member", "Experienced"};
     private String[] LEVEL_ICONS = {"friend_lame", "friend", "friend_cool"};
+
+    private JPopupMenu popup;
 
     public FriendListMDIWindow() {
     }
@@ -77,6 +81,26 @@ public class FriendListMDIWindow extends AllianceMDIWindow {
                     }
                 } catch (Exception e1) {
                     ui.handleErrorInEventLoop(e1);
+                }
+            }
+        });
+
+        popup = (JPopupMenu)xui.getComponent("popup");
+        list.addMouseListener(new MouseAdapter() {
+            public void mouseReleased(MouseEvent e) { maybeShowPopup(e); }
+            public void mousePressed(MouseEvent e) { maybeShowPopup(e); }
+            private void maybeShowPopup(MouseEvent e) {
+                if (e.isPopupTrigger()) {
+                    int row = list.locationToIndex(e.getPoint());
+                    boolean b = false;
+                    for(int r : list.getSelectedIndices()) {
+                        if (r == row) {
+                            b = true;
+                            break;
+                        }
+                    }
+                    if (!b) list.getSelectionModel().setSelectionInterval(row,row);
+                    popup.show(e.getComponent(), e.getX(), e.getY());
                 }
             }
         });
