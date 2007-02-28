@@ -133,7 +133,7 @@ public class DownloadsMDIWindow extends AllianceMDIWindow {
                 d = selectDownloadToShowOnDownloadGridIgnoringSelection();
             }
         }
-        downloadGrid.setDownload(d.download);
+        if (d != null && downloadGrid != null) downloadGrid.setDownload(d.download);
         interestingDownloadWrapper = d;
     }
 
