@@ -1,5 +1,6 @@
 todo:
     * lägg till ett meddelande när man försöker connecta till en dator i samma nätverk
+    * speed kolumn i search
     
 sen:
     * ha en grafisk representation av dl hastighet - rött/gult/grönt och progress bar så kan ingen missa det..
