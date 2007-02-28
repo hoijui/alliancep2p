@@ -25,10 +25,12 @@ Q:\rs.stendahls.net\XUI\xui.xsd">
             <panel axis="y" border="0,0,0,0" expand="horiz">
                 <strut width="7"/>
                 <panel border="0" axis="x">
+                    <panel axis="x" border="5,0,0,0">
                     <toolbar opaque="false" id="toolbar" expand="horiz"/>
+                        </panel>
                     <filler/>
                     <panel border="6" axis="x">
-                        <mlabel id="label" html="yes">Look for new files in: &#160; [a href="http://2"]Video[/a] &#160; [a href="http://1"]Audio[/a] &#160; [a href="http://4"]Archives[/a] &#160; [a href="http://3"]CD/DVD Images[/a] &#160; [a href="http://6"]Documents[/a] &#160; [a href="http://5"]Pictures[/a] &#160; [a href="http://7"]Presentations[/a]</mlabel>
+                        <mlabel id="label" html="yes">Look for files in: &#160; [a href="http://2"]Video[/a] &#160; [a href="http://1"]Audio[/a] &#160; [a href="http://4"]Archives[/a] &#160; [a href="http://3"]CD/DVD Images[/a] &#160; [a href="http://6"]Documents[/a] &#160; [a href="http://5"]Pictures[/a] &#160; [a href="http://7"]Presentations[/a][br]Tip: Click on "Days Ago" column to get new files first.</mlabel>
                     </panel>
                     <filler/>
                 </panel>

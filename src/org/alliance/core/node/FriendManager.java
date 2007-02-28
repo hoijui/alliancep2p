@@ -89,7 +89,7 @@ public class FriendManager extends Manager {
             throw new Exception("No nickname for guid: "+f.getGuid());
         } else {
             if(T.t)T.info("Found "+f.getNickname()+". GUID: "+f.getGuid()+" introducted by: "+f.getMiddlemanguid());
-            if (!invitationWasForwarded) {
+            if (!invitationWasForwarded && foundFriendUsingInvitation) {
                 if(T.t)T.info("Succesfully connected to a new friend - this was not a forwarded invitation.");
                 if(T.t)T.info("Award user with one invitation point");
                 core.incInvitationPoints();

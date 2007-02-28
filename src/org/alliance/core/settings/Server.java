@@ -30,7 +30,7 @@ public class Server extends SettingClass {
     public static int createRandomPort() {
         int p;
         do {
-            p = (int)(Math.random()*59000+1000);
+            p = (int)(Math.random()*35000+1500);
         } while(isReservedPort(p));
         return p;
     }

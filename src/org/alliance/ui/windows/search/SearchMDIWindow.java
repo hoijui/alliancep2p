@@ -49,9 +49,12 @@ public class SearchMDIWindow extends AllianceMDIWindow {
 
     private ImageIcon[] fileTypeIcons;
 
+    private UISubsystem ui;
+
     public SearchMDIWindow(final UISubsystem ui) throws Exception {
         super(ui.getMainWindow().getMDIManager(), "search", ui);
 
+        this.ui = ui;
         fileTypeIcons = new ImageIcon[8];
         for(int i=0;i<fileTypeIcons.length;i++) fileTypeIcons[i] = new ImageIcon(ui.getRl().getResource("gfx/filetypes/"+i+".png"));
 
@@ -317,7 +320,20 @@ public class SearchMDIWindow extends AllianceMDIWindow {
     public class NameCellRenderer extends DefaultTreeCellRenderer {
         public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus) {
             super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf, row, hasFocus);
-            if (value instanceof FileNode) setIcon(fileTypeIcons[FileType.getByFileName(((FileNode)value).getSh().getPath()).id()]);
+            if (value instanceof FileNode) {
+                FileNode fn = (FileNode)value;
+                setIcon(fileTypeIcons[FileType.getByFileName(fn.getSh().getPath()).id()]);
+                if (sel)
+                    setForeground(Color.white);
+                else
+                    setForeground(fn.containedInShare(SearchMDIWindow.this.ui.getCore()) ? Color.gray : Color.black);
+            } else if (value instanceof FolderNode) {
+                FolderNode fn = (FolderNode)value;
+                if (sel)
+                    setForeground(Color.white);
+                else
+                setForeground(fn.containedInShare(SearchMDIWindow.this.ui.getCore()) ? Color.gray : Color.black);
+            }
             return this;
         }
     }
@@ -360,14 +376,18 @@ public class SearchMDIWindow extends AllianceMDIWindow {
             super.getTableCellRendererComponent(table, value,  isSelected,  hasFocus,  rowIndex, vColIndex);
 
             double val = (Double)value;
-            val *= 10;
-            val = Math.round(val);
-            String s = String.valueOf(val);
-            if (s.substring(1,2).equals("0")) {
-                setText(s.substring(0,1));
+            if (val >= 10) {
+                setText(""+Math.round(val));
             } else {
-                setText(s.substring(0,1)+"."+s.substring(1,2));
+                val *= 10;
+                val = Math.round(val);
+                String s = String.valueOf(val);
+                if (s.substring(1,2).equals("0")) {
+                    setText(s.substring(0,1));
+                } else {
+                    setText(s.substring(0,1)+"."+s.substring(1,2));
 
+                }
             }
             return this;
         }

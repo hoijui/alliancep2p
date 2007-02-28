@@ -161,6 +161,8 @@ public class Console {
             threads();
         } else if ("sl".equals(command) || "searchLocal".equals(command)) {
             searchLocal(params);
+        } else if ("ci".equals(command)) {
+            clearInvitaitons(params.get(0));
         } else if ("Search".equals(command)) {
             search(params);
         } else if ("scan".equals(command)) {
@@ -174,6 +176,16 @@ public class Console {
         } else {
             printer.println("Unknown command "+command);
         }
+    }
+
+    private void clearInvitaitons(String s) throws Exception {
+        int i = Integer.parseInt(s);
+        if (i >= core.getSettings().getMy().getInvitations()) {
+            printer.println("Can't raise number of invitaitons");
+            return;
+        }
+        core.getSettings().getMy().setInvitations(i);
+        core.saveSettings();
     }
 
     private void forcesslhandshake() throws IOException {

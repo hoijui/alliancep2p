@@ -162,4 +162,8 @@ public class FileNode extends SearchTreeNode implements Comparable {
     public String getExtension() {
         return extension;
     }
+
+    public boolean containedInShare(CoreSubsystem core) {
+        return core.getFileManager().getFileDatabase().contains(getSh().getRoot());
+    }
 }

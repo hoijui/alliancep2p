@@ -1,6 +1,7 @@
 package org.alliance.ui.windows.search;
 
 import com.stendahls.nif.util.EnumerationIteratorConverter;
+import org.alliance.core.CoreSubsystem;
 import org.alliance.core.comm.SearchHit;
 import org.alliance.core.file.hash.Hash;
 
@@ -124,4 +125,11 @@ public class FolderNode extends SearchTreeNode {
 //    private boolean shouldDelegate() {
 //        return children.size() == 1;
 //    }
+
+    public boolean containedInShare(CoreSubsystem core) {
+        for(Hash h : mapping.keySet()) {
+            if (!core.getFileManager().getFileDatabase().contains(h)) return false;
+        }
+        return true;
+    }
 }
