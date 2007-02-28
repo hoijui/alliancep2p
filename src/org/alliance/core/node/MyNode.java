@@ -21,13 +21,27 @@ public class MyNode extends Node {
     private static final String WHATSMYIPURL = "http://www.alliancep2p.com/myip";
 
     private String externalIp;
+    private CoreSubsystem core;
 
-    public MyNode(String nickname, int guid) {
+    public MyNode(String nickname, int guid, CoreSubsystem core) {
         super(nickname, guid);
+        this.core = core;
     }
 
     public boolean isConnected() {
         return true;
+    }
+
+    public int getNumberOfInvitedFriends() {
+        return core.getSettings().getMy().getInvitations();
+    }
+
+    public boolean hasNotBeenOnlineForLongTime() {
+        return false;
+    }
+
+    public long getLastSeenOnlineAt() {
+        return System.currentTimeMillis();
     }
 
     public String getExternalIp(CoreSubsystem core) throws IOException {

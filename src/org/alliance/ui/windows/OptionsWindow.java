@@ -191,7 +191,7 @@ public class OptionsWindow extends XUIDialog {
                 String pathA = TextUtils.makeSurePathIsMultiplatform(new File(path).getAbsolutePath());
                 String sA = TextUtils.makeSurePathIsMultiplatform(new File(s).getAbsolutePath());
                 if (!sA.equals(pathA) &&
-                        pathA.startsWith(sA)) {
+                        pathContains(pathA,sA)) {
                     OptionDialog.showInformationDialog(ui.getMainWindow(), "The folder "+pathA+" is already shared as "+sA+". There is no need to add it in your shares.");
                     shareListModel.removeElement(path);
                     return true;
@@ -199,6 +199,17 @@ public class OptionsWindow extends XUIDialog {
             }
         }
         return false;
+    }
+
+    private boolean pathContains(String path, String file) {
+        String s1[] = TextUtils.makeSurePathIsMultiplatform(path).split("/");
+        String s2[] = TextUtils.makeSurePathIsMultiplatform(file).split("/");
+        if (s1.length < s2.length) return false;
+
+        for(int i=0;i<s2.length;i++) {
+            if (!s1[i].equals(s2[i])) return false;
+        }
+        return true;
     }
 
     private boolean nicknameIsOk() {

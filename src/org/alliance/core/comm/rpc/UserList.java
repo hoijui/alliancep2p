@@ -61,10 +61,12 @@ public class UserList extends RPC {
         Collection<Friend> c = manager.friends();
         p.writeInt(c.size());
         for(Friend f : c) {
-            p.writeInt(f.getGuid());
-            p.writeUTF(f.getNickname());
-            p.writeBoolean(f.isConnected());
-            p.writeLong(f.getShareSize());
+            if (!f.hasNotBeenOnlineForLongTime()) {
+                p.writeInt(f.getGuid());
+                p.writeUTF(f.getNickname());
+                p.writeBoolean(f.isConnected());
+                p.writeLong(f.getShareSize());
+            }
         }
         return p;
     }

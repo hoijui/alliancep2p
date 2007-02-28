@@ -33,6 +33,18 @@ public class UntrustedNode extends Node {
         return connected;
     }
 
+    public int getNumberOfInvitedFriends() {
+        return 0;
+    }
+
+    public boolean hasNotBeenOnlineForLongTime() {
+        return false;
+    }
+
+    public long getLastSeenOnlineAt() {
+        return -1; //unknown
+    }
+
     public void setConnected(boolean connected) {
         this.connected = connected;
     }

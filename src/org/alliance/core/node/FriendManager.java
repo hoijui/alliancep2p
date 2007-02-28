@@ -76,7 +76,7 @@ public class FriendManager extends Manager {
 
     private void setupFriends() throws Exception {
         if(T.t)T.info("Setting up friends...");
-        me = new MyNode(settings.getMy().getNickname(), settings.getMy().getGuid());
+        me = new MyNode(settings.getMy().getNickname(), settings.getMy().getGuid(), core);
         me.setShareSize(core.getFileManager().getTotalBytesShared());
 
         for(org.alliance.core.settings.Friend f : settings.getFriendlist()) addFriend(f, false, false);

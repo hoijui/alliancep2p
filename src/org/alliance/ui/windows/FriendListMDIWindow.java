@@ -5,6 +5,8 @@ import com.stendahls.nif.ui.mdi.MDIManager;
 import com.stendahls.nif.ui.mdi.MDIWindow;
 import com.stendahls.util.TextUtils;
 import org.alliance.core.node.Friend;
+import org.alliance.core.node.Node;
+import org.alliance.core.node.MyNode;
 import org.alliance.ui.UISubsystem;
 
 import javax.swing.*;
@@ -189,21 +191,21 @@ public class FriendListMDIWindow extends AllianceMDIWindow {
         public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
             super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 
-            Friend f = (Friend) value;
-            if (f.isConnected()) {
+            Node n = (Node)value;
+            if (n.isConnected()) {
 
-                if (f.getNumberOfInvitedFriends() <= 0) {
-                    if (f.isAway())
+                if (n.getNumberOfInvitedFriends() <= 0) {
+                    if (n.isAway())
                         setIcon(iconFriendLameAway);
                     else
                         setIcon(iconFriendLame);
-                } else if (f.getNumberOfInvitedFriends() >= 3) {
-                    if (f.isAway())
+                } else if (n.getNumberOfInvitedFriends() >= 3) {
+                    if (n.isAway())
                         setIcon(iconFriendCoolAway);
                     else
                         setIcon(iconFriendCool);
                 } else {
-                    if (f.isAway())
+                    if (n.isAway())
                         setIcon(iconFriendAway);
                     else
                         setIcon(iconFriend);
@@ -213,38 +215,45 @@ public class FriendListMDIWindow extends AllianceMDIWindow {
                 else
                     setForeground(Color.black);
 //                setText(f.getNickname()+" ("+ TextUtils.formatByteSize(f.getShareSize())+")");
-                setText("<html>" + nickname(f.getGuid()) +
-                        "<font color=aaaaaa> " +
-                        FriendListMDIWindow.this.ui.getCore().getFriendManager().contactPath(f.getGuid()) +
-                        "</font> (" +
-                        TextUtils.formatByteSize(f.getShareSize())
-                        + ")</html>");
-            } else if (f.hasNotBeenOnlineForLongTime()) {
+                String s = "<html>" + nickname(n.getGuid()) + "<font color=aaaaaa> ";
+                if (n instanceof Friend) {
+                    s += FriendListMDIWindow.this.ui.getCore().getFriendManager().contactPath(n.getGuid());
+                } else {
+                    s += "(myself)";
+                }
+                s += "</font> (" + TextUtils.formatByteSize(n.getShareSize()) + ")</html>";
+                setText(s);
+            } else if (n.hasNotBeenOnlineForLongTime()) {
                 setIcon(iconFriendOld);
                 setForeground(Color.lightGray);
-                if (f.getLastSeenOnlineAt() != 0) {
-                    setText(nickname(f.getGuid()) + " (offline for " +
-                            ((System.currentTimeMillis() - f.getLastSeenOnlineAt()) / 1000 / 60 / 60 / 24)
+                if (n.getLastSeenOnlineAt() != 0) {
+                    setText(nickname(n.getGuid()) + " (offline for " +
+                            ((System.currentTimeMillis() - n.getLastSeenOnlineAt()) / 1000 / 60 / 60 / 24)
                             + " days)");
                 } else {
-                    setText(nickname(f.getGuid()));
+                    setText(nickname(n.getGuid()));
                 }
             } else {
                 setIcon(iconFriendDimmed);
                 setForeground(Color.lightGray);
-                setText(FriendListMDIWindow.this.ui.getCore().getFriendManager().nicknameWithContactPath(f.getGuid()));
+                setText(FriendListMDIWindow.this.ui.getCore().getFriendManager().nicknameWithContactPath(n.getGuid()));
             }
 
 
 //            setToolTipText("Remote build number: "+f.getAllianceBuildNumber());
 
-            setToolTipText("<html>Build number: "+f.getAllianceBuildNumber()+"<br>" +
-                    "Share: "+TextUtils.formatByteSize(f.getShareSize())+" in "+f.getNumberOfFilesShared()+" files<br>" +
-                    "Invited friends: "+f.getNumberOfInvitedFriends()+"<br>" +
-                    "Upload speed record: "+TextUtils.formatByteSize((long)f.getHighestOutgoingCPS())+"/s<br>" +
-                    "Download speed record: "+TextUtils.formatByteSize((long)f.getHighestIncomingCPS())+"/s<br>" +
-                    "Bytes uploaded: "+TextUtils.formatByteSize(f.getTotalBytesSent())+"<br>" +
-                    "Bytes downloaded: "+TextUtils.formatByteSize(f.getTotalBytesReceived())+"</html>");
+            if (n instanceof Friend) {
+                Friend f = (Friend) n;
+                setToolTipText("<html>Build number: "+ f.getAllianceBuildNumber()+"<br>" +
+                        "Share: "+TextUtils.formatByteSize(n.getShareSize())+" in "+ f.getNumberOfFilesShared()+" files<br>" +
+                        "Invited friends: "+ n.getNumberOfInvitedFriends()+"<br>" +
+                        "Upload speed record: "+TextUtils.formatByteSize((long) f.getHighestOutgoingCPS())+"/s<br>" +
+                        "Download speed record: "+TextUtils.formatByteSize((long) f.getHighestIncomingCPS())+"/s<br>" +
+                        "Bytes uploaded: "+TextUtils.formatByteSize(f.getTotalBytesSent())+"<br>" +
+                        "Bytes downloaded: "+TextUtils.formatByteSize(f.getTotalBytesReceived())+"</html>");
+            } else {
+                setToolTipText("This is you!");
+            }
 
             return this;
         }
@@ -256,35 +265,46 @@ public class FriendListMDIWindow extends AllianceMDIWindow {
 
     public void EVENT_editname(ActionEvent e) {
         if (list.getSelectedValue() == null) return;
-        Friend f = (Friend) list.getSelectedValue();
-        if (f != null) {
-            String pi = JOptionPane.showInputDialog("Enter nickname for friend: "+nickname(f.getGuid()), nickname(f.getGuid()));
-            if (pi != null) ui.getCore().getFriendManager().setNicknameToShowInUI(f, pi);
-            ui.getFriendListModel().signalFriendChanged(f);
+        if (list.getSelectedValue() instanceof MyNode) {
+            OptionDialog.showInformationDialog(ui.getMainWindow(), "If you want to change your nickname you need to open the Options (View->Options)");
+        } else {
+            Friend f = (Friend) list.getSelectedValue();
+            if (f != null) {
+                String pi = JOptionPane.showInputDialog("Enter nickname for friend: "+nickname(f.getGuid()), nickname(f.getGuid()));
+                if (pi != null) ui.getCore().getFriendManager().setNicknameToShowInUI(f, pi);
+                ui.getFriendListModel().signalFriendChanged(f);
+            }
         }
+
     }
 
     public void EVENT_chat(ActionEvent e) throws Exception {
         if (list.getSelectedValue() == null) return;
+        if (list.getSelectedValue() instanceof MyNode) return;
         Friend f = (Friend) list.getSelectedValue();
         if (f != null) ui.getMainWindow().chatMessage(f.getGuid(), null, 0);
     }
 
     public void EVENT_reconnect(ActionEvent e) throws Exception {
         if (list.getSelectedValue() == null) return;
+        if (list.getSelectedValue() instanceof MyNode) return;
         final Friend f = (Friend)list.getSelectedValue();
         if (f.isConnected()) f.reconnect();
     }
 
     public void EVENT_viewshare(ActionEvent e) throws Exception {
         if (list.getSelectedValue() == null) return;
-        Friend f = (Friend) list.getSelectedValue();
-        if (f != null) {
-            if (!f.isConnected()) {
+        if (list.getSelectedValue() instanceof MyNode) {
+            ui.getMainWindow().EVENT_myshare(null);
+        } else {
+            Friend f = (Friend) list.getSelectedValue();
+            if (f != null) {
+                if (!f.isConnected()) {
 //                  just ignore the request
 //                OptionDialog.showErrorDialog(ui.getMainWindow(), "User must be online in order to view his share.");
-            } else {
-                ui.getMainWindow().viewShare(f);
+                } else {
+                    ui.getMainWindow().viewShare(f);
+                }
             }
         }
     }

@@ -26,6 +26,13 @@ public abstract class Node {
     }
 
     public abstract boolean isConnected();
+    public abstract int getNumberOfInvitedFriends();
+    public abstract boolean hasNotBeenOnlineForLongTime();
+    public abstract long getLastSeenOnlineAt();
+
+    public boolean isAway() {
+        return false;
+    }
 
     public String getNickname() {
         return nickname;

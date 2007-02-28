@@ -2,6 +2,8 @@ package org.alliance.ui;
 
 import org.alliance.core.CoreSubsystem;
 import org.alliance.core.node.Friend;
+import org.alliance.core.node.Node;
+import org.alliance.core.node.MyNode;
 
 import javax.swing.*;
 import java.util.Collection;
@@ -27,8 +29,8 @@ public class FriendListModel extends DefaultListModel {
         clear();
         Collection<Friend> c = core.getFriendManager().friends();
 
-        TreeSet<Friend> ts = new TreeSet<Friend>(new Comparator<Friend>() {
-            public int compare(Friend o1, Friend o2) {
+        TreeSet<Node> ts = new TreeSet<Node>(new Comparator<Node>() {
+            public int compare(Node o1, Node o2) {
                 if (o1 == null || o2 == null) return 0;
                 String s1 = o1.nickname();
                 String s2 = o2.nickname();
@@ -39,17 +41,18 @@ public class FriendListModel extends DefaultListModel {
         for(Friend f : c) {
             ts.add(f);
         }
-        for(Friend f : ts) {
+        ts.add(core.getFriendManager().getMe());
+        for(Node f : ts) {
             if (f.isConnected() && f.getNumberOfInvitedFriends() >= 3) addElement(f);
         }
-        for(Friend f : ts) {
+        for(Node f : ts) {
             if (f.isConnected() && f.getNumberOfInvitedFriends() > 0 && f.getNumberOfInvitedFriends() < 3) addElement(f);
         }
-        for(Friend f : ts) {
+        for(Node f : ts) {
             if (f.isConnected() && f.getNumberOfInvitedFriends() <= 0) addElement(f);
         }
-        for(Friend f : ts) if (!f.isConnected() && !f.hasNotBeenOnlineForLongTime()) addElement(f);
-        for(Friend f : ts) if (!f.isConnected() && f.hasNotBeenOnlineForLongTime()) addElement(f);
+        for(Node f : ts) if (!f.isConnected() && !f.hasNotBeenOnlineForLongTime()) addElement(f);
+        for(Node f : ts) if (!f.isConnected() && f.hasNotBeenOnlineForLongTime()) addElement(f);
     }
 
     public void signalFriendChanged(Friend node) {
