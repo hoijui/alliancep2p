@@ -59,7 +59,9 @@ public class UserList extends RPC {
         p.writeInt(manager.getMyGUID());
 
         Collection<Friend> c = manager.friends();
-        p.writeInt(c.size());
+        int n =0;
+        for(Friend f : c) if (!f.hasNotBeenOnlineForLongTime()) n++;
+        p.writeInt(n);
         for(Friend f : c) {
             if (!f.hasNotBeenOnlineForLongTime()) {
                 p.writeInt(f.getGuid());
