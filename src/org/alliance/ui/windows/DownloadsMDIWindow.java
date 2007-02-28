@@ -3,18 +3,18 @@ package org.alliance.ui.windows;
 import com.stendahls.nif.ui.OptionDialog;
 import com.stendahls.nif.ui.mdi.MDIWindow;
 import com.stendahls.util.TextUtils;
+import org.alliance.core.comm.Connection;
 import org.alliance.core.comm.filetransfers.Download;
 import org.alliance.core.comm.filetransfers.DownloadConnection;
 import org.alliance.core.comm.filetransfers.UploadConnection;
-import org.alliance.core.comm.Connection;
+import org.alliance.ui.JDownloadGrid;
 import org.alliance.ui.T;
 import org.alliance.ui.UISubsystem;
-import org.alliance.ui.JDownloadGrid;
 import org.jdesktop.swingx.JXTable;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
@@ -44,6 +44,7 @@ public class DownloadsMDIWindow extends AllianceMDIWindow {
 
     private ArrayList<DownloadWrapper> rows = new ArrayList<DownloadWrapper>();
     private boolean inTable;
+    private DownloadWrapper interestingDownloadWrapper;
 
     public DownloadsMDIWindow(final UISubsystem ui) throws Exception {
         super(ui.getMainWindow().getMDIManager(), "downloads", ui);
@@ -74,16 +75,11 @@ public class DownloadsMDIWindow extends AllianceMDIWindow {
                     updateDownloadingFromAndUploadingToText();
                     return;
                 }
-                DownloadWrapper dw = rows.get(e.getFirstIndex());
-                if (dw != null && dw.download != null) {
-                    downloadGrid.setDownload(dw.download);
-                } else {
-                    downloadGrid.setDownload(null);
-                }
+                selectDownloadToShowOnDownloadGrid();
                 updateDownloadingFromAndUploadingToText();
             }
         });
-        
+
         table.addMouseListener(new MouseAdapter() {
             public void mouseReleased(MouseEvent e) {
                 maybeShowPopup(e);
@@ -111,7 +107,7 @@ public class DownloadsMDIWindow extends AllianceMDIWindow {
                 }
             }
         });
-        
+
 //        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.setColumnSelectionAllowed(false);
 
@@ -123,6 +119,31 @@ public class DownloadsMDIWindow extends AllianceMDIWindow {
 
         setTitle("Downloads");
         postInit();
+    }
+
+    private void selectDownloadToShowOnDownloadGrid() {
+        DownloadWrapper d = null;
+        if (table.getSelectedRow() == -1) {
+            d = selectDownloadToShowOnDownloadGridIgnoringSelection();
+        } else {
+            DownloadWrapper dw = rows.get(table.getSelectedRow());
+            if (dw != null && dw.download != null && !dw.download.isComplete() && dw.download.isActive()) {
+                d = dw;
+            } else {
+                d = selectDownloadToShowOnDownloadGridIgnoringSelection();
+            }
+        }
+        downloadGrid.setDownload(d.download);
+        interestingDownloadWrapper = d;
+    }
+
+    private DownloadWrapper selectDownloadToShowOnDownloadGridIgnoringSelection() {
+        for(DownloadWrapper dw : rows) {
+            if (dw.download != null && !dw.download.isComplete() && dw.download.isActive()) {
+                return dw;
+            }
+        }
+        return null;
     }
 
     private void showTotalBytesReceived() {
@@ -208,15 +229,20 @@ public class DownloadsMDIWindow extends AllianceMDIWindow {
 
         showTotalBytesReceived();
 
+        selectDownloadToShowOnDownloadGrid();
+
         updateDownloadingFromAndUploadingToText();
 
         downloadGrid.repaint();
     }
 
     private void updateDownloadingFromAndUploadingToText() {
-        if (table.getSelectedRow() != -1) {
-            downloadingFromText.setText(getDownloadingFromText(rows.get(table.getSelectedRow())));
-            uploadingToText.setText(getUploadingToText(rows.get(table.getSelectedRow())));
+        if (interestingDownloadWrapper != null) {
+            downloadingFromText.setText(getDownloadingFromText(interestingDownloadWrapper));
+            uploadingToText.setText(getUploadingToText(interestingDownloadWrapper));
+        } else {
+            downloadingFromText.setText("");
+            uploadingToText.setText("");
         }
     }
 
