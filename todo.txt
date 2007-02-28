@@ -22,7 +22,5 @@ LÅG PRIO:
     * dubbelklick på nerladdad fil öppnar den
     * dubbelklick på + ska inte ladda ner
     * pinsamt enkelt att DOS:a alliance till döds - öppna koppling, skicka 0xffff och sedan 64k av skräp så tar alliance emot det glädjeligen
-
-TODO SOM ANDRA SKULLE KUNNA GÖRA:
     * droppa fil på en användare - en lite speciell process i download och uploadconnection. borde inte vara några problem. eller någon annan slags implementation - det hade rockat iaf. Bra om den använder standard downloadförfarandet så man får allt från det. Inget fel att tanka från två heller ifall filen råkar finnas på fler ställen. Det får nog bli att man lägger till en fil i share som är markerad som att den bara får downloadas från en person - sedan skickar man tth nyckeln till denna person
     * win32 api med file system events
