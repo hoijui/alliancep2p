@@ -439,12 +439,27 @@ public class SearchMDIWindow extends AllianceMDIWindow {
 
 
         public void paint(Graphics g) {
-            super.paint(g);
+//            super.paint(g);
             Graphics2D g2 = (Graphics2D)g;
-            g2.setColor(new Color(255,255,255,200));
-            g.fillRect(0,0,getWidth(), getHeight());
-//            g2.setColor(new Color(0,0,0,150));
-//            g2.drawString(getString(), getWidth()/2-getFontMetrics(getFont()).stringWidth(getString())/2, getHeight()-4);
+
+            double d = getValue()/100.;
+
+            if (d < 0.25) {
+                d *= 4;
+                g2.setColor(Color.red);
+            } else if (d < 1) {
+                d = (d-0.25)*1.25;
+                g2.setColor(Color.yellow);
+            } else {
+                if (d > 1) d = (d-1)/4;
+                g2.setColor(Color.green);
+            }
+            g2.fillRect(0,0,getWidth(),  getHeight());
+
+            g2.setColor(new Color(0,0,0,100));
+            if (d < 0) d = 0;
+            if (d > 1) d = 1;
+            if (d < 1) g.fillRect((int)(d*getWidth()),0,(int)(getWidth()-d*getWidth()), getHeight());
         }
     }
 }
