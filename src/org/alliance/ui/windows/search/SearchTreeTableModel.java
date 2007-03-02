@@ -53,7 +53,7 @@ public class SearchTreeTableModel extends DefaultTreeTableModel {
             case 3:
                 return "Days ago";
             case 4:
-                return "Sources";
+                return "#";
             case 5:
                 return "Speed";
             default:

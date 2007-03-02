@@ -13,10 +13,7 @@ import org.jdesktop.swingx.JXTreeTable;
 import javax.swing.*;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.JTableHeader;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
+import javax.swing.table.*;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreePath;
 import java.awt.*;
@@ -107,6 +104,9 @@ public class SearchMDIWindow extends AllianceMDIWindow {
                         case 4:
                             model.getRoot().sortBySources();
                             break;
+                        case 5:
+                            model.getRoot().sortBySpeed();
+                            break;
                     }
                 }
             }
@@ -122,10 +122,25 @@ public class SearchMDIWindow extends AllianceMDIWindow {
                         if (n instanceof FileNode) {
                             FileNode fn = (FileNode)n;
                             double d = fn.getTotalMaxCPS();
-                            left.setText("<html>"+fn.getListOfUsers(ui.getCore())+" (Max speed: <b>"+TextUtils.formatByteSize((long)d)+"/s</b></font>)</html>");
+                            double r = ui.getCore().getSettings().getInternal().getRecordinspeed();
+                            left.setText("<html>"+fn.getListOfUsers(ui.getCore())+" (Max speed: <b>"+TextUtils.formatByteSize((long)d)+"/s</b>, ETA: "+
+                                    formatETA((int)Math.round(fn.getSize()/(d > r ? r : d)))
+                                    +"</font>)</html>");
                             right.setText("<html><b>"+simplifyPath(fn)+"</b></html>");
                         }
                     }
+                }
+            }
+
+            private String formatETA(int eta) {
+                if (eta < 0) {
+                    return "?";
+                } else 	if (eta<=60) {
+                    return eta+" sec";
+                } else if (eta/60<60) {
+                    return eta/60+" min";
+                } else {
+                    return (eta/60/60)+"h "+(eta/60%60)+"m";
                 }
             }
         });
@@ -166,12 +181,14 @@ public class SearchMDIWindow extends AllianceMDIWindow {
         table.getColumnModel().getColumn(1).setCellRenderer(new BytesizeCellRenderer());
         table.getColumnModel().getColumn(3).setCellRenderer(new DaysOldCellRenderer());
         table.getColumnModel().getColumn(4).setCellRenderer(new SourcesCellRenderer());
+        table.getColumnModel().getColumn(5).setCellRenderer(new SpeedCellRenderer());
 
         table.getColumnModel().getColumn(0).setPreferredWidth(500);
         setFixedColumnSize(table.getColumnModel().getColumn(1), 50);
         setFixedColumnSize(table.getColumnModel().getColumn(2), 50);
         setFixedColumnSize(table.getColumnModel().getColumn(3), 55);
-        setFixedColumnSize(table.getColumnModel().getColumn(4), 50);
+        setFixedColumnSize(table.getColumnModel().getColumn(4), 25);
+        setFixedColumnSize(table.getColumnModel().getColumn(5), 40);
 
         table.getColumnExt(2).setVisible(false); //tricky! the index points to the visible columns!
 //        table.getColumnExt(1).setVisible(false);
@@ -332,7 +349,7 @@ public class SearchMDIWindow extends AllianceMDIWindow {
                 if (sel)
                     setForeground(Color.white);
                 else
-                setForeground(fn.containedInShare(SearchMDIWindow.this.ui.getCore()) ? Color.gray : Color.black);
+                    setForeground(fn.containedInShare(SearchMDIWindow.this.ui.getCore()) ? Color.gray : Color.black);
             }
             return this;
         }
@@ -395,5 +412,39 @@ public class SearchMDIWindow extends AllianceMDIWindow {
         public void revalidate() {}
         protected void firePropertyChange(String propertyName, Object oldValue, Object newValue) {}
         public void firePropertyChange(String propertyName, boolean oldValue, boolean newValue) {}
+    }
+
+    public class SpeedCellRenderer extends JProgressBar implements TableCellRenderer {
+        public SpeedCellRenderer() {
+            super(0, 100);
+            setStringPainted(false);
+            setOpaque(true);
+        }
+
+        public Component getTableCellRendererComponent(JTable table, Object value,
+                                                       boolean isSelected, boolean hasFocus, int rowIndex, int vColIndex) {
+            if (value != null && value instanceof Double) {
+                double v = (Double)value;
+                setValue((int)(v*100));
+                setString(((int)(v*100))+"%");
+                setToolTipText(""+v);
+            }
+
+            return this;
+        }
+        public void validate() {}
+        public void revalidate() {}
+        protected void firePropertyChange(String propertyName, Object oldValue, Object newValue) {}
+        public void firePropertyChange(String propertyName, boolean oldValue, boolean newValue) {}
+
+
+        public void paint(Graphics g) {
+            super.paint(g);
+            Graphics2D g2 = (Graphics2D)g;
+            g2.setColor(new Color(255,255,255,200));
+            g.fillRect(0,0,getWidth(), getHeight());
+//            g2.setColor(new Color(0,0,0,150));
+//            g2.drawString(getString(), getWidth()/2-getFontMetrics(getFont()).stringWidth(getString())/2, getHeight()-4);
+        }
     }
 }

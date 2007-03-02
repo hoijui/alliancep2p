@@ -186,6 +186,12 @@ public class RootNode extends SearchTreeNode {
         resortTable();
     }
 
+    public void sortBySpeed() {
+        comparator = model.createSpeedComparator();
+        secondaryComparator = null;
+        resortTable();
+    }
+
     public void addToCache(FileNode fileNode) {
         nodeCache.put(fileNode.getSh().getRoot(), fileNode);
     }
