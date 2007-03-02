@@ -18,7 +18,9 @@ import java.util.Enumeration;
 public class FileNode extends SearchTreeNode implements Comparable {
     private SearchTreeNode parent;
     private String filename;
-    private double hits;
+    private double sources;
+
+    private double speed;
     private long size;
     private int daysAgo;
     ArrayList<Integer> userGuids = new ArrayList<Integer>();
@@ -28,8 +30,11 @@ public class FileNode extends SearchTreeNode implements Comparable {
     private String extension;
     private String originalFilename;
 
-    public FileNode(SearchTreeNode parent, String filename, SearchHit h, int guid) {
+    private SearchTreeTableModel model;
+
+    public FileNode(SearchTreeNode parent, SearchTreeTableModel model, String filename, SearchHit h, int guid) {
         this.parent = parent;
+        this.model = model;
         this.sh = h;
 
         originalFilename = filename;
@@ -49,11 +54,16 @@ public class FileNode extends SearchTreeNode implements Comparable {
         }
 
         size = h.getSize();
-        hits =1;
+        sources = 1;
         daysAgo = h.getHashedDaysAgo();
         userGuids.add(guid);
+        updateSpeed();
 
         addToTreeNodeCache();
+    }
+
+    private void updateSpeed() {
+        speed = getTotalMaxCPS()/model.getCore().getSettings().getInternal().getRecordinspeed();
     }
 
     private void addToTreeNodeCache() {
@@ -95,8 +105,9 @@ public class FileNode extends SearchTreeNode implements Comparable {
     }
 
     public void addHit(int guid) {
-        hits++;
+        sources++;
         userGuids.add(guid);
+        updateSpeed();
     }
 
     public String toString() {
@@ -105,10 +116,6 @@ public class FileNode extends SearchTreeNode implements Comparable {
 
     public String getName() {
         return filename;
-    }
-
-    public double getSources() {
-        return hits;
     }
 
     public long getSize() {
@@ -124,8 +131,12 @@ public class FileNode extends SearchTreeNode implements Comparable {
         return getName().compareToIgnoreCase(n.getName());
     }
 
-    public double getHits() {
-        return hits;
+    public double getSources() {
+        return sources;
+    }
+
+    public double getSpeed() {
+        return speed;
     }
 
     public SearchHit getSh() {
@@ -146,13 +157,14 @@ public class FileNode extends SearchTreeNode implements Comparable {
         return cachedListOfUsers;
     }
 
-    public double getTotalMaxCPS(CoreSubsystem core) {
+    public double getTotalMaxCPS() {
+        CoreSubsystem core = model.getCore();
         double d = 0;
-        for(int i=0;i<userGuids.size();i++) {
-            Friend f = core.getFriendManager().getFriend(userGuids.get(i));
+        for (Integer userGuid : userGuids) {
+            Friend f = core.getFriendManager().getFriend(userGuid);
             if (f != null) d += f.getHighestOutgoingCPS();
         }
-        return d;
+        return d*0.8;
     }
 
     public ArrayList<Integer> getUserGuids() {

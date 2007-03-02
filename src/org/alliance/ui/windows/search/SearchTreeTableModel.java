@@ -30,7 +30,7 @@ public class SearchTreeTableModel extends DefaultTreeTableModel {
     }
 
     public int getColumnCount() {
-        return 5;
+        return 6;
     }
 
     public Class<?> getColumnClass(int columnIndex) {
@@ -38,6 +38,7 @@ public class SearchTreeTableModel extends DefaultTreeTableModel {
         if (columnIndex == 2) return String.class;
         if (columnIndex == 3) return Integer.class;
         if (columnIndex == 4) return Double.class;
+        if (columnIndex == 5) return Double.class;
         return super.getColumnClass(columnIndex);
     }
 
@@ -53,6 +54,8 @@ public class SearchTreeTableModel extends DefaultTreeTableModel {
                 return "Days ago";
             case 4:
                 return "Sources";
+            case 5:
+                return "Speed";
             default:
                 return "undefined";
         }
@@ -91,6 +94,14 @@ public class SearchTreeTableModel extends DefaultTreeTableModel {
         return new Comparator<SearchTreeNode>() {
             public int compare(SearchTreeNode o1, SearchTreeNode o2) {
                 return (int)(o2.getSize() - o1.getSize());
+            }
+        };
+    }
+
+    Comparator<SearchTreeNode> createSpeedComparator() {
+        return new Comparator<SearchTreeNode>() {
+            public int compare(SearchTreeNode o1, SearchTreeNode o2) {
+                return (int)Math.round((o2.getSpeed() - o1.getSpeed())*1000);
             }
         };
     }

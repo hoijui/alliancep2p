@@ -78,7 +78,7 @@ public class FolderNode extends SearchTreeNode {
     public void addHit(int sourceGuid, String filename, SearchHit h) {
         FileNode n = mapping.get(h.getRoot());
         if (n == null) {
-            n = new FileNode(this, filename, h, sourceGuid);
+            n = new FileNode(this, parent.getModel(), filename, h, sourceGuid);
             children.add(n);
             mapping.put(h.getRoot(), n);
             totalSize += h.getSize();
@@ -105,6 +105,12 @@ public class FolderNode extends SearchTreeNode {
     public double getSources() {
 //        if (shouldDelegate()) getDelegate().getSources();
         return totalHits/children.size();
+    }
+
+    public double getSpeed() {
+        double s = 0;
+        for(FileNode n : children) s+=n.getSpeed();
+        return s/children.size();
     }
 
     public long getSize() {

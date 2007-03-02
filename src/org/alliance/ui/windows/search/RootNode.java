@@ -88,7 +88,7 @@ public class RootNode extends SearchTreeNode {
                             }
                         }
                     }
-                    if (h != null) children.add(new FileNode(this, filename, h, sourceGuid));
+                    if (h != null) children.add(new FileNode(this, model, filename, h, sourceGuid));
                 } else {
                     FolderNode n = folderMapping.get(folder.toLowerCase());
                     if (n == null) {
@@ -143,6 +143,10 @@ public class RootNode extends SearchTreeNode {
     }
 
     public double getSources() {
+        return 0;
+    }
+
+    public double getSpeed() {
         return 0;
     }
 

@@ -21,6 +21,8 @@ public abstract class SearchTreeNode implements TreeNode {
                     return getDaysAgo();
                 case 4:
                     return getSources();
+                case 5:
+                    return getSpeed();
                 default:
                     return "Undefined";
             }
@@ -32,6 +34,7 @@ public abstract class SearchTreeNode implements TreeNode {
 
     public abstract String getName();
     public abstract double getSources();
+    public abstract double getSpeed();
     public abstract long getSize();
     public abstract int getDaysAgo();
 }
