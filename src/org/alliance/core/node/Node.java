@@ -92,4 +92,28 @@ public abstract class Node {
     public String nickname() {
         return nickname;
     }
+
+    public int getAllianceBuildNumber() {
+        return 0;
+    }
+
+    public int getNumberOfFilesShared() {
+        return 0;
+    }
+
+    public double getHighestOutgoingCPS() {
+        return 0;
+    }
+
+    public double getHighestIncomingCPS() {
+        return 0;
+    }
+
+    public long getTotalBytesSent() {
+        return 0;
+    }
+
+    public long getTotalBytesReceived() {
+        return 0;
+    }
 }

@@ -50,4 +50,5 @@ public class My extends SettingClass {
     public void setInvitations(Integer invitations) {
         this.invitations = invitations;
     }
+
 }

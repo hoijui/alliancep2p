@@ -239,24 +239,23 @@ public class FriendListMDIWindow extends AllianceMDIWindow {
                 setText(FriendListMDIWindow.this.ui.getCore().getFriendManager().nicknameWithContactPath(n.getGuid()));
             }
 
-
-//            setToolTipText("Remote build number: "+f.getAllianceBuildNumber());
-
-            if (n instanceof Friend) {
-                Friend f = (Friend) n;
-                setToolTipText("<html>Build number: "+ f.getAllianceBuildNumber()+"<br>" +
-                        "Share: "+TextUtils.formatByteSize(n.getShareSize())+" in "+ f.getNumberOfFilesShared()+" files<br>" +
-                        "Invited friends: "+ n.getNumberOfInvitedFriends()+"<br>" +
-                        "Upload speed record: "+TextUtils.formatByteSize((long) f.getHighestOutgoingCPS())+"/s<br>" +
-                        "Download speed record: "+TextUtils.formatByteSize((long) f.getHighestIncomingCPS())+"/s<br>" +
-                        "Bytes uploaded: "+TextUtils.formatByteSize(f.getTotalBytesSent())+"<br>" +
-                        "Bytes downloaded: "+TextUtils.formatByteSize(f.getTotalBytesReceived())+"</html>");
-            } else {
-                setToolTipText("This is you!");
-            }
+            setToolTipText("<html>Build number: "+ n.getAllianceBuildNumber()+"<br>" +
+                    "Share: "+TextUtils.formatByteSize(n.getShareSize())+" in "+ n.getNumberOfFilesShared()+" files<br>" +
+                    "Invited friends: "+ n.getNumberOfInvitedFriends()+"<br>" +
+                    "Upload speed record: "+TextUtils.formatByteSize((long) n.getHighestOutgoingCPS())+"/s<br>" +
+                    "Download speed record: "+TextUtils.formatByteSize((long) n.getHighestIncomingCPS())+"/s<br>" +
+                    "Bytes uploaded: "+TextUtils.formatByteSize(n.getTotalBytesSent())+"<br>" +
+                    "Bytes downloaded: "+TextUtils.formatByteSize(n.getTotalBytesReceived())+ "<br>" +
+                    "Ratio (ul:dl): "+calculateRatio(n.getTotalBytesSent(), n.getTotalBytesReceived())+"</html>");
 
             return this;
         }
+    }
+
+    private String calculateRatio(long upload, long download) {
+        if (upload == 0 || download == 0) return "?";
+        if (upload > download) return ((double)Math.round(((double)upload)/download*10))/10 + ":1";
+        return "1:"+((double)Math.round(((double)download)/upload*10))/10;
     }
 
     private String nickname(int guid) {

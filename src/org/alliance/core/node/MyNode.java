@@ -2,6 +2,7 @@ package org.alliance.core.node;
 
 import org.alliance.core.CoreSubsystem;
 import org.alliance.core.T;
+import org.alliance.Version;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -79,5 +80,30 @@ public class MyNode extends Node {
                 alreadyTriedAutodetect = true;
             }
         }
+    }
+
+
+    public int getAllianceBuildNumber() {
+        return Version.BUILD_NUMBER;
+    }
+
+    public int getNumberOfFilesShared() {
+        return core.getFileManager().getFileDatabase().getNumberOfFiles();
+    }
+
+    public double getHighestOutgoingCPS() {
+        return core.getSettings().getInternal().getRecordoutspeed();
+    }
+
+    public double getHighestIncomingCPS() {
+        return core.getSettings().getInternal().getRecordinspeed();
+    }
+
+    public long getTotalBytesSent() {
+        return core.getNetworkManager().getBandwidthOut().getTotalBytes();
+    }
+
+    public long getTotalBytesReceived() {
+        return core.getNetworkManager().getBandwidthIn().getTotalBytes();
     }
 }
