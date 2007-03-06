@@ -1,8 +1,8 @@
 todo:
     * lägg till ett meddelande när man försöker connecta till en dator i samma nätverk
-    * speed kolumn i search
     * när man laddat ner en fil hashas denna om vid nästa omstart - det leder till fel när man skickar filer till chat
-    
+    * ta upp uploads per default
+
 sen:
     * ha en grafisk representation av dl hastighet - rött/gult/grönt och progress bar så kan ingen missa det..
     * markeringen försvinner när man väljen en användare - selectWindowByIdentifyer ska fixa - hm. det är nog så att när man refresjhar listan så försvinner selection - kom ihåg selection innan uppdatering
