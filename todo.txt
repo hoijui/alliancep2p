@@ -3,6 +3,7 @@ todo:
     * när man laddat ner en fil hashas denna om vid nästa omstart - det leder till fel när man skickar filer till chat
     * ta upp uploads per default
     * måste ta kataloger smartare - blir jäkligt knas annars
+    * tooltip för diagram
 
 sen:
     * ha en grafisk representation av dl hastighet - rött/gult/grönt och progress bar så kan ingen missa det..
