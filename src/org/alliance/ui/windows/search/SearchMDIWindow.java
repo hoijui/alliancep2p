@@ -442,7 +442,7 @@ public class SearchMDIWindow extends AllianceMDIWindow {
             super.paint(g);
             Graphics2D g2 = (Graphics2D)g;
 
-            g2.setColor(new Color(255,255,255,180-getValue()));
+            g2.setColor(new Color(255,255,255,180));
             g.fillRect(0,0,getWidth(),getHeight());
         }
     }
