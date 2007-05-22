@@ -54,7 +54,7 @@ import java.util.List;
  * Time: 16:38:25
  */
 public class CoreSubsystem implements Subsystem {
-    public final static boolean ALLOW_TO_SEND_UPGRADE_TO_FRIENDS = false;
+    public final static boolean ALLOW_TO_SEND_UPGRADE_TO_FRIENDS = true;
     private static final int STATE_FILE_VERSION = 5;
 
     public final static int KB = 1024;
@@ -157,7 +157,8 @@ public class CoreSubsystem implements Subsystem {
 
         System.setProperty("alliance.share.nfiles", ""+fileManager.getFileDatabase().getNumberOfFiles());
         System.setProperty("alliance.share.size", ""+fileManager.getFileDatabase().getTotalSize());
-        System.setProperty("alliance.network.nfriends", ""+friendManager.getNFriendsConnected()+"/"+friendManager.getNFriends());
+        System.setProperty("alliance.network.nfriends",""+friendManager.getNFriends());
+        System.setProperty("alliance.invites",""+getSettings().getMy().getInvitations());
 
         if(T.t)T.info("CoreSubsystem stated.");
     }

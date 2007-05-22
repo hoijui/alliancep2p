@@ -50,7 +50,7 @@ public class Internal extends SettingClass {
     private Integer alwaysallowfriendstoconnect=1;
     private Integer alwaysallowfriendsoffriendstoconnecttome=1;
 
-    private Integer showpublicchatmessagesintray=0;
+    private Integer showpublicchatmessagesintray=1;
     private Integer showprivatechatmessagesintray=1;
     private Integer showsystemmessagesintray=1;
 
