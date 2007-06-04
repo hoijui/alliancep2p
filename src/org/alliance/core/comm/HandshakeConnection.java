@@ -51,7 +51,8 @@ public class HandshakeConnection extends PacketConnection {
                     netMan.replaceConnection(key, c);
                     c.init();
 
-                    core.getInvitaitonManager().consume(guid);
+                    if (core.getSettings().getInternal().getInvitationmayonlybeusedonce() != 0)
+                        core.getInvitaitonManager().consume(guid);
 
                     return;
                 } else {

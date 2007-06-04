@@ -38,6 +38,7 @@ public class OptionsWindow extends XUIDialog {
             "internal.downloadfolder",
             "internal.alwaysallowfriendstoconnect",
             "internal.alwaysallowfriendsoffriendstoconnecttome",
+            "internal.invitationmayonlybeusedonce",
             "internal.encryption",
             "internal.showpublicchatmessagesintray",
             "internal.showprivatechatmessagesintray",

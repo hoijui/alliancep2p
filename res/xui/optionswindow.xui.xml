@@ -93,6 +93,9 @@
                     <panel axis="x" expand="horiz">
                         <checkbox id="internal.alwaysallowfriendsoffriendstoconnecttome" text="Always allow friends of my friends to connect to me"/><filler/>
                     </panel>
+                    <panel axis="x" expand="horiz">
+                        <checkbox id="internal.invitationmayonlybeusedonce" text="Connection codes I create may only be used once"/><filler/>
+                    </panel>
                 </panel>
 
                 <panel axis="y" bordertype="etched" bordertitle="Encryption">
