@@ -87,13 +87,13 @@
 
             <tab text="Security &amp; System tray" tooltip="Encryption and network expansion details">
                 <panel axis="y" bordertype="etched" bordertitle="Network expansion defaults">
-                    <panel axis="x" expand="horiz">
+                    <panel axis="x" border="0" expand="horiz">
                         <checkbox id="internal.alwaysallowfriendstoconnect" text="Always allow my friends to connect to each other"/><filler/>
                     </panel>
-                    <panel axis="x" expand="horiz">
+                    <panel axis="x" border="0" expand="horiz">
                         <checkbox id="internal.alwaysallowfriendsoffriendstoconnecttome" text="Always allow friends of my friends to connect to me"/><filler/>
                     </panel>
-                    <panel axis="x" expand="horiz">
+                    <panel axis="x" border="0" expand="horiz">
                         <checkbox id="internal.invitationmayonlybeusedonce" text="Connection codes I create may only be used once"/><filler/>
                     </panel>
                 </panel>
@@ -109,9 +109,7 @@
                     </panel>
                     <strut height="10"/>
                     <mlabel html="true">
-                        [b]Note that ALL your friends must change encryption layer and restart Alliance at the same time for a switch of encryption to work.[/b]
-                        [p]
-                        Also note that the SSL encryption layer is experimental at this stage.</mlabel>
+                        [b]Note that ALL your friends must change encryption layer and restart Alliance at the same time for a switch of encryption to work.[/b] Also note that the SSL encryption layer is experimental at this stage.</mlabel>
                 </panel>
 
                 <panel axis="y" bordertype="etched" bordertitle="System tray notification">

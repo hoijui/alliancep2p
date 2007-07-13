@@ -4,6 +4,7 @@ todo:
     * ta upp uploads per default
     * måste ta kataloger smartare - blir jäkligt knas annars
     * tooltip för diagram
+    * när man kör över rdp och loggar ut oscilerar away-ikonen
 
 sen:
     * ha en grafisk representation av dl hastighet - rött/gult/grönt och progress bar så kan ingen missa det..
