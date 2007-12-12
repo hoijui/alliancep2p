@@ -1,3 +1,7 @@
+nya todos:
+    * integration mot facebook
+    * sortera alla fel i inboxen
+
 todo:
     * lägg till ett meddelande när man försöker connecta till en dator i samma nätverk
     * när man laddat ner en fil hashas denna om vid nästa omstart - det leder till fel när man skickar filer till chat
