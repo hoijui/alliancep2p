@@ -8,8 +8,7 @@ import org.alliance.core.T;
 import org.alliance.launchers.OSInfo;
 import org.alliance.launchers.StartupProgressListener;
 
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.net.ServerSocket;
@@ -25,34 +24,45 @@ import java.net.Socket;
 public class Main {
     private static final int STARTED_SIGNAL_PORT = 56345;
 
-    public static void main(String[] args) throws Exception {
-        System.out.println("Launching Alliance v"+ Version.VERSION+" build "+Version.BUILD_NUMBER);
-        System.setProperty("alliance.build", ""+Version.BUILD_NUMBER);
+    public static void main(String[] args) {
+        try {
+            System.out.println("Launching Alliance v"+ Version.VERSION+" build "+Version.BUILD_NUMBER);
+            System.setProperty("alliance.build", ""+Version.BUILD_NUMBER);
 
-        boolean allowMultipleInstances = argsContain(args, "/allowMultipleInstances");
-        boolean runMinimized = argsContain(args, "/min");
+            boolean allowMultipleInstances = argsContain(args, "/allowMultipleInstances");
+            boolean runMinimized = argsContain(args, "/min");
 
-        if (!allowMultipleInstances) checkIfAlreadyRunning(!runMinimized);
+            if (!allowMultipleInstances) checkIfAlreadyRunning(!runMinimized);
 
-        Runnable r = null;
-        if (!runMinimized) r = (Runnable)Class.forName("org.alliance.launchers.SplashWindow").newInstance();
+            Runnable r = null;
+            if (!runMinimized) r = (Runnable)Class.forName("org.alliance.launchers.SplashWindow").newInstance();
 
-        String s = "data/settings.xml";
-        for(int i=0;i<args.length;i++) if (!args[i].startsWith("/")) s = args[i];
-        Subsystem core = initCore(s, (StartupProgressListener)r);
+            String s = "data/settings.xml";
+            for(int i=0;i<args.length;i++) if (!args[i].startsWith("/")) s = args[i];
+            Subsystem core = initCore(s, (StartupProgressListener)r);
 
-        if (OSInfo.supportsTrayIcon()) {
-            Subsystem tray = initTrayIcon(core);
+            if (OSInfo.supportsTrayIcon()) {
+                Subsystem tray = initTrayIcon(core);
 
-            if (!runMinimized) {
-                ((Runnable)tray).run(); //open ui
-                if (r != null) r.run(); //close splashwindow
+                if (!runMinimized) {
+                    ((Runnable)tray).run(); //open ui
+                    if (r != null) r.run(); //close splashwindow
+                }
+
+                if (!allowMultipleInstances) startStartSignalThread(tray);
+            } else {
+                initUI(core);
+                if (r != null) r.run();
             }
-
-            if (!allowMultipleInstances) startStartSignalThread(tray);
-        } else {
-            initUI(core);
-            if (r != null) r.run();
+        } catch (Throwable e) {
+            try {
+                new File("logs").mkdirs();
+                PrintWriter writer = new PrintWriter("logs/crash.log");
+                e.printStackTrace(writer);
+                writer.close();
+            } catch (FileNotFoundException e2) {
+                e.printStackTrace();
+            }
         }
     }
 

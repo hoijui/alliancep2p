@@ -106,30 +106,32 @@ public class UploadConnection extends TransferConnection {
                         continue;
                     }
                 }
+                if (buffer.remaining() != 0) {
+                    int toSend = netMan.getUploadThrottle().request(this, buffer.position());
+                    if (toSend == 0) {
+                        netMan.noInterestToSend(this); //not sure this is needed
+                        break;
+                    }
+                    buffer.flip();
 
-                int toSend = netMan.getUploadThrottle().request(this, buffer.position());
-                if (toSend == 0) {
-                    netMan.noInterestToSend(this); //not sure this is needed
-                    break;
-                }
-                buffer.flip();
-                int r = netMan.send(this, buffer, toSend);
-                if (r == -1) throw new IOException("Connection ended");
-                netMan.getUploadThrottle().bytesProcessed(r);
-                buffer.compact();
+                    int r = netMan.send(this, buffer, toSend);
+                    if (r == -1) throw new IOException("Connection ended");
+                    netMan.getUploadThrottle().bytesProcessed(r);
+                    buffer.compact();
 
-/*                if (netMan.getUploadThrottle().update(this, r)) {
-                    //this means that we exeeded our bandwidth limit - return and let BandwidthThrottler kickstart us later (by invoking readyToSend)
-                    netMan.noInterestToSend(this); //not sure this is needed
-                    break;
-                }
-*/
-                if (r == 0) {
-//                    if(T.t)T.trace("OS Send buffer full - buffer: "+buffer.remaining()+" - standing down and waiting from event from NetworkLayer");
-                    netMan.signalInterestToSend(this);
-                    break;
-                } else {
-                    //do nothing
+    /*                if (netMan.getUploadThrottle().update(this, r)) {
+                        //this means that we exeeded our bandwidth limit - return and let BandwidthThrottler kickstart us later (by invoking readyToSend)
+                        netMan.noInterestToSend(this); //not sure this is needed
+                        break;
+                    }
+    */
+                    if (r == 0) {
+    //                    if(T.t)T.trace("OS Send buffer full - buffer: "+buffer.remaining()+" - standing down and waiting from event from NetworkLayer");
+                        netMan.signalInterestToSend(this);
+                        break;
+                    } else {
+                        //do nothing
+                    }
                 }
             }
         }

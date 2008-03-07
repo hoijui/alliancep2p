@@ -5,8 +5,9 @@ nya todos:
         1. enkelt att göra reklam för en eller flera grejor man delar ut
         Pontus säger (10:10):
         2. enkelt för dem som ser reklamen att koppla upp sig och tanka
-        
+
 todo:
+    * stöd för att skapa connection koder inom samma nätverk
     * lägg till ett meddelande när man försöker connecta till en dator i samma nätverk
     * när man laddat ner en fil hashas denna om vid nästa omstart - det leder till fel när man skickar filer till chat
     * ta upp uploads per default

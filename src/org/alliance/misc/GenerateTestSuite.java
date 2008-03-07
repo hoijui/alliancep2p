@@ -233,7 +233,7 @@ public class GenerateTestSuite {
             "Loke", "Lola", "Lolla", "Lollipop", "Lolita", "Lona", "Loppan", "Loranga", "Lord", "Lorry", "Lottie",
             "Louie", "Lova", "Love", "Lovis", "Lovisa", "Lowe", "Lucia", "Lucifer", "Lucinda", "Lucky", "Ludde",
             "Ludors", "Ludwig", "Luffis-Dino", "Lufsen", "Lufsi", "Luke", "Lukas", "Luki", "Luna", "Luni",
-            "Lurvas", "Lurven", "Lussan", "Lusse", "Lusta", "Lutzie", "Luzette", "Lydia", "Lyssa", "Läckra",
+            "Lurvas", "Lurven", "Lussan", "Lusse", "Lusta", "Lutzie", "Luzette", "Lydia", "Lyssa", "L\u00e4ckra",
             "Zamba", "Zambexius", "Zambezi", "Zam-bo", "Zamira", "Zanderega", "Zandor", "Zane", "Zanja",
             "Zap", "Zappa", "Zaron", "Zarro", "Zax", "Zazza", "Zazzy", "Zeb", "Zefalus", "Zeina", "Zeke", "Zelda", "Zenta",
             "Zenthi", "Zephyr", "Zepp", "Zeppo", "Zera", "Zero", "Zesco", "Zeus", "Zhaan", "Ziara", "Zicki", "Zico",

@@ -71,7 +71,7 @@ public abstract class AbstractChatMessageMDIWindow extends AllianceMDIWindow {
                     try {
                         String link = e.getDescription();
                         if (link.startsWith("http://")) {
-                            String allowedChars ="abcdefghijklmnopqrstuvwxyzåäö0123456789-.;/?:@&=+$_.!~*'()#";
+                            String allowedChars ="abcdefghijklmnopqrstuvwxyz\u00e5\u00e4\u00f60123456789-.;/?:@&=+$_.!~*'()#";
                             for(int i=0;i<link.length();i++) {
                                 if (allowedChars.indexOf(link.toLowerCase().charAt(i)) == -1) {
                                     OptionDialog.showInformationDialog(ui.getMainWindow(), "Character "+link.charAt(i)+" is not allowed in link.");

@@ -134,7 +134,7 @@ public class KeywordIndex {
     }
 
     public static StringTokenizer splitIntoKeywords(String s) {
-        return new StringTokenizer(s.toLowerCase(), ".,;:\\/ \t-[]()!\"#¤%&=?+'´`*_|<>");
+        return new StringTokenizer(s.toLowerCase(), ".,;:\\/ \t-[]()!\"#\u20ac%&=?+'\u017d`*_|<>");
     }
 
     public void remove(int index) {
