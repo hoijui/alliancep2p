@@ -1,3 +1,5 @@
+testa erics kod
+
 nya todos:
     * integration mot facebook
     * sortera alla fel i inboxen
