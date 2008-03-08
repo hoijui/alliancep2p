@@ -1,37 +1,40 @@
 testa erics kod
 
-nya todos:
+nya ideer:
     * integration mot facebook
-    * sortera alla fel i inboxen
+    * alltid skicka fel med send error per default?  ha på det och slå av det när jag släpper 1.0
     * "jag tror en del av mina polare nog skulle bli nyfikna om man hade lite reklam typ  "American Gangsters DVD - join Alliance""
         1. enkelt att göra reklam för en eller flera grejor man delar ut
         Pontus säger (10:10):
         2. enkelt för dem som ser reklamen att koppla upp sig och tanka
 
 todo:
-    * stöd för att skapa connection koder inom samma nätverk
-    * lägg till ett meddelande när man försöker connecta till en dator i samma nätverk
-    * när man laddat ner en fil hashas denna om vid nästa omstart - det leder till fel när man skickar filer till chat
+    * stöd för att skapa connection koder inom samma nätverk * lägg till ett meddelande när man försöker connecta till en dator i samma nätverk
     * ta upp uploads per default
     * måste ta kataloger smartare - blir jäkligt knas annars
-    * tooltip för diagram
     * när man kör över rdp och loggar ut oscilerar away-ikonen
-
-sen:
-    * ha en grafisk representation av dl hastighet - rött/gult/grönt och progress bar så kan ingen missa det..
     * markeringen försvinner när man väljen en användare - selectWindowByIdentifyer ska fixa - hm. det är nog så att när man refresjhar listan så försvinner selection - kom ihåg selection innan uppdatering
+
+    * när man laddat ner en fil hashas denna om vid nästa omstart - det leder till fel när man skickar filer till chat  -- ???
+    * timestamp på chatmeddelanden - så att dom kommer i rätt ordning
+    * stöd för dyndns namn i my ip
+
+    * massa folk hade översatt om det gick..   tänk på detta. hade varit jävligt najs.  man får välja språk i runtime. najs.
+
+usability testa! roligt. testa allt från installation till .. allt annat
+
+features:
+    * tooltip för diagram
+    * ha en grafisk representation av dl hastighet - rött/gult/grönt och progress bar så kan ingen missa det..
     * enligt en artikel jag läste ska det räcka med en io diskbuffer på 64kb - för det är det XP har - vista kan ha större
     * när man tankar från fem personer och dl är klar så fortsätter den med de sista paketen - länge. Liknande problem som i startster och flera nedladdningar
-    * timestamp på chatmeddelanden - så att dom kommer i rätt ordning
     * får inte visa hundra "you have successfully connected to" - tänk på noobs - fast det är lite krångligt att fixa
     * limit på antal uploads
-    * stöd för dyndns namn i my ip
     * när man laddar ner igenom share borde den ta sökvägen från där man klickade
-    * usability testa! roligt. testa allt från installation till .. allt annat
     * det buggar väl inte längre? : glöm inte att ta bort GetUserList flood grejjerna.. - det buggar fortfarande - dom kan ställa till med problem i framtiden - och det är en UI referens i CORE
     * filesize i view share
 
-LÅG PRIO:
+future features:
     * dubbelklick på nerladdad fil öppnar den
     * dubbelklick på + ska inte ladda ner
     * pinsamt enkelt att DOS:a alliance till döds - öppna koppling, skicka 0xffff och sedan 64k av skräp så tar alliance emot det glädjeligen
