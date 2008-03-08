@@ -22,7 +22,7 @@ public class GenerateTestSuite {
     private HashSet<Friend> usedFriends = new HashSet<Friend>();
     private HashMap<Friend, Friend> parentFor = new HashMap<Friend, Friend>();
 
-    private static final int N_FRIENDS_FACTOR = 2;
+    private static final int N_FRIENDS_FACTOR = 3;
     private static final String SHARE_DIRECTORY = "c:\\share";
 
     public GenerateTestSuite() throws Exception {
@@ -176,6 +176,10 @@ public class GenerateTestSuite {
         s.getInternal().setDownloadfolder(path+"downloads");
         s.getInternal().setCorestatefile(path+"core.dat");
         s.getInternal().setKeystorefilename(path+"me.ks");
+        if (Math.random() > 0.5)
+            s.getMy().setInvitations((int)(4*Math.random()));
+        else
+            s.getMy().setInvitations(0);
         s.addShare(getRandomShare());
         s.addShare(new Share("c:/dummy"));
         return s;
