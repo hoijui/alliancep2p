@@ -9,6 +9,7 @@ nya ideer:
         2. enkelt för dem som ser reklamen att koppla upp sig och tanka
 
 todo:
+    * bättre stöd för vista - problem när fil ska flyttas och så?   downloads borde ligga i my downloads eller nåt
     * stöd för att skapa connection koder inom samma nätverk * lägg till ett meddelande när man försöker connecta till en dator i samma nätverk
     * ta upp uploads per default
     * måste ta kataloger smartare - blir jäkligt knas annars
