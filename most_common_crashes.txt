@@ -1,5 +1,6 @@
 Sorted in order of "populatiry" from over 2000 error reports.
 
+får nog bli så att jag ser till att man får ett spårbard felmeddelande här och göra ett nytt släpp:
 java.lang.Error: java.net.SocketException: Socket operation on nonsocket: getsockname
 	at sun.nio.ch.Net.localAddress(Unknown Source)
 	at sun.nio.ch.SocketChannelImpl.localAddress(Unknown Source)

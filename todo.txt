@@ -1,6 +1,7 @@
 testa erics kod
 
 nya ideer:
+    * internationalisering - hade varit asnajs
     * integration mot facebook
     * alltid skicka fel med send error per default?  ha på det och slå av det när jag släpper 1.0
     * "jag tror en del av mina polare nog skulle bli nyfikna om man hade lite reklam typ  "American Gangsters DVD - join Alliance""
