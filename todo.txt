@@ -1,6 +1,7 @@
 testa erics kod
 
 nya ideer:
+    * byt till stendahls-commons, borde bara vara att byta jar
     * fixa installation för mac när jag har airbooken.. mmm
     * lägg till option där man kan välja hur ofta alliance ska hasha om - det finns folk som inte gillar att deras 500gb share hashas om hela tiden
     * posta i forum om att jag behöver en download-bundle för installation i linux
