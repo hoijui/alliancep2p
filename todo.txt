@@ -1,6 +1,8 @@
 testa erics kod
 
 nya ideer:
+    * när man ska skapa nätverkskod:   if (port_test_is_online) perform_port_test
+    * nåt åt detta hållet är viktigt så man inte chokar noobs kopplingar: if (uploaded > 100mb and uploded_to > 2 persons and bandwidth_thottle_not_set) set_throttle_and_notify_when_ui_is_up
     * internationalisering - hade varit asnajs
     * integration mot facebook
     * alltid skicka fel med send error per default?  ha på det och slå av det när jag släpper 1.0
