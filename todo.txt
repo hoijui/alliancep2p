@@ -1,11 +1,15 @@
 testa erics kod
 
 nya ideer:
+    * fixa installation för mac när jag har airbooken.. mmm
+    * lägg till option där man kan välja hur ofta alliance ska hasha om - det finns folk som inte gillar att deras 500gb share hashas om hela tiden
+    * posta i forum om att jag behöver en download-bundle för installation i linux
     * när man ska skapa nätverkskod:   if (port_test_is_online) perform_port_test
     * nåt åt detta hållet är viktigt så man inte chokar noobs kopplingar: if (uploaded > 100mb and uploded_to > 2 persons and bandwidth_thottle_not_set) set_throttle_and_notify_when_ui_is_up
     * internationalisering - hade varit asnajs
     * integration mot facebook
     * alltid skicka fel med send error per default?  ha på det och slå av det när jag släpper 1.0
+    * move to top/bottom i downloads. Många har hundra downloads i sin lista. roligt att trycka up hundra gånger.
     * "jag tror en del av mina polare nog skulle bli nyfikna om man hade lite reklam typ  "American Gangsters DVD - join Alliance""
         1. enkelt att göra reklam för en eller flera grejor man delar ut
         Pontus säger (10:10):
