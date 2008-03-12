@@ -5,6 +5,7 @@ tankar:
     * siten är ju relativt viktig. MEN det viktigaste är att få det att sprida sig igenom word of mouth. Det spelar ingen roll om 100 pers kommer in och testar programmet - förmodligen orkar ingen av dom att starta ett nätverk ändå.
 
 nya ideer:
+    * har med usability test att göra: downloadknappen sittter på ett konstigt ställe. kommer noobs hitta den - testa på stina t.ex.
     * byt till stendahls-commons, borde bara vara att byta jar
     * fixa alla fel som finns i top 10
     * fixa installation för mac när jag har airbooken
