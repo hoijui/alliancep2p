@@ -1,45 +1,49 @@
 testa erics kod
 
+tankar:
+    * hsql eller liknande verkar najs men det är inte läge för det. Koden i alliance är sjukt optimerad och det är dumt att kanska bort den nu. Kanske i version 2.0 eller så.
+    * siten är ju relativt viktig. MEN det viktigaste är att få det att sprida sig igenom word of mouth. Det spelar ingen roll om 100 pers kommer in och testar programmet - förmodligen orkar ingen av dom att starta ett nätverk ändå.
+
 nya ideer:
     * byt till stendahls-commons, borde bara vara att byta jar
-    * fixa installation för mac när jag har airbooken.. mmm
+    * fixa alla fel som finns i top 10
+    * fixa installation för mac när jag har airbooken
     * lägg till option där man kan välja hur ofta alliance ska hasha om - det finns folk som inte gillar att deras 500gb share hashas om hela tiden
     * posta i forum om att jag behöver en download-bundle för installation i linux
     * när man ska skapa nätverkskod:   if (port_test_is_online) perform_port_test
     * nåt åt detta hållet är viktigt så man inte chokar noobs kopplingar: if (uploaded > 100mb and uploded_to > 2 persons and bandwidth_thottle_not_set) set_throttle_and_notify_when_ui_is_up
-    * internationalisering - hade varit asnajs
+    * internationalisering - massa folk hade översatt om det gick..   tänk på detta. hade varit jävligt najs.  man får välja språk i runtime. najs.
     * integration mot facebook
-    * alltid skicka fel med send error per default?  ha på det och slå av det när jag släpper 1.0
+    * alltid skicka fel med send error per default?  ha på det och slå av det när jag släpper 1.0 - tveksamt. bra statistik iofs men send error statistiken borde vara relativt representativ
     * move to top/bottom i downloads. Många har hundra downloads i sin lista. roligt att trycka up hundra gånger.
     * "jag tror en del av mina polare nog skulle bli nyfikna om man hade lite reklam typ  "American Gangsters DVD - join Alliance""
         1. enkelt att göra reklam för en eller flera grejor man delar ut
         Pontus säger (10:10):
         2. enkelt för dem som ser reklamen att koppla upp sig och tanka
+        * typ:    Click here to download and start alliance. Once alliance starts you will automatically connect to your friends network.
 
 todo:
     * bättre stöd för vista - problem när fil ska flyttas och så?   downloads borde ligga i my downloads eller nåt
     * stöd för att skapa connection koder inom samma nätverk * lägg till ett meddelande när man försöker connecta till en dator i samma nätverk
-    * ta upp uploads per default
+    * ta upp uploads per default - man vill väl inte skrämma folk igenom att dölja uploads kanske?
     * måste ta kataloger smartare - blir jäkligt knas annars
     * när man kör över rdp och loggar ut oscilerar away-ikonen
     * markeringen försvinner när man väljen en användare - selectWindowByIdentifyer ska fixa - hm. det är nog så att när man refresjhar listan så försvinner selection - kom ihåg selection innan uppdatering
-
     * när man laddat ner en fil hashas denna om vid nästa omstart - det leder till fel när man skickar filer till chat  -- ???
     * timestamp på chatmeddelanden - så att dom kommer i rätt ordning
     * stöd för dyndns namn i my ip
 
-    * massa folk hade översatt om det gick..   tänk på detta. hade varit jävligt najs.  man får välja språk i runtime. najs.
-
-usability testa! roligt. testa allt från installation till .. allt annat
+usability testa! roligt. testa allt från installation till .. allt annat       kanske på stina?
 
 features:
+    * win32 api med file system events
+    * får inte visa hundra "you have successfully connected to" - tänk på noobs - fast det är lite krångligt att fixa
+    * när man laddar ner igenom share borde den ta sökvägen från där man klickade
     * tooltip för diagram
     * ha en grafisk representation av dl hastighet - rött/gult/grönt och progress bar så kan ingen missa det..
     * enligt en artikel jag läste ska det räcka med en io diskbuffer på 64kb - för det är det XP har - vista kan ha större
     * när man tankar från fem personer och dl är klar så fortsätter den med de sista paketen - länge. Liknande problem som i startster och flera nedladdningar
-    * får inte visa hundra "you have successfully connected to" - tänk på noobs - fast det är lite krångligt att fixa
     * limit på antal uploads
-    * när man laddar ner igenom share borde den ta sökvägen från där man klickade
     * det buggar väl inte längre? : glöm inte att ta bort GetUserList flood grejjerna.. - det buggar fortfarande - dom kan ställa till med problem i framtiden - och det är en UI referens i CORE
     * filesize i view share
 
@@ -48,4 +52,3 @@ future features:
     * dubbelklick på + ska inte ladda ner
     * pinsamt enkelt att DOS:a alliance till döds - öppna koppling, skicka 0xffff och sedan 64k av skräp så tar alliance emot det glädjeligen
     * droppa fil på en användare - en lite speciell process i download och uploadconnection. borde inte vara några problem. eller någon annan slags implementation - det hade rockat iaf. Bra om den använder standard downloadförfarandet så man får allt från det. Inget fel att tanka från två heller ifall filen råkar finnas på fler ställen. Det får nog bli att man lägger till en fil i share som är markerad som att den bara får downloadas från en person - sedan skickar man tth nyckeln till denna person
-    * win32 api med file system events
