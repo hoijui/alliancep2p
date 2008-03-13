@@ -1,11 +1,19 @@
 testa erics kod
 
+gräv inte ner dig i detaljer.   var smart. koncentrera dig på det viktigaste. lägg till få nya funktioner. typ:
+  connectiionskoder krånglar
+  kopllingar buggar
+  sätt att bjuda in. central server som hjälper kanske
+
 tankar:
     * hsql eller liknande verkar najs men det är inte läge för det. Koden i alliance är sjukt optimerad och det är dumt att kanska bort den nu. Kanske i version 2.0 eller så.
     * siten är ju relativt viktig. MEN det viktigaste är att få det att sprida sig igenom word of mouth. Det spelar ingen roll om 100 pers kommer in och testar programmet - förmodligen orkar ingen av dom att starta ett nätverk ändå.
     * ett stort problem verkar vara nätverksstabilitet också - erik svarar inte fastän han finns på listan. Det ser ut som att många är inloggade men i själva verket är det få som svarar. kanske starta om regelbundet? reconnecta till alla regelbunnet?
 
 nya ideer:
+    * drag'n'drop från msn - bara man kan förklara det på ett enkelt sätt så är det lika bra som fullständig integration
+    * feedback formulär
+    * lägg till advanced vy i friendslist. ratio, max up och max ner. roligt för tekniskare användare. Gör en kool ikon för den så man ser den.
     * har med usability test att göra: downloadknappen sittter på ett konstigt ställe. kommer noobs hitta den - testa på stina t.ex.
     * byt till stendahls-commons, borde bara vara att byta jar
     * fixa alla fel som finns i top 10
