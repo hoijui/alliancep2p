@@ -33,6 +33,7 @@ nya ideer:
         * typ:    Click here to download and start alliance. Once alliance starts you will automatically connect to your friends network.
 
 todo:
+    * testa med sketstor share. gärna en tb men 500gb går bra också.
     * fixa java 6.0 system tray
     * bättre stöd för vista - problem när fil ska flyttas och så?   downloads borde ligga i my downloads eller nåt
     * stöd för att skapa connection koder inom samma nätverk * lägg till ett meddelande när man försöker connecta till en dator i samma nätverk
