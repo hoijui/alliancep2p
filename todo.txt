@@ -65,3 +65,45 @@ future features:
     * dubbelklick på + ska inte ladda ner
     * pinsamt enkelt att DOS:a alliance till döds - öppna koppling, skicka 0xffff och sedan 64k av skräp så tar alliance emot det glädjeligen
     * droppa fil på en användare - en lite speciell process i download och uploadconnection. borde inte vara några problem. eller någon annan slags implementation - det hade rockat iaf. Bra om den använder standard downloadförfarandet så man får allt från det. Inget fel att tanka från två heller ifall filen råkar finnas på fler ställen. Det får nog bli att man lägger till en fil i share som är markerad som att den bara får downloadas från en person - sedan skickar man tth nyckeln till denna person
+
+
+
+
+
+
+
+
+
+
+
+
+sökmotorsoptimering:
+Skriv sidan såhär, och styla upp den med css
+
+<html>
+<title>Alliance P2P - Safe file sharing</title> <head>
+	<link href="style.shtml" type=text/css rel=stylesheet>
+	<meta name=”description” content=”Alliance is a private and secure p2p software environment to share files and communicate with people you know.”>
+	<meta name=”keywords” content=”alliance, alliancep2p, p2p, file sharing, chat, secure, safe, download”> </head>
+
+<body>
+	<h1>Alliance P2P - Safe file sharing</h1>
+	<p>Alliance is a private and secure p2p software environment to share files and communicate with people you know.</p>
+	<p>It's free. It's easy</p>
+	<ol>
+		<li>Download and run Alliance</li>
+		<li>Invite your coworkers or friends</li>
+		<li>Share files and communicate with them!</li>
+	</ol>
+......
+</body>
+
+Skicka sedan in sidan till en massa directories, där du använder title och description taggarna för att beskriva innehållet. Se till att matcha texterna exakt, så får du bättre resultat.
+
+Försök även att utveckla texten på förstasidan, så att du får med fler av dina keywords. Som det är nu får du bara bra träffbild på de ord som finns i title, description, h1, p och a taggarna.
+
+Blir du listad på något open directory, så kommer du att boosta din trafik via google riktigt mycket.
+
+
+/Tomas
+
