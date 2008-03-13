@@ -49,7 +49,7 @@ todo:
 usability testa! roligt. testa allt från installation till .. allt annat       kanske på stina?
 
 features:
-    * win32 api med file system events
+    * win32 api med file system events - FÄRDIGT JAVA API FÖR DETTA: http://www2.hawaii.edu/~qzhang/FileSystemWatcher/index.html
     * får inte visa hundra "you have successfully connected to" - tänk på noobs - fast det är lite krångligt att fixa
     * när man laddar ner igenom share borde den ta sökvägen från där man klickade
     * tooltip för diagram
