@@ -34,6 +34,9 @@ nya ideer:
         * typ:    Click here to download and start alliance. Once alliance starts you will automatically connect to your friends network.
 
 todo:
+    * Fair enough. I'll add two new options in the options dialog:
+         [X] Scan share when Alliance starts
+         Rescan share automatically every ___ minutes
     * testa med sketstor share. gärna en tb men 500gb går bra också.
     * fixa java 6.0 system tray
     * bättre stöd för vista - problem när fil ska flyttas och så?   downloads borde ligga i my downloads eller nåt
