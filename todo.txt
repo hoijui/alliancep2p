@@ -11,6 +11,7 @@ tankar:
     * ett stort problem verkar vara nätverksstabilitet också - erik svarar inte fastän han finns på listan. Det ser ut som att många är inloggade men i själva verket är det få som svarar. kanske starta om regelbundet? reconnecta till alla regelbunnet?
 
 nya ideer:
+    * när man trycker på refresh kan den köra pontus clean-up kod som ska ta bort filer som inte finns längre
     * drag'n'drop från msn - bara man kan förklara det på ett enkelt sätt så är det lika bra som fullständig integration
     * feedback formulär
     * lägg till advanced vy i friendslist. ratio, max up och max ner. roligt för tekniskare användare. Gör en kool ikon för den så man ser den.
