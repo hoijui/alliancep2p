@@ -1,5 +1,7 @@
 testa erics kod
 
+sett upp forum: http://alliancetalk.proboards91.com/index.cgi
+
 gräv inte ner dig i detaljer.   var smart. koncentrera dig på det viktigaste. lägg till få nya funktioner. typ:
   connectiionskoder krånglar
   kopllingar buggar
