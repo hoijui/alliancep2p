@@ -37,6 +37,7 @@ nya ideer:
         * typ:    Click here to download and start alliance. Once alliance starts you will automatically connect to your friends network.
 
 todo:
+    * window.tofront när man får meddelanden. Ska titta på options för taskbar bubblor 
     * användare startar alliance efter dom tryck på krysset för att trayikonen försvinner. kanske försöka ha kvar trayikonen medans alliance startar om? Det borde gå att fixa..  Antingen värsta hacket där man inte tar bort trayikonen, fast få dår man dubbel ikon när den väl startat. Alt. 2 är att vänta med att döda pocessen tills man ser att den nya alliance snurrar.
     * Fair enough. I'll add two new options in the options dialog:
          [X] Scan share when Alliance starts
