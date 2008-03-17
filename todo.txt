@@ -8,6 +8,7 @@ gräv inte ner dig i detaljer.   var smart. koncentrera dig på det viktigaste. lä
   sätt att bjuda in. central server som hjälper kanske
 
 tankar:
+    * achivements - eller iaf mer credz till erik och dylika - om det behövs? bra exempel är att den som bjudit in flest är kungen över nätverket. åtminstone se ratio i listan.. kanske
     * hsql eller liknande verkar najs men det är inte läge för det. Koden i alliance är sjukt optimerad och det är dumt att kanska bort den nu. Kanske i version 2.0 eller så.
     * siten är ju relativt viktig. MEN det viktigaste är att få det att sprida sig igenom word of mouth. Det spelar ingen roll om 100 pers kommer in och testar programmet - förmodligen orkar ingen av dom att starta ett nätverk ändå.
     * ett stort problem verkar vara nätverksstabilitet också - erik svarar inte fastän han finns på listan. Det ser ut som att många är inloggade men i själva verket är det få som svarar. kanske starta om regelbundet? reconnecta till alla regelbunnet?
