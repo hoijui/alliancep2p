@@ -1,80 +1,67 @@
 testa erics kod
-
-sett upp forum: http://alliancetalk.proboards91.com/index.cgi
-
 gräv inte ner dig i detaljer.   var smart. koncentrera dig på det viktigaste. lägg till få nya funktioner. typ:
   connectiionskoder krånglar
+        * typ:    Click here to download and start alliance. Once alliance starts you will automatically connect to your friends network.
   kopllingar buggar
   sätt att bjuda in. central server som hjälper kanske
+  siten är ju relativt viktig. MEN det viktigaste är att få det att sprida sig igenom word of mouth. Det spelar ingen roll om 100 pers kommer in och testar programmet - förmodligen orkar ingen av dom att starta ett nätverk ändå.
 
-tankar:
+Annat:
+    * usability testa! roligt. testa allt från installation till .. allt annat       kanske på stina?      * har med usability test att göra: downloadknappen sittter på ett konstigt ställe. kommer noobs hitta den - testa på stina t.ex.
+    * testa med sketstor share. gärna en tb men 500gb går bra också.
+    * sett upp forum: http://alliancetalk.proboards91.com/index.cgi
+    * SEO
+
+Lösa tankar:
     * achivements - eller iaf mer credz till erik och dylika - om det behövs? bra exempel är att den som bjudit in flest är kungen över nätverket. åtminstone se ratio i listan.. kanske
-    * hsql eller liknande verkar najs men det är inte läge för det. Koden i alliance är sjukt optimerad och det är dumt att kanska bort den nu. Kanske i version 2.0 eller så.
-    * siten är ju relativt viktig. MEN det viktigaste är att få det att sprida sig igenom word of mouth. Det spelar ingen roll om 100 pers kommer in och testar programmet - förmodligen orkar ingen av dom att starta ett nätverk ändå.
     * ett stort problem verkar vara nätverksstabilitet också - erik svarar inte fastän han finns på listan. Det ser ut som att många är inloggade men i själva verket är det få som svarar. kanske starta om regelbundet? reconnecta till alla regelbunnet?
+    * får inte visa hundra "you have successfully connected to" - tänk på noobs - fast det är lite krångligt att fixa
+    * ha en grafisk representation av dl hastighet - rött/gult/grönt och progress bar så kan ingen missa det..
 
-nya ideer:
-    * stöd för dyndns på vänner. kolla hur detta fungerar. det är en riktigt klok och proffsig grej att ha
-    * när man trycker på refresh kan den köra pontus clean-up kod som ska ta bort filer som inte finns längre - har lovat detta vissa användare som verkligen ville ha det
+Todo:
     * drag'n'drop från msn - bara man kan förklara det på ett enkelt sätt så är det lika bra som fullständig integration
-    * feedback formulär
-    * lägg till advanced vy i friendslist. ratio, max up och max ner. roligt för tekniskare användare. Gör en kool ikon för den så man ser den.
-    * har med usability test att göra: downloadknappen sittter på ett konstigt ställe. kommer noobs hitta den - testa på stina t.ex.
-    * byt till stendahls-commons, borde bara vara att byta jar
-    * fixa alla fel som finns i top 10
-    * fixa installation för mac när jag har airbooken
-    * lägg till option där man kan välja hur ofta alliance ska hasha om - det finns folk som inte gillar att deras 500gb share hashas om hela tiden
-    * posta i forum om att jag behöver en download-bundle för installation i linux
     * när man ska skapa nätverkskod:   if (port_test_is_online) perform_port_test
+    * fixa alla fel som finns i top 10
+    * byt till stendahls-commons, borde bara vara att byta jar
+    * stöd för dyndns namn i my ip. kolla hur detta fungerar. det är en riktigt klok och proffsig grej att ha
+    * när man trycker på refresh kan den köra pontus clean-up kod som ska ta bort filer som inte finns längre - har lovat detta vissa användare som verkligen ville ha det - testa. det kanske fungerar bra. Överväg att ha uppe en dialog när man scannar i full fart
+    * timestamp på chatmeddelanden - så att dom kommer i rätt ordning
+    * win32 api med file system events - FÄRDIGT JAVA API FÖR DETTA: http://www2.hawaii.edu/~qzhang/FileSystemWatcher/index.html
+    * move to top/bottom i downloads. Många har hundra downloads i sin lista. roligt att trycka up hundra gånger.
+    * stöd för att skapa connection koder inom samma nätverk * lägg till ett meddelande när man försöker connecta till en dator i samma nätverk
+    * Fair enough. I'll add two new options in the options dialog: [X] Scan share when Alliance starts Rescan share automatically every ___ minutes
+    * ta upp uploads per default - man vill väl inte skrämma folk igenom att dölja uploads kanske? - fixa koolt UI för uploads också. så det är kul att kolla på
+    * window.tofront när man får meddelanden. Ska titta på options för taskbar bubblor
+    * lägg till advanced vy i friendslist. ratio, max up och max ner. roligt för tekniskare användare. Gör en kool ikon för den så man ser den.
+    * när man kör över rdp och loggar ut oscilerar away-ikonen
+    * feedback formulär
+    * bättre stöd för vista - problem när fil ska flyttas och så?   downloads borde ligga i my downloads eller nåt
     * nåt åt detta hållet är viktigt så man inte chokar noobs kopplingar: if (uploaded > 100mb and uploded_to > 2 persons and bandwidth_thottle_not_set) set_throttle_and_notify_when_ui_is_up
     * internationalisering - massa folk hade översatt om det gick..   tänk på detta. hade varit jävligt najs.  man får välja språk i runtime. najs.
-    * integration mot facebook
-    * alltid skicka fel med send error per default?  ha på det och slå av det när jag släpper 1.0 - tveksamt. bra statistik iofs men send error statistiken borde vara relativt representativ
-    * move to top/bottom i downloads. Många har hundra downloads i sin lista. roligt att trycka up hundra gånger.
-    * "jag tror en del av mina polare nog skulle bli nyfikna om man hade lite reklam typ  "American Gangsters DVD - join Alliance""
-        1. enkelt att göra reklam för en eller flera grejor man delar ut
-        Pontus säger (10:10):
-        2. enkelt för dem som ser reklamen att koppla upp sig och tanka
-        * typ:    Click here to download and start alliance. Once alliance starts you will automatically connect to your friends network.
-
-todo:
-    * window.tofront när man får meddelanden. Ska titta på options för taskbar bubblor 
-    * användare startar alliance efter dom tryck på krysset för att trayikonen försvinner. kanske försöka ha kvar trayikonen medans alliance startar om? Det borde gå att fixa..  Antingen värsta hacket där man inte tar bort trayikonen, fast få dår man dubbel ikon när den väl startat. Alt. 2 är att vänta med att döda pocessen tills man ser att den nya alliance snurrar.
-    * Fair enough. I'll add two new options in the options dialog:
-         [X] Scan share when Alliance starts
-         Rescan share automatically every ___ minutes
-    * testa med sketstor share. gärna en tb men 500gb går bra också.
     * fixa java 6.0 system tray
-    * bättre stöd för vista - problem när fil ska flyttas och så?   downloads borde ligga i my downloads eller nåt
-    * stöd för att skapa connection koder inom samma nätverk * lägg till ett meddelande när man försöker connecta till en dator i samma nätverk
-    * ta upp uploads per default - man vill väl inte skrämma folk igenom att dölja uploads kanske?
+    * användare startar alliance efter dom tryck på krysset för att trayikonen försvinner. kanske försöka ha kvar trayikonen medans alliance startar om? Det borde gå att fixa..  Antingen värsta hacket där man inte tar bort trayikonen, fast få dår man dubbel ikon när den väl startat. Alt. 2 är att vänta med att döda pocessen tills man ser att den nya alliance snurrar.
     * måste ta kataloger smartare - blir jäkligt knas annars
-    * när man kör över rdp och loggar ut oscilerar away-ikonen
-    * markeringen försvinner när man väljen en användare - selectWindowByIdentifyer ska fixa - hm. det är nog så att när man refresjhar listan så försvinner selection - kom ihåg selection innan uppdatering
+    * "jag tror en del av mina polare nog skulle bli nyfikna om man hade lite reklam typ  "American Gangsters DVD - join Alliance"" 1. enkelt att göra reklam för en eller flera grejor man delar ut Pontus säger (10:10): 2. enkelt för dem som ser reklamen att koppla upp sig och tanka
     * när man laddat ner en fil hashas denna om vid nästa omstart - det leder till fel när man skickar filer till chat  -- ???
-    * timestamp på chatmeddelanden - så att dom kommer i rätt ordning
-    * stöd för dyndns namn i my ip
-
-usability testa! roligt. testa allt från installation till .. allt annat       kanske på stina?
-
-features:
-    * win32 api med file system events - FÄRDIGT JAVA API FÖR DETTA: http://www2.hawaii.edu/~qzhang/FileSystemWatcher/index.html
-    * får inte visa hundra "you have successfully connected to" - tänk på noobs - fast det är lite krångligt att fixa
+    * markeringen försvinner när man väljen en användare - selectWindowByIdentifyer ska fixa - hm. det är nog så att när man refresjhar listan så försvinner selection - kom ihåg selection innan uppdatering
+    * posta i forum om att jag behöver en download-bundle för installation i linux
+    * fixa installation för mac när jag har airbooken
     * när man laddar ner igenom share borde den ta sökvägen från där man klickade
-    * tooltip för diagram
-    * ha en grafisk representation av dl hastighet - rött/gult/grönt och progress bar så kan ingen missa det..
-    * enligt en artikel jag läste ska det räcka med en io diskbuffer på 64kb - för det är det XP har - vista kan ha större
     * när man tankar från fem personer och dl är klar så fortsätter den med de sista paketen - länge. Liknande problem som i startster och flera nedladdningar
-    * limit på antal uploads
+    * integration mot facebook
     * det buggar väl inte längre? : glöm inte att ta bort GetUserList flood grejjerna.. - det buggar fortfarande - dom kan ställa till med problem i framtiden - och det är en UI referens i CORE
     * filesize i view share
-
-future features:
+    * limit på antal uploads
+    * enligt en artikel jag läste ska det räcka med en io diskbuffer på 64kb - för det är det XP har - vista kan ha större
     * dubbelklick på nerladdad fil öppnar den
+
+Future features:
     * dubbelklick på + ska inte ladda ner
     * pinsamt enkelt att DOS:a alliance till döds - öppna koppling, skicka 0xffff och sedan 64k av skräp så tar alliance emot det glädjeligen
     * droppa fil på en användare - en lite speciell process i download och uploadconnection. borde inte vara några problem. eller någon annan slags implementation - det hade rockat iaf. Bra om den använder standard downloadförfarandet så man får allt från det. Inget fel att tanka från två heller ifall filen råkar finnas på fler ställen. Det får nog bli att man lägger till en fil i share som är markerad som att den bara får downloadas från en person - sedan skickar man tth nyckeln till denna person
 
+Future:
+    * hsql eller liknande verkar najs men det är inte läge för det. Koden i alliance är sjukt optimerad och det är dumt att kanska bort den nu. Kanske i version 2.0 eller så.
 
 
 
