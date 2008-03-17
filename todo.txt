@@ -47,13 +47,13 @@ Todo:
     * posta i forum om att jag behöver en download-bundle för installation i linux
     * fixa installation för mac när jag har airbooken
     * när man laddar ner igenom share borde den ta sökvägen från där man klickade
-    * när man tankar från fem personer och dl är klar så fortsätter den med de sista paketen - länge. Liknande problem som i startster och flera nedladdningar
-    * integration mot facebook
     * det buggar väl inte längre? : glöm inte att ta bort GetUserList flood grejjerna.. - det buggar fortfarande - dom kan ställa till med problem i framtiden - och det är en UI referens i CORE
-    * filesize i view share
-    * limit på antal uploads
-    * enligt en artikel jag läste ska det räcka med en io diskbuffer på 64kb - för det är det XP har - vista kan ha större
     * dubbelklick på nerladdad fil öppnar den
+    * filesize i view share
+    * när man tankar från fem personer och dl är klar så fortsätter den med de sista paketen - länge. Liknande problem som i startster och flera nedladdningar
+    * limit på antal uploads
+    * integration mot facebook
+    * enligt en artikel jag läste ska det räcka med en io diskbuffer på 64kb - för det är det XP har - vista kan ha större
 
 Future features:
     * dubbelklick på + ska inte ladda ner
