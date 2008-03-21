@@ -1,3 +1,4 @@
+gŒ igenom faq och getting started
 testa erics kod
 gräv inte ner dig i detaljer.   var smart. koncentrera dig på det viktigaste. lägg till få nya funktioner. typ:
   connectiionskoder krånglar
