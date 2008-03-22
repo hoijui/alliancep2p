@@ -1,4 +1,4 @@
-gŒ igenom faq och getting started
+gŒ igenom faq och getting started - getting started ska vara riktad till folk som vill starta ett nytt nŠtverk
 testa erics kod
 gräv inte ner dig i detaljer.   var smart. koncentrera dig på det viktigaste. lägg till få nya funktioner. typ:
   connectiionskoder krånglar
@@ -8,11 +8,23 @@ gräv inte ner dig i detaljer.   var smart. koncentrera dig på det viktigaste. lä
   siten är ju relativt viktig. MEN det viktigaste är att få det att sprida sig igenom word of mouth. Det spelar ingen roll om 100 pers kommer in och testar programmet - förmodligen orkar ingen av dom att starta ett nätverk ändå.
 
 Annat:
-    * usability testa! roligt. testa allt från installation till .. allt annat       kanske på stina?      * har med usability test att göra: downloadknappen sittter på ett konstigt ställe. kommer noobs hitta den - testa på stina t.ex.
     * testa med sketstor share. gärna en tb men 500gb går bra också.
+    * usability testa! roligt. testa allt från installation till .. allt annat       kanske på stina?      * har med usability test att göra: downloadknappen sittter på ett konstigt ställe. kommer noobs hitta den - testa på stina t.ex.
     * sett upp forum: http://alliancetalk.proboards91.com/index.cgi
     * SEO
-    * stŠll in sŒ att alliance fŒr ta mer minna pŒ windows - det finns en platŒ vid 50000 filer, tror det Šr fšr att det Šr dŒ minnet tar slut kanske?
+    * stŠll in sŒ att alliance fŒr ta mer minne pŒ windows - det finns en platŒ vid 50000 filer, tror det Šr fšr att det Šr dŒ minnet tar slut kanske?
+    * tŠnk igenom standardfallet: en noob blir inbjuden. hur gŒr man vidare dŠrifrŒn till att han bjuder in sina msn-vŠnner?
+        optimalt:
+            han fŒr en lŠnk frŒn en kompis. klicka pŒ den fšr att gŒ med i mitt nŠtverk
+            han klickar pŒ lŠnken. alliance installeras utan att han behšver gšra nŒgra val alls
+            alliance startar och fšrsšker direkt koppla upp sig mot hans kompis. det bšr gŒ bra eftersom connectionkoden validerades med port test nŠr den skapades
+            efter att kopplingen gjorts sŠger alliance att det Šr rekommenderat att koppla upp sig mot hans kompisar
+            anvŠndaren gšr detta och det trillar in en del nya anvŠndare - UTAN att han fŒr nŒgra meddelanden om det
+            vid <nŠr man laddat ner mer Šn 10mb och tvŒ filer och har just pŒbšrjat en nedladdning som kommer att ta mer Šn fem minuter> berŠttar alliance att om man bjuder in fler vŠnner kan man ladda ner mer saker och man kan ladda ner snabbare
+            anvŠndaren vŠljer att bjuda in kompisar. om inte sŒ fortsŠtter alliance nagga typ en gŒng i veckan tills man bjudit in nŒn
+            wizarden kommer upp. anvŠndaren kan bjuda in msn-vŠnner, bjuda in igenom att skicka mail eller bjuda in manuellt igenom att skicka en lŠnk till en kompis pŒ valfritt sŠtt
+            anvŠndaren uppmuntras till att bjuda in msn vŠnner och gšr detta
+            anvŠndaren drar in ett gŠng msnvŠnner och vŠljer send. goto 10
 
 Lösa tankar:
     * achivements - eller iaf mer credz till erik och dylika - om det behövs? bra exempel är att den som bjudit in flest är kungen över nätverket. åtminstone se ratio i listan.. åååtminstone i advanced mode
