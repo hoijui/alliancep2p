@@ -12,6 +12,7 @@ Annat:
     * testa med sketstor share. gärna en tb men 500gb går bra också.
     * sett upp forum: http://alliancetalk.proboards91.com/index.cgi
     * SEO
+    * stŠll in sŒ att alliance fŒr ta mer minna pŒ windows - det finns en platŒ vid 50000 filer, tror det Šr fšr att det Šr dŒ minnet tar slut kanske?
 
 Lösa tankar:
     * achivements - eller iaf mer credz till erik och dylika - om det behövs? bra exempel är att den som bjudit in flest är kungen över nätverket. åtminstone se ratio i listan.. åååtminstone i advanced mode
