@@ -18,6 +18,7 @@ public class ChunkStorage {
     private final static byte MAGIC_ALIVE = 123, MAGIC_MARKED_FOR_DELETION=101;
 
     private RandomAccessFile raf;
+    private String percetMarkedForDeletion;
 
     public ChunkStorage(String file) throws IOException {
         raf = new RandomAccessFile(file, "rw");
@@ -49,7 +50,7 @@ public class ChunkStorage {
             if(T.t)T.info("Tried to get chunk but it has been marked for deletion!");
             return null;
         } else if (magic != MAGIC_ALIVE) {
-           throw new IOException("Magic number incorrect in database file database. The database might be corrupt!");
+            throw new IOException("Magic number incorrect in database file database. The database might be corrupt!");
         }
 
         int len = raf.readInt();
@@ -67,5 +68,26 @@ public class ChunkStorage {
         if(T.t)T.trace("Marking offset "+off+" as removed.");
         raf.seek(off);
         raf.writeByte(MAGIC_MARKED_FOR_DELETION);
+    }
+
+    public String getPercetMarkedForDeletion() throws IOException {
+        long bytesDeleted = 0;
+        long bytesUsed = 0;
+        long off = 0;
+
+        while(off < raf.length()) {
+            raf.seek(off);
+            int magic = raf.readByte();
+            long size = raf.readInt();
+            off += size+1+4;
+            if (magic == MAGIC_MARKED_FOR_DELETION) {
+                bytesDeleted += size;
+                continue;
+            } else if (magic != MAGIC_ALIVE) {
+                throw new IOException("Magic number incorrect in database file database. The database might be corrupt!");
+            }
+            bytesUsed += size;
+        }
+        return (bytesDeleted*100) / (bytesUsed+bytesDeleted) + "%";
     }
 }

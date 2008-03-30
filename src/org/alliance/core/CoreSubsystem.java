@@ -169,7 +169,7 @@ public class CoreSubsystem implements Subsystem {
         traceLog = new Log("logs/trace.log");
     }
 
-    public boolean isRunningAsTestSuite() {
+    public static boolean isRunningAsTestSuite() {
         return System.getProperty("testsuite") != null;
     }
 
@@ -363,9 +363,14 @@ public class CoreSubsystem implements Subsystem {
         logError(e);
 
         if (e instanceof IOException) return;
-        if (e instanceof SocketException) return;
-        if (e instanceof ClosedChannelException) return;
         if (e instanceof UnresolvedAddressException) return;
+
+        if (shutdownInProgress) {
+            System.err.println("Error while shutting down for "+source+": "+e);
+            e.printStackTrace();
+            return;
+        }
+
         uiCallback.handleError(e, source);
     }
 

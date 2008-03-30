@@ -150,7 +150,6 @@ public class NetworkManager extends Manager {
 
     public void reportError(String source, Object key, Exception e) {
         if (!(e instanceof ConnectException)) core.reportError(e, source+": "+connections.get(key));
-        if(T.t)T.warn("Error for "+source+": "+e, e);
         if (connections.containsKey(key)) {
             Connection c = connections.get(key);
             if (c!=null) {
@@ -164,6 +163,7 @@ public class NetworkManager extends Manager {
 
         if (!(e instanceof IOException)) {
             if (e.toString().indexOf("Connection refused: no further information") == -1) {
+                if(T.t)T.warn("Error for "+source+": "+e, e);
                 System.err.println("Error for "+friendManager.getMe()+": ");
                 e.printStackTrace();
             }

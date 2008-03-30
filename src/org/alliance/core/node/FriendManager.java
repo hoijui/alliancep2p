@@ -310,13 +310,7 @@ public class FriendManager extends Manager {
     }
 
     public String nickname(int guid) {
-        org.alliance.core.settings.Friend f = core.getSettings().getFriend(guid);
-        if (f != null && f.getRenamednickname() != null && f.getRenamednickname().trim().length() > 0) return f.getRenamednickname();
+        if (getFriend(guid) != null) return getFriend(guid).nickname();
         return nicknameWithoutLocalRename(guid);
-    }
-
-    public void setNicknameToShowInUI(Friend friend, String nn) {
-        org.alliance.core.settings.Friend f = core.getSettings().getFriend(friend.getGuid());
-        if (f != null) f.setRenamednickname(nn);
     }
 }

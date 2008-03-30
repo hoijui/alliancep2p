@@ -37,7 +37,7 @@ public class NonWindowUICallback implements UICallback {
     }
 
     public void statusMessage(String s) {
-        System.out.println(s);
+        if (!CoreSubsystem.isRunningAsTestSuite()) System.out.println(s);
     }
 
     public void toFront() {

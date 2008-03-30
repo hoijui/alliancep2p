@@ -14,6 +14,7 @@ import org.alliance.core.crypto.cryptolayers.SSLCryptoLayer;
 import org.alliance.core.file.blockstorage.BlockFile;
 import org.alliance.core.file.filedatabase.FileDescriptor;
 import org.alliance.core.file.filedatabase.FileType;
+import org.alliance.core.file.filedatabase.FileDatabase;
 import org.alliance.core.file.hash.Hash;
 import org.alliance.core.file.share.ShareBase;
 import org.alliance.core.node.Friend;
@@ -132,7 +133,7 @@ public class Console {
                 });
                 t.start();
             } else {
-                printer.println("No you won't");
+                printer.println("I think not");
             }
         } else if ("gc".equals(command)) {
             gc();
@@ -159,6 +160,8 @@ public class Console {
             cleardups();
         } else if ("threads".equals(command)) {
             threads();
+        } else if ("filedatabase".equals(command)) {
+            filedatabase();
         } else if ("sl".equals(command) || "searchLocal".equals(command)) {
             searchLocal(params);
         } else if ("ci".equals(command)) {
@@ -176,6 +179,10 @@ public class Console {
         } else {
             printer.println("Unknown command "+command);
         }
+    }
+
+    private void filedatabase() throws IOException {
+        core.getFileManager().getFileDatabase().printStats(printer);
     }
 
     private void clearInvitaitons(String s) throws Exception {

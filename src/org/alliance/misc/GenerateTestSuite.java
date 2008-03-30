@@ -22,12 +22,14 @@ public class GenerateTestSuite {
     private HashSet<Friend> usedFriends = new HashSet<Friend>();
     private HashMap<Friend, Friend> parentFor = new HashMap<Friend, Friend>();
 
-    private static final int N_FRIENDS_FACTOR = 3;
-    private static final String SHARE_DIRECTORY = "c:\\share";
+    private static final int N_FRIENDS_FACTOR = 2;
+    private String shareDirectory;
+    private static final boolean LINK_MORE_THEN_JUST_TO_MACIEK = true;
 
-    public GenerateTestSuite() throws Exception {
-        if (!new File(SHARE_DIRECTORY).exists()) {
-            System.out.println("Directory with fake share test data does not exist: "+SHARE_DIRECTORY+".");
+    public GenerateTestSuite(String shareDirectory) throws Exception {
+        this.shareDirectory = shareDirectory;
+        if (!new File(shareDirectory).exists()) {
+            System.out.println("Directory with fake share test data does not exist: "+shareDirectory+".");
             System.exit(1);
         }
 
@@ -64,10 +66,12 @@ public class GenerateTestSuite {
             link(maciek, f);
         }
 
-        System.out.println("Linking friends to maciek friends (recursive)...");
-        for(int i=0;i<maciekSettings.getFriendlist().size();i++) {
-            Friend f = maciekSettings.getFriendlist().get(i);
-            addFriends(f, 1);
+        if (LINK_MORE_THEN_JUST_TO_MACIEK) {
+            System.out.println("Linking friends to maciek friends (recursive)...");
+            for(int i=0;i<maciekSettings.getFriendlist().size();i++) {
+                Friend f = maciekSettings.getFriendlist().get(i);
+                addFriends(f, 1);
+            }
         }
 
         saveSettings("settings/", maciekSettings);
@@ -78,7 +82,7 @@ public class GenerateTestSuite {
             saveSettings("settings/", settings.get(f));
             n++;
         }
-        System.out.println("Saved "+n+" users.");
+        System.out.println("Saved "+n+" users excl maciek.");
     }
 
     private void addFriends(Friend friend, int level) {
@@ -172,26 +176,33 @@ public class GenerateTestSuite {
         s.setServer(new Server(user.getPort()));
         String path = "testsuite/data/"+user.getNickname()+"/";
         s.getInternal().setFiledatabasefile(path+"share.dat");
-        s.getInternal().setCachefolder(path+"cache");
-        s.getInternal().setDownloadfolder(path+"downloads");
+        s.getInternal().setFiledatabaseindexfile(path+"share.idx");
+        s.getInternal().setDownloadquefile(path+"downloads.dat");
         s.getInternal().setCorestatefile(path+"core.dat");
+
+        s.getInternal().setDownloadfolder(path+"downloads");
+        s.getInternal().setCachefolder(path+"cache");
         s.getInternal().setKeystorefilename(path+"me.ks");
+
         if (Math.random() > 0.5)
             s.getMy().setInvitations((int)(4*Math.random()));
         else
             s.getMy().setInvitations(0);
         s.addShare(getRandomShare());
-        s.addShare(new Share("c:/dummy"));
         return s;
     }
 
     private Share getRandomShare() {
-        File files[] = new File(SHARE_DIRECTORY).listFiles();
+        File files[] = new File(shareDirectory).listFiles();
         return new Share(files[((int)(Math.random()*files.length))].getPath());
     }
 
     public static void main(String[] args) throws Exception {
-        new GenerateTestSuite();
+        if (args.length != 1) {
+            System.out.println("First argument must be path to files used for shares for test users.");
+            return;
+        }
+        new GenerateTestSuite(args[0]);
     }
 
     private String[] usernames = {

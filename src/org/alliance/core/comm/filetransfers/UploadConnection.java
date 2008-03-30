@@ -106,7 +106,8 @@ public class UploadConnection extends TransferConnection {
                         continue;
                     }
                 }
-                if (buffer.remaining() != 0) {
+                //todo: erics change -- tested it and it did not work.
+                //if (buffer.remaining() != 0) {
                     int toSend = netMan.getUploadThrottle().request(this, buffer.position());
                     if (toSend == 0) {
                         netMan.noInterestToSend(this); //not sure this is needed
@@ -132,7 +133,7 @@ public class UploadConnection extends TransferConnection {
                     } else {
                         //do nothing
                     }
-                }
+                //}
             }
         }
     }

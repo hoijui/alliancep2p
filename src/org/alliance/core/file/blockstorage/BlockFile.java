@@ -247,7 +247,7 @@ public final class BlockFile {
         return (int)(size%BLOCK_SIZE);
     }
 
-    public void moveToComplete(String directory) throws IOException {
+    public void moveToComplete(String directory) throws Exception {
         if(T.t)T.info("Defragmenting file and moving to "+directory);
         if(T.t)T.ass(isComplete(),"File not complete and we're going for a move!");
 
@@ -260,7 +260,7 @@ public final class BlockFile {
 
         if (parent.isSequential()) {
             close();
-            if (!createDatFile().renameTo(file)) throw new IOException("Could not rename file "+file+" to "+file+"!");
+            if (!createDatFile().renameTo(file)) throw new Exception("Could not rename file "+file+" to "+file+"! This might be a problem with file permissions.");
         } else {
             defragmentTo(file);
             close();

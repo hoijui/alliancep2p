@@ -2,7 +2,7 @@
     <title value="Alliancet" image="gfx/icons/alliance.png"/>
     <menubar>
         <menu text="File" mnemonic="f">
-            <menuitem eventid="hide" mnemonic="x" text="Close"/>
+            <menuitem eventid="hide" mnemonic="x" text="Hide"/>
         </menu>
         <menu text="View" mnemonic="w">
             <menuitem eventid="uploads" accelerator="ctrl-u" mnemonic="u" text="Uploads"/>

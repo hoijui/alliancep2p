@@ -15,10 +15,14 @@ import org.alliance.ui.UISubsystem;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.awt.*;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+
+import de.javasoft.plaf.synthetica.filechooser.SyntheticaFileChooser;
+import de.javasoft.synthetica.addons.ExtendedFileChooser;
 
 /**
  * Created by IntelliJ IDEA.
@@ -68,19 +72,10 @@ public class OptionsWindow extends XUIDialog {
 
         init(ui.getRl(), ui.getRl().getResourceStream("xui/optionswindow.xui.xml"));
 
-        for (String k : OPTIONS) {
-            JComponent c = (JComponent) xui.getComponent(k);
-            if (c != null) {
-                components.put(k, c);
-                setComponentValue(c, getSettingValue(k));
-            }
-        }
-
         xui.getComponent("server.port").setEnabled(false);
 
         nickname = (JTextField) xui.getComponent("my.nickname");
         downloadFolder = (JTextField)xui.getComponent("internal.downloadfolder");
-
         shareList = (JList) xui.getComponent("shareList");
         shareListModel = new DefaultListModel();
         for (Share share : ui.getCore().getSettings().getSharelist()) shareListModel.addElement(share.getPath());
@@ -96,9 +91,22 @@ public class OptionsWindow extends XUIDialog {
 
         uploadThrottleBefore = ui.getCore().getSettings().getInternal().getUploadthrottle();
 
-        display();
-
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
+        pack();
+
+        //we set this AFTER we pack the frame - so that the frame isnt made wider because of a long download folder path
+        for (String k : OPTIONS) {
+            JComponent c = (JComponent) xui.getComponent(k);
+            if (c != null) {
+                components.put(k, c);
+                setComponentValue(c, getSettingValue(k));
+            }
+        }
+        Dimension ss = Toolkit.getDefaultToolkit().getScreenSize();
+        setLocation(ss.width/2-getWidth()/2,
+                    ss.height/2-getHeight()/2);
+        setVisible(true);
     }
 
     private String getSettingValue(String k) throws Exception {

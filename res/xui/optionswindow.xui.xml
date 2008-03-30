@@ -1,13 +1,16 @@
 <xui>
     <title value="Options" image="gfx/icons/alliance.png"/>
     <body>
-        <tabbedpanel height="400" id="tab">
+        <tabbedpanel height="450" id="tab">
             <tab text="General" tooltip="General options">
                 <panel axis="y" bordertype="etched" bordertitle="Personal information">
                     <form expand="horiz" border="5">
                         <row>
                             <cell>
-                                <label text="Your nickname: "/>
+                                <panel border="0" axis="y">
+                                    <filler/>
+                                    <label text="Your nickname: "/>
+                                </panel>
                             </cell>
                             <cell>
                                 <panel border="0" axis="x">
@@ -29,7 +32,10 @@
                     <form expand="horiz" border="5">
                         <row>
                             <cell>
-                                <label text="Download folder: "/>
+                                <panel border="0" axis="y">
+                                    <filler/>
+                                    <label text="Download folder: "/>
+                                </panel>
                             </cell>
                             <cell>
                                 <panel border="0" axis="x">
@@ -52,7 +58,10 @@
                     <form expand="horiz" border="5">
                         <row>
                             <cell>
-                                <label text="Port (you can not change this): "/>
+                                <panel border="0" axis="y">
+                                    <filler/>
+                                    <label text="Port (you can not change this): "/>
+                                </panel>
                             </cell>
                             <cell>
                                 <panel border="0" axis="x">
@@ -153,7 +162,9 @@
                             </cell>
                         </row>
                     </form>
-                    <mlabel border="5" expand="horiz">A limit of 75KiB/s is recommended for a normal (1Mbit upstream) connection.</mlabel>
+                    <panel axis="x">
+                        <mlabel expand="horiz" html="true">A limit of 75KiB/s is recommended for a normal (1Mbit upstream) connection.</mlabel>
+                    </panel>
                 </panel>
 
                 <panel axis="y" bordertype="etched" bordertitle="File indexing">
@@ -210,7 +221,7 @@
         </tabbedpanel>
         <panel border="5" axis="x" expand="horiz">
             <filler axis="x"/>
-            <button width="80" eventid="ok" text="OK"/><strut width="5"/><button width="80" eventid="cancel" text="Cancel"/><strut width="5"/><button width="80" eventid="apply" text="Apply"/>
+            <button width="85" eventid="ok" text="OK"/><strut width="5"/><button width="85" eventid="cancel" text="Cancel"/><strut width="5"/><button width="85" eventid="apply" text="Apply"/>
         </panel>
     </body>
 </xui>

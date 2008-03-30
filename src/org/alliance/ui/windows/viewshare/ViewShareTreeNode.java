@@ -1,6 +1,7 @@
 package org.alliance.ui.windows.viewshare;
 
 import com.stendahls.nif.ui.OptionDialog;
+import com.stendahls.nif.ui.framework.IdentifiableTreeNode;
 import com.stendahls.nif.util.EnumerationIteratorConverter;
 import org.alliance.core.comm.rpc.GetDirectoryListing;
 import org.alliance.core.node.Friend;
@@ -19,7 +20,7 @@ import java.util.Enumeration;
  * Date: 2006-aug-10
  * Time: 18:16:51
  */
-public abstract class ViewShareTreeNode implements TreeNode {
+public abstract class ViewShareTreeNode implements IdentifiableTreeNode {
     protected String name;
     protected ViewShareRootNode root;
     protected ViewShareTreeNode parent;
@@ -162,5 +163,9 @@ public abstract class ViewShareTreeNode implements TreeNode {
 
     public String getName() {
         return name;
+    }
+
+    public Object getIdentifier() {
+        return name + getFileItemPath();
     }
 }

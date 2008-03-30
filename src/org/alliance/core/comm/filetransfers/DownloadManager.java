@@ -116,12 +116,12 @@ public class DownloadManager extends Manager implements Runnable {
     public void queDownload(Download dl, boolean highPrio) throws IOException {
         if(T.t)T.info("Queing download for "+dl);
         if (core.getFileManager().containsComplete(dl.getRoot())) {
-            if(T.t)T.error("Already has file "+dl);
+            if(T.t)T.info("Already has file "+dl);
             return;
         }
 
         if (downloads.containsKey(dl.getRoot())) {
-            if(T.t)T.warn("Already queued this item. Ignoring.");
+            if(T.t)T.info("Already queued this item. Ignoring.");
             return;
         }
 

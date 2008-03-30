@@ -33,7 +33,8 @@ public class Friend extends Node {
     private int numberOfFilesShared, numberOfInvitedFriends;
 
     private boolean isAway;
-    
+    private String nicknameToShowInUI;
+
     public Friend(FriendManager manager, org.alliance.core.settings.Friend f) {
         nickname = f.getNickname();
         guid = f.getGuid();
@@ -176,9 +177,23 @@ public class Friend extends Node {
     }
 
     public String nickname() {
-        return manager.nickname(guid);
+        if (nicknameToShowInUI == null) {
+            org.alliance.core.settings.Friend f = manager.getCore().getSettings().getFriend(guid);
+            if (f != null && f.getRenamednickname() != null && f.getRenamednickname().trim().length() > 0)
+                nicknameToShowInUI = f.getRenamednickname();
+            else
+                nicknameToShowInUI = nickname;
+        }
+        return nicknameToShowInUI;
     }
 
+    public void setNicknameToShowInUI(String nn) {
+        org.alliance.core.settings.Friend f = manager.getCore().getSettings().getFriend(guid);
+        if (f != null) {
+            f.setRenamednickname(nn);
+            nicknameToShowInUI = nn;
+        }
+    }
 
     public int getNumberOfFilesShared() {
         return numberOfFilesShared;

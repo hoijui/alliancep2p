@@ -8,10 +8,12 @@ import com.stendahls.nif.ui.toolbaractions.ToolbarActionManager;
 import com.stendahls.resourceloader.ResourceLoader;
 import com.stendahls.ui.ErrorDialog;
 import de.javasoft.plaf.synthetica.SyntheticaBlackStarLookAndFeel;
+import de.javasoft.plaf.synthetica.SyntheticaLookAndFeel;
 import org.alliance.Subsystem;
 import org.alliance.core.CoreSubsystem;
 import static org.alliance.core.CoreSubsystem.ERROR_URL;
 import org.alliance.launchers.StartupProgressListener;
+import org.alliance.launchers.OSInfo;
 import org.alliance.ui.nodetreemodel.NodeTreeModel;
 import org.alliance.ui.nodetreemodel.NodeTreeNode;
 
@@ -76,10 +78,14 @@ public class UISubsystem implements UINexus, Subsystem {
             }
         });
 
-        try {
-            UIManager.setLookAndFeel(new SyntheticaBlackStarLookAndFeel());
-        } catch(Exception e) {
-            e.printStackTrace();
+        if (!OSInfo.isMac()) {
+            try {
+                SyntheticaLookAndFeel.setAntiAliasEnabled(true);
+                SyntheticaBlackStarLookAndFeel lnf = new SyntheticaBlackStarLookAndFeel();
+                UIManager.setLookAndFeel(lnf);
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
         }
 
         Thread.setDefaultUncaughtExceptionHandler(new GlobalExceptionHandler());

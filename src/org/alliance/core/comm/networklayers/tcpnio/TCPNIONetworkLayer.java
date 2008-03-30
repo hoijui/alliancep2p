@@ -236,10 +236,14 @@ public class TCPNIONetworkLayer implements Runnable {
     private void reportError(SelectionKey key, Exception e) {
         String addr = "";
         if (key.channel() instanceof SocketChannel) {
-            Socket s = ((SocketChannel)key.channel()).socket();
-            if (s.getRemoteSocketAddress() != null) addr = ""+s.getRemoteSocketAddress();
-            if(T.t)T.trace("removing socketaddress: "+s+" contains: "+pendingConnectionAttempts.contains(s));
-            pendingConnectionAttempts.remove(s);
+            try {
+                Socket s = ((SocketChannel)key.channel()).socket();
+                if (s.getRemoteSocketAddress() != null) addr = ""+s.getRemoteSocketAddress();
+                pendingConnectionAttempts.remove(s);
+                if(T.t)T.trace("removing socketaddress: "+s+" contains: "+pendingConnectionAttempts.contains(s));
+            } catch(Exception e2) {
+                if(T.t)T.warn("Could not remove pending connection: "+e);
+            }
         }
         if (netMan.getConnection(key) != null) addr = netMan.getConnection(key)+" ("+addr+")";
         netMan.reportError(addr, key, e);
@@ -357,8 +361,8 @@ public class TCPNIONetworkLayer implements Runnable {
             if(T.t)T.ass(o == key,"Different keys received!");
         } catch(Exception e) {
             //this happens when a channel is closed
-            if(T.t)T.info("Could not get interest for write: "+e);
-            e.printStackTrace();
+            if(T.t)T.info("Could not get interest for write, channel probably closed: "+e);
+            //e.printStackTrace();
         }
     }
 
@@ -369,7 +373,7 @@ public class TCPNIONetworkLayer implements Runnable {
             if(T.t)T.ass(o == key,"Different keys received!");
         } catch(Exception e) {
             //this happens when a channel is closed
-            if(T.t)T.info("Could not remove interest for write: "+e);
+            if(T.t)T.info("Could not remove interest for write, channel probably closed: "+e);
         }
     }
 

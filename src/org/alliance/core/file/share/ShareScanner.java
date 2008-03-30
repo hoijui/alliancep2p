@@ -37,6 +37,8 @@ public class ShareScanner extends Thread {
         while(alive) {
             manager.getFileDatabase().cleanupDuplicates();
 
+            cleanup();
+
             ArrayList<ShareBase> al = new ArrayList<ShareBase>(manager.shareBases());
             for(ShareBase base : al) {
                 if (!alive) break;
@@ -47,7 +49,6 @@ public class ShareScanner extends Thread {
                 }
             }
 
-//            cleanup();
 
             try {
                 manager.getFileDatabase().flush();
@@ -66,22 +67,23 @@ public class ShareScanner extends Thread {
         }
     }
 
-    // Remove missing files from index - not used right now
     private void cleanup() {
         try {
             if(T.t)T.info("Cleaning up index...");
             FileDatabase fd = manager.getFileDatabase();
-            for(int i = 0; i < fd.getNumberOfFiles(); i++) {
+
+            int n = fd.getNumberOfFiles();
+            for(int i = 0; i < n; i++) {
                 if(!alive) return;
                 try {
                     // If file is missing the descriptor will automatically be removed from the index
-                    fd.getFd(i);
+                    fd.getFd(i, false);
 
-                    // Pause every 10 files
-                    if(i % 10 == 0)
-                        Thread.sleep(500);   // a bit concerened about this. If a user shares 70000 files (some users do) this will take 19 hours..  this is good but should be run is a separate thread. Not sure if there might be threading issues then though 
-
-
+                    int sleepEveryXFiles = shouldBeFastScan ? 400 : 50;
+                    if(i % sleepEveryXFiles == 0) {
+                        manager.getCore().getUICallback().statusMessage("Checking share for removed files ("+(i*100/n)+"%)...");
+                        Thread.sleep(100);
+                    }
                 } catch (IOException e) {
                     if(T.t)T.warn("Unable to retrieve file descriptor: "+e);
                 }

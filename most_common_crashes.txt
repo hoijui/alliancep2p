@@ -1,44 +1,5 @@
 Sorted in order of "populatiry" from over 2000 error reports.
 
-får nog bli så att jag ser till att man får ett spårbard felmeddelande här och göra ett nytt släpp:
-java.lang.Error: java.net.SocketException: Socket operation on nonsocket: getsockname
-	at sun.nio.ch.Net.localAddress(Unknown Source)
-	at sun.nio.ch.SocketChannelImpl.localAddress(Unknown Source)
-	at sun.nio.ch.SocketAdaptor.getLocalPort(Unknown Source)
-	at sun.nio.ch.SocketAdaptor.toString(Unknown Source)
-	at java.lang.String.valueOf(Unknown Source)
-	at java.lang.StringBuilder.append(Unknown Source)
-	at org.alliance.core.comm.networklayers.tcpnio.TCPNIONetworkLayer.reportError(TCPNIONetworkLayer.java:241)
-	at org.alliance.core.comm.networklayers.tcpnio.TCPNIONetworkLayer.run(TCPNIONetworkLayer.java:178)
-	at java.lang.Thread.run(Unknown Source)
-Caused by: java.net.SocketException: Socket operation on nonsocket: getsockname
-	at sun.nio.ch.Net.localInetAddress(Native Method)
-	... 9 more
-
-
-java.util.ConcurrentModificationException
-	at java.util.AbstractList$Itr.checkForComodification(Unknown Source)
-	at java.util.AbstractList$Itr.next(Unknown Source)
-	at org.alliance.core.settings.Settings.getFriend(Settings.java:59)
-	at org.alliance.core.node.FriendManager.nickname(FriendManager.java:308)
-	at org.alliance.core.node.Friend.nickname(Friend.java:179)
-	at org.alliance.ui.FriendListModel$1.compare(FriendListModel.java:36)
-	at org.alliance.ui.FriendListModel$1.compare(FriendListModel.java:31)
-	at java.util.TreeMap.compare(Unknown Source)
-	at java.util.TreeMap.put(Unknown Source)
-	at java.util.TreeSet.add(Unknown Source)
-	at org.alliance.ui.FriendListModel.updateFriendList(FriendListModel.java:40)
-	at org.alliance.ui.FriendListModel.signalFriendChanged$1edb257c(FriendListModel.java:56)
-	at org.alliance.ui.UIBridge$1.run(UIBridge.java:32)
-	at java.awt.event.InvocationEvent.dispatch(Unknown Source)
-	at java.awt.EventQueue.dispatchEvent(Unknown Source)
-	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(Unknown Source)
-	at java.awt.EventDispatchThread.pumpEventsForHierarchy(Unknown Source)
-	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
-	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
-	at java.awt.EventDispatchThread.run(Unknown Source)
-
-
 java.lang.Exception: UserList flood detected: 2124! <b>This is a fatal error. You need to restart Alliance.</b> Please send this error report by pressing 'send error'.
 	at org.alliance.core.CoreSubsystem.increaseGULCounter(CoreSubsystem.java:477)
 	at org.alliance.core.comm.rpc.GetUserList.serializeTo(GetUserList.java:25)
@@ -62,16 +23,6 @@ java.lang.Exception: Could not find friend that is connected to guid -270353444!
 
 
 java.lang.OutOfMemoryError: Java heap space
-
-
-java.lang.IllegalArgumentException: Color parameter outside of expected range: Blue
-	at java.awt.Color.testColorValueRange(Unknown Source)
-	at java.awt.Color.<init>(Unknown Source)
-	at java.awt.Color.<init>(Unknown Source)
-	at org.alliance.ui.JDownloadGrid.paint(JDownloadGrid.java:50)
-	at javax.swing.JComponent.paintChildren(Unknown Source)
-	at javax.swing.JComponent.paint(Unknown Source)
-
 
 java.lang.NullPointerException
 	at de.javasoft.plaf.synthetica.filechooser.SyntheticaFileChooserUI$13.windowClosed(SyntheticaFileChooserUI.java:224)

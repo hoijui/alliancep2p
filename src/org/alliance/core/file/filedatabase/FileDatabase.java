@@ -9,6 +9,7 @@ import org.alliance.core.file.filedatabase.searchindex.KeywordIndex;
 import org.alliance.core.file.hash.Hash;
 import org.alliance.core.file.share.ShareBase;
 import org.alliance.core.file.share.T;
+import org.alliance.launchers.console.Console;
 
 import java.io.*;
 import java.util.*;
@@ -89,7 +90,7 @@ public class FileDatabase {
                     return old;
                 }
                 if (old.getCanonicalPath().toLowerCase().indexOf("sample") != -1 || TextUtils.makeSurePathIsMultiplatform(old.getCanonicalPath().toLowerCase()).indexOf("/old/") != -1) {
-                    if(T.t)T.trace("Fould duplicate with sample or old folder");
+                    if(T.t)T.trace("Found duplicate with sample or old folder");
                     remove(old);
                     addDuplicate(old.getCanonicalPath(), old.getRootHash());
                     //continue adding fd
@@ -136,6 +137,10 @@ public class FileDatabase {
     }
 
     public synchronized FileDescriptor getFd(int index) throws IOException {
+        return getFd(index, true);
+    }
+
+    public synchronized FileDescriptor getFd(int index, boolean addToCache) throws IOException {
         int offset = allocationTable.getOffset(index);
         FileDescriptor fd = null;
         try {
@@ -149,7 +154,7 @@ public class FileDatabase {
             remove(fileHasBeenRemoved.getFd());
             return null;
         }
-        fileDescriptorCache.put(fd.getRootHash(), fd);
+        if (addToCache) fileDescriptorCache.put(fd.getRootHash(), fd);
         return fd;
     }
 
@@ -340,5 +345,17 @@ public class FileDatabase {
     public void clearDuplicates() {
         if(T.t)T.info("Removing all duplicate entries.");
         duplicates.clear();
+    }
+
+    public void printStats(Console.Printer printer) throws IOException {
+        printer.println("Filedatabse stats:");
+        printer.println("  FileDescriptor Allocation Table size: "+allocationTable.getNumberOfFiles());
+        printer.println("  keywords in index: "+keywordIndex.getNumbefOfKeywords());
+        printer.println("  keys in base hashtable: "+baseHashTable.size());
+        printer.println("  duplicates: "+duplicates.size());
+        printer.println("  filename list: "+indexedFilenames.getNmberOfPaths());
+        printer.println("  filedescriptors cahced: "+fileDescriptorCache.size());
+        printer.println("  % of filedescriptor databse marked for deletion: "+chunkStorage.getPercetMarkedForDeletion());
+
     }
 }

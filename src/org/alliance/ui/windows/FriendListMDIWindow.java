@@ -270,7 +270,7 @@ public class FriendListMDIWindow extends AllianceMDIWindow {
             Friend f = (Friend) list.getSelectedValue();
             if (f != null) {
                 String pi = JOptionPane.showInputDialog("Enter nickname for friend: "+nickname(f.getGuid()), nickname(f.getGuid()));
-                if (pi != null) ui.getCore().getFriendManager().setNicknameToShowInUI(f, pi);
+                if (pi != null) f.setNicknameToShowInUI(pi);
                 ui.getFriendListModel().signalFriendChanged(f);
             }
         }

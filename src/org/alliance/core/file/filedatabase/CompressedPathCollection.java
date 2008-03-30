@@ -12,7 +12,7 @@ import java.util.HashSet;
  * Can keep track of a lot of filepaths in a efficient (memory usage wise) way.
  * Used in the filedatabase to keep track of what files are indexed.
  *
- * Uhm. It's not efficient memory wise right now. THere's room for optimiziation here.
+ * Uhm. It's not efficient memory wise right now. There's room for optimiziation here.
  *
  * Created by IntelliJ IDEA.
  * User: maciek
@@ -32,6 +32,10 @@ public class CompressedPathCollection implements Serializable {
     public void removePath(String path) {
         path = TextUtils.makeSurePathIsMultiplatform(path);
         paths.remove(path);
+    }
+
+    public int getNmberOfPaths() {
+        return paths.size();
     }
 
     /**

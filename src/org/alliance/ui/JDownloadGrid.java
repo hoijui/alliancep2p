@@ -55,7 +55,10 @@ public class JDownloadGrid extends JComponent {
     }
 
     private int interpolate(int a, int b, double v) {
-        return (int) (a + (b-a)*v);
+        int c = (int) (a + (b - a) * v);
+        if (c < 0) c = 0;
+        if (c >=256) c = 255;
+        return c;
     }
 
     private double getPercentCompleteForRange(long from, long to) {

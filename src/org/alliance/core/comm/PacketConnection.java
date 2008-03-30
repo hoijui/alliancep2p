@@ -60,14 +60,15 @@ public abstract class PacketConnection extends Connection {
             }
             if(T.t)T.ass(packetCurrentlyInSending != null, "Internal error! Packet is null!");
 
-            if (packetCurrentlyInSending.getAvailable() != 0) {
+            //todo: erics change -- tested it and it did not work.
+            //if (packetCurrentlyInSending.getAvailable() != 0) {
                 int r = netMan.send(this, packetCurrentlyInSending);
                 if (r == -1) throw new IOException("Connection ended");
                 if (r == 0) {
                     netMan.signalInterestToSend(this);
                     break;
                 }
-            }
+            //}
             if (packetCurrentlyInSending.getAvailable() == 0) {
                 if(T.t)T.trace("Succesfully sent packet "+packetCurrentlyInSending);
                 packetCurrentlyInSending = null; //packet has been successfully sent

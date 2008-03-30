@@ -49,7 +49,7 @@ public class AwayManager extends Manager implements Runnable {
                 }
             }
         } catch (InterruptedException e) {
-            if(T.t)T.warn("Away loop interrupted");
+            if(T.t)T.info("Away loop interrupted");
         } catch (Throwable e) {
             if(T.t)T.error("Error in away loop: "+e);
         }

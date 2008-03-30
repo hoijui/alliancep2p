@@ -1,6 +1,7 @@
 package org.alliance.ui.windows.viewshare;
 
 import com.stendahls.nif.ui.OptionDialog;
+import com.stendahls.nif.ui.framework.TreeState;
 import com.stendahls.nif.ui.mdi.MDIWindow;
 import com.stendahls.util.TextUtils;
 import org.alliance.core.comm.rpc.GetHashesForPath;
@@ -56,6 +57,7 @@ public class ViewShareMDIWindow extends AllianceMDIWindow {
         model = new ViewShareTreeModel(remote, ui, this);
         tree = new JTree(model);
         tree.setRootVisible(false);
+        tree.setShowsRootHandles(true);
         tree.setCellRenderer(new ViewShareTreeRenderer());
 
         tree.addMouseListener(new MouseAdapter() {
@@ -189,8 +191,11 @@ public class ViewShareMDIWindow extends AllianceMDIWindow {
 
     public void save() throws Exception {}
     public void revert() throws Exception {
-        manager.recreateWindow(this, new ViewShareMDIWindow(ui, remote));
+        TreeState ts = new TreeState(tree);
+        ViewShareMDIWindow viewShareMDIWindow = new ViewShareMDIWindow(ui, remote);
+        manager.recreateWindow(this, viewShareMDIWindow);
     }
+
     public void serialize(ObjectOutputStream out) throws IOException {}
     public MDIWindow deserialize(ObjectInputStream in) throws IOException { return null; }
 

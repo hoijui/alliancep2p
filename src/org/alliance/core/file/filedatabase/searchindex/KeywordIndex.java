@@ -141,4 +141,8 @@ public class KeywordIndex {
         if(T.t)T.info("Removing index "+index+" from keywordindex.");
         for(CompressedBitSet b : this.index.values()) b.clear(index);
     }
+
+    public int getNumbefOfKeywords() {
+        return index.size();
+    }
 }

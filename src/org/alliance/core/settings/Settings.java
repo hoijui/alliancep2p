@@ -56,7 +56,9 @@ public class Settings {
     }
 
     public Friend getFriend(int guid) {
-        for(Friend f : friendlist) if (f.getGuid() == guid) return f;
+        //this kind of alternative iteration is used to circumvent possible concurrent modification problems
+        Object a[] = friendlist.toArray();
+        for(Object o : a) if (((Friend)o).getGuid() == guid) return (Friend)o;
         return null;
     }
 

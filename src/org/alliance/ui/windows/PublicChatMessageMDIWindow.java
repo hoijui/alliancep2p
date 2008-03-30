@@ -23,6 +23,7 @@ public class PublicChatMessageMDIWindow extends AbstractChatMessageMDIWindow {
     }
 
     public void send(final String text) throws Exception {
+        if (text == null || text.trim().length() == 0) return;
         ui.getCore().invokeLater(new Runnable() {
             public void run() {
                 try {

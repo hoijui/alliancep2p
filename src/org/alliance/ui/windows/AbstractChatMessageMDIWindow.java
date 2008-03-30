@@ -99,7 +99,6 @@ public abstract class AbstractChatMessageMDIWindow extends AllianceMDIWindow {
             }
         });
 
-
         super.postInit();
     }
 

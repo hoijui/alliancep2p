@@ -45,6 +45,8 @@ public class Main {
     public static void main(String[] args) throws Exception {
         System.out.println("Welcome to Alliance testsuite. Launching:");
 
+        System.setProperty("testsuite", "true");
+
         for(File f : new File("testsuite/logs").listFiles()) f.delete();
 
         if (T.t) {
@@ -119,7 +121,7 @@ public class Main {
         for(File f : settings) {
             if (f.toString().endsWith("xml")) {
                 final Main m = new Main(f.toString());
-                users.put(f.toString().substring(f.toString().lastIndexOf('\\')+1, f.toString().lastIndexOf('.')).toLowerCase(), m);
+                users.put(f.toString().substring(f.toString().lastIndexOf(System.getProperty("file.separator"))+1, f.toString().lastIndexOf('.')).toLowerCase(), m);
                 SwingUtilities.invokeLater(new Runnable() {
                     public void run() {
                         ((DefaultListModel)list.getModel()).addElement(m);

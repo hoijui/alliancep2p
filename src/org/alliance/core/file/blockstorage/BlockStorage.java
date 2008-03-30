@@ -94,7 +94,7 @@ public abstract class BlockStorage extends Thread {
                         }
                     });
                     core.getUICallback().statusMessage("File complete: "+bf.getFd().getSubpath());
-                } catch(IOException e) {
+                } catch(Exception e) {
                     core.reportError(e, bf.getFd() == null ? bf : bf);
                 }
             } catch(InterruptedException e) {
