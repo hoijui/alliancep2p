@@ -6,9 +6,9 @@ complete:
     * när man trycker på refresh kan den köra pontus clean-up kod som ska ta bort filer som inte finns längre - har lovat detta vissa användare som verkligen ville ha det - testa. det kanske fungerar bra. Överväg att ha uppe en dialog när man scannar i full fart - neh. det är nog störigt.. om man kan minimera så kanske.. men.. hmm.
     * synthetica buggar på alla javaversioner
     * fixa alla fel som finns i top 10
+    * det buggar väl inte längre? : glöm inte att ta bort GetUserList flood grejjerna.. - det buggar fortfarande - dom kan ställa till med problem i framtiden - och det är en UI referens i CORE
 
 gŒ igenom faq och getting started - getting started ska vara riktad till folk som vill starta ett nytt nŠtverk
-testa erics kod
 gräv inte ner dig i detaljer.   var smart. koncentrera dig på det viktigaste. lägg till få nya funktioner. typ:
   connectiionskoder krånglar
         * typ:    Click here to download and start alliance. Once alliance starts you will automatically connect to your friends network.
@@ -21,7 +21,7 @@ Annat:
     * usability testa! roligt. testa allt från installation till .. allt annat       kanske på stina?      * har med usability test att göra: downloadknappen sittter på ett konstigt ställe. kommer noobs hitta den - testa på stina t.ex.
     * sett upp forum: http://alliancetalk.proboards91.com/index.cgi
     * SEO
-    * stŠll in sŒ att alliance fŒr ta mer minne pŒ windows - det finns en platŒ vid 50000 filer, tror det Šr fšr att det Šr dŒ minnet tar slut kanske?
+    * stŠll in sŒ att alliance fŒr ta mer minne pŒ windows - det finns en platŒ vid 50000 filer, tror det Šr fšr att det Šr dŒ minnet tar slut kanske? - eller snarare optimera minnesanvänding
     * tŠnk igenom standardfallet: en noob blir inbjuden. hur gŒr man vidare dŠrifrŒn till att han bjuder in sina msn-vŠnner?
         optimalt:
             han fŒr en lŠnk frŒn en kompis. klicka pŒ den fšr att gŒ med i mitt nŠtverk
@@ -48,15 +48,16 @@ Todo:
     * drag'n'drop från msn - bara man kan förklara det på ett enkelt sätt så är det lika bra som fullständig integration
     * timestamp på chatmeddelanden - så att dom kommer i rätt ordning
     * win32 api med file system events - FÄRDIGT JAVA API FÖR DETTA: http://www2.hawaii.edu/~qzhang/FileSystemWatcher/index.html
-    * stöd för dyndns namn i my ip. kolla hur detta fungerar. det är en riktigt klok och proffsig grej att ha
-    * move to top/bottom i downloads. Många har hundra downloads i sin lista. roligt att trycka up hundra gånger.
-    * stöd för att skapa connection koder inom samma nätverk * lägg till ett meddelande när man försöker connecta till en dator i samma nätverk
+    * när man kör över rdp och loggar ut oscilerar away-ikonen
+    * window.tofront när man får meddelanden. Ska titta på options för taskbar bubblor
+    * dubbelklick på nerladdad fil öppnar den
     * Fair enough. I'll add two new options in the options dialog: [X] Scan share when Alliance starts Rescan share automatically every ___ minutes
+    * move to top/bottom i downloads. Många har hundra downloads i sin lista. roligt att trycka up hundra gånger.
+    * stöd för dyndns namn i my ip. kolla hur detta fungerar. det är en riktigt klok och proffsig grej att ha
+    * stöd för att skapa connection koder inom samma nätverk * lägg till ett meddelande när man försöker connecta till en dator i samma nätverk
     * command-line start. Linuxanvändare intresserade av det.
     * ta upp uploads per default - man vill väl inte skrämma folk igenom att dölja uploads kanske? - fixa koolt UI för uploads också. så det är kul att kolla på.  kalla fliken "statistics" och ha massa askool stats med den läcka diagramkomponenten. cpuanvänding, minnesanvändning, up/ner hastighet, och koola stats för uploads
-    * window.tofront när man får meddelanden. Ska titta på options för taskbar bubblor
     * lägg till advanced vy i friendslist. ratio, max up och max ner. roligt för tekniskare användare. Gör en kool ikon för den så man ser den.
-    * när man kör över rdp och loggar ut oscilerar away-ikonen
     * feedback formulär
     * bättre stöd för vista - problem när fil ska flyttas och så?   downloads borde ligga i my downloads eller nåt
     * nåt åt detta hållet är viktigt så man inte chokar noobs kopplingar: if (uploaded > 100mb and uploded_to > 2 persons and bandwidth_thottle_not_set) set_throttle_and_notify_when_ui_is_up
@@ -70,8 +71,6 @@ Todo:
     * posta i forum om att jag behöver en download-bundle för installation i linux
     * fixa installation för mac när jag har airbooken
     * när man laddar ner igenom share borde den ta sökvägen från där man klickade
-    * det buggar väl inte längre? : glöm inte att ta bort GetUserList flood grejjerna.. - det buggar fortfarande - dom kan ställa till med problem i framtiden - och det är en UI referens i CORE
-    * dubbelklick på nerladdad fil öppnar den
     * filesize i view share
     * när man tankar från fem personer och dl är klar så fortsätter den med de sista paketen - länge. Liknande problem som i startster och flera nedladdningar
     * limit på antal uploads
