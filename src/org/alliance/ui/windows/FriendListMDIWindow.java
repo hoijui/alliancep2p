@@ -320,9 +320,9 @@ public class FriendListMDIWindow extends AllianceMDIWindow {
             if (delete == null) return;
             if (delete) {
                 for (Object friend : friends) {
-                    Friend f = (Friend) friend;
-                    if (f != null) {
-                        ui.getCore().getFriendManager().permanentlyRemove(f);
+                    Node f = (Node)friend;
+                    if (f != null && f instanceof Friend) {
+                        ui.getCore().getFriendManager().permanentlyRemove((Friend)f);
                     }
                 }
                 revert();
