@@ -2,18 +2,5 @@ Sorted in order of "populatiry" from over 2000 error reports.
 
 java.lang.OutOfMemoryError: Java heap space
 
-java.util.ConcurrentModificationException
-	at java.util.HashMap$HashIterator.nextEntry(Unknown Source)
-	at java.util.HashMap$ValueIterator.next(Unknown Source)
-	at org.alliance.ui.FriendListModel.updateFriendList(FriendListModel.java:39)
-	at org.alliance.ui.FriendListModel.signalFriendChanged$1edb257c(FriendListModel.java:56)
-	at org.alliance.ui.UIBridge$1.run(UIBridge.java:32)
-	at java.awt.event.InvocationEvent.dispatch(Unknown Source)
-	at java.awt.EventQueue.dispatchEvent(Unknown Source)
-	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(Unknown Source)
-	at java.awt.EventDispatchThread.pumpEventsForHierarchy(Unknown Source)
-	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
-	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
-	at java.awt.EventDispatchThread.run(Unknown Source)
 
 

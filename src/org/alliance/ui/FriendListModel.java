@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.TreeSet;
+import java.util.ArrayList;
 
 /**
  * Created by IntelliJ IDEA.
@@ -27,7 +28,7 @@ public class FriendListModel extends DefaultListModel {
 
     private void updateFriendList() {
         clear();
-        Collection<Friend> c = core.getFriendManager().friends();
+        Collection<Friend> c = new ArrayList<Friend>(core.getFriendManager().friends());
 
         TreeSet<Node> ts = new TreeSet<Node>(new Comparator<Node>() {
             public int compare(Node o1, Node o2) {
