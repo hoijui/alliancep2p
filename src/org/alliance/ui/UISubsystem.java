@@ -7,8 +7,7 @@ import com.stendahls.nif.ui.framework.UINexus;
 import com.stendahls.nif.ui.toolbaractions.ToolbarActionManager;
 import com.stendahls.resourceloader.ResourceLoader;
 import com.stendahls.ui.ErrorDialog;
-import de.javasoft.plaf.synthetica.SyntheticaBlackStarLookAndFeel;
-import de.javasoft.plaf.synthetica.SyntheticaLookAndFeel;
+import de.javasoft.plaf.synthetica.*;
 import org.alliance.Subsystem;
 import org.alliance.core.CoreSubsystem;
 import static org.alliance.core.CoreSubsystem.ERROR_URL;
@@ -29,6 +28,8 @@ import java.lang.reflect.Method;
  * Time: 16:13:14
  */
 public class UISubsystem implements UINexus, Subsystem {
+    public static final boolean NODE_TREE_MODEL_DISABLED = true; //it's disabled because there's a bug in it and it's not really needed anyway
+
     private MainWindow mainWindow;
     private ResourceLoader rl;
     private CoreSubsystem core;
@@ -80,8 +81,11 @@ public class UISubsystem implements UINexus, Subsystem {
 
         if (!OSInfo.isMac()) {
             try {
-                SyntheticaLookAndFeel.setAntiAliasEnabled(true);
+                //SyntheticaLookAndFeel.setAntiAliasEnabled(true);
                 SyntheticaBlackStarLookAndFeel lnf = new SyntheticaBlackStarLookAndFeel();
+                //SyntheticaWhiteVisionLookAndFeel lnf = new SyntheticaWhiteVisionLookAndFeel();
+                //SyntheticaSkyMetallicLookAndFeel lnf = new SyntheticaSkyMetallicLookAndFeel();
+                //SyntheticaOrangeMetallicLookAndFeel lnf = new SyntheticaOrangeMetallicLookAndFeel();
                 UIManager.setLookAndFeel(lnf);
             } catch(Exception e) {
                 e.printStackTrace();
@@ -170,11 +174,15 @@ public class UISubsystem implements UINexus, Subsystem {
     }
 
     public NodeTreeModel getNodeTreeModel(boolean loadIfNeeded) {
-        if (nodeTreeModel == null && loadIfNeeded) {
-            nodeTreeModel = new NodeTreeModel();
-            nodeTreeModel.setRoot(new NodeTreeNode(core.getFriendManager().getMe(), null, this, nodeTreeModel));
+        if (NODE_TREE_MODEL_DISABLED) {
+            return null;
+        } else {
+            if (nodeTreeModel == null && loadIfNeeded) {
+                nodeTreeModel = new NodeTreeModel();
+                nodeTreeModel.setRoot(new NodeTreeNode(core.getFriendManager().getMe(), null, this, nodeTreeModel));
+            }
+            return nodeTreeModel;
         }
-        return nodeTreeModel;
     }
 
     public void purgeNodeTreeModel() {

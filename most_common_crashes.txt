@@ -1,27 +1,5 @@
 Sorted in order of "populatiry" from over 2000 error reports.
 
-java.lang.Exception: UserList flood detected: 2124! <b>This is a fatal error. You need to restart Alliance.</b> Please send this error report by pressing 'send error'.
-	at org.alliance.core.CoreSubsystem.increaseGULCounter(CoreSubsystem.java:477)
-	at org.alliance.core.comm.rpc.GetUserList.serializeTo(GetUserList.java:25)
-	at org.alliance.core.comm.FriendConnection.createRPCPacket(FriendConnection.java:137)
-	at org.alliance.core.comm.FriendConnection.createRPCPacket(FriendConnection.java:130)
-	at org.alliance.core.comm.FriendConnection.send(FriendConnection.java:103)
-	at org.alliance.core.comm.NetworkManager.route(NetworkManager.java:337)
-	at org.alliance.core.node.FriendManager.loadSubnodesFor(FriendManager.java:189)
-	at org.alliance.ui.nodetreemodel.NodeTreeNode$1.run(NodeTreeNode.java:59)
-	at org.alliance.core.comm.networklayers.tcpnio.TCPNIONetworkLayer.run(TCPNIONetworkLayer.java:185)
-	at java.lang.Thread.run(Unknown Source)
-
-
-java.lang.Exception: Could not find friend that is connected to guid -270353444!
-	at org.alliance.core.node.FriendManager.forwardInvitationTo(FriendManager.java:288)
-	at org.alliance.core.node.InvitaitonManager$1.run(InvitaitonManager.java:73)
-	at org.alliance.core.comm.InvitationConnection.signalConnectionAttemtError(InvitationConnection.java:135)
-	at org.alliance.core.comm.networklayers.tcpnio.TCPNIONetworkLayer.handleConnect(TCPNIONetworkLayer.java:265)
-	at org.alliance.core.comm.networklayers.tcpnio.TCPNIONetworkLayer.run(TCPNIONetworkLayer.java:172)
-	at java.lang.Thread.run(Unknown Source)
-
-
 java.lang.OutOfMemoryError: Java heap space
 
 java.lang.NullPointerException

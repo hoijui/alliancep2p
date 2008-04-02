@@ -635,7 +635,11 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
     }
 
     public void EVENT_friendtree(ActionEvent e) throws Exception {
-        mdiManager.addWindow(new FriendsTreeMDIWindow(mdiManager, ui));
+        if (UISubsystem.NODE_TREE_MODEL_DISABLED) {
+            OptionDialog.showInformationDialog(this, "The network topology is disabled because it is buggy and can cause a network to crash.");
+        } else {
+            mdiManager.addWindow(new FriendsTreeMDIWindow(mdiManager, ui));
+        }
     }
 
     public void EVENT_addfriendwizard(ActionEvent e) throws Exception {

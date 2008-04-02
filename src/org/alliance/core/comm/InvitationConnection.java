@@ -9,7 +9,6 @@ import org.alliance.core.settings.Server;
 import java.io.IOException;
 
 /**
- *
  * This connection swings both ways - it's used by invitor and invited
  * Created by IntelliJ IDEA.
  * User: maciek
