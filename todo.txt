@@ -1,4 +1,5 @@
 complete:
+    * när man ska skapa nätverkskod:   if (port_test_is_online) perform_port_test
     * lŠgg till koll nŠ man ska flytta fil frŒn incomplete - fŒr det inte? sŠg till att det fšrmodligen Šr ett rŠttighetsproblem
     * byt till stendahls-commons, borde bara vara att byta jar
     * installera nya synthetica så att alliance inte maximerar över hela skärmen, inkl startmeny
@@ -42,9 +43,9 @@ Lösa tankar:
     * ha en grafisk representation av dl hastighet - rött/gult/grönt och progress bar så kan ingen missa det..
 
 Todo:
+    * duplicated verkar bugga på tindra
     * lŠgg tll stšd fšr mac klasser - typ bra ikon och meny och sŒ.
     * drag'n'drop från msn - bara man kan förklara det på ett enkelt sätt så är det lika bra som fullständig integration
-    * när man ska skapa nätverkskod:   if (port_test_is_online) perform_port_test
     * timestamp på chatmeddelanden - så att dom kommer i rätt ordning
     * win32 api med file system events - FÄRDIGT JAVA API FÖR DETTA: http://www2.hawaii.edu/~qzhang/FileSystemWatcher/index.html
     * stöd för dyndns namn i my ip. kolla hur detta fungerar. det är en riktigt klok och proffsig grej att ha
