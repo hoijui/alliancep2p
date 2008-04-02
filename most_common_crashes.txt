@@ -1,6 +1,3 @@
 Sorted in order of "populatiry" from over 2000 error reports.
 
 java.lang.OutOfMemoryError: Java heap space
-
-
-
