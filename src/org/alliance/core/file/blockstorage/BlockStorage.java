@@ -214,7 +214,7 @@ public abstract class BlockStorage extends Thread {
     }
 
     private BlockFile load(Hash root) throws IOException {
-        return BlockFile.loadFrom(this, root);
+        return BlockFile.loadFrom(this, root, core);
     }
 
     public boolean containsBlock(Hash rootHash, int blockNumber) throws IOException {

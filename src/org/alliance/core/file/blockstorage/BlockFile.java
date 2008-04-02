@@ -138,10 +138,10 @@ public final class BlockFile {
         out.writeObject(blockMask);
     }
 
-    public static BlockFile createFrom(BlockStorage parent, InputStream is) throws IOException {
+    public static BlockFile createFrom(BlockStorage parent, InputStream is, CoreSubsystem core) throws IOException {
         ObjectInputStream in = new ObjectInputStream(is);
         if (in.readInt() != DIRECTORY_MAGIC) throw new IOException("Corrupt block file!");
-        FileDescriptor fd = FileDescriptor.createFrom(in);
+        FileDescriptor fd = FileDescriptor.createFrom(in, core);
         if (fd == null) return null;
         BlockFile bf = new BlockFile(fd, parent);
         for(int i=0;i<bf.blockOffsets.length;i++) bf.blockOffsets[i] = in.readShort();
@@ -166,12 +166,12 @@ public final class BlockFile {
         if(T.t)T.trace("Saved in "+st.getTime()+".");
     }
 
-    public static BlockFile loadFrom(BlockStorage parent, Hash root) throws IOException {
+    public static BlockFile loadFrom(BlockStorage parent, Hash root, CoreSubsystem core) throws IOException {
         try {
             String s = TextUtils.makeSurePathIsMultiplatform(parent.getStoragePath()+"/"+root.getRepresentation()+".dir");
             if(T.t)T.debug("Loading "+s);
             FileInputStream in = new FileInputStream(s);
-            BlockFile bf = createFrom(parent, in);
+            BlockFile bf = createFrom(parent, in, core);
             in.close();
             return bf;
         } catch(FileNotFoundException e) {

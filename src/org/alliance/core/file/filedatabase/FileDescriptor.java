@@ -4,6 +4,7 @@ import com.stendahls.nif.util.SimpleTimer;
 import com.stendahls.util.TextUtils;
 import static org.alliance.core.CoreSubsystem.BLOCK_SIZE;
 import org.alliance.core.UICallback;
+import org.alliance.core.CoreSubsystem;
 import org.alliance.core.file.blockstorage.BlockFile;
 import org.alliance.core.file.hash.Hash;
 import org.alliance.core.file.hash.Tiger;
@@ -170,15 +171,15 @@ public class FileDescriptor {
         out.writeLong(modifiedAt);
     }
 
-    public static FileDescriptor createFrom(InputStream is) throws IOException {
+    public static FileDescriptor createFrom(InputStream is, CoreSubsystem core) throws IOException {
         try {
-            return createFrom(is, false);
+            return createFrom(is, false, core);
         } catch(FileHasBeenRemovedOrChanged fileHasBeenRemoved) {
             return null;
         }
     }
 
-    public static FileDescriptor createFrom(InputStream is, boolean shouldExist) throws IOException, FileHasBeenRemovedOrChanged {
+    public static FileDescriptor createFrom(InputStream is, boolean shouldExist, CoreSubsystem core) throws IOException, FileHasBeenRemovedOrChanged {
         if (is == null) return null;
 
         FileDescriptor fd = new FileDescriptor();
@@ -202,6 +203,12 @@ public class FileDescriptor {
 
         if (fd.basePath.length() > 0 && !new File(fd.basePath).exists()) {
             if(T.t)T.warn("Base path "+fd.basePath+" is not existant. For File "+fd.subpath+" - have to throw it way.");
+            if (shouldExist) throw new FileHasBeenRemovedOrChanged(fd);
+            return null;
+        }
+
+        if (core.getShareManager().getBaseByPath(fd.basePath) == null) {
+            if(T.t)T.warn("Base path "+fd.basePath+" is no longer part of shared files. For File "+fd.subpath+" - have to throw it way.");
             if (shouldExist) throw new FileHasBeenRemovedOrChanged(fd);
             return null;
         }

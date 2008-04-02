@@ -43,11 +43,20 @@ Lösa tankar:
     * ha en grafisk representation av dl hastighet - rött/gult/grönt och progress bar så kan ingen missa det..
 
 Todo:
-    * duplicated verkar bugga på tindra
-    * lŠgg tll stšd fšr mac klasser - typ bra ikon och meny och sŒ.
+    * när man tar bort en share verkar inte filerna försvinna ur share
+    * lägg till advanced vy i friendslist. ratio, max up och max ner. roligt för tekniskare användare. Gör en kool ikon för den så man ser den. - eller välj vilka kolumner man visar per default - default ska nog vara name och ratio (och kanske share size?)
+    * ta upp uploads per default - man vill väl inte skrämma folk igenom att dölja uploads kanske? - fixa koolt UI för uploads också. så det är kul att kolla på.  kalla fliken "statistics" och ha massa askool stats med den läcka diagramkomponenten. cpuanvänding, minnesanvändning, up/ner hastighet, och koola stats för uploads
+    * lägg till king ikon
     * drag'n'drop från msn - bara man kan förklara det på ett enkelt sätt så är det lika bra som fullständig integration
     * timestamp på chatmeddelanden - så att dom kommer i rätt ordning
     * win32 api med file system events - FÄRDIGT JAVA API FÖR DETTA: http://www2.hawaii.edu/~qzhang/FileSystemWatcher/index.html
+    * undersök om man kan göra så den drar mindre minne - drar 100mb vid 15 000 utdelade filer - FD cachen verkar kass också
+    * testa med enorm share och kolla ifall det krånglar
+    * överväg att starta om ofta - eriks klient cp:ar ofta och om det inte finns nåt att att göra än att starta om så får det bli det
+
+    * lŠgg tll stšd fšr mac klasser - typ bra ikon och meny och sŒ.
+
+
     * när man kör över rdp och loggar ut oscilerar away-ikonen
     * window.tofront när man får meddelanden. Ska titta på options för taskbar bubblor
     * dubbelklick på nerladdad fil öppnar den
@@ -56,8 +65,6 @@ Todo:
     * stöd för dyndns namn i my ip. kolla hur detta fungerar. det är en riktigt klok och proffsig grej att ha
     * stöd för att skapa connection koder inom samma nätverk * lägg till ett meddelande när man försöker connecta till en dator i samma nätverk
     * command-line start. Linuxanvändare intresserade av det.
-    * ta upp uploads per default - man vill väl inte skrämma folk igenom att dölja uploads kanske? - fixa koolt UI för uploads också. så det är kul att kolla på.  kalla fliken "statistics" och ha massa askool stats med den läcka diagramkomponenten. cpuanvänding, minnesanvändning, up/ner hastighet, och koola stats för uploads
-    * lägg till advanced vy i friendslist. ratio, max up och max ner. roligt för tekniskare användare. Gör en kool ikon för den så man ser den.
     * feedback formulär
     * bättre stöd för vista - problem när fil ska flyttas och så?   downloads borde ligga i my downloads eller nåt
     * nåt åt detta hållet är viktigt så man inte chokar noobs kopplingar: if (uploaded > 100mb and uploded_to > 2 persons and bandwidth_thottle_not_set) set_throttle_and_notify_when_ui_is_up

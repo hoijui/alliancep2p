@@ -85,11 +85,6 @@ public class ShareManager {
         return shareBaseOrder;
     }
 
-    public ShareBase getBaseByPathHashCode(int i) {
-        for(String s : shareBases.keySet()) if (s.hashCode() == i) return shareBases.get(s);
-        return null;
-    }
-
     public ShareBase getBaseByIndex(int index) {
         return shareBaseOrder.get(index);
     }

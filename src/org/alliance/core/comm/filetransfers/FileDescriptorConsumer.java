@@ -54,7 +54,7 @@ public class FileDescriptorConsumer implements DataConsumer {
                     completeFD.get(b, off, len);
                     return len;
                 }
-            });
+            }, download.getManager().getCore());
             fd.simplifySubpath();
 
             if(T.t)T.trace("Signaling we've got "+fd);

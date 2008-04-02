@@ -149,7 +149,7 @@ public class FileDatabase {
                 //chunk has been removed from storage
                 return null;
             }
-            fd = FileDescriptor.createFrom(is, true);
+            fd = FileDescriptor.createFrom(is, true, core);
         } catch(FileHasBeenRemovedOrChanged fileHasBeenRemoved) {
             remove(fileHasBeenRemoved.getFd());
             return null;
