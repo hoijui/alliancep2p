@@ -58,7 +58,7 @@ public class DuplicatesMDIWindow extends AllianceMDIWindow {
         postInit();
     }
 
-    public void EVENT_delete(ActionEvent e) {
+    public void EVENT_delete(ActionEvent e) throws Exception {
         if (table.getSelectedColumnCount() <= 0 && table.getSelectedRowCount() <= 0) return;
         if (table.getSelectedColumnCount() > 1) {
             OptionDialog.showErrorDialog(ui.getMainWindow(), "Please select files on only one column - not both.");
@@ -74,13 +74,18 @@ public class DuplicatesMDIWindow extends AllianceMDIWindow {
         } 
 
         if (OptionDialog.showQuestionDialog(ui.getMainWindow(), "Are you sure you want to delete "+al.size()+" file(s)?")) {
+            int deleted=0, notDeleted=0;
+
             for(String s : al) {
                 if (!new File(s).delete()) {
-                    OptionDialog.showErrorDialog(ui.getMainWindow(), "Could not delete "+s+".");
-                    return;
+                    /*OptionDialog.showErrorDialog(ui.getMainWindow(), "Could not delete "+s+".");
+                    return;*/
+                } else {
+                    deleted++;
                 }
             }
-            OptionDialog.showInformationDialog(ui.getMainWindow(), al.size()+" files deleted. Changes in duplicates will occur when a new share scan is complete.");
+            OptionDialog.showInformationDialog(ui.getMainWindow(), deleted+"/"+al.size()+" files deleted.");
+            revert();
         }
     }
 
