@@ -166,6 +166,25 @@
                     <label text="Alliance download address: "/> <textfield text="http://www.alliancep2p.com/download" id="dlurl"/>
                 </panel>
             </step>
+
+            <step text="Checking internet connection">
+                <mlabel html="yes">
+                    Please wait while your internet connection is beeing tested...
+                </mlabel>
+                <strut height="15"/>
+                <progressbar indeterminate="true"/>
+            </step>
+
+            <step text="Alliance port not open">
+                <mlabel html="yes" id="portclosed">
+                    It is not possible to connect to your Alliance application. The port that Alliance uses on your computer is blocked by an internet firewall or router.
+                    [p]
+                    [b]You can not invite anyone to your network unless you open this port.[/b] You can only receive invitations - you cannot invite a friend yourself.
+                    [p]
+                    The port that Alliance uses on your computer is [b]$PORT$[/b]. Go to [a href=http://www.portforward.com]http://www.portforward.com[/a] for more information on how to open this port.
+                </mlabel>
+            </step>
+
         </wizard>
     </body>
 </xui>

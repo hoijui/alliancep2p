@@ -4,6 +4,7 @@ complete:
     * installera nya synthetica så att alliance inte maximerar över hela skärmen, inkl startmeny
     * när man trycker på refresh kan den köra pontus clean-up kod som ska ta bort filer som inte finns längre - har lovat detta vissa användare som verkligen ville ha det - testa. det kanske fungerar bra. Överväg att ha uppe en dialog när man scannar i full fart - neh. det är nog störigt.. om man kan minimera så kanske.. men.. hmm.
     * synthetica buggar på alla javaversioner
+    * fixa alla fel som finns i top 10
 
 gŒ igenom faq och getting started - getting started ska vara riktad till folk som vill starta ett nytt nŠtverk
 testa erics kod
@@ -44,7 +45,6 @@ Todo:
     * lŠgg tll stšd fšr mac klasser - typ bra ikon och meny och sŒ.
     * drag'n'drop från msn - bara man kan förklara det på ett enkelt sätt så är det lika bra som fullständig integration
     * när man ska skapa nätverkskod:   if (port_test_is_online) perform_port_test
-    * fixa alla fel som finns i top 10
     * timestamp på chatmeddelanden - så att dom kommer i rätt ordning
     * win32 api med file system events - FÄRDIGT JAVA API FÖR DETTA: http://www2.hawaii.edu/~qzhang/FileSystemWatcher/index.html
     * stöd för dyndns namn i my ip. kolla hur detta fungerar. det är en riktigt klok och proffsig grej att ha
