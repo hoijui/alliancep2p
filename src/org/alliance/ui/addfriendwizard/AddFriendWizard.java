@@ -190,6 +190,9 @@ public class AddFriendWizard extends JWizard {
                 ui.handleErrorInEventLoop(e);
             }*/
             setStep(STEP_CONNECTION_FAILED_FOR_FORWARD);
+            next.setEnabled(false);
+            prev.setEnabled(false);
+            cancel.setText("Finish");
         } else {
             setStep(STEP_CONNECTION_FAILED);
         }
