@@ -250,6 +250,7 @@ public class AddFriendWizard extends JWizard {
         setStep(STEP_CREATE_INVITATION);
         next.setEnabled(false);
         cancel.setText("Finish");
+        cancel.setEnabled(true);
         EVENT_createnew(null);
     }
 
