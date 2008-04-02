@@ -21,8 +21,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import de.javasoft.plaf.synthetica.filechooser.SyntheticaFileChooser;
-
 /**
  * Created by IntelliJ IDEA.
  * User: maciek

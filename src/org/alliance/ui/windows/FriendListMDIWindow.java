@@ -240,7 +240,7 @@ public class FriendListMDIWindow extends AllianceMDIWindow {
             }
 
             setToolTipText("<html>Build number: "+ n.getAllianceBuildNumber()+"<br>" +
-                    "Share: "+TextUtils.formatByteSize(n.getShareSize())+" in "+ n.getNumberOfFilesShared()+" files<br>" +
+                    "Share: "+ TextUtils.formatByteSize(n.getShareSize())+" in "+ n.getNumberOfFilesShared()+" files<br>" +
                     "Invited friends: "+ n.getNumberOfInvitedFriends()+"<br>" +
                     "Upload speed record: "+TextUtils.formatByteSize((long) n.getHighestOutgoingCPS())+"/s<br>" +
                     "Download speed record: "+TextUtils.formatByteSize((long) n.getHighestIncomingCPS())+"/s<br>" +

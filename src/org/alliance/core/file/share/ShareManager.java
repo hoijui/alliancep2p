@@ -1,6 +1,5 @@
 package org.alliance.core.file.share;
 
-import com.stendahls.util.TextUtils;
 import org.alliance.core.CoreSubsystem;
 import org.alliance.core.file.filedatabase.FileDatabase;
 import org.alliance.core.settings.Settings;
@@ -10,6 +9,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+
+import com.stendahls.util.TextUtils;
 
 /**
  * Created by IntelliJ IDEA.

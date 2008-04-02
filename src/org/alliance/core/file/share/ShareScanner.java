@@ -78,7 +78,7 @@ public class ShareScanner extends Thread {
                     // If file is missing the descriptor will automatically be removed from the index
                     fd.getFd(i, false);
 
-                    int sleepEveryXFiles = shouldBeFastScan ? 400 : 50;
+                    int sleepEveryXFiles = shouldBeFastScan ? 500 : 100;
                     if(i % sleepEveryXFiles == 0) {
                         manager.getCore().getUICallback().statusMessage("Checking share for removed files ("+(i*100/n)+"%)...");
                         Thread.sleep(100);
@@ -132,7 +132,7 @@ public class ShareScanner extends Thread {
 
         SimpleTimer st = new SimpleTimer();
         FileDescriptor fd = new FileDescriptor(base.getPath(), file, shouldBeFastScan ? 0 : core.getSettings().getInternal().getHashspeedinmbpersecond(), manager.getCore().getUICallback());
-        manager.getCore().getUICallback().statusMessage("Hashed "+fd.getFilename()+" in "+st.getTime()+" ("+TextUtils.formatByteSize((long)(fd.getSize()/(st.getTimeInMs()/1000.)))+"/s)");
+        manager.getCore().getUICallback().statusMessage("Hashed "+fd.getFilename()+" in "+st.getTime()+" ("+ TextUtils.formatByteSize((long)(fd.getSize()/(st.getTimeInMs()/1000.)))+"/s)");
         manager.getFileDatabase().add(fd);
 
         bytesScanned += fd.getSize();

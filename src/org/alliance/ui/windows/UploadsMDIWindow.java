@@ -69,7 +69,7 @@ public class UploadsMDIWindow extends AllianceMDIWindow {
         } else
             model.fireTableRowsUpdated(0, rows.size());
 
-        ((JLabel)xui.getComponent("status")).setText("Total bytes sent: "+TextUtils.formatByteSize(ui.getCore().getNetworkManager().getBandwidthOut().getTotalBytes()));
+        ((JLabel)xui.getComponent("status")).setText("Total bytes sent: "+ TextUtils.formatByteSize(ui.getCore().getNetworkManager().getBandwidthOut().getTotalBytes()));
     }
 
     private UploadWrapper getWrapperFor(UploadConnection u) {

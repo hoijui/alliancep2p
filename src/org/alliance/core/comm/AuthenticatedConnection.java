@@ -1,6 +1,5 @@
 package org.alliance.core.comm;
 
-import com.stendahls.util.TextUtils;
 import org.alliance.Version;
 import org.alliance.core.comm.filetransfers.UploadConnection;
 import org.alliance.core.comm.upnp.ReverseConnection;
@@ -8,6 +7,8 @@ import org.alliance.core.node.Friend;
 
 import java.io.IOException;
 import java.net.SocketAddress;
+
+import com.stendahls.util.TextUtils;
 
 /**
  * Created by IntelliJ IDEA.
@@ -72,7 +73,7 @@ public abstract class AuthenticatedConnection extends PacketConnection {
     }
 
     public String toString() {
-        return netMan.getFriendManager().getFriend(remoteUserGUID)+" ("+TextUtils.simplifyClassName(this)+")";
+        return netMan.getFriendManager().getFriend(remoteUserGUID)+" ("+ TextUtils.simplifyClassName(this)+")";
     }
 
     public SocketAddress getSocketAddress() {

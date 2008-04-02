@@ -3,7 +3,6 @@ package org.alliance.core.file.filedatabase;
 import com.stendahls.util.TextUtils;
 
 import java.io.Serializable;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;

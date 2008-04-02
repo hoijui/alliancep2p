@@ -147,7 +147,7 @@ public class DownloadsMDIWindow extends AllianceMDIWindow {
     }
 
     private void showTotalBytesReceived() {
-        status.setText("Total bytes received: "+TextUtils.formatByteSize(ui.getCore().getNetworkManager().getBandwidthIn().getTotalBytes()));
+        status.setText("Total bytes received: "+ TextUtils.formatByteSize(ui.getCore().getNetworkManager().getBandwidthIn().getTotalBytes()));
     }
 
     private String getDownloadingFromText(DownloadWrapper w) {

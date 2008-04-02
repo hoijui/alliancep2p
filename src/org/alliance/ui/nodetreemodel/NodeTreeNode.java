@@ -117,7 +117,7 @@ public class NodeTreeNode extends GenericNode {
 
     public String toString() {
         if (dummyString != null) return dummyString;
-        return node.getNickname() + (node.isConnected() ? " ("+TextUtils.formatByteSize(node.getShareSize())+")" : "");
+        return node.getNickname() + (node.isConnected() ? " ("+ TextUtils.formatByteSize(node.getShareSize())+")" : "");
     }
 
     public void reloadChildren() {

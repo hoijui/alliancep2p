@@ -1,10 +1,11 @@
 package org.alliance.core.comm;
 
-import com.stendahls.util.TextUtils;
 import org.alliance.core.CoreSubsystem;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
+
+import com.stendahls.util.TextUtils;
 
 /**
  * Created by IntelliJ IDEA.

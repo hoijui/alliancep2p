@@ -18,7 +18,6 @@ import java.awt.event.ActionEvent;
 import java.io.*;
 import java.util.ArrayList;
 import java.net.URL;
-import java.net.MalformedURLException;
 import java.net.URLConnection;
 
 /**

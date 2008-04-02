@@ -123,7 +123,7 @@ public class SearchMDIWindow extends AllianceMDIWindow {
                             FileNode fn = (FileNode)n;
                             double d = fn.getTotalMaxCPS();
                             double r = ui.getCore().getSettings().getInternal().getRecordinspeed();
-                            left.setText("<html>"+fn.getListOfUsers(ui.getCore())+" (Max speed: <b>"+TextUtils.formatByteSize((long)d)+"/s</b>, ETA: "+
+                            left.setText("<html>"+fn.getListOfUsers(ui.getCore())+" (Max speed: <b>"+ TextUtils.formatByteSize((long)d)+"/s</b>, ETA: "+
                                     formatETA((int)Math.round(fn.getSize()/(d > r ? r : d)))
                                     +"</font>)</html>");
                             right.setText("<html><b>"+simplifyPath(fn)+"</b></html>");

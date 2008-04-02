@@ -1,11 +1,12 @@
 package org.alliance.ui.windows.search;
 
-import com.stendahls.util.TextUtils;
 import org.alliance.core.CoreSubsystem;
 import org.alliance.core.file.hash.Hash;
 import org.alliance.ui.T;
 
 import java.util.ArrayList;
+
+import com.stendahls.util.TextUtils;
 
 /**
  * Created by IntelliJ IDEA.

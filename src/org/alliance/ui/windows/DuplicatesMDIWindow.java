@@ -1,15 +1,12 @@
 package org.alliance.ui.windows;
 
 import org.alliance.ui.UISubsystem;
-import org.alliance.core.comm.Connection;
-import org.alliance.core.comm.filetransfers.UploadConnection;
 import org.alliance.core.file.filedatabase.FileDescriptor;
 import org.alliance.core.file.hash.Hash;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
-import java.util.TreeMap;
 import java.util.TreeSet;
 import java.io.ObjectOutputStream;
 import java.io.IOException;
@@ -17,9 +14,9 @@ import java.io.ObjectInputStream;
 import java.io.File;
 import java.awt.event.ActionEvent;
 
-import com.stendahls.util.TextUtils;
 import com.stendahls.nif.ui.mdi.MDIWindow;
 import com.stendahls.nif.ui.OptionDialog;
+import com.stendahls.util.TextUtils;
 
 /**
  * Created by IntelliJ IDEA.

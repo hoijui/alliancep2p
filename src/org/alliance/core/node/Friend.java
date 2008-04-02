@@ -1,6 +1,5 @@
 package org.alliance.core.node;
 
-import com.stendahls.util.TextUtils;
 import org.alliance.core.T;
 import org.alliance.core.comm.AuthenticatedConnection;
 import org.alliance.core.comm.Connection;
@@ -10,6 +9,8 @@ import org.alliance.core.settings.Settings;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
+import com.stendahls.util.TextUtils;
 
 /**
  * Created by IntelliJ IDEA.

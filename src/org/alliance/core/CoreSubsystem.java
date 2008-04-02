@@ -29,7 +29,6 @@ import org.alliance.launchers.ui.Main;
 import org.w3c.dom.Document;
 
 import java.io.*;
-import java.net.SocketException;
 import java.nio.ByteBuffer;
 import java.nio.channels.ClosedChannelException;
 import java.nio.channels.UnresolvedAddressException;
@@ -54,7 +53,7 @@ import java.util.List;
  * Time: 16:38:25
  */
 public class CoreSubsystem implements Subsystem {
-    public final static boolean ALLOW_TO_SEND_UPGRADE_TO_FRIENDS = true;
+    public final static boolean ALLOW_TO_SEND_UPGRADE_TO_FRIENDS = false;
     private static final int STATE_FILE_VERSION = 5;
 
     public final static int KB = 1024;

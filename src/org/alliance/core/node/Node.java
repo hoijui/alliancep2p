@@ -51,7 +51,7 @@ public abstract class Node {
     }
 
     public String toString() {
-        return getNickname()+"["+guid+", "+TextUtils.simplifyClassName(getClass())+"]";
+        return getNickname()+"["+guid+", "+ TextUtils.simplifyClassName(getClass())+"]";
     }
 
     public void addFriendsFriend(UntrustedNode untrustedNode) {

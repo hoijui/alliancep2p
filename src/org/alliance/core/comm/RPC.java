@@ -1,10 +1,11 @@
 package org.alliance.core.comm;
 
-import com.stendahls.util.TextUtils;
 import org.alliance.core.CoreSubsystem;
 import org.alliance.core.node.FriendManager;
 
 import java.io.IOException;
+
+import com.stendahls.util.TextUtils;
 
 /**
  * Created by IntelliJ IDEA.

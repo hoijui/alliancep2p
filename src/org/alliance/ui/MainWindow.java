@@ -415,7 +415,7 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
                             pb.setValue(0);
                         else
                             pb.setValue((int)(curr*100/max));
-                        pb.setToolTipText("<html>"+s+" at "+a.getCPSHumanReadable()+"<br>Speed record: "+a.getHighestCPSHumanReadable()+"<br>Total bytes "+s2+": "+TextUtils.formatByteSize(a.getTotalBytes())+"</html>");
+                        pb.setToolTipText("<html>"+s+" at "+a.getCPSHumanReadable()+"<br>Speed record: "+a.getHighestCPSHumanReadable()+"<br>Total bytes "+s2+": "+ TextUtils.formatByteSize(a.getTotalBytes())+"</html>");
                     }
                 });
             }

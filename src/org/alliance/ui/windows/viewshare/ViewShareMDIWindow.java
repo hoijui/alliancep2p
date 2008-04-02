@@ -143,7 +143,7 @@ public class ViewShareMDIWindow extends AllianceMDIWindow {
 
         String name = node.getName();
         if (name.endsWith("/")) name = name.substring(0,name.length()-1);
-        link += "\">"+name+"</a> ("+TextUtils.formatByteSize(totalSize)+" in "+files.size()+" files)";
+        link += "\">"+name+"</a> ("+ TextUtils.formatByteSize(totalSize)+" in "+files.size()+" files)";
         if(T.t)T.info("Sending link: "+link);
 
         ui.getMainWindow().getPublicChat().send(link);

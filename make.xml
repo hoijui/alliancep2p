@@ -3,18 +3,16 @@
     <property name="lib.dir" value="lib"/>
     <property name="build.dir" value="build"/>
     <property name="web.deploy" value="v:\\maciek.tv\\t"/>
-    <fileset dir="C:\" id="3ppjars">
-        <include name="java\tools\synthetica-2.0.1\synthetica.jar"/>
-        <include name="java\tools\synthetica-2.0.1\syntheticaBlackStar.jar"/>
+    <!--<fileset dir="C:\" id="3ppjars">
+        <include name="${lib.dir}/synthetica.jar"/>
+        <include name="${lib.dir}/syntheticaBlackStar.jar"/>
         <include name="java\tools\idw-gpl-1.4.0\lib\idw-gpl.jar"/>
-        <include name="proj\libs\XUI\lib\XUI.jar"/>
-        <include name="proj\libs\UI\lib\StendahlsUI.jar"/>
-        <include name="proj\libs\NIF\lib\NIF.jar"/>
+        <include name="${lib.dir}/stendahls-commons.jar"/>
         <include name="proj\libs\StendahlsTheme\lib\StendahlsTheme.jar"/>
         <include name="java\tools\jdic-0.9.1-bin-windows\jdic.jar"/>
         <include name="java\tools\swinglabs\dist\swingx-0.8.0.jar"/>
         <include name="java\tools\cyberlink\clink.jar"/>
-    </fileset>
+    </fileset>-->
     <taskdef resource="proguard/ant/task.properties"/>
 
     <target name="Build release">
@@ -37,12 +35,13 @@
             </manifest>
         </jar>
 
-        <copy verbose="yes" overwrite="yes" todir="${lib.dir}" flatten="true">
+        <!--<copy verbose="yes" overwrite="yes" todir="${lib.dir}" flatten="true">
             <fileset refid="3ppjars"/>
-        </copy>
+        </copy>-->
 
         <proguard>
             <!-- these two are here for debugging -->
+            -ignorewarnings
             -dontobfuscate
             -keepattributes LineNumberTable
 
@@ -101,6 +100,6 @@
         </delete>
 
         <move file="${build.dir}/alliance.jar" tofile="${build.dir}/alliance.dat"/>
-        <copyfile src="${build.dir}/alliance.dat" dest="${web.deploy}\alliance.dat"/>
+        <!--<copyfile src="${build.dir}/alliance.dat" dest="${web.deploy}\alliance.dat"/>-->
     </target>
 </project>

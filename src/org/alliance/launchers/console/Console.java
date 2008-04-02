@@ -14,7 +14,6 @@ import org.alliance.core.crypto.cryptolayers.SSLCryptoLayer;
 import org.alliance.core.file.blockstorage.BlockFile;
 import org.alliance.core.file.filedatabase.FileDescriptor;
 import org.alliance.core.file.filedatabase.FileType;
-import org.alliance.core.file.filedatabase.FileDatabase;
 import org.alliance.core.file.hash.Hash;
 import org.alliance.core.file.share.ShareBase;
 import org.alliance.core.node.Friend;
