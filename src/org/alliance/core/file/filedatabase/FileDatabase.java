@@ -89,8 +89,10 @@ public class FileDatabase {
                     }
                     return old;
                 }
-                if (old.getCanonicalPath().toLowerCase().indexOf("sample") != -1 || TextUtils.makeSurePathIsMultiplatform(old.getCanonicalPath().toLowerCase()).indexOf("/old/") != -1) {
-                    if(T.t)T.trace("Found duplicate with sample or old folder");
+                if (old.getCanonicalPath().toLowerCase().indexOf("sample") != -1 ||
+                        old.getCanonicalPath().toLowerCase().indexOf("copy") != -1 || 
+                        TextUtils.makeSurePathIsMultiplatform(old.getCanonicalPath().toLowerCase()).indexOf("/old/") != -1) {
+                    if(T.t)T.trace("Found duplicate with less significant path name");
                     remove(old);
                     addDuplicate(old.getCanonicalPath(), old.getRootHash());
                     //continue adding fd

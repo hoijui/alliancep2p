@@ -63,7 +63,7 @@ public class Internal extends SettingClass {
      * before stopping the network stack. Set to 8 to be on the safe side. */
     private Integer maxpendingconnections = 8;
 
-    private Integer hashspeedinmbpersecond=1; //when in background mode
+    private Integer hashspeedinmbpersecond=2; //when in background mode
 
     private Integer sosendbuf=-1, soreceivebuf=-1;
     private Integer discwritebuffer=256*KB, //one instance of this one per download

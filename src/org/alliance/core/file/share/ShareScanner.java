@@ -40,6 +40,7 @@ public class ShareScanner extends Thread {
         scannerHasBeenStarted = true;
         while(alive) {
             scanInProgress = true;
+            filesScannedCounter = 0;
             manager.getFileDatabase().cleanupDuplicates();
 
             cleanup();
@@ -84,7 +85,7 @@ public class ShareScanner extends Thread {
                 // If file is missing the descriptor will automatically be removed from the index
                 fd.getFd(i, false);
 
-                int sleepEveryXFiles = shouldBeFastScan ? 400 : 50;
+                int sleepEveryXFiles = shouldBeFastScan ? 500 : 50;
                 if(i % sleepEveryXFiles == 0) {
                     manager.getCore().getUICallback().statusMessage("Checking share for removed files ("+(i*100/n)+"%)...");
                     try {
@@ -102,6 +103,7 @@ public class ShareScanner extends Thread {
         scanPathRecursive(base.getPath(),base,1);
     }
 
+    private int filesScannedCounter=0;
     private void scanPathRecursive(String dir, ShareBase base, int level) throws IOException {
         if (!alive) return;
 
@@ -113,7 +115,8 @@ public class ShareScanner extends Thread {
         if (files != null) for(int i=0;i<files.length;i++) {
             File file = files[i];
             file = file.getCanonicalFile();
-            if (!shouldBeFastScan) try {Thread.sleep(20);} catch (InterruptedException e) {}
+            if (!shouldBeFastScan && (filesScannedCounter % 50) == 0) try {Thread.sleep(100);} catch (InterruptedException e) {}
+            filesScannedCounter++;
             if (file.isDirectory()) {
                 if(T.t)T.trace("Scanning "+file.getPath()+"...");
                 manager.getCore().getUICallback().statusMessage("Scanning "+file.getPath()+"...");
