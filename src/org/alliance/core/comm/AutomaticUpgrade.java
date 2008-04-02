@@ -32,7 +32,7 @@ public class AutomaticUpgrade {
         this.core = core;
         this.cache = cache;
 
-        File latestVersionFile = new File(cache.getCompleteFilePath() + "/" + UPGRADE_FILENAME);
+        File latestVersionFile = new File(cache.getCompleteFilesFilePath() + "/" + UPGRADE_FILENAME);
         if (SOURCE_JAR.exists() && (!latestVersionFile.exists() || latestVersionFile.length() != SOURCE_JAR.length())) {
             if(org.alliance.core.file.blockstorage.T.t) T.info("Copying alliance jar to cache...");
             copyFile(SOURCE_JAR, latestVersionFile);

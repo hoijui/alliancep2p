@@ -291,8 +291,12 @@ public abstract class BlockStorage extends Thread {
         return storagePath;
     }
 
-    public File getCompleteFilePath() {
+    public File getCompleteFilesFilePath() {
         return completeFilePath;
+    }
+
+    public File getIncompleteFilesFilePath() {
+        return storagePath;
     }
 
     public boolean isSequential() {

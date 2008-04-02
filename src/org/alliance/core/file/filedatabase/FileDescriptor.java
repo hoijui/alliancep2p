@@ -207,10 +207,9 @@ public class FileDescriptor {
             return null;
         }
 
-        if (core.getShareManager().getBaseByPath(fd.basePath) == null) {
+        if (shouldExist && core.getShareManager().getBaseByPath(fd.basePath) == null) {
             if(T.t)T.warn("Base path "+fd.basePath+" is no longer part of shared files. For File "+fd.subpath+" - have to throw it way.");
-            if (shouldExist) throw new FileHasBeenRemovedOrChanged(fd);
-            return null;
+            throw new FileHasBeenRemovedOrChanged(fd);
         }
 
         if (shouldExist && !fd.existsAndSeemsEqual()) throw new FileHasBeenRemovedOrChanged(fd);

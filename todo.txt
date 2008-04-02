@@ -8,6 +8,7 @@ complete:
     * fixa alla fel som finns i top 10
     * det buggar väl inte längre? : glöm inte att ta bort GetUserList flood grejjerna.. - det buggar fortfarande - dom kan ställa till med problem i framtiden - och det är en UI referens i CORE
     * när man tar bort en share verkar inte filerna försvinna ur share
+    * win32 api med file system events - FÄRDIGT JAVA API FÖR DETTA: http://www2.hawaii.edu/~qzhang/FileSystemWatcher/index.html
 
 gŒ igenom faq och getting started - getting started ska vara riktad till folk som vill starta ett nytt nŠtverk
 gräv inte ner dig i detaljer.   var smart. koncentrera dig på det viktigaste. lägg till få nya funktioner. typ:
@@ -44,26 +45,25 @@ Lösa tankar:
     * ha en grafisk representation av dl hastighet - rött/gult/grönt och progress bar så kan ingen missa det..
 
 Todo:
-
+    * när man tar en kopia på en fil skapas "copy" i filnamnet men ändå funkar det inte som det ska i duplicates
     * sådant som är roligt att veta (antat TB upladdat t.ex.) kan synas i en inforuta när man tar view share - eftersom view share kommer fram nät man klickar på användaren
     * lägg till advanced vy i friendslist. ratio, max up och max ner. roligt för tekniskare användare. Gör en kool ikon för den så man ser den. - eller välj vilka kolumner man visar per default - default ska nog vara name och ratio (och kanske share size?)
-    * ta upp uploads per default - man vill väl inte skrämma folk igenom att dölja uploads kanske? - fixa koolt UI för uploads också. så det är kul att kolla på.  kalla fliken "statistics" och ha massa askool stats med den läcka diagramkomponenten. cpuanvänding, minnesanvändning, up/ner hastighet, och koola stats för uploads
+    * ta upp uploads per default - folsk ser att nåt laddas upp i progress bar uppe till höger men vet inte hur man ser vad - fixa koolt UI för uploads också. så det är kul att kolla på.  kalla fliken "statistics" och ha massa askool stats med den läcka diagramkomponenten. cpuanvänding, minnesanvändning, up/ner hastighet, och koola stats för uploads
     * lägg till king ikon
     * drag'n'drop från msn - bara man kan förklara det på ett enkelt sätt så är det lika bra som fullständig integration
     * timestamp på chatmeddelanden - så att dom kommer i rätt ordning
-    * win32 api med file system events - FÄRDIGT JAVA API FÖR DETTA: http://www2.hawaii.edu/~qzhang/FileSystemWatcher/index.html
     * undersök om man kan göra så den drar mindre minne - drar 100mb vid 15 000 utdelade filer - FD cachen verkar kass också
     * testa med enorm share och kolla ifall det krånglar
     * överväg att starta om ofta - eriks klient cp:ar ofta och om det inte finns nåt att att göra än att starta om så får det bli det
 
+    * när man kör över rdp och loggar ut oscilerar away-ikonen
+    * window.tofront när man får meddelanden. Ska titta på options för taskbar bubblor
+    * move to top/bottom i downloads. Många har hundra downloads i sin lista. roligt att trycka up hundra gånger.
     * lŠgg tll stšd fšr mac klasser - typ bra ikon och meny och sŒ.
 
 
-    * när man kör över rdp och loggar ut oscilerar away-ikonen
-    * window.tofront när man får meddelanden. Ska titta på options för taskbar bubblor
     * dubbelklick på nerladdad fil öppnar den
     * Fair enough. I'll add two new options in the options dialog: [X] Scan share when Alliance starts Rescan share automatically every ___ minutes
-    * move to top/bottom i downloads. Många har hundra downloads i sin lista. roligt att trycka up hundra gånger.
     * stöd för dyndns namn i my ip. kolla hur detta fungerar. det är en riktigt klok och proffsig grej att ha
     * stöd för att skapa connection koder inom samma nätverk * lägg till ett meddelande när man försöker connecta till en dator i samma nätverk
     * command-line start. Linuxanvändare intresserade av det.
