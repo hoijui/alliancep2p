@@ -45,6 +45,7 @@ Lösa tankar:
     * ha en grafisk representation av dl hastighet - rött/gult/grönt och progress bar så kan ingen missa det..
 
 Todo:
+    * scannar nog fšr aggresivt ibland: nŠr jag chattade med anders laggade allt - fast Œ andra sidan sŒ hashade den varje gŒng nŒnting laddades ner - och jag tankade dŒ..
     * när man tar en kopia på en fil skapas "copy" i filnamnet men ändå funkar det inte som det ska i duplicates
     * sådant som är roligt att veta (antat TB upladdat t.ex.) kan synas i en inforuta när man tar view share - eftersom view share kommer fram nät man klickar på användaren
     * lägg till advanced vy i friendslist. ratio, max up och max ner. roligt för tekniskare användare. Gör en kool ikon för den så man ser den. - eller välj vilka kolumner man visar per default - default ska nog vara name och ratio (och kanske share size?)
