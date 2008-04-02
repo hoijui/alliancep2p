@@ -22,7 +22,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import de.javasoft.plaf.synthetica.filechooser.SyntheticaFileChooser;
-import de.javasoft.synthetica.addons.ExtendedFileChooser;
 
 /**
  * Created by IntelliJ IDEA.

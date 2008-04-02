@@ -4,7 +4,6 @@ complete:
     * installera nya synthetica så att alliance inte maximerar över hela skärmen, inkl startmeny
     * när man trycker på refresh kan den köra pontus clean-up kod som ska ta bort filer som inte finns längre - har lovat detta vissa användare som verkligen ville ha det - testa. det kanske fungerar bra. Överväg att ha uppe en dialog när man scannar i full fart - neh. det är nog störigt.. om man kan minimera så kanske.. men.. hmm.
 
-
 gŒ igenom faq och getting started - getting started ska vara riktad till folk som vill starta ett nytt nŠtverk
 testa erics kod
 gräv inte ner dig i detaljer.   var smart. koncentrera dig på det viktigaste. lägg till få nya funktioner. typ:
@@ -41,6 +40,7 @@ Lösa tankar:
     * ha en grafisk representation av dl hastighet - rött/gult/grönt och progress bar så kan ingen missa det..
 
 Todo:
+    * synthetica krashar med java 1.5 .. vafan?!
     * lŠgg tll stšd fšr mac klasser - typ bra ikon och meny och sŒ.
     * drag'n'drop från msn - bara man kan förklara det på ett enkelt sätt så är det lika bra som fullständig integration
     * när man ska skapa nätverkskod:   if (port_test_is_online) perform_port_test
