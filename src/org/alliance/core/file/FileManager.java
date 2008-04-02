@@ -80,7 +80,6 @@ public class FileManager extends Manager {
         return shareManager.getFileDatabase().contains(root);
     }
 
-
     public BlockMask getBlockMask(Hash root) throws IOException {
         BlockMask bm = downloads.getBlockMaskFor(root);
         if (bm != null) return bm;

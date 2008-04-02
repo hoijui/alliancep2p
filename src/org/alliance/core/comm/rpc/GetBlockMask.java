@@ -33,7 +33,7 @@ public class GetBlockMask extends RPC {
 
         core.logNetworkEvent("GetBlockMast for "+core.getFileManager().getFd(root)+" from "+con.getRemoteFriend());
 
-        if (manager.getCore().getFileManager().containsComplete(root)) {
+        if (manager.getCore().getFileManager().containsComplete(root) && manager.getCore().getFileManager().getFd(root) != null) {
             if(T.t)T.info("Found complete file for root "+root);
             send(new BlockMaskResult(root, true,
                     BlockFile.getNumberOfBlockForSize(manager.getCore().getFileManager().getFd(root).getSize()))); //will automatically route to correct person

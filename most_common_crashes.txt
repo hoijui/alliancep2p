@@ -2,32 +2,6 @@ Sorted in order of "populatiry" from over 2000 error reports.
 
 java.lang.OutOfMemoryError: Java heap space
 
-    User Comment: Authorized a connection from someone. Two crashes in row.
-
-java.lang.NullPointerException
-	at org.alliance.core.comm.rpc.GetBlockMask.execute(GetBlockMask.java:38)
-	at org.alliance.core.comm.FriendConnection.received(FriendConnection.java:65)
-	at org.alliance.core.comm.FriendConnection.received(FriendConnection.java:47)
-	at org.alliance.core.comm.FriendConnection.packetReceived(FriendConnection.java:43)
-	at org.alliance.core.comm.PacketConnection.received(PacketConnection.java:105)
-	at org.alliance.core.crypto.cryptolayers.BufferedCryptoLayer.received(BufferedCryptoLayer.java:109)
-	at org.alliance.core.comm.NetworkManager.received(NetworkManager.java:285)
-	at org.alliance.core.comm.networklayers.tcpnio.TCPNIONetworkLayer.handleRead(TCPNIONetworkLayer.java:303)
-	at org.alliance.core.comm.networklayers.tcpnio.TCPNIONetworkLayer.run(TCPNIONetworkLayer.java:174)
-	at java.lang.Thread.run(Unknown Source)
-
-
-java.util.ConcurrentModificationException
-    	at java.util.HashMap$HashIterator.nextEntry(Unknown Source)
-    	at java.util.HashMap$KeyIterator.next(Unknown Source)
-    	at org.alliance.core.file.filedatabase.CompressedPathCollection.getDirectoryListing(CompressedPathCollection.java:51)
-    	at org.alliance.core.file.filedatabase.FileDatabase.getDirectoryListing(FileDatabase.java:329)
-    	at org.alliance.ui.windows.viewshare.ViewShareTreeNode$1.run(ViewShareTreeNode.java:58)
-    	at org.alliance.core.comm.networklayers.tcpnio.TCPNIONetworkLayer.run(TCPNIONetworkLayer.java:185)
-    	at java.lang.Thread.run(Unknown Source)
-
-        User Comment: I was just hashing/indexing files and talking to other people in the chat when the error message popped up. This is the second time that it occured, I didn't send the first error message.
-
 java.util.ConcurrentModificationException
 	at java.util.HashMap$HashIterator.nextEntry(Unknown Source)
 	at java.util.HashMap$ValueIterator.next(Unknown Source)

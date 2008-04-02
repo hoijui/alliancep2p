@@ -24,12 +24,12 @@ public class CompressedPathCollection implements Serializable {
     private static final long serialVersionUID = 7234254693355857212L;
     private HashSet<String> paths = new HashSet<String>();
 
-    public void addPath(String path) {
+    public synchronized void addPath(String path) {
         path = TextUtils.makeSurePathIsMultiplatform(path);
         paths.add(path);
     }
 
-    public void removePath(String path) {
+    public synchronized void removePath(String path) {
         path = TextUtils.makeSurePathIsMultiplatform(path);
         paths.remove(path);
     }
@@ -47,12 +47,14 @@ public class CompressedPathCollection implements Serializable {
         return paths.contains(path);
     }
 
-    public String[] getDirectoryListing(String path) {
+    // this one is synchronized because two threads where getting in here - one invoking this and another invoking
+    // add or remove path causing a ConcurrentModificationError
+    public synchronized String[] getDirectoryListing(String path) {
         path = TextUtils.makeSurePathIsMultiplatform(path);
         if (!path.endsWith("/")) path = path+'/';
 
         HashSet<String> hs = new HashSet<String>();
-        for(String s: paths) {
+        for(String s : paths) {
             if (s.startsWith(path)) {
                 //add filename without path
                 s = s.substring(path.length());
