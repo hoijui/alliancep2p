@@ -57,7 +57,6 @@ public class ShareScanner extends Thread {
             }
 
             shouldBeFastScan = false;
-            manager.getCore().getUICallback().statusMessage("Share scan complete.");
             if (!alive) break;
 
             try {
