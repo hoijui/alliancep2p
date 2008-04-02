@@ -4,6 +4,7 @@ import org.alliance.core.CoreSubsystem;
 import org.alliance.core.file.filedatabase.FileDatabase;
 import org.alliance.core.settings.Settings;
 import org.alliance.core.settings.Share;
+import org.alliance.launchers.OSInfo;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ public class ShareManager {
 
     private FileDatabase fileDatabase;
     private ShareScanner shareScanner;
+    private FileSystemMonitor fileSystemMonitor;
     private Settings settings;
     private CoreSubsystem core;
 
@@ -33,13 +35,14 @@ public class ShareManager {
         this.settings = settings;
         fileDatabase = new FileDatabase(core, settings.getInternal().getFiledatabaseindexfile(), settings.getInternal().getFiledatabasefile());
         shareScanner = new ShareScanner(core, this);
+        fileSystemMonitor = new FileSystemMonitor(this);
 
         updateShareBases();
 
         shareScanner.start();
     }
 
-    public void updateShareBases() {
+    public void updateShareBases() throws IOException {
         shareBases.clear();
         shareBaseOrder.clear();
         for(Share s : settings.getSharelist()) {
@@ -49,6 +52,8 @@ public class ShareManager {
             add(new ShareBase(settings.getInternal().getCachefolder()));
         if (!isShared(settings.getInternal().getDownloadfolder()))
             add(new ShareBase(settings.getInternal().getDownloadfolder()));
+
+        if (fileSystemMonitor != null) fileSystemMonitor.launch();
     }
 
     private boolean isShared(String folder) {
@@ -89,7 +94,7 @@ public class ShareManager {
         return shareBaseOrder.get(index);
     }
 
-    public ShareScanner getShareMonitor() {
+    public ShareScanner getShareScanner() {
         return shareScanner;
     }
 

@@ -6,6 +6,7 @@ import org.alliance.core.CoreSubsystem;
 import static org.alliance.core.CoreSubsystem.GB;
 import org.alliance.core.file.filedatabase.FileDatabase;
 import org.alliance.core.file.filedatabase.FileDescriptor;
+import org.alliance.launchers.OSInfo;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,6 +25,8 @@ public class ShareScanner extends Thread {
     private long bytesScanned;
     private CoreSubsystem core;
     private boolean shouldBeFastScan = false;
+    private boolean scanInProgress = false;
+    private boolean scannerHasBeenStarted = false;
 
     public ShareScanner(CoreSubsystem core, ShareManager manager) {
         this.core = core;
@@ -34,7 +37,9 @@ public class ShareScanner extends Thread {
 
     public void run() {
         try { Thread.sleep(6*1000); } catch (InterruptedException e) {} //wait a while before starting first scan
+        scannerHasBeenStarted = true;
         while(alive) {
+            scanInProgress = true;
             manager.getFileDatabase().cleanupDuplicates();
 
             cleanup();
@@ -49,7 +54,6 @@ public class ShareScanner extends Thread {
                 }
             }
 
-
             try {
                 manager.getFileDatabase().flush();
             } catch(IOException e) {
@@ -57,37 +61,40 @@ public class ShareScanner extends Thread {
             }
 
             shouldBeFastScan = false;
+            scanInProgress = false;
             if (!alive) break;
-
             try {
                 if(T.t)T.info("Wating for next share scan.");
-                Thread.sleep(1000*60*manager.getSettings().getInternal().getSharemanagercycle());
+                if (OSInfo.isWindows())
+                    Thread.sleep(1000*60*manager.getSettings().getInternal().getSharemanagercyclewithfilesystemeventsactive());
+                else
+                    Thread.sleep(1000*60*manager.getSettings().getInternal().getSharemanagercycle());
             } catch(Exception e) {}
         }
     }
 
     private void cleanup() {
-        try {
-            if(T.t)T.info("Cleaning up index...");
-            FileDatabase fd = manager.getFileDatabase();
+        if(T.t)T.info("Cleaning up index...");
+        FileDatabase fd = manager.getFileDatabase();
 
-            int n = fd.getNumberOfFiles();
-            for(int i = 0; i < n; i++) {
-                if(!alive) return;
-                try {
-                    // If file is missing the descriptor will automatically be removed from the index
-                    fd.getFd(i, false);
+        int n = fd.getNumberOfFiles();
+        for(int i = 0; i < n; i++) {
+            if(!alive) return;
+            try {
+                // If file is missing the descriptor will automatically be removed from the index
+                fd.getFd(i, false);
 
-                    int sleepEveryXFiles = shouldBeFastScan ? 500 : 100;
-                    if(i % sleepEveryXFiles == 0) {
-                        manager.getCore().getUICallback().statusMessage("Checking share for removed files ("+(i*100/n)+"%)...");
+                int sleepEveryXFiles = shouldBeFastScan ? 400 : 50;
+                if(i % sleepEveryXFiles == 0) {
+                    manager.getCore().getUICallback().statusMessage("Checking share for removed files ("+(i*100/n)+"%)...");
+                    try {
                         Thread.sleep(100);
-                    }
-                } catch (IOException e) {
-                    if(T.t)T.warn("Unable to retrieve file descriptor: "+e);
+                    } catch (InterruptedException e) {}
                 }
+            } catch (IOException e) {
+                if(T.t)T.warn("Unable to retrieve file descriptor: "+e);
             }
-        } catch (InterruptedException e) {}
+        }
     }
 
     private void scanPath(ShareBase base) throws IOException {
@@ -159,5 +166,17 @@ public class ShareScanner extends Thread {
     public void startScan(boolean fastScan) {
         shouldBeFastScan = fastScan;
         interrupt();
+    }
+
+    public ShareManager getManager() {
+        return manager;
+    }
+
+    /**
+     * Invoked by the win32 file watcher when a share change has been detected. This can be called quite often when a file is written to.
+     */
+    public void signalShareHasChanged() {
+        if(T.t)T.trace("Share changed - waking up scan!");
+        if (!scanInProgress && scannerHasBeenStarted) startScan(true);
     }
 }

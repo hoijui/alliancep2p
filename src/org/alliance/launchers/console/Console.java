@@ -292,7 +292,7 @@ public class Console {
     }
 
     private void scan() {
-        core.getShareManager().getShareMonitor().startScan(true);
+        core.getShareManager().getShareScanner().startScan(true);
         printer.println("Scanning for new files in share directories (and cache (and downloads))");
     }
 

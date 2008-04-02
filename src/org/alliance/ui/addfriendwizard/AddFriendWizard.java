@@ -185,6 +185,10 @@ public class AddFriendWizard extends JWizard {
 
     private void goToManualInvite() {
         setStep(STEP_MANUAL_INVITE);
+        prev.setEnabled(true);
+        next.setEnabled(false);
+        cancel.setEnabled(true);
+        cancel.setText("Finished");
     }
 
     private void goToPortTest() {

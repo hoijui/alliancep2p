@@ -611,7 +611,7 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
     }
 
     public void EVENT_rescan(ActionEvent e) {
-        ui.getCore().getShareManager().getShareMonitor().startScan(true);
+        ui.getCore().getShareManager().getShareScanner().startScan(true);
     }
 
     public void EVENT_console(ActionEvent e) throws Exception {
