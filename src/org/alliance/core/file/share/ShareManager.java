@@ -64,6 +64,14 @@ public class ShareManager {
         return false;
     }
 
+    public ShareBase getShareBaseByFile(String file) {
+        file = TextUtils.makeSurePathIsMultiplatform(file);
+        for(ShareBase sb : shareBases.values()) {
+            if (file.startsWith(TextUtils.makeSurePathIsMultiplatform(sb.getPath()))) return sb;
+        }
+        return null;
+    }
+
     private void add(ShareBase sb) {
         shareBases.put(sb.getPath(), sb);
         shareBaseOrder.add(sb);

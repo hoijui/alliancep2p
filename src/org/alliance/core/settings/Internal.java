@@ -32,7 +32,7 @@ public class Internal extends SettingClass {
     private Integer reconnectinterval = 60*10;
     private Integer connectFriendInterval = 1;
     private Integer sharemanagercycle = 30;
-    private Integer sharemanagercyclewithfilesystemeventsactive = 60*4; //make forceful scan very seldom if there's logic running the scan when a change is made in the share
+    private Integer sharemanagercyclewithfilesystemeventsactive = 60*2;
     private Integer maxdownloadconnections=5;
     private Integer recordoutspeed=0, recordinspeed=0;
     private Integer totalmegabytesdownloaded =0, totalmegabytesuploaded =0;
@@ -63,7 +63,7 @@ public class Internal extends SettingClass {
      * before stopping the network stack. Set to 8 to be on the safe side. */
     private Integer maxpendingconnections = 8;
 
-    private Integer hashspeedinmbpersecond=2; //when in background mode
+    private Integer hashspeedinmbpersecond=3; //when in background mode
 
     private Integer sosendbuf=-1, soreceivebuf=-1;
     private Integer discwritebuffer=256*KB, //one instance of this one per download

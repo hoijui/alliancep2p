@@ -85,6 +85,12 @@
             protected *;
             package *;
             }
+            -keepclassmembers class net.contentobjects.jnotify.** {
+            public *; <!-- don't know how to say all methods -->
+            private *;
+            protected *;
+            package *;
+            }
         </proguard>
 
         <signjar lazy="no" alias="blacknet" storepass="${keystorepassword}" keystore="${keystorelocation}">

@@ -21,6 +21,11 @@ import java.util.ArrayList;
  * To change this template use File | Settings | File Templates.
  */
 public class FileDescriptor {
+    public static class FileModifiedWhileHashingException extends IOException {
+        public FileModifiedWhileHashingException() {}
+        public FileModifiedWhileHashingException(String s) { super(s); }
+    }
+    
     private final static byte VERSION=1;
 
     private String basePath;
@@ -92,10 +97,9 @@ public class FileDescriptor {
                 callback.statusMessage(s);
                 updateHashMessageTick = System.currentTimeMillis();
             }
+            if (startSize != file.length()) throw new FileModifiedWhileHashingException("Inconsistent file size! File was probably written to.");
+            if (modifiedAtBeforeHashing != file.lastModified()) throw new FileModifiedWhileHashingException("File modified while hashing!");
         }
-
-        if (startSize != file.length()) throw new IOException("Inconsistent file size! File was probably written to.");
-        if (modifiedAtBeforeHashing != file.lastModified()) throw new IOException("File modified while hashing!");
 
         if (read != -1) {
             totalRead += read;
@@ -113,6 +117,7 @@ public class FileDescriptor {
         size = file.length();
         subpath = createSubpath(file.getPath());
         modifiedAt = file.lastModified();
+        in.close();
 
         if(T.t)T.debug("Hashed "+ TextUtils.formatNumber(""+totalRead)+" bytes in "+st.getTime()+". Hash list contains "+hashes.size()+" hashes.");
     }

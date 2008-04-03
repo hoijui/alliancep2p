@@ -38,6 +38,7 @@ public class FileManager extends Manager {
     private CoreSubsystem core;
     private Settings settings;
     private AutomaticUpgrade automaticUpgrade;
+    public static final String INCOMPLETE_FOLDER_NAME = "_incomplete_";
 
     public FileManager(CoreSubsystem core, Settings settings) throws IOException {
         this.core = core;
@@ -45,8 +46,8 @@ public class FileManager extends Manager {
     }
 
     public void init() throws IOException {
-        cache = new CacheStorage(settings.getInternal().getCachefolder()+"/_incomplete_", settings.getInternal().getCachefolder(), core);
-        downloads = new DownloadStorage(settings.getInternal().getDownloadfolder()+"/_incomplete_", settings.getInternal().getDownloadfolder(), core);
+        cache = new CacheStorage(settings.getInternal().getCachefolder()+"/"+FileManager.INCOMPLETE_FOLDER_NAME, settings.getInternal().getCachefolder(), core);
+        downloads = new DownloadStorage(settings.getInternal().getDownloadfolder()+"/"+FileManager.INCOMPLETE_FOLDER_NAME, settings.getInternal().getDownloadfolder(), core);
         automaticUpgrade = new AutomaticUpgrade(core, cache);
         shareManager = new ShareManager(core, settings);
     }

@@ -10,6 +10,7 @@ import com.stendahls.trace.TraceHandler;
 import com.stendahls.ui.ErrorDialog;
 import org.alliance.Subsystem;
 import org.alliance.core.comm.NetworkManager;
+import org.alliance.core.comm.AutomaticUpgrade;
 import org.alliance.core.comm.rpc.AwayStatus;
 import org.alliance.core.comm.rpc.GetUserInfo;
 import org.alliance.core.comm.rpc.GetUserInfoV2;
@@ -254,6 +255,8 @@ public class CoreSubsystem implements Subsystem {
 
     public void saveSettings() throws Exception {
         if(T.t)T.info("Saving settings");
+        if (new File(settingsFile).exists()) AutomaticUpgrade.copyFile(new File(settingsFile), new File(settingsFile+".bak"));
+
         XMLSerializer s = new XMLSerializer();
         Document doc = s.serialize(settings);
 

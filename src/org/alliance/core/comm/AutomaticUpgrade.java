@@ -41,7 +41,7 @@ public class AutomaticUpgrade {
         if (SOURCE_JAR.exists()) myJarHash = new FileDescriptor("", SOURCE_JAR, core.getSettings().getInternal().getHashspeedinmbpersecond()).getRootHash();
     }
 
-    private void copyFile(File src, File dst) throws IOException {
+    public static void copyFile(File src, File dst) throws IOException {
         if(T.t)T.info("Copying "+src +" -> "+dst +"...");
         FileInputStream in = new FileInputStream(src);
         FileOutputStream out = new FileOutputStream(dst);

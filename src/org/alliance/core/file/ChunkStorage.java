@@ -47,7 +47,7 @@ public class ChunkStorage {
         int magic = raf.readByte();
 
         if (magic == MAGIC_MARKED_FOR_DELETION) {
-            if(T.t)T.info("Tried to get chunk but it has been marked for deletion!");
+            if(T.t)T.trace("Tried to get chunk but it has been marked for deletion!");
             return null;
         } else if (magic != MAGIC_ALIVE) {
             throw new IOException("Magic number incorrect in database file database. The database might be corrupt!");
