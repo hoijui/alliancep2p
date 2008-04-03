@@ -10,6 +10,7 @@ complete:
     * när man tar bort en share verkar inte filerna försvinna ur share
     * win32 api med file system events - FÄRDIGT JAVA API FÖR DETTA: http://www2.hawaii.edu/~qzhang/FileSystemWatcher/index.html
     * sådant som är roligt att veta (antat TB upladdat t.ex.) kan synas i en inforuta när man tar view share - eftersom view share kommer fram nät man klickar på användaren
+    * när man kör över rdp och loggar ut oscilerar away-ikonen
 
 gŒ igenom faq och getting started - getting started ska vara riktad till folk som vill starta ett nytt nŠtverk
 gräv inte ner dig i detaljer.   var smart. koncentrera dig på det viktigaste. lägg till få nya funktioner. typ:
@@ -46,6 +47,7 @@ Lösa tankar:
     * ha en grafisk representation av dl hastighet - en rött/gult/grönt gubbe som är olika glad är nog bra   så kan ingen missa det..
 
 Todo:
+    * när en tom map finns i share blir view share lite konstig 
     * den hashar om filer gång på gång igen.. när jag flyttade firefly hashade den vissa filer typ tre gånger..?
     * när man delar ut mycket tar det typ 5 sekunder för att flusha indexet - och då låster sig ALLT
     * när man tar en kopia på en fil skapas "copy" i filnamnet men ändå funkar det inte som det ska i duplicates
@@ -55,7 +57,6 @@ Todo:
     * undersök om man kan göra så den drar mindre minne - drar 100mb vid 15 000 utdelade filer - FD cachen verkar kass också
     * testa med enorm share och kolla ifall det krånglar
 
-    * när man kör över rdp och loggar ut oscilerar away-ikonen
     * window.tofront när man får meddelanden. Ska titta på options för taskbar bubblor
     * move to top/bottom i downloads. Många har hundra downloads i sin lista. roligt att trycka up hundra gånger.
     * lŠgg tll stšd fšr mac klasser - typ bra ikon och meny och sŒ.
