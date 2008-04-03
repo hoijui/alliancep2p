@@ -47,7 +47,7 @@ public class ViewShareMDIWindow extends AllianceMDIWindow {
     public ViewShareMDIWindow(UISubsystem ui, Node remote) throws Exception {
         super(ui.getMainWindow().getMDIManager(), (remote instanceof MyNode) ? "viewmyshare" : "viewshare", ui);
         this.remote = remote;
-        setTitle("Share of "+remote.nickname());
+        setTitle(remote.nickname());
 
         iconLoading = new ImageIcon(ui.getRl().getResource("gfx/icons/loadingsharenode.png"));
         //@todo: this is done in other places too. AND it's a waste of reasources to load these every time
@@ -94,6 +94,14 @@ public class ViewShareMDIWindow extends AllianceMDIWindow {
 
         popup = (JPopupMenu)xui.getComponent(remote instanceof MyNode ? "popupme" : "popup");
 
+        JLabel status = (JLabel) xui.getComponent("status");
+        status.setText(TextUtils.formatByteSize(remote.getShareSize())+" in "+remote.getNumberOfFilesShared()+" files");
+        status = (JLabel) xui.getComponent("status2");
+        status.setText("Uploaded: "+TextUtils.formatByteSize(remote.getTotalBytesSent())+" ("+TextUtils.formatByteSize((long) remote.getHighestOutgoingCPS())+"/s)");
+        status = (JLabel) xui.getComponent("status3");
+        status.setText("Downloaded: "+TextUtils.formatByteSize(remote.getTotalBytesReceived())+" ("+TextUtils.formatByteSize((long) remote.getHighestIncomingCPS())+"/s)");
+        status = (JLabel) xui.getComponent("status4");
+        status.setText(remote.getNumberOfInvitedFriends()+" friends invited");
 
         postInit();
     }

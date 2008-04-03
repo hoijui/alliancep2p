@@ -42,20 +42,16 @@ Lösa tankar:
     * åtminstone se ratio i listan.. åååtminstone i advanced mode
     * ett stort problem verkar vara nätverksstabilitet också - erik svarar inte fastän han finns på listan. Det ser ut som att många är inloggade men i själva verket är det få som svarar. kanske starta om regelbundet? reconnecta till alla regelbunnet?
     * får inte visa hundra "you have successfully connected to" - tänk på noobs - fast det är lite krångligt att fixa
-    * ha en grafisk representation av dl hastighet - rött/gult/grönt och progress bar så kan ingen missa det..
+    * ha en grafisk representation av dl hastighet - en rött/gult/grönt gubbe som är olika glad är nog bra   så kan ingen missa det..
 
 Todo:
-    * scannar nog fšr aggresivt ibland: nŠr jag chattade med anders laggade allt - fast Œ andra sidan sŒ hashade den varje gŒng nŒnting laddades ner - och jag tankade dŒ..
     * när man tar en kopia på en fil skapas "copy" i filnamnet men ändå funkar det inte som det ska i duplicates
     * sådant som är roligt att veta (antat TB upladdat t.ex.) kan synas i en inforuta när man tar view share - eftersom view share kommer fram nät man klickar på användaren
     * lägg till advanced vy i friendslist. ratio, max up och max ner. roligt för tekniskare användare. Gör en kool ikon för den så man ser den. - eller välj vilka kolumner man visar per default - default ska nog vara name och ratio (och kanske share size?)
     * ta upp uploads per default - folsk ser att nåt laddas upp i progress bar uppe till höger men vet inte hur man ser vad - fixa koolt UI för uploads också. så det är kul att kolla på.  kalla fliken "statistics" och ha massa askool stats med den läcka diagramkomponenten. cpuanvänding, minnesanvändning, up/ner hastighet, och koola stats för uploads
     * lägg till king ikon
-    * drag'n'drop från msn - bara man kan förklara det på ett enkelt sätt så är det lika bra som fullständig integration
-    * timestamp på chatmeddelanden - så att dom kommer i rätt ordning
     * undersök om man kan göra så den drar mindre minne - drar 100mb vid 15 000 utdelade filer - FD cachen verkar kass också
     * testa med enorm share och kolla ifall det krånglar
-    * överväg att starta om ofta - eriks klient cp:ar ofta och om det inte finns nåt att att göra än att starta om så får det bli det
 
     * när man kör över rdp och loggar ut oscilerar away-ikonen
     * window.tofront när man får meddelanden. Ska titta på options för taskbar bubblor
