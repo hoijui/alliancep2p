@@ -94,7 +94,7 @@ public class UISubsystem implements UINexus, Subsystem {
 
         Thread.setDefaultUncaughtExceptionHandler(new GlobalExceptionHandler());
 
-        if (T.t) SwingDeadlockWarningRepaintManager.hookRepaints(true, new String[]{"NetworkIndicator"});
+        if (T.t) SwingDeadlockWarningRepaintManager.hookRepaints(true, new String[]{"NetworkIndicator", "SystemMonitor"});
 
         try {
             mainWindow = new MainWindow();

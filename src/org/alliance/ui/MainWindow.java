@@ -12,12 +12,15 @@ import com.stendahls.nif.util.SXML;
 import com.stendahls.ui.util.RecursiveBackgroundSetter;
 import com.stendahls.util.TextUtils;
 import de.javasoft.plaf.synthetica.SyntheticaRootPaneUI;
+import de.javasoft.synthetica.addons.SystemMonitor;
+import de.javasoft.synthetica.addons.systemmonitor.Collector;
 import org.alliance.core.NeedsUserInteraction;
 import org.alliance.core.PublicChatHistory;
 import org.alliance.core.comm.BandwidthAnalyzer;
 import org.alliance.core.interactions.*;
 import org.alliance.core.node.Friend;
 import org.alliance.core.node.Node;
+import static org.alliance.core.CoreSubsystem.*;
 import org.alliance.launchers.StartupProgressListener;
 import org.alliance.ui.addfriendwizard.AddFriendWizard;
 import org.alliance.ui.addfriendwizard.ForwardInvitationNodesList;
@@ -77,6 +80,8 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
 
         setupWindowEvents(shutdownOnClose);
 
+        setupSpeedDiagram();
+
         setupMDIManager();
 
         pml.updateProgress("Loading main window (friend list)");
@@ -123,6 +128,38 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
         }
 
         if (T.t) T.info("done");
+    }
+
+    private void setupSpeedDiagram() {
+        SystemMonitor monitor = new SystemMonitor();
+        String id = ""+Math.random();
+        monitor.addCollector(id, 3000, 1000, new Collector() {
+            public double getValue() {
+                return ui.getCore().getNetworkManager().getBandwidthOutHighRefresh().getCPS();
+            }
+
+            public double getMaxValue() {
+                double d = Math.max(ui.getCore().getNetworkManager().getBandwidthInHighRefresh().getHighestCPS(), ui.getCore().getNetworkManager().getBandwidthOutHighRefresh().getHighestCPS());
+                return d;
+            }
+        });
+        monitor.setColor(id, new Color(0xf68a08));
+
+        id = ""+Math.random();
+        monitor.addCollector(id, 3000, 1000, new Collector() {
+            public double getValue() {
+                return ui.getCore().getNetworkManager().getBandwidthInHighRefresh().getCPS();
+            }
+
+            public double getMaxValue() {
+                return Math.max(ui.getCore().getNetworkManager().getBandwidthInHighRefresh().getHighestCPS(), ui.getCore().getNetworkManager().getBandwidthOutHighRefresh().getHighestCPS());
+            }
+        });
+        monitor.setColor(id, Color.green);
+
+        monitor.setPopupEnabled(true);
+        monitor.setSpotlightEnabled(true);
+        ((JPanel)xui.getComponent("diagrampanel")).add(monitor);
     }
 
     private void setupMDIManager() {
@@ -403,7 +440,7 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
                         updateBandwidth("Downloading", "downloaded", bandwidthIn, ui.getCore().getNetworkManager().getBandwidthIn());
                         updateBandwidth("Uploading", "uploaded", bandwidthOut, ui.getCore().getNetworkManager().getBandwidthOut());
 
-                        ((JSpeedDiagram)xui.getComponent("speeddiagram")).update(ui.getCore());
+                        //((JSpeedDiagram)xui.getComponent("speeddiagram")).update(ui.getCore());
                     }
 
                     private void updateBandwidth(String s, String s2, JProgressBar pb, BandwidthAnalyzer a) {

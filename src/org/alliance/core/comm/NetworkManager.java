@@ -55,7 +55,7 @@ public class NetworkManager extends Manager {
     private HashSet<InetAddress> bannedHosts = new HashSet<InetAddress>();
     private long lastClearOfBannedHostsTick = System.currentTimeMillis();
 
-    protected BandwidthAnalyzer bandwidthIn, bandwidthOut;
+    protected BandwidthAnalyzer bandwidthIn, bandwidthOut, bandwidthInHighRefresh, bandwidthOutHighRefresh;
 
     private ArrayList<PersistantRPC> queuedPersistantRPCs = new ArrayList<PersistantRPC>();
 
@@ -84,6 +84,8 @@ public class NetworkManager extends Manager {
         router = new Router(friendManager);
         bandwidthIn = new BandwidthAnalyzer(BandwidthAnalyzer.OUTER_INTERVAL, settings.getInternal().getRecordinspeed(), ((long)settings.getInternal().getTotalmegabytesdownloaded()*MB));
         bandwidthOut = new BandwidthAnalyzer(BandwidthAnalyzer.OUTER_INTERVAL, settings.getInternal().getRecordoutspeed(), ((long)settings.getInternal().getTotalmegabytesuploaded()*MB));
+        bandwidthInHighRefresh = new BandwidthAnalyzer(1500);
+        bandwidthOutHighRefresh = new BandwidthAnalyzer(1500);
 
         // keep-alive thread
         Thread t = new Thread(new Runnable() {
@@ -142,10 +144,12 @@ public class NetworkManager extends Manager {
 
     public void bytesReceived(int n) {
         bandwidthIn.update(n);
+        bandwidthInHighRefresh.update(n);
     }
 
     public void bytesSent(int sent) {
         bandwidthOut.update(sent);
+        bandwidthOutHighRefresh.update(sent);
     }
 
     public void reportError(String source, Object key, Exception e) {
@@ -360,6 +364,15 @@ public class NetworkManager extends Manager {
 
     public BandwidthAnalyzer getBandwidthOut() {
         return bandwidthOut;
+    }
+
+
+    public BandwidthAnalyzer getBandwidthInHighRefresh() {
+        return bandwidthInHighRefresh;
+    }
+
+    public BandwidthAnalyzer getBandwidthOutHighRefresh() {
+        return bandwidthOutHighRefresh;
     }
 
     public CoreSubsystem getCore() {
