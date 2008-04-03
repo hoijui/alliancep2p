@@ -2,6 +2,7 @@ complete:
     * när man ska skapa nätverkskod:   if (port_test_is_online) perform_port_test
     * lŠgg till koll nŠ man ska flytta fil frŒn incomplete - fŒr det inte? sŠg till att det fšrmodligen Šr ett rŠttighetsproblem
     * byt till stendahls-commons, borde bara vara att byta jar
+    * när en tom map finns i share blir view share lite konstig
     * installera nya synthetica så att alliance inte maximerar över hela skärmen, inkl startmeny
     * när man trycker på refresh kan den köra pontus clean-up kod som ska ta bort filer som inte finns längre - har lovat detta vissa användare som verkligen ville ha det - testa. det kanske fungerar bra. Överväg att ha uppe en dialog när man scannar i full fart - neh. det är nog störigt.. om man kan minimera så kanske.. men.. hmm.
     * synthetica buggar på alla javaversioner
@@ -47,7 +48,6 @@ Lösa tankar:
     * ha en grafisk representation av dl hastighet - en rött/gult/grönt gubbe som är olika glad är nog bra   så kan ingen missa det..
 
 Todo:
-    * när en tom map finns i share blir view share lite konstig 
     * den hashar om filer gång på gång igen.. när jag flyttade firefly hashade den vissa filer typ tre gånger..?
     * när man delar ut mycket tar det typ 5 sekunder för att flusha indexet - och då låster sig ALLT
     * när man tar en kopia på en fil skapas "copy" i filnamnet men ändå funkar det inte som det ska i duplicates

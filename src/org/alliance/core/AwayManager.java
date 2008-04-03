@@ -35,7 +35,7 @@ public class AwayManager extends Manager implements Runnable {
             while(true) {
                 Point p = MouseInfo.getPointerInfo().getLocation();
                 Thread.sleep(1000);
-                if ((p.y > 100000 || p.x > 100000 || p.x < -100000 || p.y < -100000) || //big coords are bougus, disregard them (this can happen when user has a minimized remote desktop on windows
+                if ((p.y > 100000 || p.x > 100000 || p.x < -100000 || p.y < -100000) || //big coords are bougus, disregard them (this happens when user has a minimized remote desktop on windows)
                         p.equals(MouseInfo.getPointerInfo().getLocation())) {
                     //mouse has not moved
                     if (System.currentTimeMillis()-lastTimeMouseMoved > core.getSettings().getInternal().getSecondstoaway()*1000) {

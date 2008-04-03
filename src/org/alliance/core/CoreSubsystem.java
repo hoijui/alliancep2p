@@ -364,8 +364,14 @@ public class CoreSubsystem implements Subsystem {
         logError("Error for "+source+": ");
         logError(e);
 
-        if (e instanceof IOException) return;
-        if (e instanceof UnresolvedAddressException) return;
+        if (e instanceof IOException) {
+            if(T.t)T.warn(e);
+            return;
+        }
+        if (e instanceof UnresolvedAddressException) {
+            if(T.t)T.warn(e);
+            return;
+        }
 
         if (shutdownInProgress) {
             System.err.println("Error while shutting down for "+source+": "+e);

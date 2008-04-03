@@ -43,6 +43,7 @@ public class ViewShareMDIWindow extends AllianceMDIWindow {
 
     private final Icon iconLoading;
     private ImageIcon[] fileTypeIcons;
+    private ImageIcon folderIconExpanded, folderIconCollapsed;
 
     public ViewShareMDIWindow(UISubsystem ui, Node remote) throws Exception {
         super(ui.getMainWindow().getMDIManager(), (remote instanceof MyNode) ? "viewmyshare" : "viewshare", ui);
@@ -53,6 +54,8 @@ public class ViewShareMDIWindow extends AllianceMDIWindow {
         //@todo: this is done in other places too. AND it's a waste of reasources to load these every time
         fileTypeIcons = new ImageIcon[8];
         for(int i=0;i<fileTypeIcons.length;i++) fileTypeIcons[i] = new ImageIcon(ui.getRl().getResource("gfx/filetypes/"+i+".png"));
+        folderIconExpanded = new ImageIcon(ui.getRl().getResource("gfx/icons/viewshare.png"));
+        folderIconCollapsed = new ImageIcon(ui.getRl().getResource("gfx/icons/folder_closed.png"));
 
         model = new ViewShareTreeModel(remote, ui, this);
         tree = new JTree(model);
@@ -226,7 +229,19 @@ public class ViewShareMDIWindow extends AllianceMDIWindow {
                 setIcon(iconLoading);
             } else if (value instanceof ViewShareFileNode) {
                 ViewShareFileNode n = (ViewShareFileNode)value;
-                if (!n.isFolder()) setIcon(fileTypeIcons[FileType.getByFileName(n.getName()).id()]);
+                if (!n.isFolder()) {
+                    setIcon(fileTypeIcons[FileType.getByFileName(n.getName()).id()]);
+                } else {
+                    if (expanded)
+                        setIcon(folderIconExpanded);
+                    else
+                        setIcon(folderIconCollapsed);
+                }
+            } else if (value instanceof ViewShareShareBaseNode) {
+                if (expanded)
+                    setIcon(folderIconExpanded);
+                else
+                    setIcon(folderIconCollapsed);
             }
 
             return this;
