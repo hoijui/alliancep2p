@@ -57,6 +57,8 @@ Todo:
     * lägg till king ikon
     * undersök om man kan göra så den drar mindre minne - drar 100mb vid 15 000 utdelade filer - FD cachen verkar kass också
     * testa med enorm share och kolla ifall det krånglar
+    * drag'n'drop från msn - bara man kan förklara det på ett enkelt sätt så är det lika bra som fullständig integration
+    * timestamp på chatmeddelanden - så att dom kommer i rätt ordning
 
     * window.tofront när man får meddelanden. Ska titta på options för taskbar bubblor
     * move to top/bottom i downloads. Många har hundra downloads i sin lista. roligt att trycka up hundra gånger.
