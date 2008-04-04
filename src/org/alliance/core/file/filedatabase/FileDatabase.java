@@ -135,6 +135,7 @@ public class FileDatabase {
     }
 
     private void addDuplicate(String fullPath, Hash rootHash) {
+        fullPath = TextUtils.makeSurePathIsMultiplatform(fullPath);
         if(T.t)T.info("Adding duplicate: "+fullPath);
         duplicates.put(fullPath, rootHash);
     }
@@ -250,6 +251,12 @@ public class FileDatabase {
                 keywordIndex.load(in);
                 indexedFilenames = (CompressedPathCollection)in.readObject();
                 duplicates = (HashMap<String, Hash>)in.readObject();
+
+                //make sure all duplicates are stored as multiplatform paths - remove this once this version has been out for a while - this is here only for backward compatibility
+                HashMap<String, Hash> hm = new HashMap<String, Hash>();
+                for (String d : duplicates.keySet()) hm.put(TextUtils.makeSurePathIsMultiplatform(d), duplicates.get(d));
+                duplicates = hm;
+                
             } catch(ClassNotFoundException e) {
                 throw new IOException("Could not load indices: "+e);
             }
@@ -318,7 +325,7 @@ public class FileDatabase {
     }
 
     public boolean isDuplicate(String fullPath) throws IOException {
-        fullPath = new File(fullPath).getCanonicalPath();
+        fullPath = TextUtils.makeSurePathIsMultiplatform(new File(fullPath).getCanonicalPath());
         if (duplicates.containsKey(fullPath)) {
             FileDescriptor fd = getFd(duplicates.get(fullPath));
             if (fd != null) {
@@ -342,7 +349,7 @@ public class FileDatabase {
     }
 
     public Hash getHashForDuplicate(String path) {
-        return duplicates.get(path);
+        return duplicates.get(TextUtils.makeSurePathIsMultiplatform(path));
     }
 
     public void clearDuplicates() {
@@ -360,5 +367,9 @@ public class FileDatabase {
         printer.println("  filedescriptors cahced: "+fileDescriptorCache.size());
         printer.println("  % of filedescriptor databse marked for deletion: "+chunkStorage.getPercetMarkedForDeletion());
 
+    }
+
+    public void removeFromDuplicates(String file) {
+        duplicates.remove(TextUtils.makeSurePathIsMultiplatform(file));
     }
 }

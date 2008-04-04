@@ -50,7 +50,7 @@ public class DuplicatesMDIWindow extends AllianceMDIWindow {
                 dups.add(new Dup(s, "<lost>"));
             } else {
                 FileDescriptor fd = ui.getCore().getFileManager().getFd(h);
-                if (fd != null) dups.add(new Dup(s, fd.getFullPath()));
+                if (fd != null) dups.add(new Dup(fd.getFullPath(), s));
             }
         }
 
@@ -64,17 +64,20 @@ public class DuplicatesMDIWindow extends AllianceMDIWindow {
             OptionDialog.showErrorDialog(ui.getMainWindow(), "Please select files on only one column - not both.");
             return;
         }
+
+        ArrayList<String> filesThatNeedHashing = new ArrayList<String>();
         ArrayList<String> al = new ArrayList<String>();
         for(int i : table.getSelectedRows()) {
             if (table.getSelectedColumn() == 0) {
                 al.add(dups.get(i).inShare);
-            } else {
+                filesThatNeedHashing.add(dups.get(i).duplicate);
+            } else if (table.getSelectedColumn() == 1) {
                 al.add(dups.get(i).duplicate);
             }
         } 
 
         if (OptionDialog.showQuestionDialog(ui.getMainWindow(), "Are you sure you want to delete "+al.size()+" file(s)?")) {
-            int deleted=0, notDeleted=0;
+            int deleted=0;
 
             for(String s : al) {
                 if (!new File(s).delete()) {
@@ -84,7 +87,13 @@ public class DuplicatesMDIWindow extends AllianceMDIWindow {
                     deleted++;
                 }
             }
-            OptionDialog.showInformationDialog(ui.getMainWindow(), deleted+"/"+al.size()+" files deleted.");
+
+            //duplicates that no longer have their corresponding file in share - make sure they are hashed now.
+            for (String f : filesThatNeedHashing) {
+                ui.getCore().getShareManager().getShareScanner().signalFileCreated(f);
+            }
+
+            OptionDialog.showInformationDialog(ui.getMainWindow(), deleted+"/"+al.size()+" files deleted. Note that it might take a while before the duplicate list is updated.");
             revert();
         }
     }

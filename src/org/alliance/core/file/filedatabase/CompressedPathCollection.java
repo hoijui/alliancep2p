@@ -3,9 +3,12 @@ package org.alliance.core.file.filedatabase;
 import com.stendahls.util.TextUtils;
 
 import java.io.Serializable;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+
+import org.alliance.core.T;
 
 /**
  * Can keep track of a lot of filepaths in a efficient (memory usage wise) way.
@@ -53,15 +56,21 @@ public class CompressedPathCollection implements Serializable {
         if (!path.endsWith("/")) path = path+'/';
 
         HashSet<String> hs = new HashSet<String>();
-        for(String s : paths) {
+        for (java.util.Iterator it = paths.iterator(); it.hasNext();) {
+            String s = (String) it.next();
             if (s.startsWith(path)) {
                 //add filename without path
                 s = s.substring(path.length());
                 if (s.indexOf('/') != -1) {
                     //show only files and folders that are in this directory, not in subdirectories
-                    s = s.substring(0, s.indexOf('/')+1);
+                    s = s.substring(0, s.indexOf('/') + 1);
                 }
-                hs.add(s);
+                if (!new File(path+s).exists()) {
+                    if(T.t)T.info("Ehm. Found file in path collection that does not exist. Recovering by ignoring it and removing it from path collection.");
+                    it.remove();
+                } else {
+                    hs.add(s);
+                }
             }
         }
 

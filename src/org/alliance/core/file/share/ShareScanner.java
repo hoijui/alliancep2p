@@ -103,7 +103,7 @@ public class ShareScanner extends Thread {
     private long getShareManagerCycle() {
         if (OSInfo.isWindows())
             return 1000*60*manager.getSettings().getInternal().getSharemanagercyclewithfilesystemeventsactive();
-       else
+        else
             return 1000*60*manager.getSettings().getInternal().getSharemanagercycle();
     }
 
@@ -157,7 +157,7 @@ public class ShareScanner extends Thread {
             } else {
                 try {
                     if (!manager.getFileDatabase().contains(file.toString())) {
-                            hash(base, file);
+                        hash(base, file);
                     }
                 } catch(IOException e) {
                     if(T.t)T.warn("Could not hash file "+file+": "+e);
@@ -264,6 +264,7 @@ public class ShareScanner extends Thread {
         core.invokeLater(new Runnable() {
             public void run() {
                 try {
+                    manager.getFileDatabase().removeFromDuplicates(file); //in case the file exists in duplicates it will be removed
                     manager.getFileDatabase().getFDsByPath(file); //will notice that the file is no longer avail and remove it from index
                     manager.getCore().getUICallback().statusMessage("Removed file "+file+" from share.");
                 } catch (IOException e) {
