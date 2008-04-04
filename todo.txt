@@ -48,6 +48,7 @@ Lösa tankar:
     * ha en grafisk representation av dl hastighet - en rött/gult/grönt gubbe som är olika glad är nog bra   så kan ingen missa det..
 
 Todo:
+    * timestamp på chatmeddelanden - så att dom kommer i rätt ordning
     * när jag skickar chatmeddelanden från tindra kommer dom upp som private meddelanden på root - med html.
     * den hashar om filer gång på gång igen.. när jag flyttade firefly hashade den vissa filer typ tre gånger..?
     * när man delar ut mycket tar det typ 5 sekunder för att flusha indexet - och då låster sig ALLT
@@ -58,7 +59,6 @@ Todo:
     * undersök om man kan göra så den drar mindre minne - drar 100mb vid 15 000 utdelade filer - FD cachen verkar kass också
     * testa med enorm share och kolla ifall det krånglar
     * drag'n'drop från msn - bara man kan förklara det på ett enkelt sätt så är det lika bra som fullständig integration
-    * timestamp på chatmeddelanden - så att dom kommer i rätt ordning
 
     * window.tofront när man får meddelanden. Ska titta på options för taskbar bubblor
     * move to top/bottom i downloads. Många har hundra downloads i sin lista. roligt att trycka up hundra gånger.
