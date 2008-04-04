@@ -92,6 +92,7 @@ public class ShareScanner extends Thread {
                     }
                 }
 
+                manager.getCore().getUICallback().statusMessage("Share scan complete.");
                 lastFullScanCompletedAt = System.currentTimeMillis();
             }
 
@@ -101,8 +102,6 @@ public class ShareScanner extends Thread {
                         || System.currentTimeMillis()-lastFlushCompletedAt > 1000*60*60*2) { //if user insists on constantly beeing by the computer with alliance visible then forcefully flush every second hour - note that a flush will be made as soon as the user is away because of the awaystatuslistener
                     manager.getFileDatabase().flush();
                     lastFlushCompletedAt = System.currentTimeMillis();
-                } else {
-                    manager.getCore().getUICallback().statusMessage("Share scan complete.");
                 }
             } catch(IOException e) {
                 core.reportError(e, this);

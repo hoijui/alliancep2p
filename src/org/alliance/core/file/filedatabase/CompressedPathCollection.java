@@ -23,7 +23,7 @@ import org.alliance.core.T;
  */
 
 public class CompressedPathCollection implements Serializable {
-    private static final long serialVersionUID = 7234254693355857212L;
+    private static final long serialVersionUID = 7234254693355857212L;   //@todo: MAKE SURE THIS IS BACKWARDS COMPATIBLE
     private HashSet<String> paths = new HashSet<String>();
 
     public synchronized void addPath(String path) {

@@ -17,6 +17,7 @@ complete:
     * timestamp på chatmeddelanden - så att dom kommer i rätt ordning
     * när man tar en kopia på en fil skapas "copy" i filnamnet men ändå funkar det inte som det ska i duplicates
     * den hashar om filer gång på gång igen.. när jag flyttade firefly hashade den vissa filer typ tre gånger..?
+    * när man delar ut mycket tar det typ 5 sekunder för att flusha indexet - och då låster sig ALLT - har fixat så den flushar mest när man är iväg från datorn
 
 gŒ igenom faq och getting started - getting started ska vara riktad till folk som vill starta ett nytt nŠtverk
 gräv inte ner dig i detaljer.   var smart. koncentrera dig på det viktigaste. lägg till få nya funktioner. typ:
@@ -25,6 +26,7 @@ gräv inte ner dig i detaljer.   var smart. koncentrera dig på det viktigaste. lä
   kopllingar buggar
   sätt att bjuda in. central server som hjälper kanske
   siten är ju relativt viktig. MEN det viktigaste är att få det att sprida sig igenom word of mouth. Det spelar ingen roll om 100 pers kommer in och testar programmet - förmodligen orkar ingen av dom att starta ett nätverk ändå.
+  nuvarande compressed path collection tar c:a 5mb heap -> 10mb minne när man har 20 000 filer utdelat
 
 Annat:
     * testa med sketstor share. gärna en tb men 500gb går bra också.
@@ -53,7 +55,6 @@ Lösa tankar:
     * ha en grafisk representation av dl hastighet - en rött/gult/grönt gubbe som är olika glad är nog bra   så kan ingen missa det..
 
 Todo:
-    * när man delar ut mycket tar det typ 5 sekunder för att flusha indexet - och då låster sig ALLT
     * lägg till advanced vy i friendslist. ratio, max up och max ner. roligt för tekniskare användare. Gör en kool ikon för den så man ser den. - eller välj vilka kolumner man visar per default - default ska nog vara name och ratio (och kanske share size?)
     * ta upp uploads per default - folsk ser att nåt laddas upp i progress bar uppe till höger men vet inte hur man ser vad - fixa koolt UI för uploads också. så det är kul att kolla på.  kalla fliken "statistics" och ha massa askool stats med den läcka diagramkomponenten. cpuanvänding, minnesanvändning, up/ner hastighet, och koola stats för uploads
     * lägg till king ikon
