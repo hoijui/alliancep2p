@@ -12,6 +12,8 @@ complete:
     * win32 api med file system events - FÄRDIGT JAVA API FÖR DETTA: http://www2.hawaii.edu/~qzhang/FileSystemWatcher/index.html
     * sådant som är roligt att veta (antat TB upladdat t.ex.) kan synas i en inforuta när man tar view share - eftersom view share kommer fram nät man klickar på användaren
     * när man kör över rdp och loggar ut oscilerar away-ikonen
+    * när jag skickar chatmeddelanden från tindra kommer dom upp som private meddelanden på root - med html.
+    * timestamp på chatmeddelanden - så att dom kommer i rätt ordning
 
 gŒ igenom faq och getting started - getting started ska vara riktad till folk som vill starta ett nytt nŠtverk
 gräv inte ner dig i detaljer.   var smart. koncentrera dig på det viktigaste. lägg till få nya funktioner. typ:
@@ -48,8 +50,6 @@ Lösa tankar:
     * ha en grafisk representation av dl hastighet - en rött/gult/grönt gubbe som är olika glad är nog bra   så kan ingen missa det..
 
 Todo:
-    * timestamp på chatmeddelanden - så att dom kommer i rätt ordning
-    * när jag skickar chatmeddelanden från tindra kommer dom upp som private meddelanden på root - med html.
     * den hashar om filer gång på gång igen.. när jag flyttade firefly hashade den vissa filer typ tre gånger..?
     * när man delar ut mycket tar det typ 5 sekunder för att flusha indexet - och då låster sig ALLT
     * när man tar en kopia på en fil skapas "copy" i filnamnet men ändå funkar det inte som det ska i duplicates

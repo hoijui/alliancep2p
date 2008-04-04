@@ -20,6 +20,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.TreeSet;
+import java.util.Comparator;
 
 /**
  * Created by IntelliJ IDEA.
@@ -45,9 +47,18 @@ public abstract class AbstractChatMessageMDIWindow extends AllianceMDIWindow {
     protected JTextField chat;
     protected String html = "";
 
+    private TreeSet<ChatLine> chatLines;
 
     protected AbstractChatMessageMDIWindow(MDIManager manager, String mdiWindowIdentifier, UISubsystem ui) throws Exception {
         super(manager, mdiWindowIdentifier, ui);
+        chatLines = new TreeSet<ChatLine>(new Comparator<ChatLine>() {
+            public int compare(ChatLine o1, ChatLine o2) {
+                long diff = o1.tick - o2.tick;
+                if (diff <= Integer.MIN_VALUE) diff = Integer.MIN_VALUE+1;
+                if (diff >= Integer.MAX_VALUE) diff = Integer.MAX_VALUE-1;
+                return (int)diff;
+            }
+        });
     }
 
     protected abstract void send(final String text) throws IOException, Exception;
@@ -103,10 +114,12 @@ public abstract class AbstractChatMessageMDIWindow extends AllianceMDIWindow {
     }
 
     public void EVENT_chat1(ActionEvent e) throws Exception {
+        if (chat.getText().trim().length() == 0) return;
         send(escapeHTML(chat.getText()));
     }
 
     public void EVENT_chat2(ActionEvent e) throws Exception {
+        if (chat.getText().trim().length() == 0) return;
         send(escapeHTML(chat.getText()));
     }
 
@@ -132,12 +145,44 @@ public abstract class AbstractChatMessageMDIWindow extends AllianceMDIWindow {
         n%= COLORS.length;
         Color c = COLORS[n];
 
-        html += "<font color=\"#9f9f9f\">["+ FORMAT.format(new Date(tick))+"] <font color=\""+toHexColor(c)+"\">"+from+":</font> <font color=\""+toHexColor(c.darker())+"\">"+message+"</font><br>";
+        ChatLine cl = new ChatLine(from, message, tick, c);
+        chatLines.add(cl);
+        if (chatLines.last() == cl) {
+            html += creattHtmlChatLine(cl);
+        } else {
+            regenerateHtml();
+        }
+
         textarea.setText(html);
+    }
+
+    private void regenerateHtml() {
+        if(T.t)T.info("Regenerating entire html for chat");
+        html = "";
+        for (ChatLine chatLine : chatLines) {
+            html += creattHtmlChatLine(chatLine);
+        }
+    }
+
+    private String creattHtmlChatLine(ChatLine cl) {
+        return "<font color=\"#9f9f9f\">["+ FORMAT.format(new Date(cl.tick))+"] <font color=\""+toHexColor(cl.color)+"\">"+cl.from+":</font> <font color=\""+toHexColor(cl.color.darker())+"\">"+cl.message+"</font><br>";
     }
 
     protected String toHexColor(Color color) {
         return "#"+Integer.toHexString(color.getRGB()&0xffffff);
+    }
+
+    private class ChatLine {
+        String from, message;
+        long tick;
+        Color color;
+
+        public ChatLine(String from, String message, long tick, Color color) {
+            this.from = from;
+            this.message = message;
+            this.tick = tick;
+            this.color = color;
+        }
     }
 
     public void save() throws Exception {}

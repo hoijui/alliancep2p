@@ -20,7 +20,6 @@ import org.alliance.core.comm.BandwidthAnalyzer;
 import org.alliance.core.interactions.*;
 import org.alliance.core.node.Friend;
 import org.alliance.core.node.Node;
-import static org.alliance.core.CoreSubsystem.*;
 import org.alliance.launchers.StartupProgressListener;
 import org.alliance.ui.addfriendwizard.AddFriendWizard;
 import org.alliance.ui.addfriendwizard.ForwardInvitationNodesList;
@@ -502,9 +501,9 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
                 PostMessageInteraction pmi = (PostMessageInteraction)nui;
                 try {
                     if (pmi instanceof PostMessageToAllInteraction)
-                        publicChatMessage(pmi.getFromGuid(), pmi.getMessage(), pmi.getTick());
+                        publicChatMessage(pmi.getFromGuid(), pmi.getMessage(), pmi.getSentAtTick());
                     else
-                        chatMessage(pmi.getFromGuid(), pmi.getMessage(), pmi.getTick());
+                        chatMessage(pmi.getFromGuid(), pmi.getMessage(), pmi.getSentAtTick());
                 } catch(Exception e) {
                     ui.handleErrorInEventLoop(e);
                 }

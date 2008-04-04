@@ -13,4 +13,8 @@ public class PostMessageToAllInteraction extends PostMessageInteraction {
     public PostMessageToAllInteraction(String message, int fromGuid) {
         super(message, fromGuid);
     }
+
+    public PostMessageToAllInteraction(String message, int fromGuid, long tick) {
+        super(message, fromGuid, tick);
+    }
 }

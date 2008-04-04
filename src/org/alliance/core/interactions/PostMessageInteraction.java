@@ -11,21 +11,28 @@ import org.alliance.core.SynchronizedNeedsUserInteraction;
  */
 public class PostMessageInteraction extends SynchronizedNeedsUserInteraction {
     private String message;
-    private long tick;
+    private long sentAtTick;
     private int fromGuid;
+
 
     public PostMessageInteraction(String message, int fromGuid) {
         this.message = message;
         this.fromGuid = fromGuid;
-        this.tick = System.currentTimeMillis();
+        sentAtTick = System.currentTimeMillis();
+    }
+
+    public PostMessageInteraction(String message, int fromGuid, long tick) {
+        this.message = message;
+        this.fromGuid = fromGuid;
+        this.sentAtTick = tick;
     }
 
     public String getMessage() {
         return message;
     }
 
-    public long getTick() {
-        return tick;
+    public long getSentAtTick() {
+        return sentAtTick;
     }
 
     public int getFromGuid() {

@@ -51,51 +51,55 @@ public class FileSystemMonitor {
         if (watchers.size() > 0) kill();
 
         int mask =  JNotify.FILE_CREATED |
-                    JNotify.FILE_DELETED |
-                    JNotify.FILE_RENAMED;
+                JNotify.FILE_DELETED |
+                JNotify.FILE_RENAMED;
 
         for(final ShareBase sb : manager.shareBases()) {
-            if(T.t)T.info("Launching file system watcher for "+sb);
-            int watchID = JNotify.addWatch(sb.getPath(), mask, true, new JNotifyListener() {
-                public void fileRenamed(int wd, String rootPath, String oldName, String newName) {
-                    if (!watchers.contains(wd)) return;
-                    if(T.t)T.trace("JNotifyTest.fileRenamed() : wd #" + wd + " root = " + rootPath
-                            + ", " + oldName + " -> " + newName);
-                    rootPath = TextUtils.makeSurePathIsMultiplatform(rootPath);
-                    oldName = TextUtils.makeSurePathIsMultiplatform(oldName);
-                    newName = TextUtils.makeSurePathIsMultiplatform(newName);
-                    if (!rootPath.endsWith("/")) rootPath += '/';
-                    manager.getShareScanner().signalFileRenamed(rootPath+oldName, rootPath+newName);
-                }
+            if (!new File(sb.getPath()).exists()) {
+                if(T.t)T.warn("Path does not exist: "+sb.getPath()+" - can't start win32 watcher.");
+            } else {
+                if(T.t)T.info("Launching file system watcher for "+sb);
+                int watchID = JNotify.addWatch(sb.getPath(), mask, true, new JNotifyListener() {
+                    public void fileRenamed(int wd, String rootPath, String oldName, String newName) {
+                        if (!watchers.contains(wd)) return;
+                        if(T.t)T.trace("JNotifyTest.fileRenamed() : wd #" + wd + " root = " + rootPath
+                                + ", " + oldName + " -> " + newName);
+                        rootPath = TextUtils.makeSurePathIsMultiplatform(rootPath);
+                        oldName = TextUtils.makeSurePathIsMultiplatform(oldName);
+                        newName = TextUtils.makeSurePathIsMultiplatform(newName);
+                        if (!rootPath.endsWith("/")) rootPath += '/';
+                        manager.getShareScanner().signalFileRenamed(rootPath+oldName, rootPath+newName);
+                    }
 
-                public void fileModified(int wd, String rootPath, String name) {
-                    if (!watchers.contains(wd)) return;
-                    if(T.t)T.trace("JNotifyTest.fileModified() : wd #" + wd + " root = " + rootPath
-                            + ", " + name);
-                }
+                    public void fileModified(int wd, String rootPath, String name) {
+                        if (!watchers.contains(wd)) return;
+                        if(T.t)T.trace("JNotifyTest.fileModified() : wd #" + wd + " root = " + rootPath
+                                + ", " + name);
+                    }
 
-                public void fileDeleted(int wd, String rootPath, String name) {
-                    if (!watchers.contains(wd)) return;
-                    if(T.t)T.trace("JNotifyTest.fileDeleted() : wd #" + wd + " root = " + rootPath
-                            + ", " + name);
-                    rootPath = TextUtils.makeSurePathIsMultiplatform(rootPath);
-                    name = TextUtils.makeSurePathIsMultiplatform(name);
-                    if (!rootPath.endsWith("/")) rootPath += '/';
-                    manager.getShareScanner().signalFileDeleted(rootPath+name);
-                }
+                    public void fileDeleted(int wd, String rootPath, String name) {
+                        if (!watchers.contains(wd)) return;
+                        if(T.t)T.trace("JNotifyTest.fileDeleted() : wd #" + wd + " root = " + rootPath
+                                + ", " + name);
+                        rootPath = TextUtils.makeSurePathIsMultiplatform(rootPath);
+                        name = TextUtils.makeSurePathIsMultiplatform(name);
+                        if (!rootPath.endsWith("/")) rootPath += '/';
+                        manager.getShareScanner().signalFileDeleted(rootPath+name);
+                    }
 
-                public void fileCreated(int wd, String rootPath, String name) {
-                    if (!watchers.contains(wd)) return;
-                    if(T.t)T.trace("JNotifyTest.fileCreated() : wd #" + wd + " root = " + rootPath
-                            + ", " + name);
-                    rootPath = TextUtils.makeSurePathIsMultiplatform(rootPath);
-                    name = TextUtils.makeSurePathIsMultiplatform(name);
-                    if (!rootPath.endsWith("/")) rootPath += '/';
-                    manager.getShareScanner().signalFileCreated(rootPath+name);
-                }
-            });
-            if(T.t)T.info("Got watch id: "+watchID);
-            watchers.add(watchID);
+                    public void fileCreated(int wd, String rootPath, String name) {
+                        if (!watchers.contains(wd)) return;
+                        if(T.t)T.trace("JNotifyTest.fileCreated() : wd #" + wd + " root = " + rootPath
+                                + ", " + name);
+                        rootPath = TextUtils.makeSurePathIsMultiplatform(rootPath);
+                        name = TextUtils.makeSurePathIsMultiplatform(name);
+                        if (!rootPath.endsWith("/")) rootPath += '/';
+                        manager.getShareScanner().signalFileCreated(rootPath+name);
+                    }
+                });
+                if(T.t)T.info("Got watch id: "+watchID);
+                watchers.add(watchID);
+            }
         }
     }
 

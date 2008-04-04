@@ -1,6 +1,7 @@
 package org.alliance.ui.windows;
 
 import org.alliance.core.comm.rpc.ChatMessage;
+import org.alliance.core.comm.rpc.ChatMessageV2;
 import org.alliance.ui.UISubsystem;
 
 import java.awt.*;
@@ -27,10 +28,11 @@ public class PrivateChatMessageMDIWindow extends AbstractChatMessageMDIWindow {
     }
 
     protected void send(final String text) throws IOException {
+        if (text == null || text.trim().length() == 0) return;
         ui.getCore().invokeLater(new Runnable() {
             public void run() {
                 try {
-                    ui.getCore().getFriendManager().getNetMan().sendPersistantly(new ChatMessage(text, false), ui.getCore().getFriendManager().getFriend(guid));
+                    ui.getCore().getFriendManager().getNetMan().sendPersistantly(new ChatMessageV2(text, false), ui.getCore().getFriendManager().getFriend(guid));
                 } catch(IOException e) {
                     ui.getCore().reportError(e, this);
                 }
@@ -42,15 +44,5 @@ public class PrivateChatMessageMDIWindow extends AbstractChatMessageMDIWindow {
 
     public String getIdentifier() {
         return "msg"+guid;
-    }
-
-    public void addMessage(String from, String message, long tick) {
-        int n = from.hashCode();
-        if (n<0)n=-n;
-        n%=COLORS.length;
-        Color c = COLORS[n];
-
-        html += "<font color=\"#9f9f9f\">["+FORMAT.format(new Date(tick))+"] <font color=\""+toHexColor(c)+"\">"+from+":</font> <font color=\""+toHexColor(c.darker())+"\">"+message+"</font><br>";
-        textarea.setText(html);
     }
 }

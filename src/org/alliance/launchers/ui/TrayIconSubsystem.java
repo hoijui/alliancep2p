@@ -63,10 +63,10 @@ public class TrayIconSubsystem implements Subsystem, Runnable {
                     String msg = pmi.getMessage().replaceAll("\\<.*?\\>", "");      // Strip html
                     if (pmi instanceof PostMessageToAllInteraction) {
                         if (core.getSettings().getInternal().getShowpublicchatmessagesintray() != 0)
-                            ti.displayMessage("Private chat message", core.getFriendManager().nickname(pmi.getFromGuid())+": "+msg, TrayIcon.INFO_MESSAGE_TYPE);
+                            ti.displayMessage("Chat message", core.getFriendManager().nickname(pmi.getFromGuid())+": "+msg, TrayIcon.INFO_MESSAGE_TYPE);
                     } else {
                         if (core.getSettings().getInternal().getShowprivatechatmessagesintray() != 0)
-                            ti.displayMessage("Chat message", core.getFriendManager().nickname(pmi.getFromGuid())+": "+msg, TrayIcon.INFO_MESSAGE_TYPE);
+                            ti.displayMessage("Private chat message", core.getFriendManager().nickname(pmi.getFromGuid())+": "+msg, TrayIcon.INFO_MESSAGE_TYPE);
                     }
                 } else {
                     if (core.getSettings().getInternal().getShowsystemmessagesintray() != 0)
