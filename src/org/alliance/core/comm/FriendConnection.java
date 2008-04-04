@@ -51,7 +51,7 @@ public class FriendConnection extends AuthenticatedConnection {
         int id = packet.readByte();
         RPC rpc = RPCFactory.newInstance(id);
         if (rpc == null) {
-            if(T.t)T.error("Unknown RPC ID: "+id+"!!!");
+            if(T.t)T.warn("Skipping unknown RPC ID: "+id+"!!!");
             packet.skip(packet.getAvailable()); //skip contents of packet
             return;
         } else {

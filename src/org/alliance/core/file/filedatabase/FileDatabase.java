@@ -36,6 +36,7 @@ public class FileDatabase {
     private HashMap<String, Hash> duplicates = new HashMap<String, Hash>();
     private CompressedPathCollection indexedFilenames = new CompressedPathCollection();
 
+    //this cache does not seem to work very well - not 100% sure tho. It might be that there's nothing in this cache. BUT I'm afraid there might be new problems if this cache is implented correctly: If there are cached items FDs that are no longer valid (removed on disk) might be returned anyway..  maybe. this is sketchy.
     private WeakValueHashMap<Hash, FileDescriptor> fileDescriptorCache = new WeakValueHashMap<Hash, FileDescriptor>();
 
     private String indexFilePath;
