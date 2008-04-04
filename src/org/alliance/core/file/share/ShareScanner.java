@@ -32,6 +32,7 @@ public class ShareScanner extends Thread {
 
     private ArrayList<String> filesQueuedForHashing = new ArrayList<String>();
     private long lastFullScanCompletedAt;
+    private long lastFlushCompletedAt;
 
     public ShareScanner(CoreSubsystem core, ShareManager manager) {
         this.core = core;
@@ -41,7 +42,7 @@ public class ShareScanner extends Thread {
     }
 
     public void run() {
-        try { Thread.sleep(6*1000); } catch (InterruptedException e) {} //wait a while before starting first scan
+        try { Thread.sleep(60*1000); } catch (InterruptedException e) {} //wait a while before starting first scan
         scannerHasBeenStarted = true;
         while(alive) {
             scanInProgress = true;
@@ -51,6 +52,10 @@ public class ShareScanner extends Thread {
                 filesQueuedForHashing.clear();
                 for (String file : al) {
                     try {
+                        if (manager.getFileDatabase().getFDsByPath(file).size() > 0) {
+                            if(T.t)T.trace("File already is hashed: "+file);
+                            continue;
+                        }
                         File f = new File(file);
                         if (!f.isDirectory() && f.canRead()) hash(file);
                     } catch (FileNotFoundException e) {
@@ -77,12 +82,20 @@ public class ShareScanner extends Thread {
                     }
                 }
 
-                try {
-                    manager.getFileDatabase().flush();
-                } catch(IOException e) {
-                    e.printStackTrace();
-                }
                 lastFullScanCompletedAt = System.currentTimeMillis();
+            }
+
+            try {
+                //flush fairly often when user is away - the UI locks when you flush so we want to avoid doing that while the user is by the computer
+                if (((core.getAwayManager().isAway() || !core.getUICallback().isUIVisible()) && System.currentTimeMillis()-lastFlushCompletedAt > 1000*60*20)
+                        || System.currentTimeMillis()-lastFlushCompletedAt > 1000*60*60) {
+                    manager.getFileDatabase().flush();
+                    lastFlushCompletedAt = System.currentTimeMillis();
+                } else {
+                    manager.getCore().getUICallback().statusMessage("Share scan complete.");
+                }
+            } catch(IOException e) {
+                core.reportError(e, this);
             }
 
             shouldBeFastScan = false;

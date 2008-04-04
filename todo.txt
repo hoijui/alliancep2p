@@ -6,6 +6,7 @@ complete:
     * installera nya synthetica så att alliance inte maximerar över hela skärmen, inkl startmeny
     * när man trycker på refresh kan den köra pontus clean-up kod som ska ta bort filer som inte finns längre - har lovat detta vissa användare som verkligen ville ha det - testa. det kanske fungerar bra. Överväg att ha uppe en dialog när man scannar i full fart - neh. det är nog störigt.. om man kan minimera så kanske.. men.. hmm.
     * synthetica buggar på alla javaversioner
+    * ny cellrenderer i duplicates
     * fixa alla fel som finns i top 10
     * det buggar väl inte längre? : glöm inte att ta bort GetUserList flood grejjerna.. - det buggar fortfarande - dom kan ställa till med problem i framtiden - och det är en UI referens i CORE
     * när man tar bort en share verkar inte filerna försvinna ur share
@@ -15,6 +16,7 @@ complete:
     * när jag skickar chatmeddelanden från tindra kommer dom upp som private meddelanden på root - med html.
     * timestamp på chatmeddelanden - så att dom kommer i rätt ordning
     * när man tar en kopia på en fil skapas "copy" i filnamnet men ändå funkar det inte som det ska i duplicates
+    * den hashar om filer gång på gång igen.. när jag flyttade firefly hashade den vissa filer typ tre gånger..?
 
 gŒ igenom faq och getting started - getting started ska vara riktad till folk som vill starta ett nytt nŠtverk
 gräv inte ner dig i detaljer.   var smart. koncentrera dig på det viktigaste. lägg till få nya funktioner. typ:
@@ -51,7 +53,6 @@ Lösa tankar:
     * ha en grafisk representation av dl hastighet - en rött/gult/grönt gubbe som är olika glad är nog bra   så kan ingen missa det..
 
 Todo:
-    * den hashar om filer gång på gång igen.. när jag flyttade firefly hashade den vissa filer typ tre gånger..?
     * när man delar ut mycket tar det typ 5 sekunder för att flusha indexet - och då låster sig ALLT
     * lägg till advanced vy i friendslist. ratio, max up och max ner. roligt för tekniskare användare. Gör en kool ikon för den så man ser den. - eller välj vilka kolumner man visar per default - default ska nog vara name och ratio (och kanske share size?)
     * ta upp uploads per default - folsk ser att nåt laddas upp i progress bar uppe till höger men vet inte hur man ser vad - fixa koolt UI för uploads också. så det är kul att kolla på.  kalla fliken "statistics" och ha massa askool stats med den läcka diagramkomponenten. cpuanvänding, minnesanvändning, up/ner hastighet, och koola stats för uploads
@@ -65,21 +66,19 @@ Todo:
     * lŠgg tll stšd fšr mac klasser - typ bra ikon och meny och sŒ.
 
 
+    * bättre stöd för vista - problem när fil ska flyttas och så?   downloads borde ligga i my downloads eller nåt
+    * nåt åt detta hållet är viktigt så man inte chokar noobs kopplingar: if (uploaded > 100mb and uploded_to > 2 persons and bandwidth_thottle_not_set) set_throttle_and_notify_when_ui_is_up
+    * internationalisering - massa folk hade översatt om det gick..   tänk på detta. hade varit jävligt najs.  man får välja språk i runtime. najs.
     * dubbelklick på nerladdad fil öppnar den
     * Fair enough. I'll add two new options in the options dialog: [X] Scan share when Alliance starts Rescan share automatically every ___ minutes
     * stöd för dyndns namn i my ip. kolla hur detta fungerar. det är en riktigt klok och proffsig grej att ha
     * stöd för att skapa connection koder inom samma nätverk * lägg till ett meddelande när man försöker connecta till en dator i samma nätverk
     * command-line start. Linuxanvändare intresserade av det.
     * feedback formulär
-    * bättre stöd för vista - problem när fil ska flyttas och så?   downloads borde ligga i my downloads eller nåt
-    * nåt åt detta hållet är viktigt så man inte chokar noobs kopplingar: if (uploaded > 100mb and uploded_to > 2 persons and bandwidth_thottle_not_set) set_throttle_and_notify_when_ui_is_up
-    * internationalisering - massa folk hade översatt om det gick..   tänk på detta. hade varit jävligt najs.  man får välja språk i runtime. najs.
     * fixa java 6.0 system tray
     * användare startar alliance efter dom tryck på krysset för att trayikonen försvinner. kanske försöka ha kvar trayikonen medans alliance startar om? Det borde gå att fixa..  Antingen värsta hacket där man inte tar bort trayikonen, fast få dår man dubbel ikon när den väl startat. Alt. 2 är att vänta med att döda pocessen tills man ser att den nya alliance snurrar.
     * måste ta kataloger smartare - blir jäkligt knas annars
     * "jag tror en del av mina polare nog skulle bli nyfikna om man hade lite reklam typ  "American Gangsters DVD - join Alliance"" 1. enkelt att göra reklam för en eller flera grejor man delar ut Pontus säger (10:10): 2. enkelt för dem som ser reklamen att koppla upp sig och tanka
-    * när man laddat ner en fil hashas denna om vid nästa omstart - det leder till fel när man skickar filer till chat  -- ???
-    * markeringen försvinner när man väljen en användare - selectWindowByIdentifyer ska fixa - hm. det är nog så att när man refresjhar listan så försvinner selection - kom ihåg selection innan uppdatering
     * posta i forum om att jag behöver en download-bundle för installation i linux
     * fixa installation för mac när jag har airbooken
     * när man laddar ner igenom share borde den ta sökvägen från där man klickade

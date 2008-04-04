@@ -6,6 +6,7 @@ import org.alliance.core.file.hash.Hash;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 import java.util.ArrayList;
 import java.util.TreeSet;
 import java.io.ObjectOutputStream;
@@ -13,6 +14,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.File;
 import java.awt.event.ActionEvent;
+import java.awt.*;
 
 import com.stendahls.nif.ui.mdi.MDIWindow;
 import com.stendahls.nif.ui.OptionDialog;
@@ -37,7 +39,9 @@ public class DuplicatesMDIWindow extends AllianceMDIWindow {
         table.setModel(model = new DuplicatesMDIWindow.TableModel());
         table.setAutoCreateColumnsFromModel(false);
         table.getColumnModel().getColumn(0).setPreferredWidth(100);
+        table.getColumnModel().getColumn(0).setCellRenderer(new MyCellRenderer());
         table.getColumnModel().getColumn(1).setPreferredWidth(100);
+        table.getColumnModel().getColumn(1).setCellRenderer(new MyCellRenderer());
         table.getColumnModel().getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.setColumnSelectionAllowed(true);
 
@@ -74,7 +78,7 @@ public class DuplicatesMDIWindow extends AllianceMDIWindow {
             } else if (table.getSelectedColumn() == 1) {
                 al.add(dups.get(i).duplicate);
             }
-        } 
+        }
 
         if (OptionDialog.showQuestionDialog(ui.getMainWindow(), "Are you sure you want to delete "+al.size()+" file(s)?")) {
             int deleted=0;
@@ -147,5 +151,16 @@ public class DuplicatesMDIWindow extends AllianceMDIWindow {
             this.duplicate = TextUtils.makeSurePathIsMultiplatform(duplicate);
         }
         String inShare, duplicate;
+    }
+
+    private class MyCellRenderer extends DefaultTableCellRenderer {
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+            String s = String.valueOf(value);
+            int i = s.lastIndexOf('/');
+            if (i != -1) s = s.substring(i+1) + " ("+s.substring(0,i)+")";
+            setText(s);
+            return this;
+        }
     }
 }

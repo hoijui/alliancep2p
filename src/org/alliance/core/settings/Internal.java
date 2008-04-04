@@ -42,7 +42,7 @@ public class Internal extends SettingClass {
 
     private Integer invitationmayonlybeusedonce=1;
 
-    private Integer secondstoaway=60*2;
+    private Integer secondstoaway=60*5;
 
     private String chipersuite=""; //user defined chipher suite, none by default
 
