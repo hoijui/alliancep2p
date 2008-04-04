@@ -48,6 +48,7 @@ Lösa tankar:
     * ha en grafisk representation av dl hastighet - en rött/gult/grönt gubbe som är olika glad är nog bra   så kan ingen missa det..
 
 Todo:
+    * när jag skickar chatmeddelanden från tindra kommer dom upp som private meddelanden på root - med html.
     * den hashar om filer gång på gång igen.. när jag flyttade firefly hashade den vissa filer typ tre gånger..?
     * när man delar ut mycket tar det typ 5 sekunder för att flusha indexet - och då låster sig ALLT
     * när man tar en kopia på en fil skapas "copy" i filnamnet men ändå funkar det inte som det ska i duplicates
