@@ -4,6 +4,7 @@ import org.alliance.launchers.OSInfo;
 
 import java.awt.*;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Created by IntelliJ IDEA.
@@ -13,9 +14,12 @@ import java.io.IOException;
  * To change this template use File | Settings | File Templates.
  */
 public class AwayManager extends Manager implements Runnable {
+    public interface AwayStatusListener { abstract void awayStatusChanged(boolean away) throws IOException; }
     private Thread thread;
     private boolean away = false;
     private CoreSubsystem core;
+
+    private ArrayList<AwayStatusListener> listeners = new ArrayList<AwayStatusListener>();
 
     public AwayManager(CoreSubsystem core) {
         this.core = core;
@@ -26,6 +30,10 @@ public class AwayManager extends Manager implements Runnable {
         thread = new Thread(this);
         thread.setDaemon(true);
         thread.start();
+    }
+
+    public void addListener(AwayStatusListener l) {
+        listeners.add(l);
     }
 
     public void run() {
@@ -62,6 +70,7 @@ public class AwayManager extends Manager implements Runnable {
                     try {
                         if(T.t)T.info("Away status changed for me: "+away);
                         core.informFriendsOfAwayStatus(away);
+                        for (AwayStatusListener listener : listeners) listener.awayStatusChanged(away);
                     } catch (IOException e) {
                         core.reportError(e, this);
                     }

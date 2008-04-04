@@ -3,6 +3,7 @@ package org.alliance.core.file.share;
 import com.stendahls.nif.util.SimpleTimer;
 import com.stendahls.util.TextUtils;
 import org.alliance.core.CoreSubsystem;
+import org.alliance.core.AwayManager;
 import static org.alliance.core.CoreSubsystem.GB;
 import org.alliance.core.file.filedatabase.FileDatabase;
 import org.alliance.core.file.filedatabase.FileDescriptor;
@@ -43,6 +44,15 @@ public class ShareScanner extends Thread {
 
     public void run() {
         try { Thread.sleep(60*1000); } catch (InterruptedException e) {} //wait a while before starting first scan
+        core.getAwayManager().addListener(new AwayManager.AwayStatusListener() {
+            public void awayStatusChanged(boolean away) throws IOException {
+                if (away && System.currentTimeMillis()-lastFlushCompletedAt > 1000*60*20) {
+                    if(T.t)T.trace("Flushing database because user is away and it was a while since we did it.");
+                    manager.getFileDatabase().flush();
+                }
+            }
+        });
+
         scannerHasBeenStarted = true;
         while(alive) {
             scanInProgress = true;
@@ -88,7 +98,7 @@ public class ShareScanner extends Thread {
             try {
                 //flush fairly often when user is away - the UI locks when you flush so we want to avoid doing that while the user is by the computer
                 if (((core.getAwayManager().isAway() || !core.getUICallback().isUIVisible()) && System.currentTimeMillis()-lastFlushCompletedAt > 1000*60*20)
-                        || System.currentTimeMillis()-lastFlushCompletedAt > 1000*60*60) {
+                        || System.currentTimeMillis()-lastFlushCompletedAt > 1000*60*60*2) { //if user insists on constantly beeing by the computer with alliance visible then forcefully flush every second hour - note that a flush will be made as soon as the user is away because of the awaystatuslistener
                     manager.getFileDatabase().flush();
                     lastFlushCompletedAt = System.currentTimeMillis();
                 } else {

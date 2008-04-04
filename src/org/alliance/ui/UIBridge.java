@@ -8,6 +8,7 @@ import org.alliance.core.node.Node;
 
 import javax.swing.*;
 import java.util.List;
+import java.awt.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -48,7 +49,7 @@ public class UIBridge implements UICallback {
     }
 
     public boolean isUIVisible() {
-        return ui.getMainWindow().isVisible();
+        return ui.getMainWindow().isVisible() && ui.getMainWindow().getState() != Frame.ICONIFIED;
     }
 
     public void logNetworkEvent(String event) {
