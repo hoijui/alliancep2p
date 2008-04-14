@@ -49,7 +49,8 @@ public class UIBridge implements UICallback {
     }
 
     public boolean isUIVisible() {
-        return ui.getMainWindow().isVisible() && ui.getMainWindow().getState() != Frame.ICONIFIED;
+        return ui.getMainWindow().isVisible();
+        //return ui.getMainWindow().isVisible() && ui.getMainWindow().getState() != Frame.ICONIFIED;
     }
 
     public void logNetworkEvent(String event) {

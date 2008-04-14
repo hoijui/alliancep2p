@@ -26,6 +26,7 @@ import org.alliance.core.node.FriendManager;
 import org.alliance.core.node.InvitaitonManager;
 import org.alliance.core.settings.Settings;
 import org.alliance.launchers.StartupProgressListener;
+import org.alliance.launchers.OSInfo;
 import org.alliance.launchers.ui.Main;
 import org.w3c.dom.Document;
 
@@ -145,6 +146,29 @@ public class CoreSubsystem implements Subsystem {
                 }
             });
             t.start();
+
+            if (OSInfo.isWindows() && settings.getInternal().getRestartEveryXHours() != 0) {
+                t = new Thread(new Runnable() {
+                    public void run() {
+                        try {
+                            //on windows, where Alliance can be restarted, it will restart every X hours by default
+                            Thread.sleep(1000*60*60*settings.getInternal().getRestartEveryXHours());
+                            if (!getUICallback().isUIVisible()) {
+                                invokeLater(new Runnable() {
+                                    public void run() {
+                                        try {
+                                            restartProgram(false);
+                                        } catch (IOException e) {
+                                            reportError(e, "automatic restart");
+                                        }
+                                    }
+                                });
+                            }
+                        } catch (InterruptedException e) {}
+                    }
+                });
+                t.start();
+            }
         }
 
         Thread.currentThread().setName(friendManager.getMe()+" main");
@@ -542,7 +566,7 @@ public class CoreSubsystem implements Subsystem {
     }
 
     public void informFriendsOfAwayStatus(boolean away) throws IOException {
-        getNetworkManager().sendToAllFriends(new AwayStatus(away));    
+        getNetworkManager().sendToAllFriends(new AwayStatus(away));
     }
 
     public AwayManager getAwayManager() {
