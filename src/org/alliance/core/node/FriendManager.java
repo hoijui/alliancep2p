@@ -317,4 +317,14 @@ public class FriendManager extends Manager {
         if (getFriend(guid) != null) return getFriend(guid).nickname();
         return nicknameWithoutLocalRename(guid);
     }
+
+    public int getNumberOfInvitesNeededToBeKing() {
+        int n = 0;
+        for(Friend f : friends.values()) {
+            if (f.getNumberOfInvitedFriends() > n) n = f.getNumberOfInvitedFriends();
+        }
+        if (me.getNumberOfInvitedFriends() > n) n = me.getNumberOfInvitedFriends();
+        if (n <= 3) return 4; //three invities is "experienced" - if noone has more then 4 are needed to become king
+        return n;
+    }
 }

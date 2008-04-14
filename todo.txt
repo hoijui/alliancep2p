@@ -19,6 +19,7 @@ complete:
     * den hashar om filer gång på gång igen.. när jag flyttade firefly hashade den vissa filer typ tre gånger..?
     * när man delar ut mycket tar det typ 5 sekunder för att flusha indexet - och då låster sig ALLT - har fixat så den flushar mest när man är iväg från datorn
     * autmatisk restart var fjärde timme
+    * lägg till king ikon
 
 gŒ igenom faq och getting started - getting started ska vara riktad till folk som vill starta ett nytt nŠtverk
 gräv inte ner dig i detaljer.   var smart. koncentrera dig på det viktigaste. lägg till få nya funktioner. typ:
@@ -57,12 +58,10 @@ Lösa tankar:
 
 Todo:
     * drag'n'drop från msn - bara man kan förklara det på ett enkelt sätt så är det lika bra som fullständig integration - tänk på att jag redan har färdig kod för att skicka mail - errorreporter
-    * lägg till king ikon
     * undersök om man kan göra så den drar mindre minne - drar 100mb vid 15 000 utdelade filer - FD cachen verkar kass också - nog bättre att göra om till en cache som innehåller typ 100 senast använda fd:na - eller så kanske det kommer att börja bugga om man lägger in en cache - fd:s som inte finns längre kan svaras med ..  kanste inte röra detta just nu ändå
     * testa med enorm share och kolla ifall det krånglar
     * lägg till advanced vy i friendslist. -- eftersom "via" grejjen fungerar dåligt kan den tas bort -- ratio, max up och max ner. roligt för tekniskare användare. Gör en kool ikon för den så man ser den. - eller välj vilka kolumner man visar per default - default ska nog vara name och ratio (och kanske share size?)
-
-
+    * share scan börjar lite vid konstiga tillfällen - om jag scannar om precis när jag startar alliance så scannar den om igen efter ett par minuter. dessutom så flushar den indexet medans det scannar ocksås
 
     * window.tofront när man får meddelanden. Ska titta på options för taskbar bubblor
     * move to top/bottom i downloads. Många har hundra downloads i sin lista. roligt att trycka up hundra gånger.
@@ -76,6 +75,7 @@ Todo:
     * dubbelklick på nerladdad fil öppnar den
     * Fair enough. I'll add two new options in the options dialog: [X] Scan share when Alliance starts Rescan share automatically every ___ minutes
     * stöd för dyndns namn i my ip. kolla hur detta fungerar. det är en riktigt klok och proffsig grej att ha
+    * vore fint med en riktig kugnakrona som ikon för kungen
     * stöd för att skapa connection koder inom samma nätverk * lägg till ett meddelande när man försöker connecta till en dator i samma nätverk
     * command-line start. Linuxanvändare intresserade av det.
     * feedback formulär

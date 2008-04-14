@@ -3,7 +3,6 @@ package org.alliance.ui;
 import org.alliance.core.CoreSubsystem;
 import org.alliance.core.node.Friend;
 import org.alliance.core.node.Node;
-import org.alliance.core.node.MyNode;
 
 import javax.swing.*;
 import java.util.Collection;
@@ -43,8 +42,12 @@ public class FriendListModel extends DefaultListModel {
             ts.add(f);
         }
         ts.add(core.getFriendManager().getMe());
+        int max = core.getFriendManager().getNumberOfInvitesNeededToBeKing();
         for(Node f : ts) {
-            if (f.isConnected() && f.getNumberOfInvitedFriends() >= 3) addElement(f);
+            if (f.isConnected() && f.getNumberOfInvitedFriends() >= max) addElement(f);
+        }
+        for(Node f : ts) {
+            if (f.isConnected() && f.getNumberOfInvitedFriends() >= 3 && f.getNumberOfInvitedFriends() < max) addElement(f);
         }
         for(Node f : ts) {
             if (f.isConnected() && f.getNumberOfInvitedFriends() > 0 && f.getNumberOfInvitedFriends() < 3) addElement(f);

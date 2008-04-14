@@ -30,12 +30,14 @@ public class FriendListMDIWindow extends AllianceMDIWindow {
     private UISubsystem ui;
     private JList list;
 
-    private ImageIcon iconFriend, iconFriendCool, iconFriendLame, iconFriendAway, iconFriendCoolAway, iconFriendLameAway, iconFriendDimmed, iconFriendOld;
+    private ImageIcon iconFriendDimmed, iconFriendOld;
 
     private JLabel statusleft, statusright;
 
-    private String[] LEVEL_NAMES = {"Rookie", "True Member", "Experienced"};
-    private String[] LEVEL_ICONS = {"friend_lame", "friend", "friend_cool"};
+    private String[] LEVEL_NAMES = {"Rookie", "True Member", "Experienced", "Network King"};
+    private String[] LEVEL_ICONS = {"friend_lame", "friend", "friend_cool", "friend_king"};
+    private ImageIcon[] friendIcons;
+    private ImageIcon[] friendIconsAway;
 
     private JPopupMenu popup;
 
@@ -46,12 +48,12 @@ public class FriendListMDIWindow extends AllianceMDIWindow {
         super(manager, "friendlist", ui);
         this.ui = ui;
 
-        iconFriend = new ImageIcon(ui.getRl().getResource("gfx/icons/friend.png"));
-        iconFriendCool = new ImageIcon(ui.getRl().getResource("gfx/icons/friend_cool.png"));
-        iconFriendLame = new ImageIcon(ui.getRl().getResource("gfx/icons/friend_lame.png"));
-        iconFriendAway = new ImageIcon(ui.getRl().getResource("gfx/icons/friend_away.png"));
-        iconFriendCoolAway = new ImageIcon(ui.getRl().getResource("gfx/icons/friend_cool_away.png"));
-        iconFriendLameAway = new ImageIcon(ui.getRl().getResource("gfx/icons/friend_lame_away.png"));
+        friendIcons = new ImageIcon[LEVEL_ICONS.length];
+        friendIconsAway = new ImageIcon[LEVEL_ICONS.length];
+        for(int i=0;i<LEVEL_ICONS.length;i++) {
+            friendIcons[i] = new ImageIcon(ui.getRl().getResource("gfx/icons/"+LEVEL_ICONS[i]+".png"));
+            friendIconsAway[i] = new ImageIcon(ui.getRl().getResource("gfx/icons/"+LEVEL_ICONS[i]+"_away.png"));
+        }
         iconFriendDimmed = new ImageIcon(ui.getRl().getResource("gfx/icons/friend_dimmed.png"));
         iconFriendOld = new ImageIcon(ui.getRl().getResource("gfx/icons/friend_old.png"));
 
@@ -121,6 +123,7 @@ public class FriendListMDIWindow extends AllianceMDIWindow {
             case 0: s = "Invite 1 friend to become "; break;
             case 1: s = "Invite 2 friends to become "; break;
             case 2: s = "Invite 1 friend to become "; break;
+            default: s = "Invite "+(ui.getCore().getFriendManager().getNumberOfInvitesNeededToBeKing()-getMyNumberOfInvites())+" friend to become "; break;
         }
         if (getMyLevel() < LEVEL_NAMES.length-1) {
             s += "'"+getLevelName(getMyLevel()+1)+"' (";
@@ -148,13 +151,16 @@ public class FriendListMDIWindow extends AllianceMDIWindow {
     }
 
     private int getMyLevel() {
-        switch(getMyNumberOfInvites()) {
-            case 0 : return 0;
-            case 1 : return 1;
-            case 2 : return 1;
-            case 3 : return 2;
-            default: return 2;
-        }
+        return getLevel(getMyNumberOfInvites());
+    }
+
+    private int getLevel(int numberOfInvites) {
+        if (numberOfInvites == 0) return 0;
+        if (numberOfInvites == 1) return 1;
+        if (numberOfInvites == 2) return 1;
+        if (numberOfInvites == 3) return 2;
+        if (numberOfInvites >= ui.getCore().getFriendManager().getNumberOfInvitesNeededToBeKing()) return 3;
+        return 2;
     }
 
     private int getMyNumberOfInvites() {
@@ -194,21 +200,10 @@ public class FriendListMDIWindow extends AllianceMDIWindow {
             Node n = (Node)value;
             if (n.isConnected()) {
 
-                if (n.getNumberOfInvitedFriends() <= 0) {
-                    if (n.isAway())
-                        setIcon(iconFriendLameAway);
-                    else
-                        setIcon(iconFriendLame);
-                } else if (n.getNumberOfInvitedFriends() >= 3) {
-                    if (n.isAway())
-                        setIcon(iconFriendCoolAway);
-                    else
-                        setIcon(iconFriendCool);
+                if (!n.isAway()) {
+                    setIcon(friendIcons[getLevel(n.getNumberOfInvitedFriends())]);
                 } else {
-                    if (n.isAway())
-                        setIcon(iconFriendAway);
-                    else
-                        setIcon(iconFriend);
+                    setIcon(friendIconsAway[getLevel(n.getNumberOfInvitedFriends())]);
                 }
                 if (isSelected)
                     setForeground(Color.white);

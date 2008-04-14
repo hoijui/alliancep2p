@@ -46,7 +46,7 @@ public class ShareScanner extends Thread {
         try { Thread.sleep(60*1000); } catch (InterruptedException e) {} //wait a while before starting first scan
         core.getAwayManager().addListener(new AwayManager.AwayStatusListener() {
             public void awayStatusChanged(boolean away) throws IOException {
-                if (away && System.currentTimeMillis()-lastFlushCompletedAt > 1000*60*20) {
+                if (away && System.currentTimeMillis()-lastFlushCompletedAt > 1000*60*20 && !scanInProgress) {
                     if(T.t)T.trace("Flushing database because user is away and it was a while since we did it.");
                     manager.getFileDatabase().flush();
                 }
