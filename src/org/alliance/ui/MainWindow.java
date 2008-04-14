@@ -138,7 +138,8 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
             }
 
             public double getMaxValue() {
-                double d = Math.max(ui.getCore().getNetworkManager().getBandwidthInHighRefresh().getHighestCPS(), ui.getCore().getNetworkManager().getBandwidthOutHighRefresh().getHighestCPS());
+                //double d = Math.max(ui.getCore().getNetworkManager().getBandwidthInHighRefresh().getHighestCPS(), ui.getCore().getNetworkManager().getBandwidthOutHighRefresh().getHighestCPS());
+                double d = ui.getCore().getNetworkManager().getBandwidthOutHighRefresh().getHighestCPS();
                 return d;
             }
         });
@@ -151,7 +152,8 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
             }
 
             public double getMaxValue() {
-                return Math.max(ui.getCore().getNetworkManager().getBandwidthInHighRefresh().getHighestCPS(), ui.getCore().getNetworkManager().getBandwidthOutHighRefresh().getHighestCPS());
+                //return Math.max(ui.getCore().getNetworkManager().getBandwidthInHighRefresh().getHighestCPS(), ui.getCore().getNetworkManager().getBandwidthOutHighRefresh().getHighestCPS());
+                return ui.getCore().getNetworkManager().getBandwidthInHighRefresh().getHighestCPS();
             }
         });
         monitor.setColor(id, Color.green);
@@ -630,7 +632,11 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
     }
 
     public void EVENT_trace(ActionEvent e) throws Exception {
-        createTraceWindow();
+        if (!org.alliance.T.t) {
+            OptionDialog.showInformationDialog(this, "The trace has been disabled in this build of Alliance.");
+        } else {
+            createTraceWindow();
+        }
     }
 
     public void EVENT_hide(ActionEvent e) throws Exception {

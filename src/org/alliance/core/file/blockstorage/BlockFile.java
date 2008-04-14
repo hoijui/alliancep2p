@@ -261,16 +261,7 @@ public final class BlockFile {
         if (parent.isSequential()) {
             close();
             if (!createDatFile().renameTo(file)) {
-                Thread.sleep(100);
-                if (!createDatFile().renameTo(file)) {
-                    Thread.sleep(300);
-                    if (!createDatFile().renameTo(file)) {
-                        Thread.sleep(600);
-                        if (!createDatFile().renameTo(file)) {
-                            throw new Exception("Could not rename file "+createDatFile()+" to "+file+"! This might be a problem with file permissions.");
-                        }
-                    }
-                }
+                throw new Exception("Could not rename file "+createDatFile()+" to "+file+"! This might be a problem with file permissions.");
             }
         } else {
             defragmentTo(file);
