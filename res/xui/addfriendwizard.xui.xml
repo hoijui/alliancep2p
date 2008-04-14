@@ -57,7 +57,9 @@
                     <label text="Connection code: "/> <textfield text="" id="codeinput" defaultfocus="true"/> <strut width="5"/>
                 </panel>
                 <strut height="15"/>
-                <mlabel html="yes">When you press next Alliance will attempt to connect using the code.</mlabel>
+                <mlabel html="yes">You can right click on the white area above and select paste to paste a code for the clipboard.
+                    [p]
+                    When you press next Alliance will attempt to connect using the code.</mlabel>
             </step>
 
             <step text="Incorrect connection code">
@@ -152,7 +154,7 @@
 
             <step text="Manual connection code">
                 <mlabel html="yes">
-                    Copy and paste the code below and send it to your friend in some way. Send one code per friend.
+                    Copy and paste the code below and send it to your friend in some way. Each code is only valid once so you need to press the "new code" button for each friend you invite.
                 </mlabel>
                 <strut height="15"/>
                 <panel axis="x" border="0" expand="horiz">
@@ -179,7 +181,7 @@
                 <mlabel html="yes" id="portclosed">
                     It is not possible to connect to your Alliance application. The port that Alliance uses on your computer is blocked by an internet firewall or router.
                     [p]
-                    [b]You can not invite anyone to your network unless you open this port.[/b] You can only receive invitations - you cannot invite a friend yourself.
+                    [b]You can not invite anyone to your network unless you open this port.[/b] You can only receive invitations - your friend can invite you yourself cannot invite friends.
                     [p]
                     The port that Alliance uses on your computer is [b]$PORT$[/b]. Go to [a href=http://www.portforward.com]http://www.portforward.com[/a] for more information on how to open this port.
                 </mlabel>

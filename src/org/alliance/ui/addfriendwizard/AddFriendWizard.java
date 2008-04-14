@@ -86,8 +86,6 @@ public class AddFriendWizard extends JWizard {
         radioButtons.add((JRadioButton)innerXUI.getComponent("radio1_1"));
         radioButtons.add((JRadioButton)innerXUI.getComponent("radio1_2"));
         radioButtons.add((JRadioButton)innerXUI.getComponent("radio1_3"));
-        radioButtons.add((JRadioButton)innerXUI.getComponent("radio2_1"));
-        radioButtons.add((JRadioButton)innerXUI.getComponent("radio2_2"));
 
         JHtmlLabel l = (JHtmlLabel) innerXUI.getComponent("portclosed");
         l.replaceString("$PORT$", ""+ui.getCore().getSettings().getServer().getPort());

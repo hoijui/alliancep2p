@@ -91,6 +91,8 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
         mdiManager.addWindow(new SearchMDIWindow(ui));
         pml.updateProgress("Loading main window (download)");
         mdiManager.addWindow(new DownloadsMDIWindow(ui));
+        pml.updateProgress("Loading main window (uploads)");
+        EVENT_uploads(null);
 
         pml.updateProgress("Loading main window");
         for(PublicChatHistory.Entry e : ui.getCore().getPublicChatHistory().allMessages()) {
