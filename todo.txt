@@ -57,6 +57,7 @@ Lösa tankar:
     * ha en grafisk representation av dl hastighet - en rött/gult/grönt gubbe som är olika glad är nog bra   så kan ingen missa det..
 
 Todo:
+    * ta upp en dialog nŠr index flushas.
     * drag'n'drop från msn - bara man kan förklara det på ett enkelt sätt så är det lika bra som fullständig integration - tänk på att jag redan har färdig kod för att skicka mail - errorreporter
     * undersök om man kan göra så den drar mindre minne - drar 100mb vid 15 000 utdelade filer - FD cachen verkar kass också - nog bättre att göra om till en cache som innehåller typ 100 senast använda fd:na - eller så kanske det kommer att börja bugga om man lägger in en cache - fd:s som inte finns längre kan svaras med ..  kanste inte röra detta just nu ändå
     * testa med enorm share och kolla ifall det krånglar
