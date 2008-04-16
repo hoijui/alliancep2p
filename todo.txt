@@ -73,7 +73,6 @@ Todo:
     * dubbelklick på nerladdad fil öppnar den
     * Fair enough. I'll add two new options in the options dialog: [X] Scan share when Alliance starts Rescan share automatically every ___ minutes
     * stöd för dyndns namn i my ip. kolla hur detta fungerar. det är en riktigt klok och proffsig grej att ha
-    * vore fint med en riktig kugnakrona som ikon för kungen
     * stöd för att skapa connection koder inom samma nätverk * lägg till ett meddelande när man försöker connecta till en dator i samma nätverk
     * command-line start. Linuxanvändare intresserade av det.
     * feedback formulär
