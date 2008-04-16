@@ -8,7 +8,7 @@ import com.stendahls.trace.TraceChannel;
  * Time: 09:38:09
  */
 public class T {
-  public static final boolean t = true;
+  public static final boolean t = false;
 
   private static TraceChannel tc = new TraceChannel("main");
 

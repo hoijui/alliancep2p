@@ -40,6 +40,7 @@ public class Main {
             String s = "data/settings.xml";
             for(int i=0;i<args.length;i++) if (!args[i].startsWith("/")) s = args[i];
             Subsystem core = initCore(s, (StartupProgressListener)r);
+            if (core == null) return; //oops. core crashed. Error message has been displayd. just bail.
 
             if (OSInfo.supportsTrayIcon()) {
                 Subsystem tray = initTrayIcon(core);
@@ -147,7 +148,6 @@ public class Main {
         } catch(Throwable t) {
             reportError(t);
             System.err.println(t);
-            System.exit(0);
             return null;
         }
     }
@@ -158,8 +158,8 @@ public class Main {
             //report error. Use reflection to init dialogs because we want NO references to UI stuff in this
             //class - we want this class to load fast (ie load minimal amount of classes)
             Object errorDialog = Class.forName("com.stendahls.ui.ErrorDialog").newInstance();
-            Method m = errorDialog.getClass().getMethod("init", new Class[] {Throwable.class, boolean.class});
-            m.invoke(errorDialog, new Object[]{t, Boolean.valueOf(true)});
+            Method m = errorDialog.getClass().getMethod("init", Throwable.class, boolean.class);
+            m.invoke(errorDialog, t, true);
         } catch (Exception e) {
             e.printStackTrace();
         }
