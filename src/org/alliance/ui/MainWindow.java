@@ -26,6 +26,7 @@ import org.alliance.ui.addfriendwizard.ForwardInvitationNodesList;
 import org.alliance.ui.windows.*;
 import org.alliance.ui.windows.search.SearchMDIWindow;
 import org.alliance.ui.windows.viewshare.ViewShareMDIWindow;
+import static org.alliance.core.CoreSubsystem.*;
 
 import javax.swing.*;
 import javax.swing.plaf.metal.MetalButtonUI;
@@ -443,7 +444,40 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
                         updateBandwidth("Downloading", "downloaded", bandwidthIn, ui.getCore().getNetworkManager().getBandwidthIn());
                         updateBandwidth("Uploading", "uploaded", bandwidthOut, ui.getCore().getNetworkManager().getBandwidthOut());
 
-                        //((JSpeedDiagram)xui.getComponent("speeddiagram")).update(ui.getCore());
+                        displayNagAboutInvitingFriendsIfNeeded();
+                    }
+
+                    private void displayNagAboutInvitingFriendsIfNeeded() {
+                        try {
+                            if (ui.getCore().getFriendManager().getMe().getNumberOfInvitedFriends() > 0 || (ui.getCore().getSettings().getInternal().getHastriedtoinviteafriend() != null && ui.getCore().getSettings().getInternal().getHastriedtoinviteafriend() != 0)) return;
+                            Long tick = ui.getCore().getSettings().getInternal().getLastnaggedaboutinvitingafriend();
+                            if (tick == null) {
+                                tick = System.currentTimeMillis()-1000l*60*60*24*10;
+                                ui.getCore().getSettings().getInternal().setLastnaggedaboutinvitingafriend(tick);
+                            } else {
+                                //if (System.currentTimeMillis()-tick > 1000l*60*60*24*7) {
+                                if (System.currentTimeMillis()-tick > 1000l*10) {
+                                    //more then a week since we nagged last time
+                                    if (ui.getCore().getFriendManager().getMe().getTotalBytesReceived() > 800*MB) {
+                                        //more then 800mb downloaded
+                                        if (ui.getCore().getNetworkManager().getBandwidthIn().getCPS() > ui.getCore().getNetworkManager().getBandwidthIn().getHighestCPS()/3) {
+                                            //downloading at fairly high speed - let's show the infomration dialog
+                                            ui.getCore().getSettings().getInternal().setLastnaggedaboutinvitingafriend(System.currentTimeMillis());
+                                            if (OptionDialog.showQuestionDialog(MainWindow.this,
+                                                    "You have not invited any friends to your Alliance network.[p]"+
+                                                    "If you invite friends you will be able to download more files faster and the network will become more reliable.[p]"+
+                                                    "[b]It is important for all Alliance users to invite at least once friend.[/b][p]"+
+                                                    "Would you like to invite a friend to your Alliance network now?[p]")) {
+                                                ui.getCore().getSettings().getInternal().setHastriedtoinviteafriend(1);
+                                                openWizardAt(AddFriendWizard.STEP_PORT_OPEN_TEST);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        } catch(Exception e) {
+                            if(T.t)T.error(e);
+                        }
                     }
 
                     private void updateBandwidth(String s, String s2, JProgressBar pb, BandwidthAnalyzer a) {
@@ -699,12 +733,14 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
     public void openWizardAt(int step, Integer invitationFromGuid) throws Exception {
         if (lastAddFriendWizard != null) if(T.t)T.trace("visible: "+lastAddFriendWizard.getOuterDialog().isVisible());
         if (lastAddFriendWizard != null && lastAddFriendWizard.getOuterDialog().isVisible()) {
-            if(T.t)T.ass(step == AddFriendWizard.STEP_FORWARD_INVITATIONS || step == AddFriendWizard.STEP_ATTEMPT_CONNECT, "No support for starting at step "+step+" like this");
+            if(T.t)T.ass(step == AddFriendWizard.STEP_FORWARD_INVITATIONS || step == AddFriendWizard.STEP_ATTEMPT_CONNECT || step == AddFriendWizard.STEP_PORT_OPEN_TEST , "No support for starting at step "+step+" like this");
             lastAddFriendWizard.setInvitationFromGuid(invitationFromGuid);
             if (step == AddFriendWizard.STEP_FORWARD_INVITATIONS)
                 lastAddFriendWizard.goToForwardInvitations();
-            else
+            else if (step == AddFriendWizard.STEP_ATTEMPT_CONNECT)
                 lastAddFriendWizard.goToAttemptConnect();
+            else
+                lastAddFriendWizard.goToPortTest();
         } else {
             lastAddFriendWizard = AddFriendWizard.open(ui, step);
             lastAddFriendWizard.setInvitationFromGuid(invitationFromGuid);

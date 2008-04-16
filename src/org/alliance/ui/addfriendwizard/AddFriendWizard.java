@@ -180,6 +180,8 @@ public class AddFriendWizard extends JWizard {
             wizard.goToForwardInvitations();
         else if (startAtStep == STEP_ATTEMPT_CONNECT)
             wizard.goToAttemptConnect();
+        else if (startAtStep == STEP_PORT_OPEN_TEST)
+            wizard.goToPortTest();
         else if (startAtStep != STEP_INTRO)
             throw new Exception("No support for starting at step "+startAtStep);
 
@@ -199,7 +201,7 @@ public class AddFriendWizard extends JWizard {
         cancel.setText("Finish");
     }
 
-    private void goToPortTest() {
+    public void goToPortTest() {
         setStep(STEP_PORT_OPEN_TEST);
         prev.setEnabled(false);
         next.setEnabled(false);

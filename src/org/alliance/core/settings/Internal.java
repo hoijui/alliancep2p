@@ -42,6 +42,9 @@ public class Internal extends SettingClass {
 
     private Integer restartEveryXHours=4; //this one only works on windows right now
 
+    private Long lastnaggedaboutinvitingafriend;
+    private Integer hastriedtoinviteafriend;
+
     private Integer invitationmayonlybeusedonce=1;
 
     private Integer secondstoaway=60*5;
@@ -453,5 +456,21 @@ public class Internal extends SettingClass {
 
     public void setRestartEveryXHours(Integer restartEveryXHours) {
         this.restartEveryXHours = restartEveryXHours;
+    }
+
+    public Long getLastnaggedaboutinvitingafriend() {
+        return lastnaggedaboutinvitingafriend;
+    }
+
+    public void setLastnaggedaboutinvitingafriend(Long lastnaggedaboutinvitingafriend) {
+        this.lastnaggedaboutinvitingafriend = lastnaggedaboutinvitingafriend;
+    }
+
+    public Integer getHastriedtoinviteafriend() {
+        return hastriedtoinviteafriend;
+    }
+
+    public void setHastriedtoinviteafriend(Integer hastriedtoinviteafriend) {
+        this.hastriedtoinviteafriend = hastriedtoinviteafriend;
     }
 }

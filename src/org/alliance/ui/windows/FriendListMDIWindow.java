@@ -83,26 +83,6 @@ public class FriendListMDIWindow extends AllianceMDIWindow {
         sfm.addFlavorForUnencodedNative(nat, df);
     }
 
-
-    static {
-        try {
-            addFlavor("FileContents", "application/x-file-contents");
-            addFlavor("FileGroupDescriptor", "application/x-file-list");
-            addFlavor("MSNContact", "application/x-file-contents");
-            addFlavor("Contact", "application/x-file-contents");
-            addFlavor("E-Mail", "application/x-file-contents");
-            addFlavor("E-mail", "application/x-file-contents");
-            addFlavor("email", "application/x-file-contents");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
-    }
-
-    private static void addFlavor(String name, String mimeType) throws ClassNotFoundException {
-        SystemFlavorMap sfm = ((SystemFlavorMap)SystemFlavorMap.getDefaultFlavorMap());
-        sfm.setFlavorsForNative(name, new DataFlavor[] { new DataFlavor(mimeType +"; class=java.io.InputStream") });
-    }
-
     private void createUI() throws Exception {
         list = new JList(ui.getFriendListModel());
         SystemFlavorMap.getDefaultFlavorMap();

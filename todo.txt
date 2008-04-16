@@ -58,8 +58,6 @@ Lösa tankar:
 
 Todo:
     * ta upp rekommendation om att man ska bjuda in kompisar efter ett tag - och fortsätt visa den en gång i veckan typ
-    * ta upp en dialog nŠr index flushas.
-    * share scan börjar lite vid konstiga tillfällen - om jag scannar om precis när jag startar alliance så scannar den om igen efter ett par minuter. dessutom så flushar den indexet medans det scannar ocksås
 
     * lägg till advanced vy i friendslist. -- eftersom "via" grejjen fungerar dåligt kan den tas bort -- ratio, max up och max ner. roligt för tekniskare användare. Gör en kool ikon för den så man ser den. - eller välj vilka kolumner man visar per default - default ska nog vara name och ratio (och kanske share size?)
     * window.tofront när man får meddelanden. Ska titta på options för taskbar bubblor
