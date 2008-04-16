@@ -58,6 +58,8 @@ Lösa tankar:
     * ha en grafisk representation av dl hastighet - en rött/gult/grönt gubbe som är olika glad är nog bra   så kan ingen missa det..
 
 Todo:
+[21:32] maciek: och skicka svaret till mig..  [21:57] Erik: FileDescriptor Allocation Table size: 30373 keywords in index: 598 keys in base hashtable: 28521 duplicates: 141 filename list: 28521 filedescriptors cahced: 26 % of filedescriptor databse marked for deletion: 23%
+
 
     * lägg till advanced vy i friendslist. -- eftersom "via" grejjen fungerar dåligt kan den tas bort -- ratio, max up och max ner. roligt för tekniskare användare. Gör en kool ikon för den så man ser den. - eller välj vilka kolumner man visar per default - default ska nog vara name och ratio (och kanske share size?)
     * window.tofront när man får meddelanden. Ska titta på options för taskbar bubblor
