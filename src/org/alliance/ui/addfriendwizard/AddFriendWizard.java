@@ -28,7 +28,7 @@ import java.net.URLConnection;
  */
 public class AddFriendWizard extends JWizard {
     public static final int STEP_INTRO=0;
-    public static final int STEP_CREATE_INVITATION=1;
+    public static final int STEP_SELECT_INVITATION_TYPE=1;
     public static final int STEP_ENTER_INVITATION=2;
     public static final int STEP_INCORRECT_INVITATION_CODE=3;
     public static final int STEP_ATTEMPT_CONNECT=4;
@@ -39,6 +39,8 @@ public class AddFriendWizard extends JWizard {
     public static final int STEP_MANUAL_INVITE=9;
     public static final int STEP_PORT_OPEN_TEST=10;
     public static final int STEP_PORT_NOT_OPEN=11;
+    public static final int STEP_INVITE_MSN=12;
+    public static final int STEP_INVITE_EMAIL=13;
 
     private int radioButtonSelected;
 
@@ -46,7 +48,8 @@ public class AddFriendWizard extends JWizard {
 
     private XUIDialog outerDialog;
 
-    private JTextField invitationCode, codeinput;
+    private JTextField codeinput;
+    private JTextArea invitationCode;
     private JScrollPane listScrollPane;
     private ArrayList<JRadioButton> radioButtons = new ArrayList<JRadioButton>();
 
@@ -75,9 +78,7 @@ public class AddFriendWizard extends JWizard {
         innerXUI.setEventHandler(this);
         next.setEnabled(false);
 
-        new CutCopyPastePopup((JTextComponent) innerXUI.getComponent("dlurl"));
-
-        invitationCode = (JTextField)innerXUI.getComponent("code");
+        invitationCode = (JTextArea) innerXUI.getComponent("code");
         new CutCopyPastePopup(invitationCode);
         codeinput = (JTextField)innerXUI.getComponent("codeinput");
         new CutCopyPastePopup(codeinput);
@@ -108,6 +109,15 @@ public class AddFriendWizard extends JWizard {
             public void hyperlinkUpdate(HyperlinkEvent e) {
                 if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
                     goToManualInvite();
+                }
+            }
+        });
+
+        final JHtmlLabel l3 = (JHtmlLabel)innerXUI.getComponent("newcode");
+        l3.addHyperlinkListener(new HyperlinkListener() {
+            public void hyperlinkUpdate(HyperlinkEvent e) {
+                if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
+                    EVENT_createnew(null);
                 }
             }
         });
@@ -186,7 +196,7 @@ public class AddFriendWizard extends JWizard {
         prev.setEnabled(true);
         next.setEnabled(false);
         cancel.setEnabled(true);
-        cancel.setText("Finished");
+        cancel.setText("Finish");
     }
 
     private void goToPortTest() {
@@ -245,11 +255,13 @@ public class AddFriendWizard extends JWizard {
     }
 
     private void goToCreateInvitation() {
-        setStep(STEP_CREATE_INVITATION);
-        next.setEnabled(false);
-        cancel.setText("Finish");
-        cancel.setEnabled(true);
         EVENT_createnew(null);
+        goToManualInvite();
+        /*setStep(STEP_SELECT_INVITATION_TYPE);
+        next.setEnabled(true);
+        cancel.setText("Finish");
+        cancel.setEnabled(false);
+        EVENT_createnew(null);*/
     }
 
     private void goToConnectionFailed() {
@@ -288,6 +300,20 @@ public class AddFriendWizard extends JWizard {
             } else {
                 goToForwardInvitations();
             }
+        } else if (getStep() == STEP_SELECT_INVITATION_TYPE) {
+            if (isRadioButtonSelected("invite_msn")) {
+                setStep(STEP_INVITE_MSN);
+                next.setEnabled(false);
+                cancel.setEnabled(false);
+            } else if (isRadioButtonSelected("invite_email")) {
+                setStep(STEP_INVITE_EMAIL);
+                next.setEnabled(false);
+                cancel.setEnabled(false);
+            } else if (isRadioButtonSelected("invite_manual")) {
+                goToManualInvite();
+            } else {
+                if(T.t)T.error("Could not find selected ratiobutton! Internal error");
+            }
         } else if (getStep() == STEP_ENTER_INVITATION) {
             handleInvitationCode();
         } else if (getStep() == STEP_CONNECTION_FAILED) {
@@ -305,6 +331,10 @@ public class AddFriendWizard extends JWizard {
         } else {
             if(T.t)T.ass(false, "Reached step in wizard that was unexcpected ("+getStep()+")");
         }
+    }
+
+    private boolean isRadioButtonSelected(String s) {
+        return ((JRadioButton)innerXUI.getComponent(s)).isSelected();
     }
 
     public void connectionWasSuccessful() {
@@ -363,7 +393,7 @@ public class AddFriendWizard extends JWizard {
     public void prevStep() {
         if (getStep() == STEP_FORWARD_INVITATIONS) {
             setStep(STEP_INTRO);
-        } else if (getStep() == STEP_CREATE_INVITATION) {
+        } else if (getStep() == STEP_SELECT_INVITATION_TYPE) {
             setStep(STEP_INTRO);
         } else if (getStep() == STEP_ENTER_INVITATION) {
             setStep(STEP_INTRO);
@@ -414,7 +444,19 @@ public class AddFriendWizard extends JWizard {
                     final Invitation i = ui.getCore().getInvitaitonManager().createInvitation();
                     SwingUtilities.invokeLater(new Runnable() {
                         public void run() {
-                            invitationCode.setText(i.getCompleteInvitaitonString());
+                            invitationCode.setText("");
+                            invitationCode.append("You have been invited to a private Alliance network!\n\n");
+                            invitationCode.append("1. Download and run Alliance here:\n");
+                            invitationCode.append("http://www.alliancep2p.com/download\n\n");
+                            invitationCode.append("2. When Alliance starts it will ask you for a code. Enter this:\n");
+                            invitationCode.append(i.getCompleteInvitaitonString());
+                            invitationCode.requestFocus();
+                            SwingUtilities.invokeLater(new Runnable() {
+                                public void run() {
+                                    invitationCode.selectAll();
+                                }
+
+                            });
                         }
                     });
                 } catch(Exception e) {

@@ -13,6 +13,9 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.awt.datatransfer.SystemFlavorMap;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -34,7 +37,7 @@ public class FriendListMDIWindow extends AllianceMDIWindow {
 
     private JLabel statusleft, statusright;
 
-    private String[] LEVEL_NAMES = {"Rookie", "True Member", "Experienced", "Network King"};
+    private String[] LEVEL_NAMES = {"Rookie", "True Member", "Experienced", "King"};
     private String[] LEVEL_ICONS = {"friend_lame", "friend", "friend_cool", "friend_king"};
     private ImageIcon[] friendIcons;
     private ImageIcon[] friendIconsAway;
@@ -70,8 +73,39 @@ public class FriendListMDIWindow extends AllianceMDIWindow {
         statusright.setText("Online: " + ui.getCore().getFriendManager().getNFriendsConnected() + "/" + ui.getCore().getFriendManager().getNFriends() + " (" + TextUtils.formatByteSize(ui.getCore().getFriendManager().getTotalBytesShared()) + ")");
     }
 
+
+    static {
+        final SystemFlavorMap sfm =
+                (SystemFlavorMap)SystemFlavorMap.getDefaultFlavorMap();
+        final String nat = "text/plain";
+        final DataFlavor df = new DataFlavor("text/plain; charset=ASCII; class=java.io.InputStream", "Plain Text");
+        sfm.addUnencodedNativeForFlavor(df, nat);
+        sfm.addFlavorForUnencodedNative(nat, df);
+    }
+
+
+    static {
+        try {
+            addFlavor("FileContents", "application/x-file-contents");
+            addFlavor("FileGroupDescriptor", "application/x-file-list");
+            addFlavor("MSNContact", "application/x-file-contents");
+            addFlavor("Contact", "application/x-file-contents");
+            addFlavor("E-Mail", "application/x-file-contents");
+            addFlavor("E-mail", "application/x-file-contents");
+            addFlavor("email", "application/x-file-contents");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+    }
+
+    private static void addFlavor(String name, String mimeType) throws ClassNotFoundException {
+        SystemFlavorMap sfm = ((SystemFlavorMap)SystemFlavorMap.getDefaultFlavorMap());
+        sfm.setFlavorsForNative(name, new DataFlavor[] { new DataFlavor(mimeType +"; class=java.io.InputStream") });
+    }
+
     private void createUI() throws Exception {
         list = new JList(ui.getFriendListModel());
+        SystemFlavorMap.getDefaultFlavorMap();
         list.setCellRenderer(new FriendListRenderer());
         ((JScrollPane) xui.getComponent("scrollpanel")).setViewportView(list);
 
@@ -108,6 +142,8 @@ public class FriendListMDIWindow extends AllianceMDIWindow {
                 }
             }
         });
+
+
 
         updateMyLevelInformation();
 

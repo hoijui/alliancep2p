@@ -16,7 +16,7 @@
                 </panel>
                 <panel axis="x" border="0" expand="horiz">
                     <strut width="10"/>
-                    <radiobutton eventid="radio1_2" id="b" group="a" text="I want to invite a friend to my Alliance network"/>
+                    <radiobutton eventid="radio1_2" id="b" group="a" text="I want to invite a friends to my Alliance network"/>
                     <filler/>
                 </panel>
                 <panel axis="x" border="0" expand="horiz">
@@ -27,27 +27,26 @@
                 <strut height="5"/>
             </step>
 
-            <step text="Send connection code">
-                <mlabel html="yes">
-                    Click the button below.
-                </mlabel>
-                <strut height="15"/>
-                <panel axis="x" expand="horiz">
-                    <filler/>
-                    <button text="Create e-mail invitation for one friend" eventid="email"/>
-                    <filler/>
-                </panel>
-                <panel axis="x" expand="horiz">
-                    <filler/>
-                    <label id="waittext" text=""/>
-                    <filler/>
-                </panel>
-                <strut height="15"/>
-                <mlabel id="text" html="yes">
-                    If you want to invite several friends click on the button several times. [b]Send one e-mail per friend.[/b]
+            <step text="">
+                <mlabel html="yes">How would you like to invite friends to your network?
                     [p]
-                    [b]If the button above does not work[/b] or you do not want to use email then [a href="problem"]click here[/a].
                 </mlabel>
+                <panel axis="x" border="0" expand="horiz">
+                    <strut width="10"/>
+                    <radiobutton selected="yes" id="invite_msn" group="b" text="I want to invite friends from my list in MSN Messenger"/>
+                    <filler/>
+                </panel>
+                <panel axis="x" border="0" expand="horiz">
+                    <strut width="10"/>
+                    <radiobutton id="invite_email" group="b" text="I want to invite friends by entering their e-mail addresses"/>
+                    <filler/>
+                </panel>
+                <panel axis="x" border="0" expand="horiz">
+                    <strut width="10"/>
+                    <radiobutton id="invite_manual" group="b" text="I want to manually invite friends"/>
+                    <filler/>
+                </panel>
+                <strut height="5"/>
             </step>
 
             <step text="Enter connection code">
@@ -154,19 +153,16 @@
 
             <step text="Manual connection code">
                 <mlabel html="yes">
-                    Copy and paste the code below and send it to your friend in some way. Each code is only valid once so you need to press the "new code" button for each friend you invite.
+                    Right click on the text below and select "Copy". Send the text to your friend by pasting it into an e-mail or a MSN message.
                 </mlabel>
                 <strut height="15"/>
-                <panel axis="x" border="0" expand="horiz">
-                    <label text="Connection code: "/> <textfield text="" id="code"/> <strut width="5"/> <button eventid="createnew" text="New code"/>
-                </panel>
+                <scrollpanel border="0" bordertype="lowered" minheight="150" height="150">
+                    <textarea id="code" border="5" text="Loading..."/>
+                </scrollpanel>
                 <strut height="15"/>
-                <mlabel html="yes">
-                    [p]
+                <mlabel html="yes" id="newcode">
+                    Each code is valid once so you need to [a href='']generate a new code[/a] for each friend you invite.
                 </mlabel>
-                <panel axis="x" border="0" expand="horiz">
-                    <label text="Alliance download address: "/> <textfield text="http://www.alliancep2p.com/download" id="dlurl"/>
-                </panel>
             </step>
 
             <step text="Checking internet connection">
@@ -187,6 +183,51 @@
                 </mlabel>
             </step>
 
+            <step text="Invite friends from MSN Messenger">
+                <mlabel html="yes">
+                    Drag friends from your MSN Messenger and drop them below:
+                </mlabel>
+                <strut height="15"/>
+                <scrollpanel height="150" bordertype="lowered">
+                    <textarea border="5" text="Drop MSN friends here"/>
+                </scrollpanel>
+                <strut height="15"/>
+                <mlabel id="text" html="yes">
+                    Press next to automatically invite the friends above into your Alliance network. The friends will be invited using e-mail.
+                </mlabel>
+            </step>
+
+            <step text="Invite friends by e-mail">
+                <mlabel html="yes">
+                    Enter the e-mail address of friends you want to invite below:
+                </mlabel>
+                <strut height="20"/>
+                <panel axis="x" border="0,0,0,6">
+                    <label text="E-mail for friend: "/>
+                    <textfield/>
+                </panel>
+                <panel axis="x" border="0,0,0,6">
+                    <label text="E-mail for friend: "/>
+                    <textfield/>
+                </panel>
+                <panel axis="x" border="0,0,0,6">
+                    <label text="E-mail for friend: "/>
+                    <textfield/>
+                </panel>
+                <panel axis="x" border="0,0,0,6">
+                    <label text="E-mail for friend: "/>
+                    <textfield/>
+                </panel>
+                <panel axis="x" border="0,0,0,6">
+                    <label text="E-mail for friend: "/>
+                    <textfield/>
+                </panel>
+                <strut height="20"/>
+                <mlabel id="text" html="yes">
+                    Press next to automatically invite the friends above into your Alliance network.
+                </mlabel>
+            </step>
+            
         </wizard>
     </body>
 </xui>
