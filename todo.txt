@@ -61,14 +61,13 @@ Todo:
     * ta upp en dialog nŠr index flushas.
     * share scan börjar lite vid konstiga tillfällen - om jag scannar om precis när jag startar alliance så scannar den om igen efter ett par minuter. dessutom så flushar den indexet medans det scannar ocksås
 
-    * window.tofront när man får meddelanden. Ska titta på options för taskbar bubblor
     * lägg till advanced vy i friendslist. -- eftersom "via" grejjen fungerar dåligt kan den tas bort -- ratio, max up och max ner. roligt för tekniskare användare. Gör en kool ikon för den så man ser den. - eller välj vilka kolumner man visar per default - default ska nog vara name och ratio (och kanske share size?)
-    * drag'n'drop från msn - bara man kan förklara det på ett enkelt sätt så är det lika bra som fullständig integration - tänk på att jag redan har färdig kod för att skicka mail - errorreporter
+    * window.tofront när man får meddelanden. Ska titta på options för taskbar bubblor
     * move to top/bottom i downloads. Många har hundra downloads i sin lista. roligt att trycka up hundra gånger.
-    * undersök om man kan göra så den drar mindre minne - drar 100mb vid 15 000 utdelade filer - FD cachen verkar kass också - nog bättre att göra om till en cache som innehåller typ 100 senast använda fd:na - eller så kanske det kommer att börja bugga om man lägger in en cache - fd:s som inte finns längre kan svaras med ..  kanste inte röra detta just nu ändå
+    * drag'n'drop från msn - bara man kan förklara det på ett enkelt sätt så är det lika bra som fullständig integration - tänk på att jag redan har färdig kod för att skicka mail - errorreporter
     * lŠgg tll stšd fšr mac klasser - typ bra ikon och meny och sŒ.
 
-    * fixa koolt UI för uploads också. så det är kul att kolla på.  kalla fliken "statistics" och ha massa askool stats med den läcka diagramkomponenten. cpuanvänding, minnesanvändning, up/ner hastighet, och koola stats för uploads
+    * fixa koolt UI för uploads också. så det är kul att kolla på.  ha riktig historik för uploads - DET hade jag gillat - så jag kan se vad folk har laddat ner från mig. kalla fliken "statistics" och ha massa askool stats med den läcka diagramkomponenten. cpuanvänding, minnesanvändning, up/ner hastighet, och koola stats för uploads
 
     * bättre stöd för vista - problem när fil ska flyttas och så?   downloads borde ligga i my downloads eller nåt
     * nåt åt detta hållet är viktigt så man inte chokar noobs kopplingar: if (uploaded > 100mb and uploded_to > 2 persons and bandwidth_thottle_not_set) set_throttle_and_notify_when_ui_is_up

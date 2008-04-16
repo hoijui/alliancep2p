@@ -195,8 +195,8 @@ public class FileDatabase {
     }
 
     public synchronized void flush() throws IOException {
+        core.getUICallback().statusMessage("<html><b><font color=blue>Please wait while flushing file database and search index to disk...</font></b></html>");
         SimpleTimer st = new SimpleTimer();
-        core.getUICallback().statusMessage("Flushing file database and search index...");
         chunkStorage.flush();
         saveIndices();
         lastFlushedAt = System.currentTimeMillis();

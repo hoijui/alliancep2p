@@ -62,4 +62,10 @@ public class NonWindowUICallback implements UICallback {
     public void newUserInteractionQueued(NeedsUserInteraction ui) {
         
     }
+
+    public void signalFileDatabaseFlushStarting() {
+    }
+
+    public void signalFileDatabaseFlushComplete() {
+    }
 }

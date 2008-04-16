@@ -9,6 +9,7 @@ import org.alliance.core.node.Node;
 import javax.swing.*;
 import java.util.List;
 import java.awt.*;
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * Created by IntelliJ IDEA.
