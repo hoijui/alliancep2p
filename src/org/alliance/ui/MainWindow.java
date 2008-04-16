@@ -455,8 +455,7 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
                                 tick = System.currentTimeMillis()-1000l*60*60*24*10;
                                 ui.getCore().getSettings().getInternal().setLastnaggedaboutinvitingafriend(tick);
                             } else {
-                                //if (System.currentTimeMillis()-tick > 1000l*60*60*24*7) {
-                                if (System.currentTimeMillis()-tick > 1000l*10) {
+                                if (System.currentTimeMillis()-tick > 1000l*60*60*24*7) {
                                     //more then a week since we nagged last time
                                     if (ui.getCore().getFriendManager().getMe().getTotalBytesReceived() > 800*MB) {
                                         //more then 800mb downloaded

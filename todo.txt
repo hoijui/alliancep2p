@@ -20,6 +20,7 @@ complete:
     * när man delar ut mycket tar det typ 5 sekunder för att flusha indexet - och då låster sig ALLT - har fixat så den flushar mest när man är iväg från datorn
     * autmatisk restart var fjärde timme
     * lägg till king ikon
+    * ta upp rekommendation om att man ska bjuda in kompisar efter ett tag - och fortsätt visa den en gång i veckan typ
 
 gŒ igenom faq och getting started - getting started ska vara riktad till folk som vill starta ett nytt nŠtverk
 gräv inte ner dig i detaljer.   var smart. koncentrera dig på det viktigaste. lägg till få nya funktioner. typ:
@@ -57,7 +58,6 @@ Lösa tankar:
     * ha en grafisk representation av dl hastighet - en rött/gult/grönt gubbe som är olika glad är nog bra   så kan ingen missa det..
 
 Todo:
-    * ta upp rekommendation om att man ska bjuda in kompisar efter ett tag - och fortsätt visa den en gång i veckan typ
 
     * lägg till advanced vy i friendslist. -- eftersom "via" grejjen fungerar dåligt kan den tas bort -- ratio, max up och max ner. roligt för tekniskare användare. Gör en kool ikon för den så man ser den. - eller välj vilka kolumner man visar per default - default ska nog vara name och ratio (och kanske share size?)
     * window.tofront när man får meddelanden. Ska titta på options för taskbar bubblor
