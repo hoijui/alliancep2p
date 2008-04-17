@@ -77,6 +77,10 @@ public abstract class BufferedCryptoLayer extends CryptoLayer {
         return d;
     }
 
+    private void removeDataConnectionFor(Connection c) {
+        connectionData.remove(c.getKey());
+    }
+
     public void tryToFlushEncryptionBuffer(Connection c) throws IOException {
         if(T.t)trace("Flushing enryption buffer");
         ConnectionData d = getConnectionDataFor(c);
@@ -167,5 +171,9 @@ public abstract class BufferedCryptoLayer extends CryptoLayer {
         ConnectionData d = getConnectionDataFor(c);
         d.connectionWantsToSendData = false;
         if (d.encryptionBuffer.position() == 0) removeSendInterest(c);
+    }
+
+    public void closed(Connection c) {
+        removeDataConnectionFor(c);
     }
 }

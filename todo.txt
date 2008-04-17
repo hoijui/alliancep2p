@@ -22,6 +22,7 @@ complete:
     * lägg till king ikon
     * ta upp rekommendation om att man ska bjuda in kompisar efter ett tag - och fortsätt visa den en gång i veckan typ
     * can't move bug. verkar gå att återskapa på dragon men inte på root
+    * vekrar läcka minne som ett såll när man tar ner många små filer
 
 gŒ igenom faq och getting started - getting started ska vara riktad till folk som vill starta ett nytt nŠtverk
 gräv inte ner dig i detaljer.   var smart. koncentrera dig på det viktigaste. lägg till få nya funktioner. typ:
@@ -60,7 +61,6 @@ Lösa tankar:
 
 Todo:
     * [21:32] maciek: och skicka svaret till mig..  [21:57] Erik: FileDescriptor Allocation Table size: 30373 keywords in index: 598 keys in base hashtable: 28521 duplicates: 141 filename list: 28521 filedescriptors cahced: 26 % of filedescriptor databse marked for deletion: 23%
-    * vekrar läcka minne som ett såll när man tar ner många små filer
 
     * stöd för dyndns namn i my ip. kolla hur detta fungerar. det är en riktigt klok och proffsig grej att ha - så kan ett litet nätverk överleva om alla har dynamisk ip
 

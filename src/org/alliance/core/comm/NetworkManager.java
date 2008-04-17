@@ -175,6 +175,7 @@ public class NetworkManager extends Manager {
     }
 
     public void closed(Connection c) {
+        System.out.println("removing connection: "+c.getKey());
         friendManager.connectionClosed(c);
         connections.remove(c.getKey());
         networkLayer.close(c.getKey());

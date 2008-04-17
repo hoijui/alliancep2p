@@ -17,7 +17,6 @@ import java.io.IOException;
 public class CryptoManager  {
     private CryptoLayer cryptoLayer;
     private CoreSubsystem core;
-    private TCPNIONetworkLayer networkLayer;
 
     public CryptoManager(CoreSubsystem core) throws Exception {
         switch(core.getSettings().getInternal().getEncryption()) {
@@ -39,7 +38,7 @@ public class CryptoManager  {
     }
 
     public void init() throws IOException, Exception {
-        this.networkLayer = core.getNetworkManager().getNetworkLayer();
+        TCPNIONetworkLayer networkLayer = core.getNetworkManager().getNetworkLayer();
         cryptoLayer.setNetworkLayer(networkLayer);
         cryptoLayer.init();
     }

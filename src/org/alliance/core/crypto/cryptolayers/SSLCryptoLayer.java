@@ -44,6 +44,7 @@ public class SSLCryptoLayer extends BufferedCryptoLayer {
     }
 
     public void closed(Connection c) {
+        super.closed(c);
         contexts.remove(c.getKey());
     }
 

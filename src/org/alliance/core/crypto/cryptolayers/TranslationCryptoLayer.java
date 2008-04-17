@@ -21,9 +21,6 @@ public class TranslationCryptoLayer extends BufferedCryptoLayer {
         if(org.alliance.core.crypto.T.t) T.info("Starting TranslationCryptoLayer");
     }
 
-    public void closed(Connection c) {
-    }
-
     public int encrypt(Connection c, ByteBuffer src, ByteBuffer dst) {
         int start = dst.position();
         dst.put(src);
