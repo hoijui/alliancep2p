@@ -177,7 +177,7 @@
                 <mlabel html="yes" id="portclosed">
                     It is not possible to connect to your Alliance application. The port that Alliance uses on your computer is blocked by an internet firewall or router.
                     [p]
-                    [b]You can not invite anyone to your network unless you open this port.[/b] You can only receive invitations - your friend can invite you yourself cannot invite friends.
+                    [b]You can not invite anyone to your network unless you open this port.[/b] You can only receive invitations - your friends can invite you but you cannot invite friends.
                     [p]
                     The port that Alliance uses on your computer is [b]$PORT$[/b]. Go to [a href=http://www.portforward.com]http://www.portforward.com[/a] for more information on how to open this port.
                 </mlabel>

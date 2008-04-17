@@ -298,17 +298,18 @@ public class FileDatabase {
     }
 
     /**
-     * Returns up to 500 FDs that are withing the supplied path. Subdirectories included.
+     * Returns up to 1000 FDs that are withing the supplied path. Subdirectories included.
      * @param path
      * @return
      * @throws IOException
      */
 
     public Collection<FileDescriptor> getFDsByPath(String path) throws IOException {
-        FileDescriptor fd[] = search(path, 500, FileType.EVERYTHING);
+        FileDescriptor fd[] = search(path, 1000, FileType.EVERYTHING);
         ArrayList<FileDescriptor> al = new ArrayList<FileDescriptor>();
         for(FileDescriptor f : fd) {
             if (f != null) {
+                if(T.t)T.trace(f.getFullPath()+" - "+path);
                 if (f.getFullPath().startsWith(path)) al.add(f);
             }
         }

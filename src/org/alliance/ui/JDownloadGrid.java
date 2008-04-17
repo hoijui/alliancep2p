@@ -64,12 +64,7 @@ public class JDownloadGrid extends JComponent {
     private double getPercentCompleteForRange(long from, long to) {
         if (download.isComplete()) return 1;
         BlockFile bf;
-        try {
-            bf = download.getStorage().getBlockFile(download.getRoot());
-        } catch (IOException e) {
-            if(T.t)T.error("Could not get block file "+e);
-            return 0;
-        }
+        bf = download.getStorage().getCachedBlockFile(download.getRoot());
         if (bf == null) return 0;
 
         int fromBlock = (int)(from/BLOCK_SIZE);

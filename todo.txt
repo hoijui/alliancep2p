@@ -21,6 +21,7 @@ complete:
     * autmatisk restart var fjärde timme
     * lägg till king ikon
     * ta upp rekommendation om att man ska bjuda in kompisar efter ett tag - och fortsätt visa den en gång i veckan typ
+    * can't move bug. verkar gå att återskapa på dragon men inte på root
 
 gŒ igenom faq och getting started - getting started ska vara riktad till folk som vill starta ett nytt nŠtverk
 gräv inte ner dig i detaljer.   var smart. koncentrera dig på det viktigaste. lägg till få nya funktioner. typ:
@@ -58,7 +59,10 @@ Lösa tankar:
     * ha en grafisk representation av dl hastighet - en rött/gult/grönt gubbe som är olika glad är nog bra   så kan ingen missa det..
 
 Todo:
-[21:32] maciek: och skicka svaret till mig..  [21:57] Erik: FileDescriptor Allocation Table size: 30373 keywords in index: 598 keys in base hashtable: 28521 duplicates: 141 filename list: 28521 filedescriptors cahced: 26 % of filedescriptor databse marked for deletion: 23%
+    * [21:32] maciek: och skicka svaret till mig..  [21:57] Erik: FileDescriptor Allocation Table size: 30373 keywords in index: 598 keys in base hashtable: 28521 duplicates: 141 filename list: 28521 filedescriptors cahced: 26 % of filedescriptor databse marked for deletion: 23%
+    * vekrar läcka minne som ett såll när man tar ner många små filer
+
+    * stöd för dyndns namn i my ip. kolla hur detta fungerar. det är en riktigt klok och proffsig grej att ha - så kan ett litet nätverk överleva om alla har dynamisk ip
 
 
     * lägg till advanced vy i friendslist. -- eftersom "via" grejjen fungerar dåligt kan den tas bort -- ratio, max up och max ner. roligt för tekniskare användare. Gör en kool ikon för den så man ser den. - eller välj vilka kolumner man visar per default - default ska nog vara name och ratio (och kanske share size?)
@@ -74,7 +78,6 @@ Todo:
     * internationalisering - massa folk hade översatt om det gick..   tänk på detta. hade varit jävligt najs.  man får välja språk i runtime. najs.
     * dubbelklick på nerladdad fil öppnar den
     * Fair enough. I'll add two new options in the options dialog: [X] Scan share when Alliance starts Rescan share automatically every ___ minutes
-    * stöd för dyndns namn i my ip. kolla hur detta fungerar. det är en riktigt klok och proffsig grej att ha
     * stöd för att skapa connection koder inom samma nätverk * lägg till ett meddelande när man försöker connecta till en dator i samma nätverk
     * command-line start. Linuxanvändare intresserade av det.
     * feedback formulär

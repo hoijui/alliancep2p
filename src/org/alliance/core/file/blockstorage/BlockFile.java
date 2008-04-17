@@ -190,6 +190,7 @@ public final class BlockFile {
 
     public void open() throws IOException {
         if(T.t)T.ass(!isOpen(),"BlockFile already open!");
+        if(T.t)T.info("Opening RAF for "+this+" instance hashcode: "+hashCode());
         raf = new RandomAccessFile(createDatFile(), "rw");
     }
 
@@ -261,7 +262,7 @@ public final class BlockFile {
         if (parent.isSequential()) {
             close();
             if (!createDatFile().renameTo(file)) {
-                throw new Exception("Could not rename file "+createDatFile()+" to "+file+"! This might be a problem with file permissions.");
+                throw new Exception("Could not rename file "+createDatFile()+" to "+ file +"!");
             }
         } else {
             defragmentTo(file);
@@ -317,19 +318,21 @@ public final class BlockFile {
             res = new File(s+" ("+n+")");
         } else {
             res = new File(s.substring(0, i)+" ("+n+")"+s.substring(i));
-
         }
 
         if (res.exists()) res = createUniqueFilename(dest, n+1);
         return res;
     }
 
-    public void close() throws IOException {
+    public boolean close() throws IOException {
         if (isOpen()) {
-            if(T.t)T.info("Closing "+this);
+            if(T.t)T.info("Closing RAF: "+this);
             raf.getFD().sync();
             raf.close();
             raf = null;
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -354,3 +357,4 @@ public final class BlockFile {
         return integer;
     }
 }
+

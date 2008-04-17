@@ -83,7 +83,7 @@ public abstract class BlockStorage extends Thread {
                     core.invokeLater(new Runnable() {
                         public void run() {
                             try {
-                                if(T.t)T.ass(!bf.isOpen(),"Not open!");
+                                if(T.t)T.ass(!bf.isOpen(),"Open!");
                                 remove(bf.getFd().getRootHash());
                                 bf.getFd().updateModifiedAt();
                                 core.getFileManager().getFileDatabase().add(bf.getFd());
@@ -135,6 +135,7 @@ public abstract class BlockStorage extends Thread {
 
         if (blockFiles.contains(root)) {
             bf = getBlockFile(root);
+            if (bf == null) throw new IOException("Could not load BlockFile - maybe you have you removed files from the incomplete folder?");
             if(T.t)T.ass(bf.getFd().getRootHash().equals(root),"Root hash mismatch in block storage! "+bf.getFd().getRootHash()+" "+root+" "+fd.getRootHash());
         } else {
             if(T.t)T.trace("New BlockFile created");
@@ -222,6 +223,10 @@ public abstract class BlockStorage extends Thread {
             return getBlockFile(rootHash).isBlockComplete(blockNumber);
         }
         return false;
+    }
+
+    public BlockFile getCachedBlockFile(Hash root) {
+        return blockFileCache.get(root);
     }
 
     public BlockFile getBlockFile(Hash root) throws IOException {

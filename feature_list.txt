@@ -1,2 +1,4 @@
 * upnp
 * works behind firewalls
+* scalable: works with shares that are 1Tb big and contain 100 000 files
+* fast: optimized search index 
