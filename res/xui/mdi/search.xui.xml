@@ -30,7 +30,7 @@ Q:\rs.stendahls.net\XUI\xui.xsd">
                         </panel>
                     <filler/>
                     <panel border="6" axis="x">
-                        <mlabel id="label" html="yes">Look for popular files in: &#160; [a href="http://2"]Video[/a] &#160; [a href="http://1"]Audio[/a] &#160; [a href="http://4"]Archives[/a] &#160; [a href="http://3"]CD/DVD Images[/a] &#160; [a href="http://6"]Documents[/a] &#160; [a href="http://5"]Pictures[/a] &#160; [a href="http://7"]Presentations[/a][br]Tip: Click on "Days Ago" column to get new files first. Click on "Speed" to get fastest downloads first.</mlabel>
+                        <mlabel id="label" html="yes">Look for popular files in: &#160; [a href="http://2"]Video[/a] &#160; [a href="http://1"]Audio[/a] &#160; [a href="http://3"]CD/DVD Images[/a] &#160; [a href="http://5"]Pictures[/a] &#160; [a href="http://6"]Documents[/a] &#160; [a href="http://4"]Archives[/a] &#160; [a href="http://7"]Presentations[/a][br]Tip: Click on "Days Ago" column to get new files first. Click on "Speed" to get fastest downloads first.</mlabel>
                     </panel>
                     <filler/>
                 </panel>
