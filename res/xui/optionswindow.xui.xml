@@ -222,6 +222,13 @@
                     <filler/>
                 </panel>
 
+                <panel axis="y" bordertype="etched" bordertitle="Support for East Asian characters">
+                    <panel border="0" axis="x" expand="horiz">
+                        <checkbox id="internal.enablesupportfornonenglishcharacters" text="Enable support for non-english characters (requires restart)"/>
+                        <filler/>
+                    </panel>
+                </panel>
+
             </tab>
         </tabbedpanel>
         <panel border="5" axis="x" expand="horiz">

@@ -32,7 +32,7 @@ Todo:
     * nåt åt detta hållet är viktigt så man inte chokar noobs kopplingar: if (uploaded > 100mb and uploded_to > 2 persons and bandwidth_thottle_not_set) set_throttle_and_notify_when_ui_is_up
     * internationalisering - massa folk hade översatt om det gick..   tänk på detta. hade varit jävligt najs.  man får välja språk i runtime. najs.
     * dubbelklick på nerladdad fil öppnar den
-    * stöd för att skapa connection koder inom samma nätverk * lägg till ett meddelande när man försöker connecta till en dator i samma nätverk
+    * flera personer frågar efter detta: stöd för att skapa connection koder inom samma nätverk * lägg till ett meddelande när man försöker connecta till en dator i samma nätverk
     * command-line start. Linuxanvändare intresserade av det.
     * feedback formulär
     * fixa java 6.0 system tray

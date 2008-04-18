@@ -46,6 +46,8 @@ public class Internal extends SettingClass {
     private Integer hastriedtoinviteafriend;
     private Integer hasneverdownloadedafile=1;
 
+    private Integer enablesupportfornonenglishcharacters=0;
+
     private Integer invitationmayonlybeusedonce=1;
 
     private Integer secondstoaway=60*5;
@@ -492,5 +494,13 @@ public class Internal extends SettingClass {
 
     public void setRescansharewhenalliancestarts(Integer rescansharewhenalliancestarts) {
         this.rescansharewhenalliancestarts = rescansharewhenalliancestarts;
+    }
+
+    public Integer getEnablesupportfornonenglishcharacters() {
+        return enablesupportfornonenglishcharacters;
+    }
+
+    public void setEnablesupportfornonenglishcharacters(Integer enablesupportfornonenglishcharacters) {
+        this.enablesupportfornonenglishcharacters = enablesupportfornonenglishcharacters;
     }
 }

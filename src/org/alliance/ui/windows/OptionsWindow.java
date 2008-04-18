@@ -44,7 +44,8 @@ public class OptionsWindow extends XUIDialog {
             "internal.showpublicchatmessagesintray",
             "internal.showprivatechatmessagesintray",
             "internal.showsystemmessagesintray",
-            "internal.rescansharewhenalliancestarts"
+            "internal.rescansharewhenalliancestarts",
+            "internal.enablesupportfornonenglishcharacters"
     };
 
     private UISubsystem ui;

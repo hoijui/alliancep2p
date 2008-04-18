@@ -87,6 +87,10 @@ public class UISubsystem implements UINexus, Subsystem {
                 //SyntheticaSkyMetallicLookAndFeel lnf = new SyntheticaSkyMetallicLookAndFeel();
                 //SyntheticaOrangeMetallicLookAndFeel lnf = new SyntheticaOrangeMetallicLookAndFeel();
                 UIManager.setLookAndFeel(lnf);
+                if (core.getSettings().getInternal().getEnablesupportfornonenglishcharacters() != null &&
+                     core.getSettings().getInternal().getEnablesupportfornonenglishcharacters() == 1) {
+                    SyntheticaLookAndFeel.setFont("Dialog", 12);
+                }
             } catch(Exception e) {
                 e.printStackTrace();
             }
