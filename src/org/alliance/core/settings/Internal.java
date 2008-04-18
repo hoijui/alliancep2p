@@ -44,6 +44,7 @@ public class Internal extends SettingClass {
 
     private Long lastnaggedaboutinvitingafriend;
     private Integer hastriedtoinviteafriend;
+    private Integer hasneverdownloadedafile=1;
 
     private Integer invitationmayonlybeusedonce=1;
 
@@ -472,5 +473,13 @@ public class Internal extends SettingClass {
 
     public void setHastriedtoinviteafriend(Integer hastriedtoinviteafriend) {
         this.hastriedtoinviteafriend = hastriedtoinviteafriend;
+    }
+
+    public Integer getHasneverdownloadedafile() {
+        return hasneverdownloadedafile;
+    }
+
+    public void setHasneverdownloadedafile(Integer hasneverdownloadedafile) {
+        this.hasneverdownloadedafile = hasneverdownloadedafile;
     }
 }

@@ -75,7 +75,7 @@ public class SearchMDIWindow extends AllianceMDIWindow {
                         ui.handleErrorInEventLoop(e1);
                     }
                 } else if (e.getEventType() == HyperlinkEvent.EventType.ENTERED) {
-                    ui.getMainWindow().setStatusMessage("Click here to search for new files in type "+ft.description());
+                    ui.getMainWindow().setStatusMessage("Click here to search for new and popular files in type "+ft.description());
                 }
             }
         });

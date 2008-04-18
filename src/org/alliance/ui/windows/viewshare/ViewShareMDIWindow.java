@@ -4,6 +4,7 @@ import com.stendahls.nif.ui.OptionDialog;
 import com.stendahls.nif.ui.framework.TreeState;
 import com.stendahls.nif.ui.mdi.MDIWindow;
 import com.stendahls.util.TextUtils;
+import com.stendahls.ui.JHtmlLabel;
 import org.alliance.core.comm.rpc.GetHashesForPath;
 import org.alliance.core.file.filedatabase.FileType;
 import org.alliance.core.file.filedatabase.FileDescriptor;
@@ -15,6 +16,8 @@ import org.alliance.ui.UISubsystem;
 import org.alliance.ui.windows.AllianceMDIWindow;
 
 import javax.swing.*;
+import javax.swing.event.HyperlinkListener;
+import javax.swing.event.HyperlinkEvent;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreePath;
 import java.awt.*;
@@ -45,7 +48,7 @@ public class ViewShareMDIWindow extends AllianceMDIWindow {
     private ImageIcon[] fileTypeIcons;
     private ImageIcon folderIconExpanded, folderIconCollapsed;
 
-    public ViewShareMDIWindow(UISubsystem ui, Node remote) throws Exception {
+    public ViewShareMDIWindow(final UISubsystem ui, Node remote) throws Exception {
         super(ui.getMainWindow().getMDIManager(), (remote instanceof MyNode) ? "viewmyshare" : "viewshare", ui);
         this.remote = remote;
         setTitle(remote.nickname());
@@ -91,11 +94,24 @@ public class ViewShareMDIWindow extends AllianceMDIWindow {
             }
         });
 
-
-
         ((JScrollPane)xui.getComponent("treepanel")).setViewportView(tree);
 
         popup = (JPopupMenu)xui.getComponent(remote instanceof MyNode ? "popupme" : "popup");
+
+        if (xui.getComponent("chatmessage") != null) {
+            JHtmlLabel l = (JHtmlLabel) xui.getComponent("chatmessage");
+            l.addHyperlinkListener(new HyperlinkListener() {
+                public void hyperlinkUpdate(HyperlinkEvent e) {
+                    if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
+                        try {
+                            EVENT_chat(null);
+                        } catch (Exception e1) {
+                            ui.handleErrorInEventLoop(e1);
+                        }
+                    }
+                }
+            });
+        }
 
         JLabel status = (JLabel) xui.getComponent("status");
         status.setText(TextUtils.formatByteSize(remote.getShareSize())+" in "+remote.getNumberOfFilesShared()+" files");
@@ -159,6 +175,11 @@ public class ViewShareMDIWindow extends AllianceMDIWindow {
 
         ui.getMainWindow().getPublicChat().send(link);
         ui.getMainWindow().getMDIManager().selectWindow(ui.getMainWindow().getPublicChat());
+    }
+
+    public void EVENT_chat(ActionEvent e) throws Exception {
+        if (remote instanceof MyNode) return;
+        ui.getMainWindow().chatMessage(remote.getGuid(), null, 0);
     }
 
     public void EVENT_download(ActionEvent e) {

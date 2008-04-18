@@ -235,7 +235,7 @@ public class OptionsWindow extends XUIDialog {
         if (apply()) {
             dispose();
             if (openedWithUndefiniedNickname) {
-                OptionDialog.showInformationDialog(ui.getMainWindow(), "Now that you have set up Alliance it is time to connect to other users.[p]The add connection wizard will now open.[p]");
+                OptionDialog.showInformationDialog(ui.getMainWindow(), "It is time to connect to other users![p]Press OK to continue.[p]");
                 ui.getMainWindow().openWizard();
             }
         }

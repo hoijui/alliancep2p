@@ -5,11 +5,14 @@ import org.alliance.core.UICallback;
 import org.alliance.core.comm.SearchHit;
 import org.alliance.core.node.Friend;
 import org.alliance.core.node.Node;
+import org.alliance.launchers.OSInfo;
 
 import javax.swing.*;
 import java.util.List;
 import java.awt.*;
 import java.lang.reflect.InvocationTargetException;
+
+import com.stendahls.nif.ui.OptionDialog;
 
 /**
  * Created by IntelliJ IDEA.
@@ -77,6 +80,17 @@ public class UIBridge implements UICallback {
     }
 
     public void newUserInteractionQueued(NeedsUserInteraction ui) {
+    }
+
+    public void firstDownloadEverFinished() {
+        if (OSInfo.isWindows()) {
+            SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    OptionDialog.showInformationDialog(ui.getMainWindow(),
+                            "Congratulations! You have downloaded your first file using Alliance.[p]To find your Alliance downloads use the shortcut on the Desktop called 'My Alliance Downloads'.");
+                }
+            });
+        }
     }
 
     public void noRouteToHost(final Node node) {

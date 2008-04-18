@@ -63,6 +63,7 @@ public class NonWindowUICallback implements UICallback {
         
     }
 
+    public void firstDownloadEverFinished() {}
     public void signalFileDatabaseFlushStarting() {
     }
 

@@ -375,7 +375,7 @@ public class AddFriendWizard extends JWizard {
         connectionThread = new Thread(new Runnable() {
             public void run() {
                 try {
-                    Thread.sleep(1000*10);
+                    Thread.sleep(1000*20);
                     SwingUtilities.invokeLater(new Runnable() {
                         public void run() {
                             goToConnectionFailed();

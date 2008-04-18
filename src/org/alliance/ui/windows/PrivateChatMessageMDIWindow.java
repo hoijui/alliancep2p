@@ -4,6 +4,7 @@ import org.alliance.core.comm.rpc.ChatMessage;
 import org.alliance.core.comm.rpc.ChatMessageV2;
 import org.alliance.ui.UISubsystem;
 
+import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.util.Date;
@@ -25,6 +26,13 @@ public class PrivateChatMessageMDIWindow extends AbstractChatMessageMDIWindow {
         setTitle("Private chat with "+ui.getCore().getFriendManager().nickname(guid));
 
         postInit();
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                chat.setText("Type here and then press 'send' to start chatting.");
+                chat.requestFocus();
+                chat.selectAll();
+            }
+        });
     }
 
     protected void send(final String text) throws IOException {

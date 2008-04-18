@@ -21,23 +21,19 @@ Q:\rs.stendahls.net\XUI\xui.xsd">
                 <strut width="5"/>
             </panel>
         </panel>
-        <panel axis="y" border="0,0,0,5">
-            <panel axis="y" border="0,0,0,0" expand="horiz">
-                <strut width="7"/>
-                <panel border="0" axis="x">
-                    <panel axis="x" border="5,0,0,0">
-                    <toolbar opaque="false" id="toolbar" expand="horiz"/>
-                        </panel>
-                    <filler/>
-                    <panel border="6" axis="x">
-                        <mlabel id="label" html="yes">Look for popular files in: &#160; [a href="http://2"]Video[/a] &#160; [a href="http://1"]Audio[/a] &#160; [a href="http://3"]CD/DVD Images[/a] &#160; [a href="http://5"]Pictures[/a] &#160; [a href="http://6"]Documents[/a] &#160; [a href="http://4"]Archives[/a] &#160; [a href="http://7"]Presentations[/a][br]Tip: Click on "Days Ago" column to get new files first. Click on "Speed" to get fastest downloads first.</mlabel>
-                    </panel>
-                    <filler/>
-                </panel>
+        <panel axis="y" border="0">
+            <panel axis="x" border="2,0,0,0">
+                <toolbar opaque="false" id="toolbar" expand="horiz"/>
             </panel>
             <scrollpanel expand="both" scrollbars="optional" id="treepanel" bordertype="none">
                 <table id="table"/>
             </scrollpanel>
+            <panel axis="x" border="0,5,0,2" maxheight="102">
+                <strut width="8"/>
+                <image src="gfx/icons/tip.png"/>
+                <strut width="8"/>
+                <mlabel id="label" html="yes">Look for popular files in: &#160; [a href="http://2"]Video[/a] &#160; [a href="http://1"]Audio[/a] &#160; [a href="http://3"]CD/DVD Images[/a] &#160; [a href="http://5"]Pictures[/a] &#160; [a href="http://6"]Documents[/a] &#160; [a href="http://4"]Archives[/a] &#160; [a href="http://7"]Presentations[/a][br]Tip: Click on "Days Ago" column to get new files first. Click on "Speed" to get fastest downloads first.</mlabel>
+            </panel>
         </panel>
         <panel axis="x" opaque="false" border="8,6,0,1" expand="horiz">
             <label id="left" text=" "/><filler expand="horiz"/><label id="right" text=" "/><strut width="5"/>

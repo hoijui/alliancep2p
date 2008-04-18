@@ -14,20 +14,20 @@
         <action
                 id="chat"
                 name="Private chat"
-                description="Open private chat window to selected friend"
+                description="Start private chat with selected friend"
                 menuimage="gfx/icons/chatmessage.png"
                 toolbarimage="gfx/icons/chatmessage.png"
                 addInMenu="file"
                 accelerator="f6"
                 mnemonic="c"/>
-        <action
+<!--        <action
                 id="viewshare"
                 name="View share"
                 description="View what files the selected friend is sharing"
                 menuimage="gfx/icons/folder_view.png"
                 toolbarimage="gfx/icons/folder_view.png"
                 addInMenu="file"
-                mnemonic="v"/>
+                mnemonic="v"/>-->
         <action
                 id="editname"
                 name="Edit nickname"
@@ -142,6 +142,15 @@
                 addInMenu="file"
                 accelerator="enter"
                 mnemonic="d"/>
+        <action
+                id="chat"
+                name="Chat"
+                description="Start private chat with this friend"
+                menuimage="gfx/icons/chatmessage.png"
+                toolbarimage="gfx/icons/chatmessage.png"
+                addInMenu="file"
+                accelerator="f6"
+                mnemonic="c"/>
         <action filler="true"/>
         <action
                 id="close"

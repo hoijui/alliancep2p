@@ -5,7 +5,7 @@
         <wizard id="wizard" implementation="org.alliance.ui.addfriendwizard.AddFriendWizard" text="" image="gfx/wizardimage.jpg">
 
             <step text="">
-                <mlabel html="yes">This wizard helps you connect to your friends, coworkers or family members using Alliance.
+                <mlabel html="yes">This will help you connect to your friends, coworkers or family members using Alliance.
                     [p]
                 </mlabel>
                 <strut height="5"/>
@@ -130,10 +130,9 @@
 
             <step text="">
                 <mlabel html="yes">
-                    You have successfully sent invitations to all selected connections!
+                    You have sent invitations to all selected connections!
                     [p]
-                    Now you have to wait for your connections and their connections to accept your invitations.
-                    After that your Alliance will automatically connect to your new connections.
+                    Now you have to wait for your connections to accept your invitations.
                     [p]
                     Click Finish to complete the wizard.
                 </mlabel>

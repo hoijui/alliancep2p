@@ -45,6 +45,7 @@ public class TrayIconSubsystem implements Subsystem, Runnable {
         extractNativeLibs();
         initTray();
         core.setUiCallback(new UICallback() {
+            public void firstDownloadEverFinished() {}
             public void signalFileDatabaseFlushStarting() {}
             public void signalFileDatabaseFlushComplete() {}
             public void nodeOrSubnodesUpdated(Node node) {}

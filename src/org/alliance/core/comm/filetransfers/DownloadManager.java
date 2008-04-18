@@ -201,6 +201,10 @@ public class DownloadManager extends Manager implements Runnable {
     }
 
     public void downloadComplete(Download download) throws IOException {
+        if (core.getSettings().getInternal().getHasneverdownloadedafile() != null && core.getSettings().getInternal().getHasneverdownloadedafile() == 1) {
+            core.getSettings().getInternal().setHasneverdownloadedafile(0);
+            core.getUICallback().firstDownloadEverFinished();
+        }
         //start new download if there's one queued
 //        checkForDownloadsToStart();
 // let user remove completed downloads
