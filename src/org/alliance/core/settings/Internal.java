@@ -63,6 +63,8 @@ public class Internal extends SettingClass {
     private Integer showprivatechatmessagesintray=1;
     private Integer showsystemmessagesintray=1;
 
+    private Integer rescansharewhenalliancestarts=1;
+
     private Integer minimumtimebetweeninvitations = 60*24*2; //in minutes
 
     /** Be polite when running on XP sp2 wich only allows 10 pending tcp/ip connections
@@ -481,5 +483,14 @@ public class Internal extends SettingClass {
 
     public void setHasneverdownloadedafile(Integer hasneverdownloadedafile) {
         this.hasneverdownloadedafile = hasneverdownloadedafile;
+    }
+
+
+    public Integer getRescansharewhenalliancestarts() {
+        return rescansharewhenalliancestarts;
+    }
+
+    public void setRescansharewhenalliancestarts(Integer rescansharewhenalliancestarts) {
+        this.rescansharewhenalliancestarts = rescansharewhenalliancestarts;
     }
 }

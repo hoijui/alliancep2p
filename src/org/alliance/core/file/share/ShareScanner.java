@@ -54,6 +54,7 @@ public class ShareScanner extends Thread {
         });
 
         scannerHasBeenStarted = true;
+        if (core.getSettings().getInternal().getRescansharewhenalliancestarts() != null && core.getSettings().getInternal().getRescansharewhenalliancestarts() != 1) waitForNextScan();
         while(alive) {
             scanInProgress = true;
             filesScannedCounter = 0;
@@ -110,16 +111,20 @@ public class ShareScanner extends Thread {
             shouldBeFastScan = false;
             scanInProgress = false;
             if (!alive) break;
-            try {
-                if(T.t)T.info("Wating for next share scan.");
-                if (filesQueuedForHashing.size() > 0) {
-                    if(T.t)T.info("Files are in hash que so don't wait for too long");
-                    Thread.sleep(1000*5);
-                } else  {
-                    Thread.sleep(getShareManagerCycle());
-                }
-            } catch(Exception e) {}
+            waitForNextScan();
         }
+    }
+
+    private void waitForNextScan() {
+        try {
+            if(T.t)T.info("Wating for next share scan.");
+            if (filesQueuedForHashing.size() > 0) {
+                if(T.t)T.info("Files are in hash que so don't wait for too long");
+                Thread.sleep(1000*5);
+            } else  {
+                Thread.sleep(getShareManagerCycle());
+            }
+        } catch(Exception e) {}
     }
 
     private long getShareManagerCycle() {

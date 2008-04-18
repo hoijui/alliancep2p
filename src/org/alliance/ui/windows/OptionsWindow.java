@@ -43,7 +43,8 @@ public class OptionsWindow extends XUIDialog {
             "internal.encryption",
             "internal.showpublicchatmessagesintray",
             "internal.showprivatechatmessagesintray",
-            "internal.showsystemmessagesintray"
+            "internal.showsystemmessagesintray",
+            "internal.rescansharewhenalliancestarts"
     };
 
     private UISubsystem ui;

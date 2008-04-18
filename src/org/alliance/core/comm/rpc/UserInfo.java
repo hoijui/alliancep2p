@@ -28,7 +28,11 @@ public class UserInfo extends RPC {
 
     public void execute(Packet in) throws IOException {
         Friend f = con.getRemoteFriend();
-
+        if (f == null) {
+            //this can happen when a friend is removed using the UI. Just blow this connection away.
+            con.close();
+            return;
+        }
         boolean guidMismatch = false;
         int remoteGUID = in.readInt();
         if (remoteGUID != f.getGuid()) {

@@ -1,44 +1,7 @@
-complete:
-    * när man ska skapa nätverkskod:   if (port_test_is_online) perform_port_test
-    * lŠgg till koll nŠ man ska flytta fil frŒn incomplete - fŒr det inte? sŠg till att det fšrmodligen Šr ett rŠttighetsproblem
-    * byt till stendahls-commons, borde bara vara att byta jar
-    * när en tom map finns i share blir view share lite konstig
-    * installera nya synthetica så att alliance inte maximerar över hela skärmen, inkl startmeny
-    * när man trycker på refresh kan den köra pontus clean-up kod som ska ta bort filer som inte finns längre - har lovat detta vissa användare som verkligen ville ha det - testa. det kanske fungerar bra. Överväg att ha uppe en dialog när man scannar i full fart - neh. det är nog störigt.. om man kan minimera så kanske.. men.. hmm.
-    * synthetica buggar på alla javaversioner
-    * ny cellrenderer i duplicates
-    * fixa alla fel som finns i top 10
-    * det buggar väl inte längre? : glöm inte att ta bort GetUserList flood grejjerna.. - det buggar fortfarande - dom kan ställa till med problem i framtiden - och det är en UI referens i CORE
-    * när man tar bort en share verkar inte filerna försvinna ur share
-    * win32 api med file system events - FÄRDIGT JAVA API FÖR DETTA: http://www2.hawaii.edu/~qzhang/FileSystemWatcher/index.html
-    * sådant som är roligt att veta (antat TB upladdat t.ex.) kan synas i en inforuta när man tar view share - eftersom view share kommer fram nät man klickar på användaren
-    * när man kör över rdp och loggar ut oscilerar away-ikonen
-    * när jag skickar chatmeddelanden från tindra kommer dom upp som private meddelanden på root - med html.
-    * timestamp på chatmeddelanden - så att dom kommer i rätt ordning
-    * när man tar en kopia på en fil skapas "copy" i filnamnet men ändå funkar det inte som det ska i duplicates
-    * den hashar om filer gång på gång igen.. när jag flyttade firefly hashade den vissa filer typ tre gånger..?
-    * när man delar ut mycket tar det typ 5 sekunder för att flusha indexet - och då låster sig ALLT - har fixat så den flushar mest när man är iväg från datorn
-    * autmatisk restart var fjärde timme
-    * lägg till king ikon
-    * ta upp rekommendation om att man ska bjuda in kompisar efter ett tag - och fortsätt visa den en gång i veckan typ
-    * can't move bug. verkar gå att återskapa på dragon men inte på root
-    * vekrar läcka minne som ett såll när man tar ner många små filer
-
-gŒ igenom faq och getting started - getting started ska vara riktad till folk som vill starta ett nytt nŠtverk
-gräv inte ner dig i detaljer.   var smart. koncentrera dig på det viktigaste. lägg till få nya funktioner. typ:
-  connectiionskoder krånglar
-        * typ:    Click here to download and start alliance. Once alliance starts you will automatically connect to your friends network.
-  kopllingar buggar
-  sätt att bjuda in. central server som hjälper kanske
-  siten är ju relativt viktig. MEN det viktigaste är att få det att sprida sig igenom word of mouth. Det spelar ingen roll om 100 pers kommer in och testar programmet - förmodligen orkar ingen av dom att starta ett nätverk ändå.
-  nuvarande compressed path collection tar c:a 5mb heap -> 10mb minne när man har 20 000 filer utdelat
-
 Annat:
-    * testa med sketstor share. gärna en tb men 500gb går bra också.
-    * usability testa! roligt. testa allt från installation till .. allt annat       kanske på stina?      * har med usability test att göra: downloadknappen sittter på ett konstigt ställe. kommer noobs hitta den - testa på stina t.ex.
+    * gŒ igenom faq och getting started - getting started ska vara riktad till folk som vill starta ett nytt nŠtverk
     * sett upp forum: http://alliancetalk.proboards91.com/index.cgi
     * SEO
-    * stŠll in sŒ att alliance fŒr ta mer minne pŒ windows - det finns en platŒ vid 50000 filer, tror det Šr fšr att det Šr dŒ minnet tar slut kanske? - eller snarare optimera minnesanvänding
     * tŠnk igenom standardfallet: en noob blir inbjuden. hur gŒr man vidare dŠrifrŒn till att han bjuder in sina msn-vŠnner?
         optimalt:
             han fŒr en lŠnk frŒn en kompis. klicka pŒ den fšr att gŒ med i mitt nŠtverk
@@ -51,20 +14,13 @@ Annat:
             wizarden kommer upp. anvŠndaren kan bjuda in msn-vŠnner, bjuda in igenom att skicka mail eller bjuda in manuellt igenom att skicka en lŠnk till en kompis pŒ valfritt sŠtt
             anvŠndaren uppmuntras till att bjuda in msn vŠnner och gšr detta
             anvŠndaren drar in ett gŠng msnvŠnner och vŠljer send. goto 10
-
-Lösa tankar:
-    * den som bjudit in flest Šr "kungen". denne kan sŠtta ett sŒnt dŠr dc meddelande fšr hela hubben.
-    * åtminstone se ratio i listan.. åååtminstone i advanced mode
-    * ett stort problem verkar vara nätverksstabilitet också - erik svarar inte fastän han finns på listan. Det ser ut som att många är inloggade men i själva verket är det få som svarar. kanske starta om regelbundet? reconnecta till alla regelbunnet?
     * får inte visa hundra "you have successfully connected to" - tänk på noobs - fast det är lite krångligt att fixa
-    * ha en grafisk representation av dl hastighet - en rött/gult/grönt gubbe som är olika glad är nog bra   så kan ingen missa det..
 
 Todo:
     * [21:32] maciek: och skicka svaret till mig..  [21:57] Erik: FileDescriptor Allocation Table size: 30373 keywords in index: 598 keys in base hashtable: 28521 duplicates: 141 filename list: 28521 filedescriptors cahced: 26 % of filedescriptor databse marked for deletion: 23%
     * stöd för dyndns namn i my ip. kolla hur detta fungerar. det är en riktigt klok och proffsig grej att ha - så kan ett litet nätverk överleva om alla har dynamisk ip
 
-
-    * lägg till advanced vy i friendslist. -- eftersom "via" grejjen fungerar dåligt kan den tas bort -- ratio, max up och max ner. roligt för tekniskare användare. Gör en kool ikon för den så man ser den. - eller välj vilka kolumner man visar per default - default ska nog vara name och ratio (och kanske share size?)
+    * lägg till advanced vy i friendslist. -- eftersom "via" grejjen fungerar dåligt kan den tas bort (kanske?) -- ratio, max up och max ner. roligt för tekniskare användare. Gör en kool ikon för den så man ser den. - eller välj vilka kolumner man visar per default - default ska nog vara name och ratio (och kanske share size?)
     * window.tofront när man får meddelanden. Ska titta på options för taskbar bubblor
     * move to top/bottom i downloads. Många har hundra downloads i sin lista. roligt att trycka up hundra gånger.
     * drag'n'drop från msn - bara man kan förklara det på ett enkelt sätt så är det lika bra som fullständig integration - tänk på att jag redan har färdig kod för att skicka mail - errorreporter
@@ -76,7 +32,6 @@ Todo:
     * nåt åt detta hållet är viktigt så man inte chokar noobs kopplingar: if (uploaded > 100mb and uploded_to > 2 persons and bandwidth_thottle_not_set) set_throttle_and_notify_when_ui_is_up
     * internationalisering - massa folk hade översatt om det gick..   tänk på detta. hade varit jävligt najs.  man får välja språk i runtime. najs.
     * dubbelklick på nerladdad fil öppnar den
-    * Fair enough. I'll add two new options in the options dialog: [X] Scan share when Alliance starts Rescan share automatically every ___ minutes
     * stöd för att skapa connection koder inom samma nätverk * lägg till ett meddelande när man försöker connecta till en dator i samma nätverk
     * command-line start. Linuxanvändare intresserade av det.
     * feedback formulär

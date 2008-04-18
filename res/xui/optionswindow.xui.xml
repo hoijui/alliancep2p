@@ -190,6 +190,11 @@
                         <label text=" GiB have been hashed."/>
                         <filler expand="horiz"/>
                     </panel>
+                    <strut height="10"/>
+                    <panel border="0" axis="x" expand="horiz">
+                        <checkbox id="internal.rescansharewhenalliancestarts" text="Scan share when Alliance starts (recommended)"/>
+                        <filler/>
+                    </panel>
                 </panel>
 
                 <panel axis="y" bordertype="etched" bordertitle="Server">
