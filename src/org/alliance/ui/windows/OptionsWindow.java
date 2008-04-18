@@ -80,7 +80,7 @@ public class OptionsWindow extends XUIDialog {
         for (Share share : ui.getCore().getSettings().getSharelist()) shareListModel.addElement(share.getPath());
         shareList.setModel(shareListModel);
 
-        openedWithUndefiniedNickname = nickname.getText().equals(My.UNDEFINED_NICKNAME);
+        openedWithUndefiniedNickname = ui.getCore().getSettings().getMy().getNickname().equals(My.UNDEFINED_NICKNAME);
 
         if (ui.getCore().getUpnpManager().isPortForwardSuccedeed()) {
             ((JHtmlLabel) xui.getComponent("portforward")).setText("Port successfully forwarded in your router using UPnP.");
