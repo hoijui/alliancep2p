@@ -1,22 +1,17 @@
 package org.alliance.core.file.share;
 
-import qzhang.io.FileSystemWatcher;
-import qzhang.io.FileSystemEventListener;
-import qzhang.io.NotifyFilters;
+import com.stendahls.util.TextUtils;
+import net.contentobjects.jnotify.JNotify;
+import net.contentobjects.jnotify.JNotifyListener;
+import static org.alliance.core.CoreSubsystem.KB;
+import org.alliance.core.T;
+import org.alliance.launchers.OSInfo;
 
-import java.util.ArrayList;
-import java.io.IOException;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
-
-import org.alliance.core.T;
-import static org.alliance.core.CoreSubsystem.KB;
-import org.alliance.launchers.OSInfo;
-import net.contentobjects.jnotify.JNotify;
-import net.contentobjects.jnotify.JNotifyException;
-import net.contentobjects.jnotify.JNotifyListener;
-import com.stendahls.util.TextUtils;
+import java.util.ArrayList;
 
 /**
  * Created by IntelliJ IDEA.
