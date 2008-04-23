@@ -1,0 +1,11 @@
+net.contentobjects.jnotify.win32.JNotifyException_win32: Error 5 : Access is denied. : H:/Documentaries
+	at net.contentobjects.jnotify.win32.JNotify_win32.addWatch(Unknown Source)
+	at net.contentobjects.jnotify.win32.JNotifyAdapterWin32.addWatch(Unknown Source)
+	at net.contentobjects.jnotify.JNotify.addWatch(Unknown Source)
+	at org.alliance.core.file.share.FileSystemMonitor.launch(FileSystemMonitor.java:62)
+	at org.alliance.core.file.share.ShareManager.updateShareBases(ShareManager.java:56)
+	at org.alliance.core.file.share.ShareManager.<init>(ShareManager.java:40)
+	at org.alliance.core.file.FileManager.init(FileManager.java:52)
+	at org.alliance.core.CoreSubsystem.init(CoreSubsystem.java:132)
+	at org.alliance.launchers.ui.Main.initCore(Main.java:144)
+	at org.alliance.launchers.ui.Main.main(Main.java:42)
