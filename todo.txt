@@ -17,7 +17,7 @@ Annat:
     * får inte visa hundra "you have successfully connected to" - tänk på noobs - fast det är lite krångligt att fixa
 
 Todo:
-    * slŒ av aa pŒ jhtmllabel och se till att processen fortsŠtter gŒ nŠr man stŠnger fšnstret - pŒ nŒt sŠtt ska fšnstret šppnas igen nŠr man klickar pŒ applikationen igen iofs
+    * slŒ av aa pŒ jhtmllabel och se till att processen fortsŠtter gŒ nŠr man stŠnger fšnstret - pŒ nŒt sŠtt ska fšnstret šppnas igen nŠr man klickar pŒ applikationen igen iofs - och anvŠnd awt.FileDialog
     * [21:32] maciek: och skicka svaret till mig..  [21:57] Erik: FileDescriptor Allocation Table size: 30373 keywords in index: 598 keys in base hashtable: 28521 duplicates: 141 filename list: 28521 filedescriptors cahced: 26 % of filedescriptor databse marked for deletion: 23%
     * stöd för dyndns namn i my ip. kolla hur detta fungerar. det är en riktigt klok och proffsig grej att ha - så kan ett litet nätverk överleva om alla har dynamisk ip
 
