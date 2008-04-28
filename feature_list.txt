@@ -1,6 +1,7 @@
-* upnp
-* works behind firewalls
-* scalable: works with shares over 500 GB big that contain over 50 000 files
-* fast: optimized search index
-* Fast downloads - bit torrent like
-* Secure - 
+* works behind firewalls: reverse downloading - upnp
+* scalable: works with shares over 500 GB big and contain over 50 000 files
+* fast: highly optimized search index - bittorrent like downloads optimized for speed
+* low memory usage: special background mode with small memory footprint
+* secure - friend-2-friend topology - all communication encrypted
+* easy to use: thoroghly usability tested
+* internationalized - full support for unicode including support for East Asian characters

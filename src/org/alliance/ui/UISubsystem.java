@@ -42,15 +42,17 @@ public class UISubsystem implements UINexus, Subsystem {
     }
 
     /**
-     *
      * @param params - takes one parameter - a boolean indicating if Alliance should shutdown when window closes
      */
     public void init(ResourceLoader rl, final Object... params) throws Exception {
         this.rl = rl;
-        core = (CoreSubsystem)params[0];
+        core = (CoreSubsystem) params[0];
 
-        progress = new StartupProgressListener() {public void updateProgress(String message) {}};
-        if (params != null && params.length >= 3 && params[2] != null) progress = (StartupProgressListener)params[2];
+        progress = new StartupProgressListener() {
+            public void updateProgress(String message) {
+            }
+        };
+        if (params != null && params.length >= 3 && params[2] != null) progress = (StartupProgressListener) params[2];
         progress.updateProgress("Loading user interface");
 
         if (SwingUtilities.isEventDispatchThread()) {
@@ -78,32 +80,32 @@ public class UISubsystem implements UINexus, Subsystem {
                 return innerError.toString();
             }
         });
+        
 
-        if (!OSInfo.isMac()) {
-            try {
-                //SyntheticaLookAndFeel.setAntiAliasEnabled(true);
-                SyntheticaBlackStarLookAndFeel lnf = new SyntheticaBlackStarLookAndFeel();
-                //SyntheticaWhiteVisionLookAndFeel lnf = new SyntheticaWhiteVisionLookAndFeel();
-                //SyntheticaSkyMetallicLookAndFeel lnf = new SyntheticaSkyMetallicLookAndFeel();
-                //SyntheticaOrangeMetallicLookAndFeel lnf = new SyntheticaOrangeMetallicLookAndFeel();
-                UIManager.setLookAndFeel(lnf);
-                if (core.getSettings().getInternal().getEnablesupportfornonenglishcharacters() != null &&
-                     core.getSettings().getInternal().getEnablesupportfornonenglishcharacters() == 1) {
-                    SyntheticaLookAndFeel.setFont("Dialog", 12);
-                }
-            } catch(Exception e) {
-                e.printStackTrace();
+        try {
+            //SyntheticaLookAndFeel.setAntiAliasEnabled(true);
+            SyntheticaBlackStarLookAndFeel lnf = new SyntheticaBlackStarLookAndFeel();
+            //SyntheticaWhiteVisionLookAndFeel lnf = new SyntheticaWhiteVisionLookAndFeel();
+            //SyntheticaSkyMetallicLookAndFeel lnf = new SyntheticaSkyMetallicLookAndFeel();
+            //SyntheticaOrangeMetallicLookAndFeel lnf = new SyntheticaOrangeMetallicLookAndFeel();
+            UIManager.setLookAndFeel(lnf);
+            if (core.getSettings().getInternal().getEnablesupportfornonenglishcharacters() != null &&
+                    core.getSettings().getInternal().getEnablesupportfornonenglishcharacters() == 1) {
+                SyntheticaLookAndFeel.setFont("Dialog", 12);
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         Thread.setDefaultUncaughtExceptionHandler(new GlobalExceptionHandler());
 
-        if (T.t) SwingDeadlockWarningRepaintManager.hookRepaints(true, new String[]{"NetworkIndicator", "SystemMonitor"});
+        if (T.t)
+            SwingDeadlockWarningRepaintManager.hookRepaints(true, new String[]{"NetworkIndicator", "SystemMonitor"});
 
         try {
             mainWindow = new MainWindow();
-            mainWindow.init(UISubsystem.this, progress, params.length > 1 && (Boolean)params[1]);
-        } catch(Exception e) {
+            mainWindow.init(UISubsystem.this, progress, params.length > 1 && (Boolean) params[1]);
+        } catch (Exception e) {
             handleErrorInEventLoop(e);
         }
 
@@ -172,7 +174,7 @@ public class UISubsystem implements UINexus, Subsystem {
             if (Thread.currentThread().getName().indexOf(core.getFriendManager().getMe().getNickname()) == -1) {
                 String n = Thread.currentThread().getName();
                 if (n.indexOf(' ') != -1) n = n.substring(0, n.indexOf(' '));
-                Thread.currentThread().setName(n+" -- "+core.getFriendManager().getMe().getNickname());
+                Thread.currentThread().setName(n + " -- " + core.getFriendManager().getMe().getNickname());
             }
         }
     }
@@ -205,27 +207,27 @@ public class UISubsystem implements UINexus, Subsystem {
             if (osName.startsWith("Mac OS")) {
                 Class fileMgr = Class.forName("com.apple.eio.FileManager");
                 Method openURL = fileMgr.getDeclaredMethod("openURL",
-                        new Class[] {String.class});
-                openURL.invoke(null, new Object[] {url});
-            }
-            else if (osName.startsWith("Windows")) {
+                        new Class[]{String.class});
+                openURL.invoke(null, new Object[]{url});
+            } else if (osName.startsWith("Windows")) {
                 String s = "rundll32 url.dll,FileProtocolHandler " + url;
                 Runtime.getRuntime().exec(s);
             } else { //assume Unix or Linux
                 String[] browsers = {
-                        "firefox", "opera", "konqueror", "epiphany", "mozilla", "netscape" };
+                        "firefox", "opera", "konqueror", "epiphany", "mozilla", "netscape"};
                 String browser = null;
                 for (int count = 0; count < browsers.length && browser == null; count++)
                     if (Runtime.getRuntime().exec(
-                            new String[] {"which", browsers[count]}).waitFor() == 0)
+                            new String[]{"which", browsers[count]}).waitFor() == 0)
                         browser = browsers[count];
                 if (browser == null)
                     throw new Exception("Could not find web browser");
                 else
-                    Runtime.getRuntime().exec(new String[] {browser, url});
+                    Runtime.getRuntime().exec(new String[]{browser, url});
             }
         }
         catch (Exception e) {
-            OptionDialog.showErrorDialog(getMainWindow(), "Could not open url: "+e);
+            OptionDialog.showErrorDialog(getMainWindow(), "Could not open url: " + e);
         }
-    }}
+    }
+}
