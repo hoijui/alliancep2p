@@ -17,6 +17,7 @@ Annat:
     * fÂr inte visa hundra "you have successfully connected to" - t‰nk pÂ noobs - fast det ‰r lite krÂngligt att fixa
 
 Todo:
+    * lägg tips i vännerlista: klicka på en vän för att se vilka filer han delar ut. det finns folk som inte hittar funktionen - OCH LÄGG TILLBAKA KNAPPEN
     * gÂ igenom nyinkommna fel. finns tre kategorier: access denied pÂ jnotify copy; problem med settingsfilen; access denied n‰r man startar watch pÂ en denied katalog - just denna ‰r fixad redan tror jag
     * slå av aa på jhtmllabel och se till att processen fortsätter gå när man stänger fönstret - på nåt sätt ska fönstret öppnas igen när man klickar på applikationen igen iofs - och använd awt.FileDialog
     * [21:32] maciek: och skicka svaret till mig..  [21:57] Erik: FileDescriptor Allocation Table size: 30373 keywords in index: 598 keys in base hashtable: 28521 duplicates: 141 filename list: 28521 filedescriptors cahced: 26 % of filedescriptor databse marked for deletion: 23%
