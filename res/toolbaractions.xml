@@ -60,6 +60,15 @@
         <action separator="yes"/>
         <action separator="yes"/>
         <action
+                id="edithostname"
+                name="Edit hostname"
+                description="Change the hostname of selected friend - only you see this change"
+                menuimage="gfx/icons/connections.png"
+                toolbarimage="gfx/icons/connections.png"
+                addInMenu="file"
+                accelerator="ctrl-h"
+                mnemonic="h"/>    
+        <action
                 id="removefriend"
                 name="Remove friend"
                 description="Permanently remove the selected friend"
