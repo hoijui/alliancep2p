@@ -17,6 +17,7 @@ Annat:
     * får inte visa hundra "you have successfully connected to" - tänk på noobs - fast det är lite krångligt att fixa
 
 Todo:
+    * friends of friends uppdateras bara nŠr man starta om inte bra nŠr mŒnga joinar ett nŠtverket
     * lŠgg tips i vŠnnerlista: klicka pŒ en vŠn fšr att se vilka filer han delar ut. det finns folk som inte hittar funktionen - OCH L€GG TILLBAKA KNAPPEN
     * gå igenom nyinkommna fel. finns tre kategorier: access denied på jnotify copy; problem med settingsfilen; access denied när man startar watch på en denied katalog - just denna är fixad redan tror jag
     * slŒ av aa pŒ jhtmllabel och se till att processen fortsŠtter gŒ nŠr man stŠnger fšnstret - pŒ nŒt sŠtt ska fšnstret šppnas igen nŠr man klickar pŒ applikationen igen iofs - och anvŠnd awt.FileDialog
