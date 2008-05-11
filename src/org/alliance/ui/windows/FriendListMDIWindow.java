@@ -347,6 +347,7 @@ public class FriendListMDIWindow extends AllianceMDIWindow {
      */
     public void EVENT_edithostname(ActionEvent e) {
         if (list.getSelectedValue() == null) return;
+        if (!(list.getSelectedValue() instanceof Friend)) return;
 
         Friend friend = (Friend) list.getSelectedValue();
         if (friend != null) {

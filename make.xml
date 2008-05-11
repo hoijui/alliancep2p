@@ -46,7 +46,7 @@
             -keepattributes LineNumberTable
 
             -libraryjars "&lt;java.home&gt;/lib/rt.jar";"c:\Program Files\JetBrains\IntelliJ IDEA 6.0\lib\JUnit.jar"
-            -injars      lib
+            -injars      lib(!.svn/**)
             -outjar      build/alliance.jar
 
             -defaultpackage ''
