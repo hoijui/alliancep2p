@@ -17,6 +17,29 @@ Annat:
     * får inte visa hundra "you have successfully connected to" - tänk på noobs - fast det är lite krångligt att fixa
 
 Todo:
+
+
+
+Error stack trace:
+java.util.ConcurrentModificationException
+	at java.util.HashMap$HashIterator.nextEntry(Unknown Source)
+	at java.util.HashMap$ValueIterator.next(Unknown Source)
+	at org.alliance.core.node.FriendManager.getNFriendsConnected(FriendManager.java:253)
+	at org.alliance.ui.windows.FriendListMDIWindow.update(FriendListMDIWindow.java:73)
+	at org.alliance.ui.MainWindow$8.run(MainWindow.java:445)
+	at java.awt.event.InvocationEvent.dispatch(Unknown Source)
+	at java.awt.EventQueue.dispatchEvent(Unknown Source)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.awt.EventDispatchThread.run(Unknown Source)
+
+man kan ha html i namnet
+
+
+direct buffer mem lŠcker
     * default deny new friends
     * maximum allowed connected friends vore bra
     * default allow and connect to all friends.  Kanske i wizard: "[ ] Always try to connect to all friends of my friends"
