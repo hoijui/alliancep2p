@@ -12,9 +12,9 @@ import org.alliance.Subsystem;
 import org.alliance.core.CoreSubsystem;
 import static org.alliance.core.CoreSubsystem.ERROR_URL;
 import org.alliance.launchers.StartupProgressListener;
-import org.alliance.launchers.OSInfo;
 import org.alliance.ui.nodetreemodel.NodeTreeModel;
 import org.alliance.ui.nodetreemodel.NodeTreeNode;
+import org.alliance.ui.macos.OSXAdaptation;
 
 import javax.swing.*;
 import java.awt.*;
@@ -103,6 +103,7 @@ public class UISubsystem implements UINexus, Subsystem {
             SwingDeadlockWarningRepaintManager.hookRepaints(true, new String[]{"NetworkIndicator", "SystemMonitor"});
 
         try {
+            new OSXAdaptation(this);
             mainWindow = new MainWindow();
             mainWindow.init(UISubsystem.this, progress, params.length > 1 && (Boolean) params[1]);
         } catch (Exception e) {

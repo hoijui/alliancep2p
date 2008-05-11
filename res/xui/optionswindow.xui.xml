@@ -103,6 +103,9 @@
                         <checkbox id="internal.alwaysallowfriendsoffriendstoconnecttome" text="Always allow friends of my friends to connect to me"/><filler/>
                     </panel>
                     <panel axis="x" border="0" expand="horiz">
+                        <checkbox id="internal.alwaysautomaticallyconnecttoallfriendsoffriend" text="When a new friend connects to me automatically connect to all his friends"/><filler/>
+                    </panel>
+                    <panel axis="x" border="0" expand="horiz">
                         <checkbox id="internal.invitationmayonlybeusedonce" text="Connection codes I create may only be used once"/><filler/>
                     </panel>
                 </panel>

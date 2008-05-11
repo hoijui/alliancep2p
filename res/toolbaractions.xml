@@ -20,14 +20,14 @@
                 addInMenu="file"
                 accelerator="f6"
                 mnemonic="c"/>
-<!--        <action
+        <action
                 id="viewshare"
                 name="View share"
                 description="View what files the selected friend is sharing"
                 menuimage="gfx/icons/folder_view.png"
                 toolbarimage="gfx/icons/folder_view.png"
                 addInMenu="file"
-                mnemonic="v"/>-->
+                mnemonic="v"/>
         <action
                 id="editname"
                 name="Edit nickname"

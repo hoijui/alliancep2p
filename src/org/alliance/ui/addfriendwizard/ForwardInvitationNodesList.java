@@ -30,6 +30,7 @@ public class ForwardInvitationNodesList extends JList {
         addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 int index = locationToIndex(e.getPoint());
+                if (index == -1) return;
                 ListRow item = (ListRow) getModel().getElementAt(index);
                 item.selected = !item.selected;
                 if (item.selected) addFriendWizard.enableNext();
@@ -66,11 +67,11 @@ public class ForwardInvitationNodesList extends JList {
         }
     }
 
-    private static class ListRow {
-        String nickname, connectedThrough;
-        int guid;
-        String toString;
-        boolean selected;
+    public static class ListRow {
+        public String nickname, connectedThrough;
+        public int guid;
+        public String toString;
+        public boolean selected;
 
         public ListRow(String nickname, String connectedThrough, int guid) {
             this.nickname = nickname;

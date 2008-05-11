@@ -116,7 +116,7 @@ public class UIBridge implements UICallback {
     public void trace(final int level, final String message, Exception stackTrace) {
         ui.makeSureThreadNameIsCorrect();
 
-        if (ui.getMainWindow().getTraceWindow() == null) return;
+        if (ui == null || ui.getMainWindow() == null || ui.getMainWindow().getTraceWindow() == null) return;
 
         final Exception st;
         if (stackTrace == null)

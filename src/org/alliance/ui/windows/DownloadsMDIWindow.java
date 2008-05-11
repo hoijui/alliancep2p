@@ -172,7 +172,8 @@ public class DownloadsMDIWindow extends AllianceMDIWindow {
     private String getUploadingToText(DownloadWrapper w) {
         String text = null;
         final String s;
-        for(Connection c : ui.getCore().getNetworkManager().connections()) {
+        ArrayList<Connection> al = new ArrayList<Connection>(ui.getCore().getFriendManager().getNetMan().connections());
+        for(Connection c : al) {
             if (c instanceof UploadConnection) {
                 UploadConnection uc = (UploadConnection)c;
                 if (uc.getRoot() != null && uc.getRoot().equals(w.download.getRoot())) {

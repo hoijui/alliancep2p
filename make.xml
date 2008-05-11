@@ -45,7 +45,6 @@
             -dontobfuscate
             -keepattributes LineNumberTable
 
-
             -libraryjars "&lt;java.home&gt;/lib/rt.jar";"c:\Program Files\JetBrains\IntelliJ IDEA 6.0\lib\JUnit.jar"
             -injars      lib
             -outjar      build/alliance.jar
@@ -86,6 +85,12 @@
             package *;
             }
             -keepclassmembers class net.contentobjects.jnotify.** {
+            public *; <!-- don't know how to say all methods -->
+            private *;
+            protected *;
+            package *;
+            }
+            -keepclassmembers class org.alliance.ui.macos.** {
             public *; <!-- don't know how to say all methods -->
             private *;
             protected *;

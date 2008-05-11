@@ -24,11 +24,21 @@ public class My extends SettingClass {
     }
 
     public String getNickname() {
+        nickname = filterNickname(nickname);
         return nickname;
     }
 
     public void setNickname(String nickname) {
+        nickname = filterNickname(nickname);
         this.nickname = nickname;
+    }
+
+    private String filterNickname(String nickname) {
+        if (nickname != null) {
+            nickname = nickname.replaceAll("<", "");
+            nickname = nickname.replaceAll(">", "");
+        }
+        return nickname;
     }
 
     public Integer getGuid() {

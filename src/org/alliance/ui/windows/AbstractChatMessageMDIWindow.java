@@ -30,7 +30,7 @@ import java.util.Comparator;
  * Time: 13:21:55
  * To change this template use File | Settings | File Templates.
  */
-public abstract class AbstractChatMessageMDIWindow extends AllianceMDIWindow {
+public abstract class AbstractChatMessageMDIWindow extends AllianceMDIWindow implements Runnable {
     protected final static DateFormat FORMAT = new SimpleDateFormat("HH:mm");
     protected final static Color COLORS[] = {
             new Color(0x0068a7),
@@ -48,6 +48,9 @@ public abstract class AbstractChatMessageMDIWindow extends AllianceMDIWindow {
     protected String html = "";
 
     private TreeSet<ChatLine> chatLines;
+    private static final int MAXIMUM_NUMBER_OF_CHAT_LINES = 50;
+    private boolean needToUpdateHtml;
+    private boolean alive = true;
 
     protected AbstractChatMessageMDIWindow(MDIManager manager, String mdiWindowIdentifier, UISubsystem ui) throws Exception {
         super(manager, mdiWindowIdentifier, ui);
@@ -110,6 +113,9 @@ public abstract class AbstractChatMessageMDIWindow extends AllianceMDIWindow {
             }
         });
 
+        Thread t = new Thread(this);
+        t.start();
+
         super.postInit();
     }
 
@@ -140,6 +146,15 @@ public abstract class AbstractChatMessageMDIWindow extends AllianceMDIWindow {
     }
 
     public void addMessage(String from, String message, long tick) {
+        if (chatLines != null && chatLines.size() > 0) {
+            ChatLine l = chatLines.last();
+            if (Math.abs(tick-l.tick) < 1000*60*4) {
+                //differance is less than X minutes. In this case set the new tick to be older than the old one
+                //this is a fix for the problem when two users have slightly different times set on their computers
+                tick = l.tick+1;
+            }
+        }
+
         int n = from.hashCode();
         if (n<0)n=-n;
         n%= COLORS.length;
@@ -147,13 +162,15 @@ public abstract class AbstractChatMessageMDIWindow extends AllianceMDIWindow {
 
         ChatLine cl = new ChatLine(from, message, tick, c);
         chatLines.add(cl);
-        if (chatLines.last() == cl) {
+        boolean removeFirstLine = chatLines.size() > MAXIMUM_NUMBER_OF_CHAT_LINES;
+        if (removeFirstLine) chatLines.remove(chatLines.first());
+        if (chatLines.last() == cl && !removeFirstLine) {
             html += creattHtmlChatLine(cl);
         } else {
             regenerateHtml();
         }
 
-        textarea.setText(html);
+        needToUpdateHtml = true;
     }
 
     private void regenerateHtml() {
@@ -161,6 +178,20 @@ public abstract class AbstractChatMessageMDIWindow extends AllianceMDIWindow {
         html = "";
         for (ChatLine chatLine : chatLines) {
             html += creattHtmlChatLine(chatLine);
+        }
+    }
+
+    public void run() {
+        while(alive) {
+            if (needToUpdateHtml) {
+                needToUpdateHtml = false;
+                SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        textarea.setText(html);
+                    }
+                });
+            }
+            try { Thread.sleep(1000); } catch (InterruptedException e) {}
         }
     }
 
@@ -183,6 +214,11 @@ public abstract class AbstractChatMessageMDIWindow extends AllianceMDIWindow {
             this.tick = tick;
             this.color = color;
         }
+    }
+
+    public void windowClosed() {
+        super.windowClosed();
+        alive = false;
     }
 
     public void save() throws Exception {}

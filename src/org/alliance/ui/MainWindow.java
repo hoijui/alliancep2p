@@ -21,6 +21,7 @@ import org.alliance.core.interactions.*;
 import org.alliance.core.node.Friend;
 import org.alliance.core.node.Node;
 import org.alliance.launchers.StartupProgressListener;
+import org.alliance.launchers.OSInfo;
 import org.alliance.ui.addfriendwizard.AddFriendWizard;
 import org.alliance.ui.addfriendwizard.ForwardInvitationNodesList;
 import org.alliance.ui.windows.*;
@@ -253,24 +254,28 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
     private void setupWindowEvents(final boolean shutdown) {
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
-                if (shutdown) {
-                    if(T.t)T.info("Shutting down.");
-                    ui.shutdown();
-                    ui.getCore().shutdown();
-                    System.exit(0);
+                if (OSInfo.isMac()) {
+                    setVisible(false);
                 } else {
-                    if (!ui.getCore().isRunningAsTestSuite()) {
-                        Thread t = new Thread(new Runnable() {
-                            public void run() {
-                                try {
-                                    Thread.sleep(100);
-                                    ui.getCore().restartProgram(false);
-                                } catch (Exception e1) {
-                                    ui.handleErrorInEventLoop(e1);
+                    if (shutdown) {
+                        if(T.t)T.info("Shutting down.");
+                        ui.shutdown();
+                        ui.getCore().shutdown();
+                        System.exit(0);
+                    } else {
+                        if (!ui.getCore().isRunningAsTestSuite()) {
+                            Thread t = new Thread(new Runnable() {
+                                public void run() {
+                                    try {
+                                        Thread.sleep(100);
+                                        ui.getCore().restartProgram(false);
+                                    } catch (Exception e1) {
+                                        ui.handleErrorInEventLoop(e1);
+                                    }
                                 }
-                            }
-                        });
-                        t.start();
+                            });
+                            t.start();
+                        }
                     }
                 }
             }
@@ -357,7 +362,7 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
         }
         if (message != null) {
             w.addMessage(ui.getCore().getFriendManager().nickname(guid), message, tick);
-        } 
+        }
     }
 
     public void publicChatMessage(int guid, String message, long tick) throws Exception {
@@ -466,9 +471,9 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
                                             ui.getCore().getSettings().getInternal().setLastnaggedaboutinvitingafriend(System.currentTimeMillis());
                                             if (OptionDialog.showQuestionDialog(MainWindow.this,
                                                     "You have not invited any friends to your Alliance network.[p]"+
-                                                    "If you invite friends you will be able to download more files faster and the network will become more reliable.[p]"+
-                                                    "[b]It is important for all Alliance users to invite at least once friend.[/b][p]"+
-                                                    "Would you like to invite a friend to your Alliance network now?[p]")) {
+                                                            "If you invite friends you will be able to download more files faster and the network will become more reliable.[p]"+
+                                                            "[b]It is important for all Alliance users to invite at least once friend.[/b][p]"+
+                                                            "Would you like to invite a friend to your Alliance network now?[p]")) {
                                                 ui.getCore().getSettings().getInternal().setHastriedtoinviteafriend(1);
                                                 openWizardAt(AddFriendWizard.STEP_PORT_OPEN_TEST);
                                             }
@@ -513,6 +518,7 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
             final boolean[] removedAUserInteraction = new boolean[]{false};
             for(NeedsUserInteraction nui : ui.getCore().getAllUserInteractionsInQue()) {
                 if (userInteractionsInProgress == 0 || nui.canRunInParallelWithOtherInteractions()) {
+                    if (nui instanceof NewFriendConnectedUserInteraction && isConnectedToNewFriendDialogShowing) continue; //wait til the dialog is no longer displayed
                     if(T.t)T.info("running user interaction: "+nui);
                     ui.getCore().removeUserInteraction(nui);
                     final NeedsUserInteraction nui1 = nui;
@@ -521,7 +527,9 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
                             handleNeedsUserInteraction(nui1);
                         }
                     });
-                    removedAUserInteraction[0] = true;
+                    if (!(nui instanceof NewFriendConnectedUserInteraction)) {
+                        removedAUserInteraction[0] = true;
+                    }
                     break;
                 }
             }
@@ -614,15 +622,31 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
 
                 if (ui.getCore().doesInterationQueContain(ForwardedInvitationInteraction.class) || new ForwardInvitationNodesList.ForwardInvitationListModel(ui).getSize() == 0) {
                     if (lastAddFriendWizard != null) lastAddFriendWizard.getOuterDialog().dispose();
-                    OptionDialog.showInformationDialog(this, "You have successfully connected to "+name+"!");
+                    showSuccessfullyConnectedToNewFriendDialog(name);
                     //after this method completes the next pending interaction will be processed.
                 } else {
-//                    OptionDialog.showInformationDialog(this, "You have successfully connected to "+name+". Congratulations![p] You will now be shown a list of all connections "+name+" has. This way you can connect to even more people.[p]");
-                    OptionDialog.showInformationDialog(this, "You have successfully connected to "+name+"!");
-                    try {
-                        openWizardAt(AddFriendWizard.STEP_FORWARD_INVITATIONS);
-                    } catch (Exception e) {
-                        ui.handleErrorInEventLoop(e);
+                    if (ui.getCore().getSettings().getInternal().getAlwaysautomaticallyconnecttoallfriendsoffriend() == 1) {
+                        final ArrayList<ForwardInvitationNodesList.ListRow> al = new ArrayList<ForwardInvitationNodesList.ListRow>();
+                        ForwardInvitationNodesList.ForwardInvitationListModel m = new ForwardInvitationNodesList.ForwardInvitationListModel(ui);
+                        for(int j=0;j<m.getSize();j++) al.add((ForwardInvitationNodesList.ListRow) m.getElementAt(j));
+                        ui.getCore().invokeLater(new Runnable() {
+                            public void run() {
+                                try {
+                                    for(ForwardInvitationNodesList.ListRow r : al) {
+                                        ui.getCore().getFriendManager().forwardInvitationTo(r.guid);
+                                    }
+                                } catch (Exception e) {
+                                    ui.getCore().reportError(e, this);
+                                }
+                            }
+                        });
+                    } else {
+                        showSuccessfullyConnectedToNewFriendDialog(name);
+                        try {
+                            openWizardAt(AddFriendWizard.STEP_FORWARD_INVITATIONS);
+                        } catch (Exception e) {
+                            ui.handleErrorInEventLoop(e);
+                        }
                     }
                 }
                 try {
@@ -645,6 +669,19 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
             }
         } finally {
             userInteractionsInProgress--;
+        }
+    }
+
+    private boolean isConnectedToNewFriendDialogShowing = false;
+    public boolean isConnectedToNewFriendDialogShowing() { return isConnectedToNewFriendDialogShowing; }
+    public void setConnectedToNewFriendDialogShowing(boolean connectedToNewFriendDialogShowing) { isConnectedToNewFriendDialogShowing = connectedToNewFriendDialogShowing; }
+    private void showSuccessfullyConnectedToNewFriendDialog(String name) {
+        try {
+            if (ui.getCore().getSettings().getInternal().getAlwaysautomaticallyconnecttoallfriendsoffriend() == 0) {
+                new ConnectedToNewFriendDialog(ui, this, name);
+            }
+        } catch (Exception e) {
+            ui.handleErrorInEventLoop(e);
         }
     }
 

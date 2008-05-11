@@ -250,7 +250,9 @@ public class FriendManager extends Manager {
 
     public int getNFriendsConnected() {
         int n=0;
-        for(Friend f : friends.values()) if (f.isConnected()) n++;
+        Friend fa[] = new Friend[friends.size()];
+        fa = friends.values().toArray(fa);
+        for(Friend f : fa) if (f.isConnected()) n++;
         return n;
     }
 
@@ -320,7 +322,10 @@ public class FriendManager extends Manager {
 
     public int getNumberOfInvitesNeededToBeKing() {
         int n = 0;
-        for(Friend f : friends.values()) {
+
+        Friend fa[] = new Friend[friends.size()];
+        fa = friends.values().toArray(fa);
+        for(Friend f : fa) {
             if (f.getNumberOfInvitedFriends() > n) n = f.getNumberOfInvitedFriends();
         }
         if (me.getNumberOfInvitedFriends() > n) n = me.getNumberOfInvitedFriends();

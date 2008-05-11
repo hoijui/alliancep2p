@@ -45,7 +45,8 @@ public class OptionsWindow extends XUIDialog {
             "internal.showprivatechatmessagesintray",
             "internal.showsystemmessagesintray",
             "internal.rescansharewhenalliancestarts",
-            "internal.enablesupportfornonenglishcharacters"
+            "internal.enablesupportfornonenglishcharacters",
+            "internal.alwaysautomaticallyconnecttoallfriendsoffriend"
     };
 
     private UISubsystem ui;
@@ -223,6 +224,11 @@ public class OptionsWindow extends XUIDialog {
     private boolean nicknameIsOk() {
         if (nickname.getText().equals(My.UNDEFINED_NICKNAME)) {
             OptionDialog.showErrorDialog(ui.getMainWindow(), "You must enter a nickname before continuing.");
+            return false;
+        }
+        if (nickname.getText().indexOf('<') != -1 ||
+            nickname.getText().indexOf('>') != -1) {
+            OptionDialog.showErrorDialog(ui.getMainWindow(), "Your nickname may not contain &lt; or &gt;.");
             return false;
         }
         return true;

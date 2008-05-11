@@ -48,6 +48,8 @@ public class Internal extends SettingClass {
 
     private Integer enablesupportfornonenglishcharacters=0;
 
+    private Integer alwaysautomaticallyconnecttoallfriendsoffriend=0;
+
     private Integer invitationmayonlybeusedonce=1;
 
     private Integer secondstoaway=60*5;
@@ -502,5 +504,13 @@ public class Internal extends SettingClass {
 
     public void setEnablesupportfornonenglishcharacters(Integer enablesupportfornonenglishcharacters) {
         this.enablesupportfornonenglishcharacters = enablesupportfornonenglishcharacters;
+    }
+
+    public Integer getAlwaysautomaticallyconnecttoallfriendsoffriend() {
+        return alwaysautomaticallyconnecttoallfriendsoffriend;
+    }
+
+    public void setAlwaysautomaticallyconnecttoallfriendsoffriend(Integer alwaysautomaticallyconnecttoallfriendsoffriend) {
+        this.alwaysautomaticallyconnecttoallfriendsoffriend = alwaysautomaticallyconnecttoallfriendsoffriend;
     }
 }
