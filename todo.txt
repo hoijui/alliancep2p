@@ -17,10 +17,7 @@ Annat:
     * får inte visa hundra "you have successfully connected to" - tänk på noobs - fast det är lite krångligt att fixa
 
 Todo:
-
-
-
-Error stack trace:
+    * nu nŠr miljarder med events in skickas i friendlistan kan jag nog ta bort trŒden. testa att ta bort den fšr att det funkar ju ŠndŒ inte med den - buggar som fan
     * direct buffer mem lŠcker
     * default deny new friends
     * maximum allowed connected friends vore bra - kanske?
