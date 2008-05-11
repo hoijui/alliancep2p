@@ -34,7 +34,9 @@ public class UIBridge implements UICallback {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 if (ui.getNodeTreeModel(false) != null) ui.getNodeTreeModel(false).signalNodeChanged(node);
-                if (node instanceof Friend) ui.getFriendListModel().signalFriendChanged((Friend)node);
+                if (node instanceof Friend) {
+                    ui.getFriendListModel().signalFriendChanged((Friend)node);
+                }
             }
         });
     }

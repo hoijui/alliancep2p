@@ -208,9 +208,16 @@ public class FriendListMDIWindow extends AllianceMDIWindow {
         return null;
     }
 
+//    private static int cnt = 0;
     private class FriendListRenderer extends DefaultListCellRenderer {
         public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
             super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+
+/*            cnt++;
+            if (cnt%1000==0) {
+                System.out.println("count: "+cnt);
+                new Exception().printStackTrace();
+            }*/
 
             Node n = (Node)value;
             if (n.isConnected()) {

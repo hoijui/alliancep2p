@@ -17,15 +17,20 @@ import java.util.ArrayList;
  * Time: 19:50:47
  * To change this template use File | Settings | File Templates.
  */
-public class FriendListModel extends DefaultListModel {
+public class FriendListModel extends DefaultListModel implements Runnable {
     private CoreSubsystem core;
+    private boolean updateNeeded;
+    private boolean ignoreFires;
 
     public FriendListModel(CoreSubsystem core) {
         this.core = core;
         updateFriendList();
+        Thread t = new Thread(this, "Friend list update thread");
+        t.start();
     }
 
     private void updateFriendList() {
+        ignoreFires = true;
         clear();
         Collection<Friend> c = new ArrayList<Friend>(core.getFriendManager().friends());
 
@@ -57,18 +62,44 @@ public class FriendListModel extends DefaultListModel {
         }
         for(Node f : ts) if (!f.isConnected() && !f.hasNotBeenOnlineForLongTime()) addElement(f);
         for(Node f : ts) if (!f.isConnected() && f.hasNotBeenOnlineForLongTime()) addElement(f);
+        ignoreFires = false;
+    }
+
+    public void run() {
+        while(true) {
+            if (updateNeeded) {
+                updateNeeded = false;
+                SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        updateFriendList();
+                    }
+                });
+            }
+            try { Thread.sleep(1000); } catch (InterruptedException e) {}
+        }
     }
 
     public void signalFriendChanged(Friend node) {
-        updateFriendList();
-//        fireContentsChanged(this, indexOf(node), indexOf(node));
+        updateNeeded = true;
     }
 
     public void signalFriendAdded(Friend friend) {
-        updateFriendList();
-//        if (friend.isConnected())
-//            insertElementAt(friend, 0);
-//        else
-//            addElement(friend);
+        updateNeeded = true;
+    }
+
+
+    protected void fireContentsChanged(Object source, int index0, int index1) {
+        if (ignoreFires) return;
+        super.fireContentsChanged(source, index0, index1);    //To change body of overridden methods use File | Settings | File Templates.
+    }
+
+    protected void fireIntervalAdded(Object source, int index0, int index1) {
+        if (ignoreFires) return;
+        super.fireIntervalAdded(source, index0, index1);    //To change body of overridden methods use File | Settings | File Templates.
+    }
+
+    protected void fireIntervalRemoved(Object source, int index0, int index1) {
+        if (ignoreFires) return;
+        super.fireIntervalRemoved(source, index0, index1);    //To change body of overridden methods use File | Settings | File Templates.
     }
 }
