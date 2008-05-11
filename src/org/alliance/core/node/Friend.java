@@ -1,5 +1,6 @@
 package org.alliance.core.node;
 
+import com.stendahls.util.TextUtils;
 import org.alliance.core.T;
 import org.alliance.core.comm.AuthenticatedConnection;
 import org.alliance.core.comm.Connection;
@@ -9,8 +10,6 @@ import org.alliance.core.settings.Settings;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
-import com.stendahls.util.TextUtils;
 
 /**
  * Created by IntelliJ IDEA.
@@ -65,24 +64,31 @@ public class Friend extends Node {
     }
 
     public void updateLastKnownHostInfo(String host, int port) throws IOException {
-        if(T.t)T.info("Updating host info for "+this+": "+host+":"+port);
-        lastKnownHost = host;
-        lastKnownPort = port;
         try {
-            saveLastKnownInfo();
+        	Settings s = manager.getSettings();
+        	
+        	// Don't overwrite hostnames set by the user manually
+        	if ( TextUtils.isIpNumber(s.getFriend(guid).getHost()) ) {
+        		if(T.t)T.info("Updating host info for "+this+": "+host+":"+port);
+        		lastKnownHost = host;
+        		lastKnownPort = port;
+        		s.getFriend(guid).setHost(lastKnownHost);
+        		s.getFriend(guid).setPort(lastKnownPort);
+        	}
         } catch(Exception e) {
             if(T.t)T.error("Could not save settings! "+e);
             e.printStackTrace();
         }
     }
-
-    private void saveLastKnownInfo() throws Exception {
-        Settings s = manager.getSettings();
-
-        if (TextUtils.isIpNumber(s.getFriend(guid).getHost()) || !TextUtils.isIpNumber(lastKnownHost)) {
-            s.getFriend(guid).setHost(lastKnownHost);
-        }
-        s.getFriend(guid).setPort(lastKnownPort);
+    
+    /**
+     * Updates host settings of the friend
+     * @param host New hostname or IP-Address
+     */
+    public void setLastKnownHost(String host) {
+    	Settings s = manager.getSettings();
+    	lastKnownHost = host;
+    	s.getFriend(guid).setHost(lastKnownHost);
     }
 
     public boolean isConnected() {
@@ -155,20 +161,33 @@ public class Friend extends Node {
     public void setAllianceBuildNumber(int allianceBuildNumber) {
         this.allianceBuildNumber = allianceBuildNumber;
     }
-
+    
     public void reconnect() throws IOException {
-        disconnect(GracefulClose.RECONNECT);
+    	disconnect(GracefulClose.RECONNECT);
+    	Thread t = new Thread(new Runnable() {
+    		public void run() {
+    			try {Thread.sleep(3000);} catch (InterruptedException e1) {}
+    			manager.getCore().invokeLater(new Runnable() {
+    				public void run() {
+    					if (isConnected()) try {
+    						getFriendConnection().close();
+    					} catch (IOException e1) {
+    						if(org.alliance.ui.T.t) org.alliance.ui.T.warn("Error when closing connection: "+e1);
+    					}
+    					try {Thread.sleep(500);} catch (InterruptedException e1) {}
+    					manager.getCore().getFriendManager().getFriendConnector().wakeup();
+    				}
+    			});
+    		}
+    	});
+    	t.start();
+    }
+
+    public void connect() throws IOException {
         Thread t = new Thread(new Runnable() {
             public void run() {
-                try {Thread.sleep(3000);} catch (InterruptedException e1) {}
                 manager.getCore().invokeLater(new Runnable() {
                     public void run() {
-                        if (isConnected()) try {
-                            getFriendConnection().close();
-                        } catch (IOException e1) {
-                            if(org.alliance.ui.T.t) org.alliance.ui.T.warn("Error when closing connection: "+e1);
-                        }
-                        try {Thread.sleep(500);} catch (InterruptedException e1) {}
                         manager.getCore().getFriendManager().getFriendConnector().wakeup();
                     }
                 });

@@ -5,17 +5,16 @@ import com.stendahls.nif.ui.mdi.MDIManager;
 import com.stendahls.nif.ui.mdi.MDIWindow;
 import com.stendahls.util.TextUtils;
 import org.alliance.core.node.Friend;
-import org.alliance.core.node.Node;
 import org.alliance.core.node.MyNode;
+import org.alliance.core.node.Node;
 import org.alliance.ui.UISubsystem;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
-import java.awt.datatransfer.SystemFlavorMap;
 import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.SystemFlavorMap;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -340,4 +339,37 @@ public class FriendListMDIWindow extends AllianceMDIWindow {
             }
         }
     }
+    
+    /**
+     * Changes the hostname of a friend you have in your friendlist via the GUI. Can
+     * be used to configure a hostname instead of the IP that's set via an invitation.
+     * @author jpluebbert
+     */
+    public void EVENT_edithostname(ActionEvent e) {
+        if (list.getSelectedValue() == null) return;
+
+        Friend friend = (Friend) list.getSelectedValue();
+        if (friend != null) {
+        	String hostname = friend.getLastKnownHost();
+
+        	if ( hostname == null ) 
+        		hostname = "";
+
+        	String input = JOptionPane.showInputDialog("Enter hostname for friend: "+nickname(friend.getGuid()), hostname);
+        	if ( input != null && ! hostname.equalsIgnoreCase(input) ) {
+        		if ( input.length() == 0 ) {
+        			OptionDialog.showErrorDialog(ui.getMainWindow(), "Hostname can not be empty. Changes ignored.");
+        		} else {
+        			friend.setLastKnownHost(input);
+        			try {
+						if ( friend.isConnected() )
+							friend.reconnect();
+						else 
+							friend.connect();
+					} catch (IOException e1) { }
+        		}
+        	}
+        }
+
+    }    
 }
