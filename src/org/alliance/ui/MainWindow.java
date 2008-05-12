@@ -14,20 +14,20 @@ import com.stendahls.util.TextUtils;
 import de.javasoft.plaf.synthetica.SyntheticaRootPaneUI;
 import de.javasoft.synthetica.addons.SystemMonitor;
 import de.javasoft.synthetica.addons.systemmonitor.Collector;
+import static org.alliance.core.CoreSubsystem.MB;
 import org.alliance.core.NeedsUserInteraction;
 import org.alliance.core.PublicChatHistory;
 import org.alliance.core.comm.BandwidthAnalyzer;
 import org.alliance.core.interactions.*;
 import org.alliance.core.node.Friend;
 import org.alliance.core.node.Node;
-import org.alliance.launchers.StartupProgressListener;
 import org.alliance.launchers.OSInfo;
+import org.alliance.launchers.StartupProgressListener;
 import org.alliance.ui.addfriendwizard.AddFriendWizard;
 import org.alliance.ui.addfriendwizard.ForwardInvitationNodesList;
 import org.alliance.ui.windows.*;
 import org.alliance.ui.windows.search.SearchMDIWindow;
 import org.alliance.ui.windows.viewshare.ViewShareMDIWindow;
-import static org.alliance.core.CoreSubsystem.*;
 
 import javax.swing.*;
 import javax.swing.plaf.metal.MetalButtonUI;
@@ -322,6 +322,8 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
     public void showWindow() {
         if(T.t) T.info("Deserializing window state");
         try {
+        	// TODO tracewindow.id is read, but never set? => everytime null? 
+        	// TODO user.home isn't the right place to put this file into, should be appdata/alliance or something similar
             FileInputStream in = new FileInputStream(System.getProperty("user.home")+"/mainwindow.state"+System.getProperty("tracewindow.id"));
             ObjectInputStream obj = new ObjectInputStream(in);
 
