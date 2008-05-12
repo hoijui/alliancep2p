@@ -5,10 +5,10 @@ import org.alliance.core.node.Friend;
 import org.alliance.core.node.Node;
 
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.TreeSet;
-import java.util.ArrayList;
 
 /**
  * Created by IntelliJ IDEA.
@@ -17,16 +17,13 @@ import java.util.ArrayList;
  * Time: 19:50:47
  * To change this template use File | Settings | File Templates.
  */
-public class FriendListModel extends DefaultListModel implements Runnable {
+public class FriendListModel extends DefaultListModel {
     private CoreSubsystem core;
-    private boolean updateNeeded;
     private boolean ignoreFires;
 
     public FriendListModel(CoreSubsystem core) {
         this.core = core;
         updateFriendList();
-        Thread t = new Thread(this, "Friend list update thread");
-        t.start();
     }
 
     private void updateFriendList() {
@@ -65,28 +62,13 @@ public class FriendListModel extends DefaultListModel implements Runnable {
         ignoreFires = false;
     }
 
-    public void run() {
-        while(true) {
-            if (updateNeeded) {
-                updateNeeded = false;
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        updateFriendList();
-                    }
-                });
-            }
-            try { Thread.sleep(1000); } catch (InterruptedException e) {}
-        }
-    }
-
     public void signalFriendChanged(Friend node) {
-        updateNeeded = true;
+        updateFriendList();
     }
 
     public void signalFriendAdded(Friend friend) {
-        updateNeeded = true;
+        updateFriendList();
     }
-
 
     protected void fireContentsChanged(Object source, int index0, int index1) {
         if (ignoreFires) return;

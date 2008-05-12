@@ -14,18 +14,15 @@ Annat:
             wizarden kommer upp. anvŠndaren kan bjuda in msn-vŠnner, bjuda in igenom att skicka mail eller bjuda in manuellt igenom att skicka en lŠnk till en kompis pŒ valfritt sŠtt
             anvŠndaren uppmuntras till att bjuda in msn vŠnner och gšr detta
             anvŠndaren drar in ett gŠng msnvŠnner och vŠljer send. goto 10
-    * får inte visa hundra "you have successfully connected to" - tänk på noobs - fast det är lite krångligt att fixa
 
 Todo:
     * chatten kommer fel fortfarande.. det kanske Šr sŒ att folk har fel tid pŒ datorn helt enkelt.  hur som helst.. verkar som att det inte gŒr att lita pŒ currentTimeMillis pŒ det sŠttet. Kanske bŠttre att gŒ tillbaka till hur det var frŒn bšrjan..
-    * nu nŠr miljarder med events inte skickas i friendlistan kan jag nog ta bort trŒden. testa att ta bort den fšr att det funkar ju ŠndŒ inte med den - buggar som fan
     * fšrmodligen bŠttre att bara sortera pŒ days ago.. verkar fŒ upp mer intressanta trŠffar dŒs
     * direct buffer mem lŠcker
     * default deny new friends
     * maximum allowed connected friends vore bra - kanske?
     * friends of friends uppdateras bara nŠr man starta om inte bra nŠr mŒnga joinar ett nŠtverket
     * gå igenom nyinkommna fel
-    * se till att nya installationen tar med dll:erna 
 
     * stöd för dyndns namn i my ip. kolla hur detta fungerar. det är en riktigt klok och proffsig grej att ha - så kan ett litet nätverk överleva om alla har dynamisk ip
 
