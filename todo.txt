@@ -16,6 +16,7 @@ Annat:
             anvŠndaren drar in ett gŠng msnvŠnner och vŠljer send. goto 10
 
 Todo:
+    * Router:50 - vafan. r[] används ju inte..  slå på och testa kanske? 
     * chatten kommer fel fortfarande.. det kanske Šr sŒ att folk har fel tid pŒ datorn helt enkelt.  hur som helst.. verkar som att det inte gŒr att lita pŒ currentTimeMillis pŒ det sŠttet. Kanske bŠttre att gŒ tillbaka till hur det var frŒn bšrjan..
     * fšrmodligen bŠttre att bara sortera pŒ days ago.. verkar fŒ upp mer intressanta trŠffar dŒs
     * direct buffer mem lŠcker
