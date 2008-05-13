@@ -63,7 +63,6 @@ public class My extends SettingClass {
     }
 
     public Integer getInvitations() {
-        if (invitations > 250) createChecksumAndSetInvitations(0); //people have been hacking invitation codes so they're needed to be reset @todo: remove this after a while
         if (cguid != null && cguid != 0) {
             if ((invitations ^ 234427)*13 != cguid) {
                 invitations = 0;
