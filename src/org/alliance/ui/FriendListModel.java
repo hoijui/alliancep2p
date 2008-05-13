@@ -27,8 +27,8 @@ public class FriendListModel extends DefaultListModel {
     }
 
     private void updateFriendList() {
-        ignoreFires = true;
         clear();
+        ignoreFires = true;
         Collection<Friend> c = new ArrayList<Friend>(core.getFriendManager().friends());
 
         TreeSet<Node> ts = new TreeSet<Node>(new Comparator<Node>() {
@@ -60,6 +60,7 @@ public class FriendListModel extends DefaultListModel {
         for(Node f : ts) if (!f.isConnected() && !f.hasNotBeenOnlineForLongTime()) addElement(f);
         for(Node f : ts) if (!f.isConnected() && f.hasNotBeenOnlineForLongTime()) addElement(f);
         ignoreFires = false;
+        fireIntervalAdded(this, 0, size()-1);
     }
 
     public void signalFriendChanged(Friend node) {
@@ -72,16 +73,16 @@ public class FriendListModel extends DefaultListModel {
 
     protected void fireContentsChanged(Object source, int index0, int index1) {
         if (ignoreFires) return;
-        super.fireContentsChanged(source, index0, index1);    //To change body of overridden methods use File | Settings | File Templates.
+        super.fireContentsChanged(source, index0, index1);
     }
 
     protected void fireIntervalAdded(Object source, int index0, int index1) {
         if (ignoreFires) return;
-        super.fireIntervalAdded(source, index0, index1);    //To change body of overridden methods use File | Settings | File Templates.
+        super.fireIntervalAdded(source, index0, index1);
     }
 
     protected void fireIntervalRemoved(Object source, int index0, int index1) {
         if (ignoreFires) return;
-        super.fireIntervalRemoved(source, index0, index1);    //To change body of overridden methods use File | Settings | File Templates.
+        super.fireIntervalRemoved(source, index0, index1);
     }
 }

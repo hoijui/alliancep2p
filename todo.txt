@@ -19,7 +19,6 @@ Todo:
     * när man laddar ner igenom share borde den ta sökvägen från där man klickade
     * Router:50 - vafan. r[] används ju inte..  slå på och testa kanske? kan vara farligt - kan vara så att router tabellen växer okontrollerat.. testa ordentlig i så fall 
     * chatten kommer fel fortfarande.. det kanske Šr sŒ att folk har fel tid pŒ datorn helt enkelt.  hur som helst.. verkar som att det inte gŒr att lita pŒ currentTimeMillis pŒ det sŠttet. Kanske bŠttre att gŒ tillbaka till hur det var frŒn bšrjan..
-    * fšrmodligen bŠttre att bara sortera pŒ days ago.. verkar fŒ upp mer intressanta trŠffar dŒs
     * direct buffer mem lŠcker
     * default deny new friends
     * maximum allowed connected friends vore bra - kanske?
@@ -54,14 +53,9 @@ Todo:
     * integration mot facebook
     * enligt en artikel jag läste ska det räcka med en io diskbuffer på 64kb - för det är det XP har - vista kan ha större
 
-- Bold text for chat tabs and/or play a sound when a new chat message is typed.
-Sound not necessary for main chat, and only for first new message in a session for private chat.  This way, when you go to another tab for a while, you will notice when a new message arrives.  Sometimes there is a new message in private chat that goes unnoticed for hours because you have to click the tab.
-
 - When scrolling up to read old chat, a new chat message causes the scroll bar to jump to the bottom when a new message is typed.  When many new messages are coming in, it is impossible to read old chat and "catch up".  It would be great if the scroll bar stayed where it is moved to.
 
 - On Win XP at Alliance startup, there is a flurry of system tray bubbles for missed chat messages while you were offline.  Not a huge deal though.
-
-- On Win XP, minimize to system tray would be nice.  I just noticed the Hide Window option though, so perhaps that's what I should use.
 
 - Preserve newlines in chat when pasting text from another program like a browser or Notepad.  Right now they are concatenated into a single line when pasting.
 

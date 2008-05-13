@@ -35,6 +35,12 @@ public class PrivateChatMessageMDIWindow extends AbstractChatMessageMDIWindow {
         });
     }
 
+    public void addMessage(String from, String message, long tick) {
+        super.addMessage(from, message, tick);    //To change body of overridden methods use File | Settings | File Templates.
+        manager.selectWindow(this);
+        ui.getMainWindow().toFront();
+    }
+
     protected void send(final String text) throws IOException {
         if (text == null || text.trim().length() == 0) return;
         ui.getCore().invokeLater(new Runnable() {
