@@ -148,7 +148,7 @@ public abstract class AbstractChatMessageMDIWindow extends AllianceMDIWindow imp
     public void addMessage(String from, String message, long tick) {
         if (chatLines != null && chatLines.size() > 0) {
             ChatLine l = chatLines.last();
-            if (Math.abs(tick-l.tick) < 1000*60*4) {
+            if (Math.abs(tick-l.tick) < 1000*60*5) {
                 //differance is less than X minutes. In this case set the new tick to be older than the old one
                 //this is a fix for the problem when two users have slightly different times set on their computers
                 tick = l.tick+1;
