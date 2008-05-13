@@ -562,7 +562,7 @@ public class CoreSubsystem implements Subsystem {
      * an invitation point
      */
     public void incInvitationPoints() {
-        getSettings().getMy().setInvitations(getSettings().getMy().getInvitations()+1);
+        getSettings().getMy().createChecksumAndSetInvitations(getSettings().getMy().getInvitations()+1);
     }
 
     public void informFriendsOfAwayStatus(boolean away) throws IOException {

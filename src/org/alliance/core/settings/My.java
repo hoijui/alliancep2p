@@ -13,6 +13,7 @@ public class My extends SettingClass {
 
     private Integer guid = new Random().nextInt();
     private String nickname = UNDEFINED_NICKNAME;
+    private Integer cguid = 0; //this is a checksum of the invitations property, disguised so that script kiddies won't get it
     private Integer invitations = 0; //every time this user completes an invitation successfully he gets a point
 
     public My() {
@@ -53,7 +54,23 @@ public class My extends SettingClass {
         return UNDEFINED_NICKNAME.equals(nickname);
     }
 
+    public Integer getCguid() {
+        return cguid;
+    }
+
+    public void setCguid(Integer cguid) {
+        this.cguid = cguid;
+    }
+
     public Integer getInvitations() {
+        if (invitations > 250) createChecksumAndSetInvitations(0); //people have been hacking invitation codes so they're needed to be reset @todo: remove this after a while
+        if (cguid != null && cguid != 0) {
+            if ((invitations ^ 234427)*13 != cguid) {
+                invitations = 0;
+            }
+        } else {
+            createChecksumAndSetInvitations(invitations);
+        }
         return invitations;
     }
 
@@ -61,4 +78,8 @@ public class My extends SettingClass {
         this.invitations = invitations;
     }
 
+    public void createChecksumAndSetInvitations(Integer invitations) {
+        this.invitations = invitations;
+        cguid = (invitations ^ 234427)*13;
+    }
 }

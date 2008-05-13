@@ -190,7 +190,7 @@ public class Console {
             printer.println("Can't raise number of invitaitons");
             return;
         }
-        core.getSettings().getMy().setInvitations(i);
+        core.getSettings().getMy().createChecksumAndSetInvitations(i);
         core.saveSettings();
     }
 

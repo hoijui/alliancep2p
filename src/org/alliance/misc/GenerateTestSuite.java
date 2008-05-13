@@ -185,7 +185,7 @@ public class GenerateTestSuite {
         s.getInternal().setKeystorefilename(path+"me.ks");
 
         if (Math.random() > 0.5)
-            s.getMy().setInvitations((int)(4*Math.random()));
+            s.getMy().createChecksumAndSetInvitations((int)(4*Math.random()));
         else
             s.getMy().setInvitations(0);
         s.addShare(getRandomShare());

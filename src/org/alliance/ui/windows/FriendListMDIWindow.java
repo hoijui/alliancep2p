@@ -232,13 +232,13 @@ public class FriendListMDIWindow extends AllianceMDIWindow {
                 else
                     setForeground(Color.black);
 //                setText(f.getNickname()+" ("+ TextUtils.formatByteSize(f.getShareSize())+")");
-                String s = "<html>" + nickname(n.getGuid()) + "<font color=aaaaaa> ";
+                String s = nickname(n.getGuid());
                 if (n instanceof Friend) {
-                    s += FriendListMDIWindow.this.ui.getCore().getFriendManager().contactPath(n.getGuid());
+                    //s += FriendListMDIWindow.this.ui.getCore().getFriendManager().contactPath(n.getGuid());
                 } else {
-                    s += "(myself)";
+                    s += " (myself)";
                 }
-                s += "</font> (" + TextUtils.formatByteSize(n.getShareSize()) + ")</html>";
+                s += " (" + TextUtils.formatByteSize(n.getShareSize())+")";
                 setText(s);
             } else if (n.hasNotBeenOnlineForLongTime()) {
                 setIcon(iconFriendOld);
@@ -256,7 +256,9 @@ public class FriendListMDIWindow extends AllianceMDIWindow {
                 setText(FriendListMDIWindow.this.ui.getCore().getFriendManager().nicknameWithContactPath(n.getGuid()));
             }
 
-            setToolTipText("<html>Build number: "+ n.getAllianceBuildNumber()+"<br>" +
+            String cp = FriendListMDIWindow.this.ui.getCore().getFriendManager().contactPath(n.getGuid());
+            if (cp.trim().length() > 0) cp = "Found "+cp+"<br>";
+            setToolTipText("<html>"+cp+
                     "Share: "+ TextUtils.formatByteSize(n.getShareSize())+" in "+ n.getNumberOfFilesShared()+" files<br>" +
                     "Invited friends: "+ n.getNumberOfInvitedFriends()+"<br>" +
                     "Upload speed record: "+TextUtils.formatByteSize((long) n.getHighestOutgoingCPS())+"/s<br>" +
