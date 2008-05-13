@@ -106,6 +106,8 @@ public class Console {
             share(params);
         } else if ("sharebases".equals(command)) {
             sharebases();
+        } else if ("showbuilds".equals(command)) {
+            showbuilds();
         } else if ("pingbomb".equals(command)) {
             if (core.isRunningAsTestSuite()) {
                 printer.println("Sending a bunch of pings at random intervals");
@@ -177,6 +179,12 @@ public class Console {
             throw new Exception("test error");
         } else {
             printer.println("Unknown command "+command);
+        }
+    }
+
+    private void showbuilds() {
+        for(Friend f : core.getFriendManager().friends()) {
+            printer.println(f.getAllianceBuildNumber()+": "+core.getFriendManager().nickname(f.getGuid()));
         }
     }
 
