@@ -151,6 +151,7 @@ public abstract class AbstractChatMessageMDIWindow extends AllianceMDIWindow imp
             if (Math.abs(tick-l.tick) < 1000*60*5) {
                 //differance is less than X minutes. In this case set the new tick to be older than the old one
                 //this is a fix for the problem when two users have slightly different times set on their computers
+                //note that computers with completely incorrect time will post messages in the incorrect place in the chat
                 tick = l.tick+1;
             }
         }
