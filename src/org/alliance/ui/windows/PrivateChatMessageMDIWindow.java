@@ -1,13 +1,10 @@
 package org.alliance.ui.windows;
 
-import org.alliance.core.comm.rpc.ChatMessage;
 import org.alliance.core.comm.rpc.ChatMessageV2;
 import org.alliance.ui.UISubsystem;
 
 import javax.swing.*;
-import java.awt.*;
 import java.io.IOException;
-import java.util.Date;
 
 /**
  * Created by IntelliJ IDEA.
@@ -35,8 +32,8 @@ public class PrivateChatMessageMDIWindow extends AbstractChatMessageMDIWindow {
         });
     }
 
-    public void addMessage(String from, String message, long tick) {
-        super.addMessage(from, message, tick);    //To change body of overridden methods use File | Settings | File Templates.
+    public void addMessage(String from, String message, long tick, boolean messageHasBeenQueuedAwayForAWhile) {
+        super.addMessage(from, message, tick, messageHasBeenQueuedAwayForAWhile);
         manager.selectWindow(this);
         ui.getMainWindow().toFront();
     }
@@ -53,7 +50,7 @@ public class PrivateChatMessageMDIWindow extends AbstractChatMessageMDIWindow {
             }
         });
         chat.setText("");
-        addMessage(ui.getCore().getFriendManager().getMe().getNickname(), text, System.currentTimeMillis());
+        addMessage(ui.getCore().getFriendManager().getMe().getNickname(), text, System.currentTimeMillis(), false);
     }
 
     public String getIdentifier() {

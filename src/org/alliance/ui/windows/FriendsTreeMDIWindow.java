@@ -82,7 +82,7 @@ public class FriendsTreeMDIWindow extends AllianceMDIWindow  {
         if (tree.getSelectionPath() == null) return;
         NodeTreeNode n = (NodeTreeNode)tree.getSelectionPath().getLastPathComponent();
         if (n != null) {
-            if (n.getNode() != null) ui.getMainWindow().chatMessage(n.getNode().getGuid(), null, 0);
+            if (n.getNode() != null) ui.getMainWindow().chatMessage(n.getNode().getGuid(), null, 0, false);
         }
     }
 

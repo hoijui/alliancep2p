@@ -1,6 +1,5 @@
 package org.alliance.ui.windows;
 
-import org.alliance.core.comm.rpc.ChatMessage;
 import org.alliance.core.comm.rpc.ChatMessageV2;
 import org.alliance.core.node.Friend;
 import org.alliance.ui.UISubsystem;
@@ -37,7 +36,7 @@ public class PublicChatMessageMDIWindow extends AbstractChatMessageMDIWindow {
             }
         });
         chat.setText("");
-        ui.getMainWindow().publicChatMessage(ui.getCore().getFriendManager().getMe().getGuid(), text, System.currentTimeMillis());
+        ui.getMainWindow().publicChatMessage(ui.getCore().getFriendManager().getMe().getGuid(), text, System.currentTimeMillis(), false);
     }
 
     public String getIdentifier() {

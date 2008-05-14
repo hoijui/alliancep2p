@@ -417,6 +417,7 @@ public class NetworkManager extends Manager {
             destination.getFriendConnection().send(rpc);
         } else {
             if(T.t)T.trace("Queueing persistant RPC: "+rpc+", destination "+destination);
+            rpc.notifyRPCQueuedForLaterSend();
             queuedPersistantRPCs.add(rpc);
         }
     }

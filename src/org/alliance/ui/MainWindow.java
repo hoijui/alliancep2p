@@ -98,7 +98,7 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
 
         pml.updateProgress("Loading main window");
         for(PublicChatHistory.Entry e : ui.getCore().getPublicChatHistory().allMessages()) {
-            publicChat.addMessage(ui.getCore().getFriendManager().nickname(e.fromGuid), e.message, e.tick);
+            publicChat.addMessage(ui.getCore().getFriendManager().nickname(e.fromGuid), e.message, e.tick, true);
         }
 
         mdiManager.selectWindow(publicChat);
@@ -356,21 +356,21 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
         return mdiManager;
     }
 
-    public void chatMessage(int guid, String message, long tick) throws Exception {
+    public void chatMessage(int guid, String message, long tick, boolean messageHasBeenQueuedAwayForAWhile) throws Exception {
         PrivateChatMessageMDIWindow w = (PrivateChatMessageMDIWindow)mdiManager.getWindow("msg"+guid);
         if (w == null) {
             w = new PrivateChatMessageMDIWindow(ui, guid);
             mdiManager.addWindow(w);
         }
         if (message != null) {
-            w.addMessage(ui.getCore().getFriendManager().nickname(guid), message, tick);
+            w.addMessage(ui.getCore().getFriendManager().nickname(guid), message, tick, messageHasBeenQueuedAwayForAWhile);
         }
     }
 
-    public void publicChatMessage(int guid, String message, long tick) throws Exception {
+    public void publicChatMessage(int guid, String message, long tick, boolean messageHasBeenQueuedAwayForAWhile) throws Exception {
         if (message != null) {
             if(T.t)T.info("Received public chat message: "+message);
-            publicChat.addMessage(ui.getCore().getFriendManager().nickname(guid), message, tick);
+            publicChat.addMessage(ui.getCore().getFriendManager().nickname(guid), message, tick, messageHasBeenQueuedAwayForAWhile);
             ui.getCore().getPublicChatHistory().addMessage(tick,  guid, message);
         }
     }
@@ -550,9 +550,9 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
                 PostMessageInteraction pmi = (PostMessageInteraction)nui;
                 try {
                     if (pmi instanceof PostMessageToAllInteraction)
-                        publicChatMessage(pmi.getFromGuid(), pmi.getMessage(), pmi.getSentAtTick());
+                        publicChatMessage(pmi.getFromGuid(), pmi.getMessage(), pmi.getSentAtTick(), pmi.isMessageWasPersisted());
                     else
-                        chatMessage(pmi.getFromGuid(), pmi.getMessage(), pmi.getSentAtTick());
+                        chatMessage(pmi.getFromGuid(), pmi.getMessage(), pmi.getSentAtTick(), pmi.isMessageWasPersisted());
                 } catch(Exception e) {
                     ui.handleErrorInEventLoop(e);
                 }

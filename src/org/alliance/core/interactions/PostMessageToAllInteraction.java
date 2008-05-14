@@ -1,7 +1,5 @@
 package org.alliance.core.interactions;
 
-import org.alliance.core.SynchronizedNeedsUserInteraction;
-
 /**
  * Created by IntelliJ IDEA.
  * User: maciek
@@ -16,5 +14,9 @@ public class PostMessageToAllInteraction extends PostMessageInteraction {
 
     public PostMessageToAllInteraction(String message, int fromGuid, long tick) {
         super(message, fromGuid, tick);
+    }
+
+    public PostMessageToAllInteraction(String message, int fromGuid, long tick, boolean messageWasPersisted) {
+        super(message, fromGuid, tick, messageWasPersisted);
     }
 }

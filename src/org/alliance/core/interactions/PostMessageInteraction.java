@@ -13,7 +13,7 @@ public class PostMessageInteraction extends SynchronizedNeedsUserInteraction {
     private String message;
     private long sentAtTick;
     private int fromGuid;
-
+    private boolean messageWasPersisted;
 
     public PostMessageInteraction(String message, int fromGuid) {
         this.message = message;
@@ -27,6 +27,13 @@ public class PostMessageInteraction extends SynchronizedNeedsUserInteraction {
         this.sentAtTick = tick;
     }
 
+    public PostMessageInteraction(String message, int fromGuid, long tick, boolean messageWasPersisted) {
+        this.message = message;
+        this.fromGuid = fromGuid;
+        this.sentAtTick = tick;
+        this.messageWasPersisted = messageWasPersisted;
+    }
+
     public String getMessage() {
         return message;
     }
@@ -37,5 +44,9 @@ public class PostMessageInteraction extends SynchronizedNeedsUserInteraction {
 
     public int getFromGuid() {
         return fromGuid;
+    }
+
+    public boolean isMessageWasPersisted() {
+        return messageWasPersisted;
     }
 }

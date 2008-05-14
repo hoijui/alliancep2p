@@ -19,9 +19,9 @@ import java.io.ObjectOutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.TreeSet;
-import java.util.Comparator;
 
 /**
  * Created by IntelliJ IDEA.
@@ -145,13 +145,13 @@ public abstract class AbstractChatMessageMDIWindow extends AllianceMDIWindow imp
         return text;
     }
 
-    public void addMessage(String from, String message, long tick) {
+    public void addMessage(String from, String message, long tick, boolean messageHasBeenQueuedAwayForAWhile) {
         if (chatLines != null && chatLines.size() > 0) {
             ChatLine l = chatLines.last();
-            if (Math.abs(tick-l.tick) < 1000*60*5) {
-                //differance is less than X minutes. In this case set the new tick to be older than the old one
-                //this is a fix for the problem when two users have slightly different times set on their computers
-                //note that computers with completely incorrect time will post messages in the incorrect place in the chat
+            if (!messageHasBeenQueuedAwayForAWhile) {
+                //A message gets queued away when a user is offline and cannot receive the message.
+                //If this message has NOT been queued then it should always be displayed as the last message received 
+                //in the chat
                 tick = l.tick+1;
             }
         }

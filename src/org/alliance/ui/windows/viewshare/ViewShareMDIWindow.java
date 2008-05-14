@@ -3,11 +3,11 @@ package org.alliance.ui.windows.viewshare;
 import com.stendahls.nif.ui.OptionDialog;
 import com.stendahls.nif.ui.framework.TreeState;
 import com.stendahls.nif.ui.mdi.MDIWindow;
-import com.stendahls.util.TextUtils;
 import com.stendahls.ui.JHtmlLabel;
+import com.stendahls.util.TextUtils;
 import org.alliance.core.comm.rpc.GetHashesForPath;
-import org.alliance.core.file.filedatabase.FileType;
 import org.alliance.core.file.filedatabase.FileDescriptor;
+import org.alliance.core.file.filedatabase.FileType;
 import org.alliance.core.node.Friend;
 import org.alliance.core.node.MyNode;
 import org.alliance.core.node.Node;
@@ -16,8 +16,8 @@ import org.alliance.ui.UISubsystem;
 import org.alliance.ui.windows.AllianceMDIWindow;
 
 import javax.swing.*;
-import javax.swing.event.HyperlinkListener;
 import javax.swing.event.HyperlinkEvent;
+import javax.swing.event.HyperlinkListener;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreePath;
 import java.awt.*;
@@ -179,7 +179,7 @@ public class ViewShareMDIWindow extends AllianceMDIWindow {
 
     public void EVENT_chat(ActionEvent e) throws Exception {
         if (remote instanceof MyNode) return;
-        ui.getMainWindow().chatMessage(remote.getGuid(), null, 0);
+        ui.getMainWindow().chatMessage(remote.getGuid(), null, 0, false);
     }
 
     public void EVENT_download(ActionEvent e) {

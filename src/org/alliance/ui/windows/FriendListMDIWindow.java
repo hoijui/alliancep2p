@@ -300,7 +300,7 @@ public class FriendListMDIWindow extends AllianceMDIWindow {
         if (list.getSelectedValue() == null) return;
         if (list.getSelectedValue() instanceof MyNode) return;
         Friend f = (Friend) list.getSelectedValue();
-        if (f != null) ui.getMainWindow().chatMessage(f.getGuid(), null, 0);
+        if (f != null) ui.getMainWindow().chatMessage(f.getGuid(), null, 0, false);
     }
 
     public void EVENT_reconnect(ActionEvent e) throws Exception {
