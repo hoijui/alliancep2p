@@ -23,6 +23,7 @@ ya a check box or somthing
 DeathfireD -  [All hail piggy king of bacon] says:
 I get 200 popups everytime I turn the client on
 
+    * när man vart offline i ett par dagar så rullar chatten på i tio minuter med alla nya meddelanden...
     * när man laddar ner igenom share borde den ta sökvägen från där man klickade
     * Router:50 - vafan. r[] används ju inte..  slå på och testa kanske? kan vara farligt - kan vara så att router tabellen växer okontrollerat.. testa ordentlig i så fall 
     * chatten kommer fel fortfarande.. det kanske Šr sŒ att folk har fel tid pŒ datorn helt enkelt.  hur som helst.. verkar som att det inte gŒr att lita pŒ currentTimeMillis pŒ det sŠttet. Kanske bŠttre att gŒ tillbaka till hur det var frŒn bšrjan..

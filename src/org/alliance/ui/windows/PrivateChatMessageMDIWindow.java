@@ -1,6 +1,7 @@
 package org.alliance.ui.windows;
 
 import org.alliance.core.comm.rpc.ChatMessageV2;
+import org.alliance.core.comm.rpc.ChatMessageV3;
 import org.alliance.ui.UISubsystem;
 
 import javax.swing.*;
@@ -43,7 +44,7 @@ public class PrivateChatMessageMDIWindow extends AbstractChatMessageMDIWindow {
         ui.getCore().invokeLater(new Runnable() {
             public void run() {
                 try {
-                    ui.getCore().getFriendManager().getNetMan().sendPersistantly(new ChatMessageV2(text, false), ui.getCore().getFriendManager().getFriend(guid));
+                    ui.getCore().getFriendManager().getNetMan().sendPersistantly(new ChatMessageV3(text, false), ui.getCore().getFriendManager().getFriend(guid));
                 } catch(IOException e) {
                     ui.getCore().reportError(e, this);
                 }
