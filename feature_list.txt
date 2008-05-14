@@ -1,6 +1,6 @@
 * works behind firewalls: reverse downloading - upnp
 * scalable: works with shares over 500 GB big and contain over 50 000 files
-* fast: highly optimized search index - bittorrent like downloads optimized for speed
+* excellent search and download: highly optimized search index - bittorrent like downloads optimized for speed - automatic error correction
 * low memory usage: special background mode with small memory footprint
 * secure - friend-2-friend topology - all communication encrypted
 * easy to use: thoroghly usability tested
