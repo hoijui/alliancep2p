@@ -403,7 +403,7 @@ public class NetworkManager extends Manager {
 
     /**
      * Send a PersistantRPC to a friend. Friend might be offline. The RPC is then queued and saved in a persistant
-     * queue. One the friend goes online the RPC will be sent.
+     * queue. Once the friend goes online the RPC will be sent.
      *
      * @param rpc
      * @param destination
