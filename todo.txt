@@ -16,7 +16,7 @@ Annat:
             användaren drar in ett gäng msnvänner och väljer send. goto 10
 
 Todo:
-
+    * lägg till funktion för att ignorera port check - det finns stora nätverk som inta längre kan använda alliance
 can you make an option to turn that off or "automaticly ignore friends of friends"
 DeathfireD -  [All hail piggy king of bacon] says:
 ya a check box or somthing
