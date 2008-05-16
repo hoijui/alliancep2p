@@ -16,7 +16,9 @@ Annat:
             anvŠndaren drar in ett gŠng msnvŠnner och vŠljer send. goto 10
 
 Todo:
+    * i vista så körs programmet som admin första gången - fel i installationsscriptet - detta gör att inställningar inte sparas
     * lŠgg till funktion fšr att ignorera port check - det finns stora nŠtverk som inta lŠngre kan anvŠnda alliance
+    * fokusproblem med chatfält när nya meddelanden kommer och när man trycker enter
 can you make an option to turn that off or "automaticly ignore friends of friends"
 DeathfireD -  [All hail piggy king of bacon] says:
 ya a check box or somthing
