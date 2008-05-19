@@ -35,6 +35,8 @@ I get 200 popups everytime I turn the client on
     * friends of friends uppdateras bara nŠr man starta om inte bra nŠr mŒnga joinar ett nŠtverket
     * gå igenom nyinkommna fel
 
+    * stöd för att välja vila ip-ranges som får koppla sig mot alliance
+
     * stöd för dyndns namn i my ip. kolla hur detta fungerar. det är en riktigt klok och proffsig grej att ha - så kan ett litet nätverk överleva om alla har dynamisk ip
 
     * lägg till advanced vy i friendslist. -- eftersom "via" grejjen fungerar dåligt kan den tas bort (kanske?) -- ratio, max up och max ner. roligt för tekniskare användare. Gör en kool ikon för den så man ser den. - eller välj vilka kolumner man visar per default - default ska nog vara name och ratio (och kanske share size?)
