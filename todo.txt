@@ -16,8 +16,11 @@ Annat:
             anvŠndaren drar in ett gŠng msnvŠnner och vŠljer send. goto 10
 
 Todo:
+    * whats up with the high amount of threads too? I understand Alliance tries to connect to each user on your list but I don't see how it could be double or triple that of what bittorrent uses when you only have 10 or 15 friends on your Alliance list where as you have 60 or 70 sources on bittorrent. I noticed Alliance sucks up 30-50 threads and when uploading it sky rockets.
     * i vista så körs programmet som admin första gången - fel i installationsscriptet - detta gör att inställningar inte sparas
     * lŠgg till funktion fšr att ignorera port check - det finns stora nŠtverk som inta lŠngre kan anvŠnda alliance
+    * "use internal ip-address" inställning när man invitar
+    
     * fokusproblem med chatfält när nya meddelanden kommer och när man trycker enter
 can you make an option to turn that off or "automaticly ignore friends of friends"
 DeathfireD -  [All hail piggy king of bacon] says:
@@ -28,7 +31,6 @@ I get 200 popups everytime I turn the client on
     * när man vart offline i ett par dagar så rullar chatten på i tio minuter med alla nya meddelanden...
     * när man laddar ner igenom share borde den ta sökvägen från där man klickade
     * Router:50 - vafan. r[] används ju inte..  slå på och testa kanske? kan vara farligt - kan vara så att router tabellen växer okontrollerat.. testa ordentlig i så fall 
-    * chatten kommer fel fortfarande.. det kanske Šr sŒ att folk har fel tid pŒ datorn helt enkelt.  hur som helst.. verkar som att det inte gŒr att lita pŒ currentTimeMillis pŒ det sŠttet. Kanske bŠttre att gŒ tillbaka till hur det var frŒn bšrjan..
     * direct buffer mem lŠcker
     * default deny new friends
     * maximum allowed connected friends vore bra - kanske?
@@ -37,13 +39,11 @@ I get 200 popups everytime I turn the client on
 
     * stöd för att välja vila ip-ranges som får koppla sig mot alliance
 
-    * stöd för dyndns namn i my ip. kolla hur detta fungerar. det är en riktigt klok och proffsig grej att ha - så kan ett litet nätverk överleva om alla har dynamisk ip
+    * stöd för dyndn namn i my ip. koslla hur detta fungerar. det är en riktigt klok och proffsig grej att ha - så kan ett litet nätverk överleva om alla har dynamisk ip
 
     * lägg till advanced vy i friendslist. -- eftersom "via" grejjen fungerar dåligt kan den tas bort (kanske?) -- ratio, max up och max ner. roligt för tekniskare användare. Gör en kool ikon för den så man ser den. - eller välj vilka kolumner man visar per default - default ska nog vara name och ratio (och kanske share size?)
-    * window.tofront när man får meddelanden. Ska titta på options för taskbar bubblor
     * move to top/bottom i downloads. Många har hundra downloads i sin lista. roligt att trycka up hundra gånger.
     * drag'n'drop från msn - bara man kan förklara det på ett enkelt sätt så är det lika bra som fullständig integration - tänk på att jag redan har färdig kod för att skicka mail - errorreporter
-    * lŠgg tll stšd fšr mac klasser - typ bra ikon och meny och sŒ.
 
     * fixa koolt UI för uploads också. så det är kul att kolla på.  ha riktig historik för uploads - DET hade jag gillat - så jag kan se vad folk har laddat ner från mig. kalla fliken "statistics" och ha massa askool stats med den läcka diagramkomponenten. cpuanvänding, minnesanvändning, up/ner hastighet, och koola stats för uploads
 
