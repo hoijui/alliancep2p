@@ -17,7 +17,7 @@ Annat:
 
 Todo:
     * lägga in ett protokoll i windows för alliance:  alliance://invitationcode/filehash    så kan man skicka meddelanden till polare..  "Här är filen: alliance://wpijgsagjasgsag/slkgfslkfjsfj. Det är bara att installera alliance och klicka på länken så får du den!"  Blir inte bra om man länkar till massa med filer men om det är inte för många så är det najs som fan!
-    * whats up with the high amount of threads too? I understand Alliance tries to connect to each user on your list but I don't see how it could be double or triple that of what bittorrent uses when you only have 10 or 15 friends on your Alliance list where as you have 60 or 70 sources on bittorrent. I noticed Alliance sucks up 30-50 threads and when uploading it sky rockets.
+    * eeeh. 13 online och 40 trådar igång i alliance. wtf?   whats up with the high amount of threads too? I understand Alliance tries to connect to each user on your list but I don't see how it could be double or triple that of what bittorrent uses when you only have 10 or 15 friends on your Alliance list where as you have 60 or 70 sources on bittorrent. I noticed Alliance sucks up 30-50 threads and when uploading it sky rockets.
     * i vista så körs programmet som admin första gången - fel i installationsscriptet - detta gör att inställningar inte sparas
     * lŠgg till funktion fšr att ignorera port check - det finns stora nŠtverk som inta lŠngre kan anvŠnda alliance
     * "use internal ip-address" inställning när man invitar
