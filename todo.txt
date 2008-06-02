@@ -16,12 +16,14 @@ Annat:
             anvŠndaren drar in ett gŠng msnvŠnner och vŠljer send. goto 10
 
 Todo:
+    *It looks like the problem is in the addMessage method in PrivateChatMessageMDIWindow. There's a call to manager.selectWindow(this) which causes the textbox to lose focus.
+    * lägg till antal online/totalt i tray bubbla
     * lägga in ett protokoll i windows för alliance:  alliance://invitationcode/filehash    så kan man skicka meddelanden till polare..  "Här är filen: alliance://wpijgsagjasgsag/slkgfslkfjsfj. Det är bara att installera alliance och klicka på länken så får du den!"  Blir inte bra om man länkar till massa med filer men om det är inte för många så är det najs som fan!
+    * When I updated my version via p2p, the message that the new version becomes active after restarting came in a loop. When I clicked "OK", the box just reappeared over an over again.
     * eeeh. 13 online och 40 trådar igång i alliance. wtf?   whats up with the high amount of threads too? I understand Alliance tries to connect to each user on your list but I don't see how it could be double or triple that of what bittorrent uses when you only have 10 or 15 friends on your Alliance list where as you have 60 or 70 sources on bittorrent. I noticed Alliance sucks up 30-50 threads and when uploading it sky rockets.
     * i vista så körs programmet som admin första gången - fel i installationsscriptet - detta gör att inställningar inte sparas
     * lŠgg till funktion fšr att ignorera port check - det finns stora nŠtverk som inta lŠngre kan anvŠnda alliance
     * "use internal ip-address" inställning när man invitar
-    
     * fokusproblem med chatfält när nya meddelanden kommer och när man trycker enter
 can you make an option to turn that off or "automaticly ignore friends of friends"
 DeathfireD -  [All hail piggy king of bacon] says:
@@ -58,7 +60,7 @@ I get 200 popups everytime I turn the client on
     * fixa java 6.0 system tray
     * användare startar alliance efter dom tryck på krysset för att trayikonen försvinner. kanske försöka ha kvar trayikonen medans alliance startar om? Det borde gå att fixa..  Antingen värsta hacket där man inte tar bort trayikonen, fast få dår man dubbel ikon när den väl startat. Alt. 2 är att vänta med att döda pocessen tills man ser att den nya alliance snurrar.
     * måste ta kataloger smartare - blir jäkligt knas annars
-    * "jag tror en del av mina polare nog skulle bli nyfikna om man hade lite reklam typ  "American Gangsters DVD - join Alliance"" 1. enkelt att göra reklam för en eller flera grejor man delar ut Pontus säger (10:10): 2. enkelt för dem som ser reklamen att koppla upp sig och tanka
+    * "jag tror en del av mina polare nog skulle bli nyfikna om man hade lite reklam typ  "XXX DVD - join Alliance"" 1. enkelt att göra reklam för en eller flera grejor man delar ut Pontus säger (10:10): 2. enkelt för dem som ser reklamen att koppla upp sig och tanka
     * posta i forum om att jag behöver en download-bundle för installation i linux
     * fixa installation för mac när jag har airbooken
     * filesize i view share

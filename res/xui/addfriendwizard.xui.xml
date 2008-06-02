@@ -16,7 +16,7 @@
                 </panel>
                 <panel axis="x" border="0" expand="horiz">
                     <strut width="10"/>
-                    <radiobutton eventid="radio1_2" id="b" group="a" text="I want to invite a friends to my Alliance network"/>
+                    <radiobutton eventid="radio1_2" id="b" group="a" text="I want to invite a friend to my Alliance network"/>
                     <filler/>
                 </panel>
                 <panel axis="x" border="0" expand="horiz">
