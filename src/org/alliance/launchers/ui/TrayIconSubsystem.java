@@ -2,6 +2,7 @@ package org.alliance.launchers.ui;
 
 import com.stendahls.nif.util.SimpleTimer;
 import com.stendahls.resourceloader.ResourceLoader;
+import com.stendahls.util.TextUtils;
 import org.alliance.Subsystem;
 import org.alliance.Version;
 import org.alliance.core.*;
@@ -251,7 +252,7 @@ public class TrayIconSubsystem implements Subsystem, Runnable {
                     while(true) {
                         SwingUtilities.invokeLater(new Runnable() {
                             public void run() {
-                                ti.setToolTip("Alliance v" + Version.VERSION + " build " + Version.BUILD_NUMBER + "\nDownload: " + core.getNetworkManager().getBandwidthIn().getCPSHumanReadable() + "\nUpload: " + core.getNetworkManager().getBandwidthOut().getCPSHumanReadable());
+                                ti.setToolTip("Alliance v" + Version.VERSION + " build " + Version.BUILD_NUMBER + "\nDownload: " + core.getNetworkManager().getBandwidthIn().getCPSHumanReadable() + "\nUpload: " + core.getNetworkManager().getBandwidthOut().getCPSHumanReadable()+"\nOnline: " + core.getFriendManager().getNFriendsConnected() + "/" + core.getFriendManager().getNFriends() + " (" + TextUtils.formatByteSize(core.getFriendManager().getTotalBytesShared()) + ")");
                             }
                         });
 

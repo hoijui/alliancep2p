@@ -525,7 +525,8 @@ public class CoreSubsystem implements Subsystem {
 
     public void softRestart() throws IOException {
         if (uiCallback.isUIVisible()) {
-            queNeedsUserInteraction(new NeedsToRestartBecauseOfUpgradeInteraction());
+            if (!doesInterationQueContain(NeedsToRestartBecauseOfUpgradeInteraction.class))
+                queNeedsUserInteraction(new NeedsToRestartBecauseOfUpgradeInteraction());
         } else {
             restartProgram(false);
         }

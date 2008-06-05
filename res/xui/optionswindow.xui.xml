@@ -1,7 +1,7 @@
 <xui>
     <title value="Options" image="gfx/icons/alliance.png"/>
     <body>
-        <tabbedpanel height="450" id="tab">
+        <tabbedpanel height="500" id="tab">
             <tab text="General" tooltip="General options">
                 <panel axis="y" bordertype="etched" bordertitle="Personal information">
                     <form expand="horiz" border="5">
@@ -24,6 +24,18 @@
                     <panel axis="x">
                         <mlabel html="true">
                             Note that your nickname can be seen by second degree friends in the network.
+                        </mlabel>
+                    </panel>
+                </panel>
+
+                <panel axis="y" bordertype="etched" bordertitle="LAN Support">
+                    <panel axis="x" expand="horiz">
+                        <checkbox id="server.lansupport" text="I want to use Alliance on my LAN and not over the Internet"/>
+                        <filler/>
+                    </panel>
+                    <panel axis="x">
+                        <mlabel html="true">
+                            Select this if you only want to connect to friends in the same local area you are in (for example the same university, workplace or building).
                         </mlabel>
                     </panel>
                 </panel>

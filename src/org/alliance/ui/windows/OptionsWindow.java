@@ -46,7 +46,8 @@ public class OptionsWindow extends XUIDialog {
             "internal.showsystemmessagesintray",
             "internal.rescansharewhenalliancestarts",
             "internal.enablesupportfornonenglishcharacters",
-            "internal.alwaysautomaticallyconnecttoallfriendsoffriend"
+            "internal.alwaysautomaticallyconnecttoallfriendsoffriend",
+            "server.lansupport"
     };
 
     private UISubsystem ui;

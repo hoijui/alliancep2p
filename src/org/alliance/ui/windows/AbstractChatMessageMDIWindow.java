@@ -120,13 +120,23 @@ public abstract class AbstractChatMessageMDIWindow extends AllianceMDIWindow imp
     }
 
     public void EVENT_chat1(ActionEvent e) throws Exception {
+        chatMessage();
+    }
+
+    private void chatMessage() throws Exception {
         if (chat.getText().trim().length() == 0) return;
+        if (chat.getText().trim().equals("/clear")) {
+            chatLines = new TreeSet<ChatLine>();
+            regenerateHtml();
+            needToUpdateHtml = true;
+            chat.setText("");
+            return;
+        }
         send(escapeHTML(chat.getText()));
     }
 
     public void EVENT_chat2(ActionEvent e) throws Exception {
-        if (chat.getText().trim().length() == 0) return;
-        send(escapeHTML(chat.getText()));
+        chatMessage();
     }
 
     private String escapeHTML(String text) {

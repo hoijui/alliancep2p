@@ -2,6 +2,8 @@ package org.alliance.core.file.blockstorage;
 
 import org.alliance.core.CoreSubsystem;
 
+import java.io.IOException;
+
 /**
  * Created by IntelliJ IDEA.
  * User: maciek
@@ -12,7 +14,7 @@ import org.alliance.core.CoreSubsystem;
 public class DownloadStorage extends BlockStorage {
     public static final int TYPE_ID = 1;
 
-    public DownloadStorage(String storagePath, String completeFilePath, CoreSubsystem core) throws Exception {
+    public DownloadStorage(String storagePath, String completeFilePath, CoreSubsystem core) throws IOException {
         super(storagePath, completeFilePath, core);
         isSequential = true;
     }

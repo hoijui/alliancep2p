@@ -37,6 +37,11 @@ public class PrivateChatMessageMDIWindow extends AbstractChatMessageMDIWindow {
         super.addMessage(from, message, tick, messageHasBeenQueuedAwayForAWhile);
         manager.selectWindow(this);
         ui.getMainWindow().toFront();
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                chat.requestFocus();
+            }
+        });
     }
 
     protected void send(final String text) throws IOException {

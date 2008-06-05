@@ -54,13 +54,13 @@ public abstract class BlockStorage extends Thread {
 
     protected boolean isSequential;
 
-    public BlockStorage(String storagePath, String completeFilePath, CoreSubsystem core) throws Exception {
+    public BlockStorage(String storagePath, String completeFilePath, CoreSubsystem core) throws IOException {
         if(T.t)T.info("BlockStorage <init> - "+storagePath+" "+completeFilePath);
         this.core = core;
         this.storagePath = new File(storagePath);
         this.completeFilePath = new File(completeFilePath);
-        if (!this.storagePath.mkdirs()) {
-            throw new Exception("Permission problem: can't create "+storagePath+".");
+        if (!this.storagePath.exists() && !this.storagePath.mkdirs()) {
+            throw new IOException("Permission problem: can't create "+storagePath+".");
         }
         this.completeFilePath.mkdirs();
 

@@ -16,29 +16,21 @@ Annat:
             anvŠndaren drar in ett gŠng msnvŠnner och vŠljer send. goto 10
 
 Todo:
-    *It looks like the problem is in the addMessage method in PrivateChatMessageMDIWindow. There's a call to manager.selectWindow(this) which causes the textbox to lose focus.
-    * lägg till antal online/totalt i tray bubbla
     * lägga in ett protokoll i windows för alliance:  alliance://invitationcode/filehash    så kan man skicka meddelanden till polare..  "Här är filen: alliance://wpijgsagjasgsag/slkgfslkfjsfj. Det är bara att installera alliance och klicka på länken så får du den!"  Blir inte bra om man länkar till massa med filer men om det är inte för många så är det najs som fan!
-    * When I updated my version via p2p, the message that the new version becomes active after restarting came in a loop. When I clicked "OK", the box just reappeared over an over again.
     * eeeh. 13 online och 40 trådar igång i alliance. wtf?   whats up with the high amount of threads too? I understand Alliance tries to connect to each user on your list but I don't see how it could be double or triple that of what bittorrent uses when you only have 10 or 15 friends on your Alliance list where as you have 60 or 70 sources on bittorrent. I noticed Alliance sucks up 30-50 threads and when uploading it sky rockets.
     * i vista så körs programmet som admin första gången - fel i installationsscriptet - detta gör att inställningar inte sparas
-    * lŠgg till funktion fšr att ignorera port check - det finns stora nŠtverk som inta lŠngre kan anvŠnda alliance
-    * "use internal ip-address" inställning när man invitar
-    * fokusproblem med chatfält när nya meddelanden kommer och när man trycker enter
 can you make an option to turn that off or "automaticly ignore friends of friends"
 DeathfireD -  [All hail piggy king of bacon] says:
 ya a check box or somthing
 DeathfireD -  [All hail piggy king of bacon] says:
 I get 200 popups everytime I turn the client on
     * allianc sŠger "alliance need your attention" fastŠn man har pŒ automatisk koppling till vŠnners vŠnner och allt nŠr en ny anvŠndare kopplar upp sig
-    * när man vart offline i ett par dagar så rullar chatten på i tio minuter med alla nya meddelanden...
     * när man laddar ner igenom share borde den ta sökvägen från där man klickade
     * Router:50 - vafan. r[] används ju inte..  slå på och testa kanske? kan vara farligt - kan vara så att router tabellen växer okontrollerat.. testa ordentlig i så fall 
     * direct buffer mem lŠcker
     * default deny new friends
     * maximum allowed connected friends vore bra - kanske?
     * friends of friends uppdateras bara nŠr man starta om inte bra nŠr mŒnga joinar ett nŠtverket
-    * gå igenom nyinkommna fel
 
     * stöd för att välja vila ip-ranges som får koppla sig mot alliance
 
@@ -54,7 +46,6 @@ I get 200 popups everytime I turn the client on
     * nåt åt detta hållet är viktigt så man inte chokar noobs kopplingar: if (uploaded > 100mb and uploded_to > 2 persons and bandwidth_thottle_not_set) set_throttle_and_notify_when_ui_is_up
     * internationalisering - massa folk hade översatt om det gick..   tänk på detta. hade varit jävligt najs.  man får välja språk i runtime. najs.
     * dubbelklick på nerladdad fil öppnar den
-    * flera personer frågar efter detta: stöd för att skapa connection koder inom samma nätverk * lägg till ett meddelande när man försöker connecta till en dator i samma nätverk
     * command-line start. Linuxanvändare intresserade av det.
     * feedback formulär
     * fixa java 6.0 system tray

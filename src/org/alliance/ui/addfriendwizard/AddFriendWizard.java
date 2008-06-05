@@ -202,6 +202,11 @@ public class AddFriendWizard extends JWizard {
     }
 
     public void goToPortTest() {
+        if (ui.getCore().getSettings().getServer().getLansupport() != null && ui.getCore().getSettings().getServer().getLansupport() == 1) {
+            //alliance is to be run on an internal LAN - don't do port test
+            goToCreateInvitation();
+            return;
+        }
         setStep(STEP_PORT_OPEN_TEST);
         prev.setEnabled(false);
         next.setEnabled(false);

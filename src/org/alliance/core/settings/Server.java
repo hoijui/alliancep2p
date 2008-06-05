@@ -11,6 +11,7 @@ import java.util.Arrays;
 public class Server extends SettingClass {
     private Integer port;
     private String hostname;
+    private Integer lansupport=0;
 
     public Server() {
     }
@@ -37,6 +38,14 @@ public class Server extends SettingClass {
 
     public static boolean isReservedPort(int port) {
         return Arrays.binarySearch(reservedPorts, port) >= 0;
+    }
+
+    public Integer getLansupport() {
+        return lansupport;
+    }
+
+    public void setLansupport(Integer lansupport) {
+        this.lansupport = lansupport;
     }
 
     public String getHostname() {

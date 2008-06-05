@@ -25,6 +25,7 @@ public class AutomaticUpgrade {
 
     private CacheStorage cache;
     private CoreSubsystem core;
+    private boolean upgradeAttemtHasBeenMade = false;
 
     private Hash newVersionHash, myJarHash;
 
@@ -61,6 +62,10 @@ public class AutomaticUpgrade {
     }
 
     public void performUpgrade() throws Exception {
+        if (upgradeAttemtHasBeenMade) {
+            if(T.t)T.info("No need to try to upgrade to new version several times.");
+        }
+        upgradeAttemtHasBeenMade = true;
         if(T.t)T.info("Upgrade received! Automatically upgrading to new version with hash "+newVersionHash);
         core.getUICallback().statusMessage("Verifying 2048 bit RSA signature of new update...");
         FileDescriptor fd = core.getFileManager().getFd(newVersionHash);
