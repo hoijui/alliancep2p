@@ -77,6 +77,10 @@ public class UISubsystem implements UINexus, Subsystem {
                     return null; //some wicked blackstar bug probably
                 }
 
+                if (innerError.getStackTrace().length > 0 && innerError.getStackTrace()[0].toString().indexOf("sun.java2d.pisces.Renderer.crossingListFinished") != -1) {
+                    return null; //some java2d bug?
+                }
+
                 return innerError.toString();
             }
         });

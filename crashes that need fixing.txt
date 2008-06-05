@@ -1,0 +1,80 @@
+java.io.FileNotFoundException: logs/error.log (No such file or directory)   == Macanvändare kör från mount
+	at java.io.FileOutputStream.open(Native Method)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:179)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:102)
+	at com.stendahls.nif.util.Log.<init>(Log.java:23)
+	at com.stendahls.nif.util.Log.<init>(Log.java:19)
+	at org.alliance.core.CoreSubsystem.setupLog(CoreSubsystem.java:192)
+	at org.alliance.core.CoreSubsystem.init(CoreSubsystem.java:97)
+	at org.alliance.launchers.ui.Main.initCore(Main.java:144)
+	at org.alliance.launchers.ui.Main.main(Main.java:42)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:585)
+	at apple.launcher.LaunchRunner.run(LaunchRunner.java:115)
+	at apple.launcher.LaunchRunner.callMain(LaunchRunner.java:50)
+	at apple.launcher.JavaApplicationLauncher.launch(JavaApplicationLauncher.java:52)
+
+
+org.xml.sax.SAXParseException: Content is not allowed in prolog.    == settingsfilen har gått sönder
+	at com.sun.org.apache.xerces.internal.parsers.DOMParser.parse(Unknown Source)
+	at com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderImpl.parse(Unknown Source)
+	at com.stendahls.nif.util.SXML.loadXML(SXML.java:86)
+	at org.alliance.core.CoreSubsystem.loadSettings(CoreSubsystem.java:231)
+	at org.alliance.core.CoreSubsystem.init(CoreSubsystem.java:116)
+	at org.alliance.launchers.ui.Main.initCore(Main.java:144)
+	at org.alliance.launchers.ui.Main.main(Main.java:42)
+
+
+java.lang.NullPointerException   == ???
+	at org.alliance.core.file.blockstorage.BlockStorage.loadHashes(BlockStorage.java:117)
+	at org.alliance.core.file.blockstorage.BlockStorage.<init>(BlockStorage.java:65)
+	at org.alliance.core.file.blockstorage.DownloadStorage.<init>(DownloadStorage.java:16)
+	at org.alliance.core.file.FileManager.init(FileManager.java:50)
+	at org.alliance.core.CoreSubsystem.init(CoreSubsystem.java:132)
+	at org.alliance.launchers.ui.Main.initCore(Main.java:144)
+	at org.alliance.launchers.ui.Main.main(Main.java:42)
+
+
+java.lang.NullPointerException
+	at org.alliance.ui.MainWindow.directoryListingReceived(MainWindow.java:814)
+	at org.alliance.ui.UIBridge$4.run(UIBridge.java:77)
+	at java.awt.event.InvocationEvent.dispatch(Unknown Source)
+	at java.awt.EventQueue.dispatchEvent(Unknown Source)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.awt.EventDispatchThread.run(Unknown Source)
+
+
+
+java.lang.NullPointerException
+	at org.alliance.ui.MainWindow.shareBaseListReceived(MainWindow.java:805)
+	at org.alliance.ui.UIBridge$3.run(UIBridge.java:69)
+	at java.awt.event.InvocationEvent.dispatch(Unknown Source)
+	at java.awt.EventQueue.dispatchEvent(Unknown Source)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.awt.EventDispatchThread.run(Unknown Source)
+
+
+java.lang.NullPointerException
+	at org.alliance.core.comm.NetworkManager.sendPersistantly(NetworkManager.java:413)
+	at org.alliance.core.node.FriendManager.forwardInvitation(FriendManager.java:248)
+	at org.alliance.core.node.FriendManager.forwardInvitation(FriendManager.java:240)
+	at org.alliance.core.CoreSubsystem.queNeedsUserInteraction(CoreSubsystem.java:444)
+	at org.alliance.core.comm.rpc.PleaseForwardInvitation.execute(PleaseForwardInvitation.java:47)
+	at org.alliance.core.comm.FriendConnection.received$64400092(FriendConnection.java:65)
+	at org.alliance.core.comm.FriendConnection.received(FriendConnection.java:47)
+	at org.alliance.core.comm.FriendConnection.packetReceived(FriendConnection.java:43)
+	at org.alliance.core.comm.PacketConnection.received(PacketConnection.java:109)
+	at org.alliance.core.crypto.cryptolayers.BufferedCryptoLayer.received(BufferedCryptoLayer.java:113)
+	at org.alliance.core.comm.NetworkManager.received(NetworkManager.java:289)
+	at org.alliance.core.comm.networklayers.tcpnio.TCPNIONetworkLayer.handleRead(TCPNIONetworkLayer.java:307)
+	at org.alliance.core.comm.networklayers.tcpnio.TCPNIONetworkLayer.run(TCPNIONetworkLayer.java:174)
+	at java.lang.Thread.run(Unknown Source)
