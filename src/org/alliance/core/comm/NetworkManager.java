@@ -410,6 +410,7 @@ public class NetworkManager extends Manager {
      * @throws IOException
      */
     public void sendPersistantly(PersistantRPC rpc, Friend destination) throws IOException {
+        if (rpc == null || destination == null) return;
         rpc.setDestinationGuid(destination.getGuid());
         rpc.resetTimestamp();
         if (destination.getFriendConnection() != null) {

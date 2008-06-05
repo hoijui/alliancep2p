@@ -54,12 +54,14 @@ public abstract class BlockStorage extends Thread {
 
     protected boolean isSequential;
 
-    public BlockStorage(String storagePath, String completeFilePath, CoreSubsystem core) {
+    public BlockStorage(String storagePath, String completeFilePath, CoreSubsystem core) throws Exception {
         if(T.t)T.info("BlockStorage <init> - "+storagePath+" "+completeFilePath);
         this.core = core;
         this.storagePath = new File(storagePath);
         this.completeFilePath = new File(completeFilePath);
-        this.storagePath.mkdirs();
+        if (!this.storagePath.mkdirs()) {
+            throw new Exception("Permission problem: can't create "+storagePath+".");
+        }
         this.completeFilePath.mkdirs();
 
         loadHashes();
@@ -114,7 +116,8 @@ public abstract class BlockStorage extends Thread {
             }
         });
 
-        for(File h : hashes) {
+        if (hashes != null) for(File h : hashes) {
+            if (h == null) continue;
             String s = h.getName();
             s = s.substring(0, s.lastIndexOf('.'));
             if(T.t)T.trace("Found hash in blockstorage: "+s);

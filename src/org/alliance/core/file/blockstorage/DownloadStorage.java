@@ -12,7 +12,7 @@ import org.alliance.core.CoreSubsystem;
 public class DownloadStorage extends BlockStorage {
     public static final int TYPE_ID = 1;
 
-    public DownloadStorage(String storagePath, String completeFilePath, CoreSubsystem core) {
+    public DownloadStorage(String storagePath, String completeFilePath, CoreSubsystem core) throws Exception {
         super(storagePath, completeFilePath, core);
         isSequential = true;
     }

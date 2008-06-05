@@ -14,7 +14,7 @@ import java.io.IOException;
 public class CacheStorage extends BlockStorage {
     public static final int TYPE_ID = 2;
 
-    public CacheStorage(String storagePath, String completeFilePath, CoreSubsystem core) throws IOException {
+    public CacheStorage(String storagePath, String completeFilePath, CoreSubsystem core) throws Exception {
         super(storagePath, completeFilePath, core);
         isSequential = false;
     }

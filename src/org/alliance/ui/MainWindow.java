@@ -804,6 +804,7 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
     }
 
     public void shareBaseListReceived(Friend friend, String[] shareBaseNames) {
+        if (friend == null) return;
         ViewShareMDIWindow w = (ViewShareMDIWindow)mdiManager.getWindow("viewshare"+friend.getGuid());
         if (w == null) {
             if(T.t)T.error("Could not find view share window for "+friend);
@@ -813,6 +814,7 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
     }
 
     public void directoryListingReceived(Friend friend, int shareBaseIndex, String path, String[] files) {
+        if (friend == null) return;
         ViewShareMDIWindow w = (ViewShareMDIWindow)mdiManager.getWindow("viewshare"+friend.getGuid());
         if (w == null) {
             if(T.t)T.error("Could not find view share window for "+friend);
