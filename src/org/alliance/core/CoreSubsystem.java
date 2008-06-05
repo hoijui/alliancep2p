@@ -4,6 +4,7 @@ import com.stendahls.XUI.XUIException;
 import com.stendahls.nif.util.Log;
 import com.stendahls.nif.util.SXML;
 import com.stendahls.nif.util.xmlserializer.XMLSerializer;
+import com.stendahls.nif.ui.OptionDialog;
 import com.stendahls.resourceloader.ResourceLoader;
 import com.stendahls.trace.Trace;
 import com.stendahls.trace.TraceHandler;
@@ -29,7 +30,9 @@ import org.alliance.launchers.StartupProgressListener;
 import org.alliance.launchers.OSInfo;
 import org.alliance.launchers.ui.Main;
 import org.w3c.dom.Document;
+import org.xml.sax.SAXParseException;
 
+import javax.swing.*;
 import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.channels.ClosedChannelException;
@@ -37,6 +40,7 @@ import java.nio.channels.UnresolvedAddressException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Date;
 
 /**
  * This is the core of the entire Alliance system. Theres not too much code here, it's more of a hub for the entire
@@ -187,10 +191,19 @@ public class CoreSubsystem implements Subsystem {
         if(T.t)T.info("CoreSubsystem stated.");
     }
 
-    private void setupLog() throws FileNotFoundException {
-        new File("logs").mkdirs();
-        errorLog = new Log("logs/error.log");
-        traceLog = new Log("logs/trace.log");
+    private void setupLog() throws Exception {
+        try {
+            new File("logs").mkdirs();
+            errorLog = new Log("logs/error.log");
+            traceLog = new Log("logs/trace.log");
+        } catch(FileNotFoundException e) {
+            if (OSInfo.isMac()) {
+                OptionDialog.showErrorDialog(new JFrame(), "It seems that you are trying to run Alliance from a mounted image on Mac.[p]You need to drag'n'drop the Alliance icon you clicked on to your Applications folder and then start Alliance from there.[p]Alliance will now shut down.");
+                System.exit(1);
+            } else {
+                throw new Exception("Permission problem. Can't write to files in Alliance application folder.");
+            }
+        }
     }
 
     public static boolean isRunningAsTestSuite() {
@@ -218,6 +231,7 @@ public class CoreSubsystem implements Subsystem {
         XMLSerializer s = new XMLSerializer();
         try {
             File file = new File(settingsFile);
+/*          this code has remained commented and not removed because it might be reused when all settingsfiles are finally moved to "application data" and not remain in "program files" 
             if (!file.exists()) {
                 file = new File("settings.xml"); //old location of settingsfile - this code is here for backwards compatibility
                 if (file.exists()) {
@@ -227,7 +241,7 @@ public class CoreSubsystem implements Subsystem {
                     file.renameTo(f2);
                     file = f2;
                 }
-            }
+            }*/
             settings = s.deserialize(SXML.loadXML(file), Settings.class);
         } catch(FileNotFoundException e) {
             if(T.t)T.info("No settings file - creating default settings.");
@@ -235,6 +249,18 @@ public class CoreSubsystem implements Subsystem {
             if (file.getParentFile() != null) file.getParentFile().mkdirs();
             settings = new Settings();
             saveSettings();
+        } catch(SAXParseException e) {
+            if(T.t)T.info("Settings file is corrupt - trying to use backup version of settings..");
+            File file = new File(settingsFile);
+            File bak = new File(settingsFile+".bak");
+            if (bak.exists()) {
+                file.renameTo(new File(settingsFile+".corrupt@"+System.currentTimeMillis()));
+                bak.renameTo(file);
+                //calls itself recursively but no infinite loop should occur since the .bak file has been moved
+                loadSettings();
+            } else {
+                throw new Exception("Settings file is corrupt. Tried to used backed up version but failed. Sorry.", e);
+            }
         }
     }
 

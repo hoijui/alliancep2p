@@ -13,7 +13,7 @@ public class My extends SettingClass {
 
     private Integer guid = new Random().nextInt();
     private String nickname = UNDEFINED_NICKNAME;
-    private Integer cguid = 0; //this is a checksum of the invitations property, disguised so that script kiddies won't get it
+    private Integer cguid = 0; //this is a checksum of the invitations property, disguised so that script kiddies won't find it
     private Integer invitations = 0; //every time this user completes an invitation successfully he gets a point
 
     public My() {
