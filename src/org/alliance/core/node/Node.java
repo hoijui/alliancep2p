@@ -59,6 +59,10 @@ public abstract class Node {
         friendsFriends.put(untrustedNode.getGuid(), untrustedNode);
     }
 
+    public void removeAllFriendsOfFriend() {
+        if (friendsFriends != null) friendsFriends.clear();
+    }
+
     public boolean friendsFriendsLoaded() {
         return friendsFriends != null;
     }

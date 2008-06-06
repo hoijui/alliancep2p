@@ -156,7 +156,6 @@ public abstract class AbstractChatMessageMDIWindow extends AllianceMDIWindow imp
     }
 
     public void addMessage(String from, String message, long tick, boolean messageHasBeenQueuedAwayForAWhile) {
-        System.out.println("got: "+message);
         if (chatLines != null && chatLines.size() > 0) {
             ChatLine l = chatLines.last();
             if (!messageHasBeenQueuedAwayForAWhile) {

@@ -29,6 +29,7 @@ public class UserList extends RPC {
     public void execute(Packet in) throws IOException {
         int remoteGUID = in.readInt();
         Node n = manager.getNode(remoteGUID);
+        n.removeAllFriendsOfFriend();
 
         if(T.t)T.trace("Userinfo for "+n+": ");
         int nFriends = in.readInt();
