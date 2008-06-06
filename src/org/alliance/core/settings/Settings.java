@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class Settings {
     private ArrayList<Friend> friendlist;
     private ArrayList<Share> sharelist;
+    private ArrayList<Plugin> pluginlist;
     private Server server;
     private My my;
     private Internal internal;
@@ -18,6 +19,7 @@ public class Settings {
     public Settings() {
         friendlist = new ArrayList<Friend>();
         sharelist = new ArrayList<Share>();
+        pluginlist = new ArrayList<Plugin>();
         server = new Server();
         internal = new Internal();
         my = new My();
@@ -37,6 +39,14 @@ public class Settings {
 
     public void setMy(My my) {
         this.my = my;
+    }
+
+    public ArrayList<Plugin> getPluginlist() {
+        return pluginlist;
+    }
+
+    public void setPluginlist(ArrayList<Plugin> pluginlist) {
+        this.pluginlist = pluginlist;
     }
 
     public ArrayList<Friend> getFriendlist() {

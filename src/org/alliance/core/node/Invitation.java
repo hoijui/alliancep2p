@@ -40,7 +40,6 @@ public class Invitation implements Serializable {
         } else {
             myhost = core.getFriendManager().getMe().getExternalIp(core);
         }
-        System.out.println("host: "+myhost);
 
         byte[] ip = InetAddress.getByName(myhost).getAddress();
 

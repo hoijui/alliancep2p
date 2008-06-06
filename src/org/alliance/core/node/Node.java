@@ -116,4 +116,12 @@ public abstract class Node {
     public long getTotalBytesReceived() {
         return 0;
     }
+
+    public String calculateRatio() {
+        long upload = getTotalBytesSent();
+        long download = getTotalBytesReceived();
+        if (upload == 0 || download == 0) return "?";
+        if (upload > download) return ((double)Math.round(((double)upload)/download*10))/10 + ":1";
+        return "1:"+((double)Math.round(((double)download)/upload*10))/10;
+    }
 }

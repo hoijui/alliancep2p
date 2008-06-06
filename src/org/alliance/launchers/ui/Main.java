@@ -29,7 +29,7 @@ public class Main {
             System.out.println("Launching Alliance v"+ Version.VERSION+" build "+Version.BUILD_NUMBER);
             System.setProperty("alliance.build", ""+Version.BUILD_NUMBER);
 
-            boolean allowMultipleInstances = argsContain(args, "/allowMultipleInstances");
+            boolean allowMultipleInstances = argsContain(args, "/allowMultipleInstances") || new File("allowMultipleInstances").exists();
             boolean runMinimized = argsContain(args, "/min");
 
             if (!allowMultipleInstances) checkIfAlreadyRunning(!runMinimized);

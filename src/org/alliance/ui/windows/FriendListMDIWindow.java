@@ -265,16 +265,10 @@ public class FriendListMDIWindow extends AllianceMDIWindow {
                     "Download speed record: "+TextUtils.formatByteSize((long) n.getHighestIncomingCPS())+"/s<br>" +
                     "Bytes uploaded: "+TextUtils.formatByteSize(n.getTotalBytesSent())+"<br>" +
                     "Bytes downloaded: "+TextUtils.formatByteSize(n.getTotalBytesReceived())+ "<br>" +
-                    "Ratio (ul:dl): "+calculateRatio(n.getTotalBytesSent(), n.getTotalBytesReceived())+"</html>");
+                    "Ratio (ul:dl): "+n.calculateRatio()+"</html>");
 
             return this;
         }
-    }
-
-    private String calculateRatio(long upload, long download) {
-        if (upload == 0 || download == 0) return "?";
-        if (upload > download) return ((double)Math.round(((double)upload)/download*10))/10 + ":1";
-        return "1:"+((double)Math.round(((double)download)/upload*10))/10;
     }
 
     private String nickname(int guid) {

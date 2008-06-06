@@ -26,6 +26,8 @@ import org.alliance.core.node.Friend;
 import org.alliance.core.node.FriendManager;
 import org.alliance.core.node.InvitaitonManager;
 import org.alliance.core.settings.Settings;
+import org.alliance.core.plugins.PluginManager;
+import org.alliance.core.plugins.DoubleUICallback;
 import org.alliance.launchers.StartupProgressListener;
 import org.alliance.launchers.OSInfo;
 import org.alliance.launchers.ui.Main;
@@ -40,7 +42,6 @@ import java.nio.channels.UnresolvedAddressException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Date;
 
 /**
  * This is the core of the entire Alliance system. Theres not too much code here, it's more of a hub for the entire
@@ -78,6 +79,7 @@ public class CoreSubsystem implements Subsystem {
     private UPnPManager upnpManager;
     private CryptoManager cryptoManager;
     private AwayManager awayManager;
+    private PluginManager pluginManager;
 
     private PublicChatHistory publicChatHistory;
 
@@ -126,6 +128,7 @@ public class CoreSubsystem implements Subsystem {
         invitaitonManager = new InvitaitonManager(this, settings);
         upnpManager = new UPnPManager(this);
         awayManager = new AwayManager(this);
+        pluginManager = new PluginManager(this);
 
         publicChatHistory = new PublicChatHistory();
 
@@ -138,6 +141,7 @@ public class CoreSubsystem implements Subsystem {
         friendManager.init();
         networkManager.init();
         awayManager.init();
+        pluginManager.init();
 
         if (!isRunningAsTestSuite()) {
             Thread t = new Thread(new Runnable() {
@@ -347,6 +351,9 @@ public class CoreSubsystem implements Subsystem {
         try { awayManager.shutdown(); } catch(Exception e) {
             if(T.t)T.error("Problem when shutting down awaymanager: "+e);
         }
+        try { pluginManager.shutdown(); } catch(Exception e) {
+            if(T.t)T.error("Problem when shutting down pluginmanager: "+e);
+        }
         try { saveSettings(); } catch(Exception e) {
             if(T.t)T.error("Problem when saving settings: "+e);
         }
@@ -389,11 +396,18 @@ public class CoreSubsystem implements Subsystem {
         return uiCallback;
     }
 
-    public void setUiCallback(UICallback uiCallback) {
+    public void setUICallback(UICallback uiCallback) {
+        UICallback old = this.uiCallback;
         if (uiCallback == null)
             this.uiCallback = new NonWindowUICallback();
         else
             this.uiCallback = uiCallback;
+        if (old != null) old.callbackRemoved();
+    }
+
+    /** Adds this callback using a DoubleUICallback class */
+    public void addUICallback(UICallback u) {
+        uiCallback = new DoubleUICallback(uiCallback, u);
     }
 
     public FileManager getFileManager() {

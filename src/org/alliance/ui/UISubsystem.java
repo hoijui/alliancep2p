@@ -114,7 +114,7 @@ public class UISubsystem implements UINexus, Subsystem {
             handleErrorInEventLoop(e);
         }
 
-        core.setUiCallback(new UIBridge(this, core.getUICallback()));
+        core.setUICallback(new UIBridge(this, core.getUICallback()));
     }
 
     private void runInCorrectThread(Runnable r) throws InvocationTargetException, InterruptedException {
@@ -164,7 +164,7 @@ public class UISubsystem implements UINexus, Subsystem {
 
     public void shutdown() {
         mainWindow.shutdown();
-        core.setUiCallback(null);
+        core.setUICallback(null);
         Thread.setDefaultUncaughtExceptionHandler(null);
     }
 

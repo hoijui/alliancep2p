@@ -95,6 +95,9 @@ public class UIBridge implements UICallback {
         }
     }
 
+    public void callbackRemoved() {
+    }
+
     public void noRouteToHost(final Node node) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {

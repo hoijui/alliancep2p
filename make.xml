@@ -96,6 +96,12 @@
             protected *;
             package *;
             }
+            -keepclassmembers class org.alliance.** {
+            public *; <!-- don't know how to say all methods -->
+            private *;
+            protected *;
+            package *;
+            }
         </proguard>
 
         <signjar lazy="no" alias="blacknet" storepass="${keystorepassword}" keystore="${keystorelocation}">
@@ -110,7 +116,7 @@
             </fileset>
         </delete>
 
-        <move file="${build.dir}/alliance.jar" tofile="${build.dir}/alliance.dat"/>
+        <copy file="${build.dir}/alliance.jar" tofile="${build.dir}/alliance.dat"/>
         <!--<copyfile src="${build.dir}/alliance.dat" dest="${web.deploy}\alliance.dat"/>-->
     </target>
 </project>

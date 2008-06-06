@@ -126,7 +126,7 @@ public abstract class AbstractChatMessageMDIWindow extends AllianceMDIWindow imp
     private void chatMessage() throws Exception {
         if (chat.getText().trim().length() == 0) return;
         if (chat.getText().trim().equals("/clear")) {
-            chatLines = new TreeSet<ChatLine>();
+            chatLines.clear();
             regenerateHtml();
             needToUpdateHtml = true;
             chat.setText("");
@@ -156,6 +156,7 @@ public abstract class AbstractChatMessageMDIWindow extends AllianceMDIWindow imp
     }
 
     public void addMessage(String from, String message, long tick, boolean messageHasBeenQueuedAwayForAWhile) {
+        System.out.println("got: "+message);
         if (chatLines != null && chatLines.size() > 0) {
             ChatLine l = chatLines.last();
             if (!messageHasBeenQueuedAwayForAWhile) {
@@ -175,6 +176,8 @@ public abstract class AbstractChatMessageMDIWindow extends AllianceMDIWindow imp
         n%= COLORS.length;
         Color c = COLORS[n];
 
+        while(chatLinesContainTick(tick)) tick++;
+
         ChatLine cl = new ChatLine(from, message, tick, c);
         chatLines.add(cl);
         boolean removeFirstLine = chatLines.size() > MAXIMUM_NUMBER_OF_CHAT_LINES;
@@ -186,6 +189,13 @@ public abstract class AbstractChatMessageMDIWindow extends AllianceMDIWindow imp
         }
 
         needToUpdateHtml = true;
+    }
+
+    private boolean chatLinesContainTick(long tick) {
+        for(ChatLine cl : chatLines) {
+            if (cl.tick == tick) return true;
+        }
+        return false;
     }
 
     private void regenerateHtml() {

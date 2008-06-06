@@ -28,4 +28,5 @@ public interface UICallback {
     void receivedDirectoryListing(Friend friend, int shareBaseIndex, String path, String[] files);
     void newUserInteractionQueued(NeedsUserInteraction ui);
     void firstDownloadEverFinished();
+    void callbackRemoved();
 }

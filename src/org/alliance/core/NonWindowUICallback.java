@@ -25,7 +25,6 @@ public class NonWindowUICallback implements UICallback {
     }
 
     public void searchHits(int srcGuid, int hops, List<SearchHit> hits) {
-        //To change body of implemented methods use File | Settings | File Templates.
     }
 
     public void trace(int level, String message, Exception stackTrace) {
@@ -51,7 +50,6 @@ public class NonWindowUICallback implements UICallback {
     }
 
     public void logNetworkEvent(String event) {
-        //To change body of implemented methods use File | Settings | File Templates.
     }
 
     public void receivedShareBaseList(Friend friend, String[] shareBaseNames) {}
@@ -64,6 +62,10 @@ public class NonWindowUICallback implements UICallback {
     }
 
     public void firstDownloadEverFinished() {}
+
+    public void callbackRemoved() {
+    }
+
     public void signalFileDatabaseFlushStarting() {
     }
 
