@@ -7,14 +7,15 @@ import com.stendahls.nif.ui.framework.UINexus;
 import com.stendahls.nif.ui.toolbaractions.ToolbarActionManager;
 import com.stendahls.resourceloader.ResourceLoader;
 import com.stendahls.ui.ErrorDialog;
-import de.javasoft.plaf.synthetica.*;
+import de.javasoft.plaf.synthetica.SyntheticaBlackStarLookAndFeel;
+import de.javasoft.plaf.synthetica.SyntheticaLookAndFeel;
 import org.alliance.Subsystem;
 import org.alliance.core.CoreSubsystem;
 import static org.alliance.core.CoreSubsystem.ERROR_URL;
 import org.alliance.launchers.StartupProgressListener;
+import org.alliance.ui.macos.OSXAdaptation;
 import org.alliance.ui.nodetreemodel.NodeTreeModel;
 import org.alliance.ui.nodetreemodel.NodeTreeNode;
-import org.alliance.ui.macos.OSXAdaptation;
 
 import javax.swing.*;
 import java.awt.*;
@@ -71,7 +72,6 @@ public class UISubsystem implements UINexus, Subsystem {
         ErrorDialog.setExceptionTranslator(new ErrorDialog.ExceptionTranslator() {
             public String translate(Throwable t) {
                 Throwable innerError = t;
-//                    while(innerError.getCause() != null) innerError = innerError.getCause();
 
                 if (innerError.getStackTrace().length > 0 && innerError.getStackTrace()[0].toString().indexOf("de.javasoft.plaf.synthetica.StyleFactory$ComponentProperty.hashCode") != -1) {
                     return null; //some wicked blackstar bug probably
