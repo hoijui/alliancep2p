@@ -1,17 +1,17 @@
 package org.alliance.core;
 
 import com.stendahls.XUI.XUIException;
+import com.stendahls.nif.ui.OptionDialog;
 import com.stendahls.nif.util.Log;
 import com.stendahls.nif.util.SXML;
 import com.stendahls.nif.util.xmlserializer.XMLSerializer;
-import com.stendahls.nif.ui.OptionDialog;
 import com.stendahls.resourceloader.ResourceLoader;
 import com.stendahls.trace.Trace;
 import com.stendahls.trace.TraceHandler;
 import com.stendahls.ui.ErrorDialog;
 import org.alliance.Subsystem;
-import org.alliance.core.comm.NetworkManager;
 import org.alliance.core.comm.AutomaticUpgrade;
+import org.alliance.core.comm.NetworkManager;
 import org.alliance.core.comm.rpc.AwayStatus;
 import org.alliance.core.comm.rpc.GetUserInfo;
 import org.alliance.core.comm.rpc.GetUserInfoV2;
@@ -25,11 +25,11 @@ import org.alliance.core.interactions.PleaseForwardInvitationInteraction;
 import org.alliance.core.node.Friend;
 import org.alliance.core.node.FriendManager;
 import org.alliance.core.node.InvitaitonManager;
-import org.alliance.core.settings.Settings;
-import org.alliance.core.plugins.PluginManager;
 import org.alliance.core.plugins.DoubleUICallback;
-import org.alliance.launchers.StartupProgressListener;
+import org.alliance.core.plugins.PluginManager;
+import org.alliance.core.settings.Settings;
 import org.alliance.launchers.OSInfo;
+import org.alliance.launchers.StartupProgressListener;
 import org.alliance.launchers.ui.Main;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXParseException;
@@ -231,6 +231,10 @@ public class CoreSubsystem implements Subsystem {
     }
 
     private void loadSettings() throws Exception {
+        loadSettings(true);
+    }
+
+    private void loadSettings(boolean tryWithBackupIfFail) throws Exception {
         if(T.t)T.info("Loading settings...");
         XMLSerializer s = new XMLSerializer();
         try {
@@ -261,7 +265,7 @@ public class CoreSubsystem implements Subsystem {
                 file.renameTo(new File(settingsFile+".corrupt@"+System.currentTimeMillis()));
                 bak.renameTo(file);
                 //calls itself recursively but no infinite loop should occur since the .bak file has been moved
-                loadSettings();
+                loadSettings(false);
             } else {
                 throw new Exception("Settings file is corrupt. Tried to used backed up version but failed. Sorry.", e);
             }
