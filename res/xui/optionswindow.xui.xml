@@ -35,7 +35,7 @@
                     </panel>
                     <panel axis="x">
                         <mlabel html="true">
-                            Select this if you only want to connect to friends in the same local area you are in (for example the same university, workplace or building).
+                            Select this if you [b]only[/b] want to connect to friends in the same local area you are in (for example the same university, workplace or building).
                         </mlabel>
                     </panel>
                 </panel>

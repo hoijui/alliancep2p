@@ -1,3 +1,5 @@
+* lägg till länk på "portforward.com" i optons.
+
 Annat:
     * gŒ igenom faq och getting started - getting started ska vara riktad till folk som vill starta ett nytt nŠtverk
     * sett upp forum: http://alliancetalk.proboards91.com/index.cgi
