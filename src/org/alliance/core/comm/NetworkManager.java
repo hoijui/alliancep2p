@@ -392,7 +392,7 @@ public class NetworkManager extends Manager {
     public void blockConnectionsTemporarilyFrom(Connection connection) {
         bannedHosts.add(getSocketFor(connection).getInetAddress());
     }
-
+    
     public boolean isAddressBlocked(InetAddress a) {
         if (System.currentTimeMillis() - lastClearOfBannedHostsTick > 1000*30) {
             bannedHosts.clear();

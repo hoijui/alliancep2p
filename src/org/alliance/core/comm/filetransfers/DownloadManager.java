@@ -109,7 +109,7 @@ public class DownloadManager extends Manager implements Runnable {
     }
 
     public void queDownload(Hash root, BlockStorage storage, String filename, ArrayList<Integer> guids, boolean highPrio) throws IOException {
-        Download dl = new Download(this, root, storage, filename, guids);
+    	Download dl = new Download(this, root, storage, filename, guids);
         queDownload(dl, highPrio);
     }
 

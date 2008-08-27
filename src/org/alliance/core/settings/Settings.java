@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class Settings {
     private ArrayList<Friend> friendlist;
     private ArrayList<Share> sharelist;
+    private IPBlacklist rulelist;
     private ArrayList<Plugin> pluginlist;
     private Server server;
     private My my;
@@ -19,6 +20,7 @@ public class Settings {
     public Settings() {
         friendlist = new ArrayList<Friend>();
         sharelist = new ArrayList<Share>();
+        rulelist = new IPBlacklist();
         pluginlist = new ArrayList<Plugin>();
         server = new Server();
         internal = new Internal();
@@ -89,7 +91,17 @@ public class Settings {
     public void setSharelist(ArrayList<Share> sharelist) {
         this.sharelist = sharelist;
     }
-
+    public IPBlacklist getRulelist(){
+    	return rulelist;
+    }
+    //Method is dirty...I know, but no other way around it?  I need a IPBlacklist..not a ArrayList
+    public void setRulelist(ArrayList<Routerule> ruleList){
+    	this.rulelist = new IPBlacklist();
+    	for(int i=0; i<ruleList.size(); i++){
+    		this.rulelist.add(ruleList.get(i));
+    	}
+    }
+    
     public void addShare(Share share) {
         if (sharelist == null) sharelist = new ArrayList<Share>();
         sharelist.add(share);

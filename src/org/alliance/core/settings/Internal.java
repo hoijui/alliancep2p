@@ -93,6 +93,8 @@ public class Internal extends SettingClass {
     private Integer uploadthrottle=0; //zero to disable
 
     private String serverlistenip = "";
+    
+    private Integer enableiprules=0;
 
     public Internal() {
     }
@@ -512,5 +514,13 @@ public class Internal extends SettingClass {
 
     public void setAlwaysautomaticallyconnecttoallfriendsoffriend(Integer alwaysautomaticallyconnecttoallfriendsoffriend) {
         this.alwaysautomaticallyconnecttoallfriendsoffriend = alwaysautomaticallyconnecttoallfriendsoffriend;
+    }
+    
+    public void setEnableiprules(Integer rule){
+    	enableiprules= rule;
+    }
+    
+    public Integer getEnableiprules(){
+    	return enableiprules;
     }
 }

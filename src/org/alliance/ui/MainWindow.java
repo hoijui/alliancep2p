@@ -675,8 +675,11 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
     }
 
     private boolean isConnectedToNewFriendDialogShowing = false;
+    private boolean isAddRuleWindowDialogShowing = false;
     public boolean isConnectedToNewFriendDialogShowing() { return isConnectedToNewFriendDialogShowing; }
+    public boolean isAddRuleWindowDialogShowing() { return isAddRuleWindowDialogShowing; }
     public void setConnectedToNewFriendDialogShowing(boolean connectedToNewFriendDialogShowing) { isConnectedToNewFriendDialogShowing = connectedToNewFriendDialogShowing; }
+    public void setAddRuleWindowDialogShowing(boolean AddruleWindowDialogShowing) { isAddRuleWindowDialogShowing = AddruleWindowDialogShowing; }
     private void showSuccessfullyConnectedToNewFriendDialog(String name) {
         try {
             if (ui.getCore().getSettings().getInternal().getAlwaysautomaticallyconnecttoallfriendsoffriend() == 0) {

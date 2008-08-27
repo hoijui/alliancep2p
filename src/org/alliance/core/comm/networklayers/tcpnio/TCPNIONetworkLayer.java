@@ -55,8 +55,18 @@ public class TCPNIONetworkLayer implements Runnable {
     }
 
     public void connect(final String host, final int port, final AuthenticatedConnection connection) throws IOException {
-        try {
+    	try {
             if(T.t) T.info("Attempting to connect to "+host+":"+port+"... (outstanding connections: "+pendingConnectionAttempts.size()+")");
+            if(netMan.getCore().getSettings().getInternal().getEnableiprules() == 1){
+            	if(netMan.getCore().getSettings().getRulelist().checkConnection(host)){
+            		//Connect, continue
+            	} else{
+            		netMan.getCore().getUICallback().statusMessage("Connection to " + host + " was blocked becuase of your ip rules");
+            		return;
+            	}
+            } else{
+            	//Connect, continue
+            }
             final SocketChannel sc = SocketChannel.open();
             sc.configureBlocking(false);
             sc.connect(new InetSocketAddress(host, port));

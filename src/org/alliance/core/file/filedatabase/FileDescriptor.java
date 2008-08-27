@@ -2,9 +2,9 @@ package org.alliance.core.file.filedatabase;
 
 import com.stendahls.nif.util.SimpleTimer;
 import com.stendahls.util.TextUtils;
+import org.alliance.core.CoreSubsystem;
 import static org.alliance.core.CoreSubsystem.BLOCK_SIZE;
 import org.alliance.core.UICallback;
-import org.alliance.core.CoreSubsystem;
 import org.alliance.core.file.blockstorage.BlockFile;
 import org.alliance.core.file.hash.Hash;
 import org.alliance.core.file.hash.Tiger;
@@ -97,7 +97,9 @@ public class FileDescriptor {
                 callback.statusMessage(s);
                 updateHashMessageTick = System.currentTimeMillis();
             }
-            if (startSize != file.length()) throw new FileModifiedWhileHashingException("Inconsistent file size! File was probably written to.");
+            if (startSize != file.length()){
+            	throw new FileModifiedWhileHashingException("Inconsistent file size! File was probably written to.");
+            }
             if (modifiedAtBeforeHashing != file.lastModified()) throw new FileModifiedWhileHashingException("File modified while hashing!");
         }
 
@@ -275,21 +277,5 @@ public class FileDescriptor {
 
     public void updateModifiedAt() {
         setModifiedAt(new File(getFullPath()).lastModified());
-    }
-
-    /**
-     * When a file is downloaded there's no point in having the entire subpath (for example apps/free/waste/waste.zip) it's better to simplify it to waste/waste.zip - one direcroty and then the file
-     */
-    public void simplifySubpath() {
-        while(countSeparators(subpath) > 1) {
-            subpath = subpath.substring(TextUtils.makeSurePathIsMultiplatform(subpath).indexOf('/')+1);
-        }
-    }
-
-    private int countSeparators(String subpath) {
-        String s = TextUtils.makeSurePathIsMultiplatform(subpath);
-        int n = 0;
-        for(int i=0;i<s.length();i++) if (s.charAt(i) == '/') n++;
-        return n;
     }
 }

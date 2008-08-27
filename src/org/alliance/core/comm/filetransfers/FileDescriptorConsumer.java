@@ -15,7 +15,7 @@ import java.nio.ByteBuffer;
  * To change this template use File | Settings | File Templates.
  */
 public class FileDescriptorConsumer implements DataConsumer {
-    private Download download;
+	private Download download;
     private int length = -1;
     private ByteBuffer completeFD;
     private ByteBuffer lengthBuf = ByteBuffer.allocate(4);
@@ -55,8 +55,9 @@ public class FileDescriptorConsumer implements DataConsumer {
                     return len;
                 }
             }, download.getManager().getCore());
-            fd.simplifySubpath();
-
+//            No longer needed here, simplification handled in HashesForPath
+//            fd.simplifySubpath();
+            fd.setSubpath(download.getAuxInfoFilename());
             if(T.t)T.trace("Signaling we've got "+fd);
             dc.fileDescriptorReceived(); //has to call this first so that the next line understands it and starts a download for our DownloadCOnnection
             download.fileDescriptorReceived(dc, fd);

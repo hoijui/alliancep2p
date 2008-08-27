@@ -1,5 +1,6 @@
 package org.alliance.core.comm.rpc;
 
+import com.stendahls.util.TextUtils;
 import org.alliance.core.comm.T;
 import org.alliance.core.file.filedatabase.FileDescriptor;
 import org.alliance.core.file.hash.Hash;
@@ -63,8 +64,39 @@ public class HashesForPath extends CompressedRPC {
 
         ArrayList<Integer> guid = new ArrayList<Integer>();
         guid.add(con.getRemoteUserGUID());
+        
+        //We have to loop over all the hashes first to get the common path length
+        String common = "";
+        int cut = 0; 
+        if(hashes.length > 1){
+        	common = paths[0];
+        	for(int i=1;i<hashes.length;i++) {
+        		common = getCommonPath(TextUtils.makeSurePathIsMultiplatform(paths[i]), TextUtils.makeSurePathIsMultiplatform(common));
+        		if ("".equals(common)) {
+        			break;
+        		}
+        	}
+        	//this is needed to add back in the last folder if a folder is clicked
+        	for(int i=common.lastIndexOf("/")-1; i>=0; i--){
+        		if(common.charAt(i) == '/'){
+        			cut = i+1;
+        			break;
+        		}
+        	}
+        	if(cut<0) {
+        		cut = common.length();
+        	} else {
+        		cut = Math.min(cut,common.length());
+        	}
+        }
         for(int i=0;i<hashes.length;i++) {
-            if (core.getFileManager().containsComplete(hashes[i])) {
+        	if(paths.length>1){
+        		//We have selected a folder
+        		paths[i] = paths[i].substring(cut);
+        	} else{
+        		paths[i] = paths[i].substring(common.length());
+        	}
+        	if (core.getFileManager().containsComplete(hashes[i])) {
                 core.getUICallback().statusMessage("You already have the file "+paths[i]+"!");
             } else if (core.getNetworkManager().getDownloadManager().getDownload(hashes[i]) != null) {
                 core.getUICallback().statusMessage("You are already downloading "+paths[i]+"!");
@@ -73,4 +105,17 @@ public class HashesForPath extends CompressedRPC {
             }
         }
     }
+    public String getCommonPath(String path1, String path2) {		
+		String[] path1_split = path1.split("/");
+		String[] path2_split = path2.split("/");
+		String common = "";
+		for (int i = 0; i < path1_split.length && i < path2_split.length; i++) {
+			if (path1_split[i].equals(path2_split[i])) {
+				common = common + (path1_split[i] + "/");
+			} else {
+				break;
+			}
+		}
+		return common;
+	}
 }

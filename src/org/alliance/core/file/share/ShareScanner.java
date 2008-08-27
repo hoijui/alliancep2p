@@ -2,17 +2,17 @@ package org.alliance.core.file.share;
 
 import com.stendahls.nif.util.SimpleTimer;
 import com.stendahls.util.TextUtils;
-import org.alliance.core.CoreSubsystem;
 import org.alliance.core.AwayManager;
+import org.alliance.core.CoreSubsystem;
 import static org.alliance.core.CoreSubsystem.GB;
+import org.alliance.core.file.FileManager;
 import org.alliance.core.file.filedatabase.FileDatabase;
 import org.alliance.core.file.filedatabase.FileDescriptor;
-import org.alliance.core.file.FileManager;
 import org.alliance.launchers.OSInfo;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -219,7 +219,7 @@ public class ShareScanner extends Thread {
             fd = new FileDescriptor(base.getPath(), file, shouldBeFastScan ? 0 : core.getSettings().getInternal().getHashspeedinmbpersecond(), manager.getCore().getUICallback());
         } catch(FileDescriptor.FileModifiedWhileHashingException e) {
             manager.getCore().getUICallback().statusMessage("File modified while hashing: "+file);
-            queFileForHashing(file.toString(), true);
+//            queFileForHashing(file.toString(), true);
             return;
         }
         manager.getCore().getUICallback().statusMessage("Hashed "+fd.getFilename()+" in "+st.getTime()+" ("+ TextUtils.formatByteSize((long)(fd.getSize()/(st.getTimeInMs()/1000.)))+"/s)");
