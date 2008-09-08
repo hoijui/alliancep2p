@@ -12,8 +12,6 @@ import org.alliance.core.interactions.PostMessageInteraction;
 import org.alliance.core.interactions.PostMessageToAllInteraction;
 import org.alliance.core.node.Friend;
 import org.alliance.core.node.Node;
-import org.jdesktop.jdic.tray.SystemTray;
-import org.jdesktop.jdic.tray.TrayIcon;
 
 import javax.swing.*;
 import java.awt.*;
@@ -68,14 +66,14 @@ public class TrayIconSubsystem implements Subsystem, Runnable {
                     String msg = pmi.getMessage().replaceAll("\\<.*?\\>", "");      // Strip html
                     if (pmi instanceof PostMessageToAllInteraction) {
                         if (core.getSettings().getInternal().getShowpublicchatmessagesintray() != 0)
-                            ti.displayMessage("Chat message", core.getFriendManager().nickname(pmi.getFromGuid())+": "+msg, TrayIcon.INFO_MESSAGE_TYPE);
+                            ti.displayMessage("Chat message", core.getFriendManager().nickname(pmi.getFromGuid())+": "+msg, TrayIcon.MessageType.INFO);
                     } else {
                         if (core.getSettings().getInternal().getShowprivatechatmessagesintray() != 0)
-                            ti.displayMessage("Private chat message", core.getFriendManager().nickname(pmi.getFromGuid())+": "+msg, TrayIcon.INFO_MESSAGE_TYPE);
+                            ti.displayMessage("Private chat message", core.getFriendManager().nickname(pmi.getFromGuid())+": "+msg, TrayIcon.MessageType.INFO);
                     }
                 } else {
                     if (core.getSettings().getInternal().getShowsystemmessagesintray() != 0)
-                        ti.displayMessage("Alliance needs your attention.", "Click here to find out why.", TrayIcon.INFO_MESSAGE_TYPE);
+                        ti.displayMessage("Alliance needs your attention.", "Click here to find out why.", TrayIcon.MessageType.INFO);
                 }
                 balloonClickHandler = new Runnable() {
                     public void run() {
@@ -85,7 +83,7 @@ public class TrayIconSubsystem implements Subsystem, Runnable {
             }
 
             public void handleError(final Throwable e, final Object source) {
-                ti.displayMessage(e.getClass().getName(), e+"\n"+source+"\n\nClick here to view detailed error (and send error report)", TrayIcon.ERROR_MESSAGE_TYPE);
+                ti.displayMessage(e.getClass().getName(), e+"\n"+source+"\n\nClick here to view detailed error (and send error report)", TrayIcon.MessageType.ERROR);
                 e.printStackTrace();
                 balloonClickHandler = new Runnable() {
                     public void run() {
@@ -125,16 +123,16 @@ public class TrayIconSubsystem implements Subsystem, Runnable {
 
     private void initTray() throws Exception {
         try {
-            tray = SystemTray.getDefaultSystemTray();
+            tray = SystemTray.getSystemTray();
         } catch(UnsatisfiedLinkError e) {
             System.err.println("If you are running on linux you might want to go to the forum at sourceforge and read how to run Alliance on linux. You need to download native libraries to start it.");
             throw new Exception("Native library for system tray missing. If you are running linux you need to download it manually. Look in the forum on sourceforge for more information.");
         }
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        JPopupMenu m = new JPopupMenu();
+        PopupMenu m = new PopupMenu();
         Font f = new Font("Tahoma", 0, 11);
         m.setFont(f);
-        JMenuItem mi = new JMenuItem("Open Alliance");
+        MenuItem mi = new MenuItem("Open Alliance");
         mi.setFont(f);
         mi.setFont(new Font(mi.getFont().getName(), mi.getFont().getStyle() | Font.BOLD, mi.getFont().getSize()));
         mi.addActionListener(new ActionListener() {
@@ -144,7 +142,7 @@ public class TrayIconSubsystem implements Subsystem, Runnable {
         });
         m.add(mi);
 
-//        m.addSeparator();
+        m.addSeparator();
 
 /*
         disabled because there's a risk that port is still bound when starting up
@@ -162,10 +160,10 @@ public class TrayIconSubsystem implements Subsystem, Runnable {
         });
         m.add(mi);*/
 
-        JMenu shutdown = new JMenu("Shutdown");
+        Menu shutdown = new Menu("Shutdown");
         shutdown.setFont(f);
 
-        mi = new JMenuItem("Forever (not recommended)");
+        mi = new MenuItem("Forever (not recommended)");
         mi.setFont(f);
         mi.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -175,7 +173,7 @@ public class TrayIconSubsystem implements Subsystem, Runnable {
         shutdown.add(mi);
         shutdown.addSeparator();
 
-        mi = new JMenuItem("for 6 hours");
+        mi = new MenuItem("for 6 hours");
         mi.setFont(f);
         mi.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -184,7 +182,7 @@ public class TrayIconSubsystem implements Subsystem, Runnable {
         });
         shutdown.add(mi);
 
-        mi = new JMenuItem("for 3 hours");
+        mi = new MenuItem("for 3 hours");
         mi.setFont(f);
         mi.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -193,7 +191,7 @@ public class TrayIconSubsystem implements Subsystem, Runnable {
         });
         shutdown.add(mi);
 
-        mi = new JMenuItem("for 1 hour");
+        mi = new MenuItem("for 1 hour");
         mi.setFont(f);
         mi.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -202,7 +200,7 @@ public class TrayIconSubsystem implements Subsystem, Runnable {
         });
         shutdown.add(mi);
 
-        mi = new JMenuItem("for 30 minutes");
+        mi = new MenuItem("for 30 minutes");
         mi.setFont(f);
         mi.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -212,18 +210,20 @@ public class TrayIconSubsystem implements Subsystem, Runnable {
         shutdown.add(mi);
 
         m.add(shutdown);
-
-        ti = new TrayIcon(new ImageIcon(rl.getResource("gfx/icons/alliance.png")),
+        Toolkit.getDefaultToolkit().getSystemEventQueue().push( new PopupFixQueue(m) );
+        
+        ti = new TrayIcon(new ImageIcon(rl.getResource("gfx/icons/alliance.png")).getImage(),
                 "Alliance", m);
-
-        ti.setIconAutoSize(false);
-        ti.addBalloonActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if (balloonClickHandler != null) balloonClickHandler.run();
-            }
-        });
-
-        tray.addTrayIcon(ti);
+        ti.setImageAutoSize(false);
+        
+//        ti.addBalloonActionListener(new ActionListener() {
+//            public void actionPerformed(ActionEvent e) {
+//                if (balloonClickHandler != null) balloonClickHandler.run();
+//            }
+//        });
+     
+//        tray.addTrayIcon(ti);
+        tray.add(ti);
 
         ti.addActionListener(new ActionListener() {
             private long lastClickAt;
@@ -238,7 +238,8 @@ public class TrayIconSubsystem implements Subsystem, Runnable {
                 if (tray != null) {
                     SwingUtilities.invokeLater(new Runnable() {
                         public void run() {
-                            tray.removeTrayIcon(ti);
+                        	tray.remove(ti);
+//                            tray.removeTrayIcon(ti);
                         }
                     });
                     tray = null;
@@ -269,7 +270,7 @@ public class TrayIconSubsystem implements Subsystem, Runnable {
     private void restart(int delay) {
         try {
             if (tray != null && ti != null) {
-                ti.displayMessage("", "Shutting down...", TrayIcon.NONE_MESSAGE_TYPE);
+                ti.displayMessage("", "Shutting down...", TrayIcon.MessageType.NONE);
                 balloonClickHandler = null;
             }
             core.restartProgram(false, delay);
@@ -280,7 +281,7 @@ public class TrayIconSubsystem implements Subsystem, Runnable {
 
     public synchronized void shutdown() {
         if (tray != null && ti != null) {
-            ti.displayMessage("", "Shutting down...", TrayIcon.NONE_MESSAGE_TYPE);
+            ti.displayMessage("", "Shutting down...", TrayIcon.MessageType.NONE);
             balloonClickHandler = null;
         }
 
@@ -293,8 +294,9 @@ public class TrayIconSubsystem implements Subsystem, Runnable {
             core = null;
         }
         if (tray != null) {
-            tray.removeTrayIcon(ti);
-            tray = null;
+            //I don't think needed?
+//        	tray.removeTrayIcon(ti);
+//            tray = null;
         }
         System.exit(0);
     }

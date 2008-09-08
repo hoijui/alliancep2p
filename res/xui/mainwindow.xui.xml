@@ -3,6 +3,7 @@
     <menubar>
         <menu text="File" mnemonic="f">
             <menuitem eventid="hide" mnemonic="x" text="Hide window"/>
+            <menuitem eventid="shutdown" mnemonic="x" text="Shutdown Alliance"/>
         </menu>
         <menu text="View" mnemonic="w">
             <menuitem eventid="uploads" accelerator="ctrl-u" mnemonic="u" text="Uploads"/>

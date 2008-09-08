@@ -732,6 +732,17 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
     public void EVENT_hide(ActionEvent e) throws Exception {
         setVisible(false);
     }
+    public void EVENT_shutdown(ActionEvent e) throws Exception{
+    	if (ui.getCore() != null) {
+    		ui.getCore().shutdown();
+    	}
+    	
+         if (ui != null) {
+             ui.shutdown();
+             ui = null;
+         }
+         System.exit(0);
+     }
 
     public void EVENT_addally(ActionEvent e) throws IOException {
         String invitation = JOptionPane.showInputDialog(ui.getMainWindow(), "Enter the connection code you got from your friend: ");
