@@ -730,9 +730,14 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
     }
 
     public void EVENT_hide(ActionEvent e) throws Exception {
-        setVisible(false);
+        if(SystemTray.isSupported()){
+        	setVisible(false);
+        } else{
+        	JOptionPane.showMessageDialog(null, "Sorry, But because you are not running a tray icon, The window cannot be hidden");
+        }
     }
     public void EVENT_shutdown(ActionEvent e) throws Exception{
+    	if(JOptionPane.showConfirmDialog(null, "Are you sure you wish to close Alliance?", "Are you sure?", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
     	if (ui.getCore() != null) {
     		ui.getCore().shutdown();
     	}
@@ -742,6 +747,7 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
              ui = null;
          }
          System.exit(0);
+    	}
      }
 
     public void EVENT_addally(ActionEvent e) throws IOException {

@@ -8,6 +8,7 @@ import org.alliance.core.T;
 import org.alliance.launchers.OSInfo;
 import org.alliance.launchers.StartupProgressListener;
 
+import java.awt.*;
 import java.io.*;
 import java.lang.reflect.Method;
 import java.net.InetAddress;
@@ -42,7 +43,7 @@ public class Main {
             Subsystem core = initCore(s, (StartupProgressListener)r);
             if (core == null) return; //oops. core crashed. Error message has been displayd. just bail.
 
-            if (OSInfo.supportsTrayIcon()) {
+            if (SystemTray.isSupported()) {
                 Subsystem tray = initTrayIcon(core);
 
                 if (!runMinimized) {
