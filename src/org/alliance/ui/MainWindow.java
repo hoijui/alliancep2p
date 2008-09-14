@@ -17,6 +17,7 @@ import de.javasoft.synthetica.addons.systemmonitor.Collector;
 import static org.alliance.core.CoreSubsystem.MB;
 import org.alliance.core.NeedsUserInteraction;
 import org.alliance.core.PublicChatHistory;
+import org.alliance.core.CoreSubsystem;
 import org.alliance.core.comm.BandwidthAnalyzer;
 import org.alliance.core.interactions.*;
 import org.alliance.core.node.Friend;
@@ -59,7 +60,7 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
     public MainWindow() throws Exception {
     }
 
-    public void init(final UISubsystem ui, StartupProgressListener pml, final boolean shutdownOnClose) throws Exception {
+    public void init(final UISubsystem ui, StartupProgressListener pml) throws Exception {
         this.ui = ui;
 
         pml.updateProgress("Loading main window");
@@ -79,7 +80,7 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
 
         setupToolbar();
 
-        setupWindowEvents(shutdownOnClose);
+        setupWindowEvents();
 
         setupSpeedDiagram();
 
@@ -185,6 +186,7 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
 
     private Thread messageFadeThread;
     public synchronized void setStatusMessage(final String s, final boolean important) {
+        if (statusMessage.getText().trim().equals(s.trim())) return;
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 if (s == null || s.length() == 0)
@@ -194,29 +196,12 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
             }
         });
 
+        if (messageFadeThread != null) messageFadeThread.interrupt();
         messageFadeThread = new Thread(new Runnable() {
             public void run() {
                 Thread myThread = messageFadeThread;
                 try {
-//                    int c;
-//                    if (important) {
-//                        changeStatusMessageColor(0xffffff);
-//                        Thread.sleep(60);
-//
-//                        c = 255;
-//                        for (int i = 0; i < 25 && messageFadeThread == myThread; i++) {
-//                            changeStatusMessageColor(c | c << 8 | c << 16);
-//                            c -= 10;
-//                            Thread.sleep(30);
-//                        }
-//                    } else {
-//                        c = 200;
-//                        for (int i = 0; i < 20 && messageFadeThread == myThread; i++) {
-//                            changeStatusMessageColor(c | c << 8 | c << 16);
-//                            c -= 10;
-//                            Thread.sleep(30);
-//                        }
-//                    }
+                    if (myThread != messageFadeThread) return;
                     changeStatusMessageColor(0);
                     if (myThread != messageFadeThread) return;
                     Thread.sleep(5500);
@@ -234,6 +219,7 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
                         }
                     });
                 } catch (InterruptedException e) {
+                } catch (Exception e) {
                     if (T.t) T.error("Problem in progressMessage fade loop: " + e);
                 }
             }
@@ -251,33 +237,41 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
         });
     }
 
-    private void setupWindowEvents(final boolean shutdown) {
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                if (OSInfo.isMac()) {
-                    setVisible(false);
-                } else {
-                    if (shutdown) {
-                        if(T.t)T.info("Shutting down.");
-                        ui.shutdown();
-                        ui.getCore().shutdown();
-                        System.exit(0);
-                    } else {
-                        if (!ui.getCore().isRunningAsTestSuite()) {
-                            Thread t = new Thread(new Runnable() {
-                                public void run() {
-                                    try {
-                                        Thread.sleep(100);
-                                        ui.getCore().restartProgram(false);
-                                    } catch (Exception e1) {
-                                        ui.handleErrorInEventLoop(e1);
-                                    }
-                                }
-                            });
-                            t.start();
+    public void EVENT_hide(ActionEvent e) throws Exception {
+        tryHideWindow();
+    }
+    
+    private void tryHideWindow() {
+        if (OSInfo.supportsTrayIcon()) {
+            if (OSInfo.isWindows() && !CoreSubsystem.isRunningAsTestSuite()) {
+                Thread t = new Thread(new Runnable() {
+                    public void run() {
+                        try {
+                            Thread.sleep(100);
+                            setVisible(false);
+                            ui.getCore().restartProgram(false);
+                        } catch (Exception e1) {
+                            ui.handleErrorInEventLoop(e1);
                         }
                     }
-                }
+                });
+                t.start();
+            } else {
+                setVisible(false);
+            }
+        } else if (OSInfo.isMac()) {
+            setVisible(false);
+        } else {
+            if (!CoreSubsystem.isRunningAsTestSuite()) {
+                shutdown();
+            }
+        }
+    }
+
+    private void setupWindowEvents() {
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                tryHideWindow();
             }
         });
     }
@@ -322,8 +316,8 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
     public void showWindow() {
         if(T.t) T.info("Deserializing window state");
         try {
-        	// TODO tracewindow.id is read, but never set? => everytime null? 
-        	// TODO user.home isn't the right place to put this file into, should be appdata/alliance or something similar
+            // TODO tracewindow.id is read, but never set? => everytime null?
+            // TODO user.home isn't the right place to put this file into, should be appdata/alliance or something similar
             FileInputStream in = new FileInputStream(System.getProperty("user.home")+"/mainwindow.state"+System.getProperty("tracewindow.id"));
             ObjectInputStream obj = new ObjectInputStream(in);
 
@@ -729,29 +723,35 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
         }
     }
 
-    public void EVENT_hide(ActionEvent e) throws Exception {
-        if (OSInfo.supportsTrayIcon()) {
-            setVisible(false);
-        } else if (OSInfo.isMac()) {
-            setVisible(false);
-        } else {
-            OptionDialog.showInformationDialog(this, "Since the system tray icon is not supported on this system it is not possible to hide the main window.");
-        }
+/*    public void EVENT_shutdown6(ActionEvent e) throws Exception{
+        ui.getCore().restartProgram(false, 6*60);
+    }
+    
+    public void EVENT_shutdown3(ActionEvent e) throws Exception{
+        ui.getCore().restartProgram(false, 3*60);
     }
 
-    public void EVENT_shutdown(ActionEvent e) throws Exception{
-    	if(JOptionPane.showConfirmDialog(null, "Are you sure you wish to close Alliance?", "Are you sure?", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
-    	if (ui.getCore() != null) {
-    		ui.getCore().shutdown();
-    	}
-    	
-         if (ui != null) {
-             ui.shutdown();
-             ui = null;
-         }
-         System.exit(0);
-    	}
-     }
+    public void EVENT_shutdown1(ActionEvent e) throws Exception{
+        ui.getCore().restartProgram(false, 60);
+    }
+
+    public void EVENT_shutdown30(ActionEvent e) throws Exception{
+        ui.getCore().restartProgram(false, 30);
+    }
+
+    public void EVENT_shutdownForever(ActionEvent e) throws Exception{
+        if(JOptionPane.showConfirmDialog(null, "Are you sure you wish to close Alliance?", "Are you sure?", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+            if (ui.getCore() != null) {
+                ui.getCore().shutdown();
+            }
+
+            if (ui != null) {
+                ui.shutdown();
+                ui = null;
+            }
+            System.exit(0);
+        }
+    }*/
 
     public void EVENT_addally(ActionEvent e) throws IOException {
         String invitation = JOptionPane.showInputDialog(ui.getMainWindow(), "Enter the connection code you got from your friend: ");

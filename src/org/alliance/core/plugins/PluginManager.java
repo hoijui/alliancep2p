@@ -57,9 +57,4 @@ public class PluginManager extends Manager {
     public void shutdown() throws Exception {
         for(PlugIn pi : plugIns) pi.shutdown();
     }
-
-/*    static {
-        //needed to make sure that the PlugIn class is compiled into the Alliance jar
-        new PlugIn() { void init(CoreSubsystem core) {} void shutdown() {} };
-    }*/
 }

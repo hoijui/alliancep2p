@@ -15,9 +15,11 @@ public class PopupFixQueue extends EventQueue {
     protected void dispatchEvent(AWTEvent event) {
         try {
             super.dispatchEvent(event);
-        } catch (Exception ex) {
+        } catch (RuntimeException ex) {
             if (event.getSource() instanceof TrayIcon) {
                 //popup.setVisible(false);
+            } else {
+                throw ex;
             }
         }
     }

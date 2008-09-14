@@ -176,7 +176,7 @@ public class Main {
             System.out.println("starting ui");
             SimpleTimer s = new SimpleTimer();
             Subsystem ui = (Subsystem)Class.forName("org.alliance.ui.UISubsystem").newInstance();
-            ui.init(ResourceSingelton.getRl(), core, !OSInfo.supportsTrayIcon());
+            ui.init(ResourceSingelton.getRl(), core);
             if(T.t)T.trace("Subsystem UI started in "+s.getTime());
         } catch(Exception t) {
             reportError(t);

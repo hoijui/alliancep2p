@@ -25,18 +25,18 @@ public class HandshakeConnection extends PacketConnection {
     public void packetReceived(Packet p) throws IOException {
         if(T.t)T.trace("packetReceived in HandhshakeConnection - "+p);
         if (netMan.isAddressBlocked(netMan.getSocketFor(this).getInetAddress())){
-        	if(T.t)T.warn("Banned host tried to connect to us. Ignroing: "+netMan.getSocketFor(this).getInetAddress());
-        	close();
-        	netMan.getSocketFor(this).close();
-        	return;
-        }
-        if(!core.getSettings().getRulelist().checkConnection(netMan.getSocketFor(this).getInetAddress().getAddress())) {
-        	//The below should decrease cpu usage, as it cuts down on the routing algorithm
-        	//However by doing this, if IPRules are disabled, then it will take a while before connections
-        	//are allowed again...
-        	//netMan.blockConnectionsTemporarilyFrom(netMan.getSocketFor(this).getInetAddress());
-        	core.getUICallback().statusMessage("Incoming Connection was blocked becuase of your ip rules");
+            if(T.t)T.warn("Banned host tried to connect to us. Ignroing: "+netMan.getSocketFor(this).getInetAddress());
+            close();
+            netMan.getSocketFor(this).close();
             return;
+        }
+        if(netMan.getCore().getSettings().getInternal().getEnableiprules() == 1) {
+            if(!core.getSettings().getRulelist().checkConnection(netMan.getSocketFor(this).getInetAddress().getAddress())) {
+                core.getUICallback().statusMessage("Incoming connection was blocked becuase of your ip rules");
+                close();
+                netMan.getSocketFor(this).close();
+                return;
+            }
         }
 
         int protocolVersion;

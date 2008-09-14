@@ -11,6 +11,8 @@ import org.alliance.ui.T;
 import org.alliance.ui.UISubsystem;
 
 import javax.swing.*;
+import javax.swing.event.HyperlinkListener;
+import javax.swing.event.HyperlinkEvent;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.File;
@@ -57,7 +59,7 @@ public class OptionsWindow extends XUIDialog {
 		this(ui, false);
 	}
 
-	public OptionsWindow(UISubsystem ui, boolean startInShareTab)
+	public OptionsWindow(final UISubsystem ui, boolean startInShareTab)
 			throws Exception {
 		super(ui.getMainWindow());
 		this.ui = ui;
@@ -88,7 +90,15 @@ public class OptionsWindow extends XUIDialog {
 		if (ui.getCore().getUpnpManager().isPortForwardSuccedeed()) {
 			((JHtmlLabel) xui.getComponent("portforward"))
 					.setText("Port successfully forwarded in your router using UPnP.");
-		}
+		} else {
+            ((JHtmlLabel) xui.getComponent("portforward")).addHyperlinkListener(new HyperlinkListener() {
+                public void hyperlinkUpdate(HyperlinkEvent e) {
+                    if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
+                        ui.openURL("http://www.portforward.com");
+                    }
+                }
+            });
+        }
 
 		if (startInShareTab)
 			((JTabbedPane) xui.getComponent("tab")).setSelectedIndex(1);

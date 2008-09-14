@@ -55,9 +55,12 @@ public class FileDescriptorConsumer implements DataConsumer {
                     return len;
                 }
             }, download.getManager().getCore());
-//            No longer needed here, simplification handled in HashesForPath
-//            fd.simplifySubpath();
-            fd.setSubpath(download.getAuxInfoFilename());
+            //todo: not pretty but will have to do for now
+            if (download.getAuxInfoFilename().trim().length() > 0 && !"Link from chat".equals(download.getAuxInfoFilename())) {
+                fd.setSubpath(download.getAuxInfoFilename());
+            } else {
+                fd.simplifySubpath();
+            }
             if(T.t)T.trace("Signaling we've got "+fd);
             dc.fileDescriptorReceived(); //has to call this first so that the next line understands it and starts a download for our DownloadCOnnection
             download.fileDescriptorReceived(dc, fd);

@@ -219,7 +219,7 @@ public class ShareScanner extends Thread {
             fd = new FileDescriptor(base.getPath(), file, shouldBeFastScan ? 0 : core.getSettings().getInternal().getHashspeedinmbpersecond(), manager.getCore().getUICallback());
         } catch(FileDescriptor.FileModifiedWhileHashingException e) {
             manager.getCore().getUICallback().statusMessage("File modified while hashing: "+file);
-//            queFileForHashing(file.toString(), true);
+            queFileForHashing(file.toString(), true);
             return;
         }
         manager.getCore().getUICallback().statusMessage("Hashed "+fd.getFilename()+" in "+st.getTime()+" ("+ TextUtils.formatByteSize((long)(fd.getSize()/(st.getTimeInMs()/1000.)))+"/s)");
@@ -245,11 +245,12 @@ public class ShareScanner extends Thread {
             if(T.t)T.warn("Problem while cheking if file already is hashed: "+e);
         }
         if (filesQueuedForHashing.contains(file)) return;
-        if (!lowPriority)
+        if (!lowPriority) {
             filesQueuedForHashing.add(0, file);
-        else
+        } else {
             filesQueuedForHashing.add(file);
-        interrupt();
+            interrupt();
+        }
     }
 
     private boolean shouldSkip(String dir) {

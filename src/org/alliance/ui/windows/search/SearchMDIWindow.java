@@ -225,6 +225,7 @@ public class SearchMDIWindow extends AllianceMDIWindow {
 
         if (selection != null && selection.length > 0) for(int i : selection) {
             boolean changeWindow = false;
+            final String path = getPathIfPathSelected(i);
             for(final FileNode n : getFileNodesByRow(i)) {
                 if (ui.getCore().getFileManager().containsComplete(n.getSh().getRoot())) {
                     ui.getCore().getUICallback().statusMessage("You already have the file "+n.getName()+"!");
@@ -234,7 +235,9 @@ public class SearchMDIWindow extends AllianceMDIWindow {
                     ui.getCore().invokeLater(new Runnable() {
                         public void run() {
                             try {
-                                ui.getCore().getNetworkManager().getDownloadManager().queDownload(n.getSh().getRoot(), n.getName(), n.getUserGuids());
+                                String name = n.getName();
+                                if (path.trim().length() > 0) name = path + "/" + name;
+                                ui.getCore().getNetworkManager().getDownloadManager().queDownload(n.getSh().getRoot(), name, n.getUserGuids());
                             } catch(IOException e1) {
                                 ui.handleErrorInEventLoop(e1);
                             }
@@ -245,6 +248,15 @@ public class SearchMDIWindow extends AllianceMDIWindow {
             }
             if (changeWindow) ui.getMainWindow().getMDIManager().selectWindow(ui.getMainWindow().getDownloadsWindow());
         }
+    }
+
+    private String getPathIfPathSelected(int row) {
+        SearchTreeNode n = (SearchTreeNode)table.getPathForRow(row).getLastPathComponent();
+        if (n instanceof FolderNode) {
+            FolderNode fn = (FolderNode)n;
+            return fn.getName();
+        }
+        return "";
     }
 
     private ArrayList<FileNode> getFileNodesByRow(int row) {

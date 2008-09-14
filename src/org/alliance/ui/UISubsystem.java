@@ -53,7 +53,7 @@ public class UISubsystem implements UINexus, Subsystem {
             public void updateProgress(String message) {
             }
         };
-        if (params != null && params.length >= 3 && params[2] != null) progress = (StartupProgressListener) params[2];
+        if (params != null && params.length >= 2 && params[1] != null) progress = (StartupProgressListener) params[1];
         progress.updateProgress("Loading user interface");
 
         if (SwingUtilities.isEventDispatchThread()) {
@@ -109,7 +109,7 @@ public class UISubsystem implements UINexus, Subsystem {
         try {
             new OSXAdaptation(this);
             mainWindow = new MainWindow();
-            mainWindow.init(UISubsystem.this, progress, params.length > 1 && (Boolean) params[1]);
+            mainWindow.init(UISubsystem.this, progress);
         } catch (Exception e) {
             handleErrorInEventLoop(e);
         }

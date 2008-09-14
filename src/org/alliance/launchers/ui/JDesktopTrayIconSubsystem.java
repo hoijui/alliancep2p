@@ -309,7 +309,7 @@ public class JDesktopTrayIconSubsystem implements Subsystem, Runnable {
             Runnable r = (Runnable)Class.forName("org.alliance.launchers.SplashWindow").newInstance();
             SimpleTimer s = new SimpleTimer();
             ui = (Subsystem)Class.forName("org.alliance.ui.UISubsystem").newInstance();
-            ui.init(ResourceSingelton.getRl(), core, false, r);
+            ui.init(ResourceSingelton.getRl(), core, r);
             if(T.t)T.trace("Subsystem UI started in "+s.getTime());
             r.run();
         } catch(Exception t) {
