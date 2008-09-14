@@ -6,20 +6,19 @@ import java.awt.*;
 //This is a dirty hack to get around java sucking, found the code here http://weblogs.java.net/blog/ixmal/archive/2006/05/using_jpopupmen.html
 //otherwise linux will give you wonderful class cast exceptions
 public class PopupFixQueue extends EventQueue {
+    private PopupMenu popup;
 
-	private PopupMenu popup;
+    public PopupFixQueue(PopupMenu m) {
+        this.popup = m;
+    }
 
-	public PopupFixQueue(PopupMenu m) {
-		this.popup = m;
-	}
-
-	protected void dispatchEvent(AWTEvent event) {
-		try {
-			super.dispatchEvent(event);
-		} catch (Exception ex) {
-			if (event.getSource() instanceof TrayIcon) {
-//				popup.setVisible(false);
-			}
-		}
-	}
+    protected void dispatchEvent(AWTEvent event) {
+        try {
+            super.dispatchEvent(event);
+        } catch (Exception ex) {
+            if (event.getSource() instanceof TrayIcon) {
+                //popup.setVisible(false);
+            }
+        }
+    }
 }

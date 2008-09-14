@@ -3,25 +3,9 @@
     <property name="lib.dir" value="lib"/>
     <property name="build.dir" value="build"/>
     <property name="web.deploy" value="v:\\maciek.tv\\t"/>
-    <!--<fileset dir="C:\" id="3ppjars">
-        <include name="${lib.dir}/synthetica.jar"/>
-        <include name="${lib.dir}/syntheticaBlackStar.jar"/>
-        <include name="java\tools\idw-gpl-1.4.0\lib\idw-gpl.jar"/>
-        <include name="${lib.dir}/stendahls-commons.jar"/>
-        <include name="proj\libs\StendahlsTheme\lib\StendahlsTheme.jar"/>
-        <include name="java\tools\jdic-0.9.1-bin-windows\jdic.jar"/>
-        <include name="java\tools\swinglabs\dist\swingx-0.8.0.jar"/>
-        <include name="java\tools\cyberlink\clink.jar"/>
-    </fileset>-->
     <taskdef resource="proguard/ant/task.properties"/>
 
     <target name="Build release">
-        <!--
-                <delete dir="${lib.dir}"/>
-                <mkdir dir="${lib.dir}"/>
-                <delete dir="${build.dir}"/>
-                <mkdir dir="${build.dir}"/>
-        -->
 
         <propertyfile file="res/build.properties">
             <entry key="build.number" type="int" operation="+" value="1"/>
@@ -35,17 +19,15 @@
             </manifest>
         </jar>
 
-        <!--<copy verbose="yes" overwrite="yes" todir="${lib.dir}" flatten="true">
-            <fileset refid="3ppjars"/>
-        </copy>-->
-
         <proguard>
-            <!-- these two are here for debugging -->
             -ignorewarnings
             -dontobfuscate
             -keepattributes LineNumberTable
 
-            -libraryjars "&lt;java.home&gt;/lib/rt.jar";"c:\Program Files\JetBrains\IntelliJ IDEA 6.0\lib\JUnit.jar"
+            -target 5
+            -dontoptimize
+
+            -libraryjars "&lt;java.home&gt;/lib/rt.jar";"c:\Program Files\JetBrains\IntelliJ IDEA 7.0.4\lib\JUnit.jar"
             -injars      lib(!.svn/**)
             -outjar      build/alliance.jar
 

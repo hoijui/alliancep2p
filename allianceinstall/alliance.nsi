@@ -10,6 +10,10 @@
 !define JRE_VERSION "1.5"
 !define JRE_VERSION2 "1.6"
 !define JRE_VERSION3 "1.7"
+!define JRE_VERSION4 "1.8"
+!define JRE_VERSION5 "1.9"
+!define JRE_VERSION6 "2.0"
+
 !define JRE_URL "http://maciek.tv/alliance/latestjava.exe"
 
 ;--------------------------------
@@ -55,6 +59,9 @@ Function DetectJRE
   StrCmp $2 ${JRE_VERSION} done
   StrCmp $2 ${JRE_VERSION2} done
   StrCmp $2 ${JRE_VERSION3} done
+  StrCmp $2 ${JRE_VERSION4} done
+  StrCmp $2 ${JRE_VERSION5} done
+  StrCmp $2 ${JRE_VERSION6} done
   
   Call GetJRE
   
@@ -63,7 +70,7 @@ FunctionEnd
 
 
 Function GetJRE
-        MessageBox MB_OK "Alliance uses Java 1.5, it will now be downloaded. Once downloaded you will be asked to install it. When this is complete the Alliance installation will continue."
+        MessageBox MB_OK "Alliance uses Java, it will now be downloaded. Once downloaded you will be asked to install it. When this is complete the Alliance installation will continue."
  
         StrCpy $2 "$TEMP\Java Runtime Environment.exe"
         nsisdl::download /TIMEOUT=30000 ${JRE_URL} $2

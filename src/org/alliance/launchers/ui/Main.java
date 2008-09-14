@@ -8,7 +8,6 @@ import org.alliance.core.T;
 import org.alliance.launchers.OSInfo;
 import org.alliance.launchers.StartupProgressListener;
 
-import java.awt.*;
 import java.io.*;
 import java.lang.reflect.Method;
 import java.net.InetAddress;
@@ -43,7 +42,7 @@ public class Main {
             Subsystem core = initCore(s, (StartupProgressListener)r);
             if (core == null) return; //oops. core crashed. Error message has been displayd. just bail.
 
-            if (SystemTray.isSupported()) {
+            if (OSInfo.supportsTrayIcon()) {
                 Subsystem tray = initTrayIcon(core);
 
                 if (!runMinimized) {
@@ -127,11 +126,17 @@ public class Main {
 
     private static Subsystem initTrayIcon(Subsystem core) {
         try {
-            SimpleTimer s = new SimpleTimer();
-            Subsystem tray = (Subsystem)Class.forName("org.alliance.launchers.ui.TrayIconSubsystem").newInstance();
-            tray.init(ResourceSingelton.getRl(), core);
-            if(T.t)T.trace("Subsystem TrayIcon started in "+s.getTime());
-            return tray;
+            try {
+                if(T.t)T.info("Starting Java 6 tray icon...");
+                Subsystem tray = (Subsystem)Class.forName("org.alliance.launchers.ui.Java6TrayIconSubsystem").newInstance();
+                tray.init(ResourceSingelton.getRl(), core);
+                return tray;
+            } catch(Exception e) {
+                if(T.t)T.warn("Java 6 tray icon not supported. Falling back to old code.");
+                Subsystem tray = (Subsystem)Class.forName("org.alliance.launchers.ui.JDesktopTrayIconSubsystem").newInstance();
+                tray.init(ResourceSingelton.getRl(), core);
+                return tray;
+            }
         } catch(Throwable t) {
             reportError(t);
             return null;

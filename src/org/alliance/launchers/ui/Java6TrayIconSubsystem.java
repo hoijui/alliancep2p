@@ -6,31 +6,23 @@ import com.stendahls.util.TextUtils;
 import org.alliance.Subsystem;
 import org.alliance.Version;
 import org.alliance.core.*;
-import static org.alliance.core.CoreSubsystem.KB;
 import org.alliance.core.comm.SearchHit;
 import org.alliance.core.interactions.PostMessageInteraction;
 import org.alliance.core.interactions.PostMessageToAllInteraction;
 import org.alliance.core.node.Friend;
 import org.alliance.core.node.Node;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.util.List;
 
 /**
- * Created by IntelliJ IDEA.
- * User: maciek
- * Date: 2006-feb-03
- * Time: 14:10:37
+ * New tray icon using java.awt.SystemTray (new stuff in Java 6).
  */
-public class TrayIconSubsystem implements Subsystem, Runnable {
+public class Java6TrayIconSubsystem implements Subsystem, Runnable {
     private CoreSubsystem core;
     private Subsystem ui;
     private ResourceLoader rl;
@@ -41,7 +33,6 @@ public class TrayIconSubsystem implements Subsystem, Runnable {
     public void init(ResourceLoader rl, Object... params) throws Exception {
         this.rl = rl;
         core = (CoreSubsystem)params[0];
-        extractNativeLibs();
         initTray();
         core.setUICallback(new UICallback() {
             public void firstDownloadEverFinished() {}
@@ -73,7 +64,7 @@ public class TrayIconSubsystem implements Subsystem, Runnable {
                     }
                 } else {
                     if (core.getSettings().getInternal().getShowsystemmessagesintray() != 0)
-                        ti.displayMessage("Alliance needs your attention.", "Click here to find out why.", TrayIcon.MessageType.INFO);
+                        ti.displayMessage("Alliance needs your attention.", "", TrayIcon.MessageType.INFO);
                 }
                 balloonClickHandler = new Runnable() {
                     public void run() {
@@ -83,7 +74,7 @@ public class TrayIconSubsystem implements Subsystem, Runnable {
             }
 
             public void handleError(final Throwable e, final Object source) {
-                ti.displayMessage(e.getClass().getName(), e+"\n"+source+"\n\nClick here to view detailed error (and send error report)", TrayIcon.MessageType.ERROR);
+                ti.displayMessage(e.getClass().getName(), e+"\n"+source, TrayIcon.MessageType.ERROR);
                 e.printStackTrace();
                 balloonClickHandler = new Runnable() {
                     public void run() {
@@ -103,32 +94,9 @@ public class TrayIconSubsystem implements Subsystem, Runnable {
         });
     }
 
-    private void extractNativeLibs() throws IOException {
-        String name = "tray.dll";
-        File f = new File(name);
-        if (!f.exists()) {
-            if(T.t)T.info("Extracting lib: "+name);
-            FileOutputStream out = new FileOutputStream(f);
-            InputStream in = rl.getResourceStream(name);
-            byte buf[] = new byte[10*KB];
-            int read;
-            while((read = in.read(buf)) != -1) {
-                out.write(buf, 0, read);
-            }
-            out.flush();
-            out.close();
-            if(T.t)T.info("Done.");
-        }
-    }
-
     private void initTray() throws Exception {
-        try {
-            tray = SystemTray.getSystemTray();
-        } catch(UnsatisfiedLinkError e) {
-            System.err.println("If you are running on linux you might want to go to the forum at sourceforge and read how to run Alliance on linux. You need to download native libraries to start it.");
-            throw new Exception("Native library for system tray missing. If you are running linux you need to download it manually. Look in the forum on sourceforge for more information.");
-        }
-        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        tray = SystemTray.getSystemTray();
+
         PopupMenu m = new PopupMenu();
         Font f = new Font("Tahoma", 0, 11);
         m.setFont(f);
@@ -211,17 +179,17 @@ public class TrayIconSubsystem implements Subsystem, Runnable {
 
         m.add(shutdown);
         Toolkit.getDefaultToolkit().getSystemEventQueue().push( new PopupFixQueue(m) );
-        
-        ti = new TrayIcon(new ImageIcon(rl.getResource("gfx/icons/alliance.png")).getImage(),
+
+        ti = new TrayIcon(Toolkit.getDefaultToolkit().getImage(rl.getResource("gfx/icons/alliance.png")),
                 "Alliance", m);
         ti.setImageAutoSize(false);
-        
+
 //        ti.addBalloonActionListener(new ActionListener() {
 //            public void actionPerformed(ActionEvent e) {
 //                if (balloonClickHandler != null) balloonClickHandler.run();
 //            }
 //        });
-     
+
 //        tray.addTrayIcon(ti);
         tray.add(ti);
 
@@ -236,12 +204,7 @@ public class TrayIconSubsystem implements Subsystem, Runnable {
         Runtime.getRuntime().addShutdownHook(new Thread() {
             public void run() {
                 if (tray != null) {
-                    SwingUtilities.invokeLater(new Runnable() {
-                        public void run() {
-                        	tray.remove(ti);
-//                            tray.removeTrayIcon(ti);
-                        }
-                    });
+                    tray.remove(ti);
                     tray = null;
                 }
             }
@@ -252,12 +215,7 @@ public class TrayIconSubsystem implements Subsystem, Runnable {
             public void run() {
                 try {
                     while(true) {
-                        SwingUtilities.invokeLater(new Runnable() {
-                            public void run() {
-                                ti.setToolTip("Alliance v" + Version.VERSION + " build " + Version.BUILD_NUMBER + "\nDownload: " + core.getNetworkManager().getBandwidthIn().getCPSHumanReadable() + "\nUpload: " + core.getNetworkManager().getBandwidthOut().getCPSHumanReadable()+"\nOnline: " + core.getFriendManager().getNFriendsConnected() + "/" + core.getFriendManager().getNFriends() + " (" + TextUtils.formatByteSize(core.getFriendManager().getTotalBytesShared()) + ")");
-                            }
-                        });
-
+                        ti.setToolTip("Alliance v" + Version.VERSION + " build " + Version.BUILD_NUMBER + "\nDownload: " + core.getNetworkManager().getBandwidthIn().getCPSHumanReadable() + "\nUpload: " + core.getNetworkManager().getBandwidthOut().getCPSHumanReadable()+"\nOnline: " + core.getFriendManager().getNFriendsConnected() + "/" + core.getFriendManager().getNFriends() + " (" + TextUtils.formatByteSize(core.getFriendManager().getTotalBytesShared()) + ")");
                         Thread.sleep(5000);
                     }
                 } catch(InterruptedException e) {}
@@ -294,6 +252,7 @@ public class TrayIconSubsystem implements Subsystem, Runnable {
             core = null;
         }
         if (tray != null) {
+            tray.remove(ti);
             //I don't think needed?
 //        	tray.removeTrayIcon(ti);
 //            tray = null;

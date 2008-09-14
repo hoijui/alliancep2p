@@ -730,12 +730,15 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
     }
 
     public void EVENT_hide(ActionEvent e) throws Exception {
-        if(SystemTray.isSupported()){
-        	setVisible(false);
-        } else{
-        	JOptionPane.showMessageDialog(null, "Sorry, But because you are not running a tray icon, The window cannot be hidden");
+        if (OSInfo.supportsTrayIcon()) {
+            setVisible(false);
+        } else if (OSInfo.isMac()) {
+            setVisible(false);
+        } else {
+            OptionDialog.showInformationDialog(this, "Since the system tray icon is not supported on this system it is not possible to hide the main window.");
         }
     }
+
     public void EVENT_shutdown(ActionEvent e) throws Exception{
     	if(JOptionPane.showConfirmDialog(null, "Are you sure you wish to close Alliance?", "Are you sure?", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
     	if (ui.getCore() != null) {
