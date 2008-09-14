@@ -184,6 +184,12 @@ public class Java6TrayIconSubsystem implements Subsystem, Runnable {
                 "Alliance", m);
         ti.setImageAutoSize(false);
 
+        ti.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                openUI();
+            }
+        });
+
 //        ti.addBalloonActionListener(new ActionListener() {
 //            public void actionPerformed(ActionEvent e) {
 //                if (balloonClickHandler != null) balloonClickHandler.run();
