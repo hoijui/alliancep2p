@@ -10,6 +10,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Comparator;
 import java.util.TreeSet;
+import java.util.Collection;
 
 /**
  * Created by IntelliJ IDEA.
@@ -103,7 +104,8 @@ public class ForwardInvitationNodesList extends JList {
                     }
                 }
             });
-            for (Friend f : ui.getCore().getFriendManager().friends()) {
+            Collection<Friend> friends = ui.getCore().getFriendManager().friends();
+            for (Friend f : friends.toArray(new Friend[friends.size()])) {
                 if (f.friendsFriends() != null) {
                     for (UntrustedNode n : f.friendsFriends()) {
                         if (ui.getCore().getFriendManager().getFriend(n.getGuid()) == null &&

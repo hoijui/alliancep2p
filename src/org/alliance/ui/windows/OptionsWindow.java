@@ -39,7 +39,9 @@ public class OptionsWindow extends XUIDialog {
 			"internal.rescansharewhenalliancestarts",
 			"internal.enablesupportfornonenglishcharacters",
 			"internal.alwaysautomaticallyconnecttoallfriendsoffriend",
-			"server.lansupport", "internal.enableiprules" };
+			"server.lansupport",
+			"internal.automaticallydenyallinvitations", 
+            "internal.enableiprules" };
 
 	private UISubsystem ui;
 	private HashMap<String, JComponent> components = new HashMap<String, JComponent>();

@@ -600,7 +600,7 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
                 if (ui.getCore().getFriendManager().getFriend(fii.getFromGuid()) != null && ui.getCore().getFriendManager().getFriend(fii.getFromGuid()).isConnected()) {
                     if(T.t)T.error("Already was connected to this friend!!");
                 } else {
-                    if (OptionDialog.showQuestionDialog(this, fii.getRemoteName()+" wants to connect to you. "+fii.getRemoteName()+" has a connection to "+fii.getMiddleman(ui.getCore()).getNickname()+". [p]Do you want to connect to "+fii.getRemoteName()+"?[p]")) {
+                    if (ui.getCore().getSettings().getInternal().getAutomaticallydenyallinvitations() == 0 && !OptionDialog.showQuestionDialog(this, fii.getRemoteName()+" wants to connect to you. "+fii.getRemoteName()+" has a connection to "+fii.getMiddleman(ui.getCore()).getNickname()+". [p]Do you want to connect to "+fii.getRemoteName()+"?[p]")) {
                         try {
                             ui.getCore().getInvitaitonManager().attemptToBecomeFriendWith(fii.getInvitationCode(), fii.getMiddleman(ui.getCore()));
                             openWizardAt(AddFriendWizard.STEP_ATTEMPT_CONNECT, fii.getFromGuid());

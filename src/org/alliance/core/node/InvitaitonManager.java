@@ -10,6 +10,7 @@ import org.alliance.core.settings.Settings;
 import java.io.*;
 import java.net.InetAddress;
 import java.util.HashMap;
+import java.util.Collection;
 
 /**
  * Created by IntelliJ IDEA.
@@ -107,7 +108,8 @@ public class InvitaitonManager {
 
     private Invitation getMostRecentByGuid(int guid) {
         Invitation mostRecent = null;
-        for(Invitation i : invitations.values()) if (i.getDestinationGuid() != null && i.getDestinationGuid() == guid) {
+        Collection<Invitation> invitations = this.invitations.values();
+        for(Invitation i : invitations.toArray(new Invitation[invitations.size()])) if (i.getDestinationGuid() != null && i.getDestinationGuid() == guid) {
             if (mostRecent == null)
                 mostRecent = i;
             else {

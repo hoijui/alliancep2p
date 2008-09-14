@@ -258,14 +258,18 @@ public class CoreSubsystem implements Subsystem {
             settings = new Settings();
             saveSettings();
         } catch(SAXParseException e) {
-            if(T.t)T.info("Settings file is corrupt - trying to use backup version of settings..");
-            File file = new File(settingsFile);
-            File bak = new File(settingsFile+".bak");
-            if (bak.exists()) {
-                file.renameTo(new File(settingsFile+".corrupt@"+System.currentTimeMillis()));
-                bak.renameTo(file);
-                //calls itself recursively but no infinite loop should occur since the .bak file has been moved
-                loadSettings(false);
+            if (tryWithBackupIfFail) {
+                if(T.t)T.info("Settings file is corrupt - trying to use backup version of settings..");
+                File file = new File(settingsFile);
+                File bak = new File(settingsFile+".bak");
+                if (bak.exists()) {
+                    file.renameTo(new File(settingsFile+".corrupt@"+System.currentTimeMillis()));
+                    bak.renameTo(file);
+                    //calls itself recursively but no infinite loop should occur since the .bak file has been moved
+                    loadSettings(false);
+                } else {
+                    throw new Exception("Settings file is corrupt. Tried to used backed up version but failed. Sorry.", e);
+                }
             } else {
                 throw new Exception("Settings file is corrupt. Tried to used backed up version but failed. Sorry.", e);
             }

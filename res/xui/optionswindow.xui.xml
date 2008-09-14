@@ -120,6 +120,9 @@
                     <panel axis="x" border="0" expand="horiz">
                         <checkbox id="internal.invitationmayonlybeusedonce" text="Connection codes I create may only be used once"/><filler/>
                     </panel>
+                    <panel axis="x" border="0" expand="horiz">
+                        <checkbox id="internal.automaticallydenyallinvitations" text="Automatically deny all invitations from friends of friends"/><filler/>
+                    </panel>
                 </panel>
                 <panel axis="y" bordertype="etched" bordertitle="Encryption">
                     <panel axis="x" expand="horiz" border="0">

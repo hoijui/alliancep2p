@@ -62,6 +62,7 @@ public class Internal extends SettingClass {
 
     private Integer alwaysallowfriendstoconnect=1;
     private Integer alwaysallowfriendsoffriendstoconnecttome=1;
+    private Integer automaticallydenyallinvitations=0;
 
     private Integer showpublicchatmessagesintray=1;
     private Integer showprivatechatmessagesintray=1;
@@ -522,5 +523,13 @@ public class Internal extends SettingClass {
     
     public Integer getEnableiprules(){
     	return enableiprules;
+    }
+
+    public Integer getAutomaticallydenyallinvitations() {
+        return automaticallydenyallinvitations;
+    }
+
+    public void setAutomaticallydenyallinvitations(Integer automaticallydenyallinvitations) {
+        this.automaticallydenyallinvitations = automaticallydenyallinvitations;
     }
 }

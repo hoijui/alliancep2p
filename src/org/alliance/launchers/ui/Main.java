@@ -131,7 +131,7 @@ public class Main {
                 Subsystem tray = (Subsystem)Class.forName("org.alliance.launchers.ui.Java6TrayIconSubsystem").newInstance();
                 tray.init(ResourceSingelton.getRl(), core);
                 return tray;
-            } catch(Exception e) {
+            } catch(Throwable e) {
                 if(T.t)T.warn("Java 6 tray icon not supported. Falling back to old code.");
                 Subsystem tray = (Subsystem)Class.forName("org.alliance.launchers.ui.JDesktopTrayIconSubsystem").newInstance();
                 tray.init(ResourceSingelton.getRl(), core);

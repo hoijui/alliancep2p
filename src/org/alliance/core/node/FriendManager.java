@@ -7,8 +7,7 @@ import org.alliance.core.T;
 import org.alliance.core.comm.*;
 import org.alliance.core.comm.rpc.*;
 import org.alliance.core.interactions.PleaseForwardInvitationInteraction;
-import org.alliance.core.settings.My;
-import org.alliance.core.settings.Settings;
+import org.alliance.core.settings.*;
 
 import java.io.IOException;
 import java.util.*;
@@ -79,6 +78,13 @@ public class FriendManager extends Manager {
         me = new MyNode(settings.getMy().getNickname(), settings.getMy().getGuid(), core);
         me.setShareSize(core.getFileManager().getTotalBytesShared());
 
+        for(Iterator<org.alliance.core.settings.Friend> it = settings.getFriendlist().iterator(); it.hasNext();) {
+            org.alliance.core.settings.Friend f = it.next();
+            if (f.getLastseenonlineat() != null && f.getLastseenonlineat() > 0 && System.currentTimeMillis()-f.getLastseenonlineat() > 1000L*60*60*24*100) {
+                if(T.t)T.info("Friend has not been online for 100 days. Remove him");
+                it.remove();
+            }
+        }
         for(org.alliance.core.settings.Friend f : settings.getFriendlist()) addFriend(f, false, false);
     }
 
