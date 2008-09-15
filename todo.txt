@@ -1,4 +1,12 @@
 * move to top/bottom i downloads. Många har hundra downloads i sin lista. roligt att trycka up hundra gånger.
+
+ Hmm..  it will cause trouble with Java 5. I was thinking about the this..  the
+ Best way maybe would be to:
+ 1. try running java 6 tray
+ 2. if it crashes: try the old tray
+ 3. if that crashes: mark this system as not supporting a system tray
+
+
  
 Annat:
   verkar som att det som gör att minnet oftast tar slut är att många filer delast. kanske det att man har många vänner också, men det är inte lika troligt
