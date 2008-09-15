@@ -32,8 +32,9 @@ DeathfireD - [All hail piggy king of bacon] säger (09:15):
 I just end tasked them
 maciek säger (09:15):
 
+thats only gonna make people more angry lol "Alliance is restarting, this will take two mins"
 
-
+** När man tar hide window ska den nog bara gömma fönstret - då det finns en tray. Finns ingen tray ska väl en dialog komma upp. När man trycker på krysset ska den starta om i bakgrunden. Det blir det bästa. 
  
 Annat:
   verkar som att det som gör att minnet oftast tar slut är att många filer delast. kanske det att man har många vänner också, men det är inte lika troligt
