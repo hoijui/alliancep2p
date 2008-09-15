@@ -7,6 +7,33 @@
  3. if that crashes: mark this system as not supporting a system tray
 
 
+
+you're free to start alliance under that time again, at least in theory =)
+DeathfireD - [All hail piggy king of bacon] säger (09:13):
+even after the tray icon showed back up again
+maciek säger (09:13):
+the other one will disappear after a while.. don't wory - notice that the Alliance.exe processes take no memory at all
+DeathfireD - [All hail piggy king of bacon] säger (09:13):
+its using the same as it's always used
+DeathfireD - [All hail piggy king of bacon] säger (09:14):
+theirs also two javaw.exe processes now too
+maciek säger (09:14):
+ah
+there shouldn't be two javaw processes tho
+DeathfireD - [All hail piggy king of bacon] säger (09:14):
+both using 62,128k ram
+maciek säger (09:14):
+that's a bug tho
+then
+if both are alliance
+DeathfireD - [All hail piggy king of bacon] säger (09:14):
+anyway you can make it go back to working the way it used to work?
+DeathfireD - [All hail piggy king of bacon] säger (09:15):
+I just end tasked them
+maciek säger (09:15):
+
+
+
  
 Annat:
   verkar som att det som gör att minnet oftast tar slut är att många filer delast. kanske det att man har många vänner också, men det är inte lika troligt
