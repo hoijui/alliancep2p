@@ -20,8 +20,7 @@ public class AddRuleWindow extends XUIDialog {
     private boolean allow = false;
     private JButton ok;
     private String humanParsed[] = new String[5];
-    private boolean isEdit = false;
-    private int index;
+    private String human;
 
     //This constructor is used for the Edit button
     public AddRuleWindow(UISubsystem ui, int index, String human) throws Exception {
@@ -39,8 +38,6 @@ public class AddRuleWindow extends XUIDialog {
             human_copy = human_copy.substring(divider+1);
         }
         humanParsed[4] = human_copy;
-        isEdit=true;
-        this.index = index;
         init();
 
         // Remove if it's allow or deny
@@ -87,7 +84,6 @@ public class AddRuleWindow extends XUIDialog {
     }
 
     public void EVENT_accept(ActionEvent a) throws Exception {
-        String human;
         if (allow) {
             human = "ALLOW   ";
         } else {
@@ -130,14 +126,6 @@ public class AddRuleWindow extends XUIDialog {
                 OptionDialog.showErrorDialog(this, "Mask is not a valid number");
             return;
         }
-        if(isEdit){
-            Routerule rule = ui.getCore().getSettings().getRulelist().get(index);
-            rule.setHumanreadable(human);
-
-        } else{
-            ui.getCore().getSettings().getRulelist()
-                    .add(human);
-        }
         dispose();
     }
 
@@ -149,5 +137,9 @@ public class AddRuleWindow extends XUIDialog {
     public void EVENT_radioDeny(ActionEvent a) throws Exception {
         this.allow = false;
         ok.setEnabled(true);
+    }
+
+    public String getHuman() {
+        return human;
     }
 }
