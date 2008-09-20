@@ -235,7 +235,7 @@ public class SearchMDIWindow extends AllianceMDIWindow {
                     ui.getCore().invokeLater(new Runnable() {
                         public void run() {
                             try {
-                                String name = n.getName();
+                                String name = n.getOriginalFilename();
                                 if (path.trim().length() > 0) name = path + "/" + name;
                                 ui.getCore().getNetworkManager().getDownloadManager().queDownload(n.getSh().getRoot(), name, n.getUserGuids());
                             } catch(IOException e1) {
