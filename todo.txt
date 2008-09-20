@@ -1,5 +1,3 @@
-* fixa bug i UI för firewall
-
 * move to top/bottom i downloads. Många har hundra downloads i sin lista. roligt att trycka up hundra gånger.
 Annat:
   verkar som att det som gör att minnet oftast tar slut är att många filer delast. kanske det att man har många vänner också, men det är inte lika troligt
