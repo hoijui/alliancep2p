@@ -60,7 +60,7 @@ import java.util.List;
  * Time: 16:38:25
  */
 public class CoreSubsystem implements Subsystem {
-    public final static boolean ALLOW_TO_SEND_UPGRADE_TO_FRIENDS = true; //dont' forget to turn off trace, run with registered synthetica
+    public final static boolean ALLOW_TO_SEND_UPGRADE_TO_FRIENDS = false; //dont' forget to turn off trace, run with registered synthetica
     private static final int STATE_FILE_VERSION = 5;
 
     public final static int KB = 1024;
