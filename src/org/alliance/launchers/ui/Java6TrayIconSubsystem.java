@@ -207,6 +207,9 @@ public class Java6TrayIconSubsystem implements Subsystem, Runnable {
             }
         });
 
+/*
+        if the code below is added the java process never quits. It just hangs after the call to System.exit() - probably a bug in java 6?
+        this code isn't needed anyway since SystemTray guarantees to automatically remove the icons when exiting
         Runtime.getRuntime().addShutdownHook(new Thread() {
             public void run() {
                 if (tray != null) {
@@ -214,7 +217,7 @@ public class Java6TrayIconSubsystem implements Subsystem, Runnable {
                     tray = null;
                 }
             }
-        });
+        });*/
 
         // Update tooltip periodically with current transfer rates
         Thread t = new Thread(new Runnable() {

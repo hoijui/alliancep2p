@@ -7,10 +7,10 @@ package org.alliance.launchers;
  * Time: 10:35:53
  */
 public class OSInfo {
+    private static boolean supportsTrayIcon;
+
     public static boolean supportsTrayIcon() {
-        if (System.getProperty("os.name").toUpperCase().indexOf("WINDOWS") != -1) return true;
-        if (System.getProperty("os.name").toUpperCase().indexOf("LINUX") != -1) return true;
-        return false;
+        return supportsTrayIcon;
     }
 
     public static boolean isWindows() {
@@ -19,5 +19,10 @@ public class OSInfo {
 
     public static boolean isMac() {
         return System.getProperty("os.name").toUpperCase().indexOf("MAC") != -1;
+    }
+
+    /* This is set when starting alliance */
+    public static void setSupportsTrayIcon(boolean b) {
+        supportsTrayIcon = b;
     }
 }

@@ -42,9 +42,15 @@ public class Main {
             Subsystem core = initCore(s, (StartupProgressListener)r);
             if (core == null) return; //oops. core crashed. Error message has been displayd. just bail.
 
-            if (OSInfo.supportsTrayIcon()) {
-                Subsystem tray = initTrayIcon(core);
+            Subsystem tray = null;
+            try {
+                tray = initTrayIcon(core);
+                OSInfo.setSupportsTrayIcon(true);
+            } catch(Throwable t) {
+                OSInfo.setSupportsTrayIcon(false);
+            }
 
+            if (OSInfo.supportsTrayIcon()) {
                 if (!runMinimized) {
                     ((Runnable)tray).run(); //open ui
                     if (r != null) r.run(); //close splashwindow
@@ -124,22 +130,17 @@ public class Main {
         }
     }
 
-    private static Subsystem initTrayIcon(Subsystem core) {
+    private static Subsystem initTrayIcon(Subsystem core) throws Throwable {
         try {
-            try {
-                if(T.t)T.info("Starting Java 6 tray icon...");
-                Subsystem tray = (Subsystem)Class.forName("org.alliance.launchers.ui.Java6TrayIconSubsystem").newInstance();
-                tray.init(ResourceSingelton.getRl(), core);
-                return tray;
-            } catch(Throwable e) {
-                if(T.t)T.warn("Java 6 tray icon not supported. Falling back to old code.");
-                Subsystem tray = (Subsystem)Class.forName("org.alliance.launchers.ui.JDesktopTrayIconSubsystem").newInstance();
-                tray.init(ResourceSingelton.getRl(), core);
-                return tray;
-            }
-        } catch(Throwable t) {
-            reportError(t);
-            return null;
+            if(T.t)T.info("Starting Java 6 tray icon...");
+            Subsystem tray = (Subsystem)Class.forName("org.alliance.launchers.ui.Java6TrayIconSubsystem").newInstance();
+            tray.init(ResourceSingelton.getRl(), core);
+            return tray;
+        } catch(Throwable e) {
+            if(T.t)T.warn("Java 6 tray icon not supported. Falling back to old code.");
+            Subsystem tray = (Subsystem)Class.forName("org.alliance.launchers.ui.JDesktopTrayIconSubsystem").newInstance();
+            tray.init(ResourceSingelton.getRl(), core);
+            return tray;
         }
     }
 

@@ -217,6 +217,7 @@ public class CoreSubsystem implements Subsystem {
     public void logTrace(int level, Object message) {
         try {
             traceLog.log("^"+level+" "+message);
+            System.out.println(message);
         } catch (IOException e) {
             reportError(e, null);
         }

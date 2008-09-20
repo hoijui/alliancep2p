@@ -2,7 +2,7 @@
     <title value="Alliancet" image="gfx/icons/alliance.png"/>
     <menubar>
         <menu text="File" mnemonic="f">
-            <menuitem eventid="hide" mnemonic="x" text="Close window"/>
+            <menuitem eventid="hide" mnemonic="x" text="Hide window"/>
             <!--<menu mnemonic="s" text="Shutdown Alliance">
                 <menuitem eventid="shutdown30"  text="for 30 minutes"/>
                 <menuitem eventid="shutdown1"  text="for 1 hour"/>
