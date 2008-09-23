@@ -50,8 +50,8 @@ public interface UICallback {
     void nodeOrSubnodesUpdated(Node node);
 
     /**
-     * Called when search hits for a search previously made are returned. One call for each friend that returns a
-     * search result.
+     * Called when search hits for a search previously made are returned. One call for each friend that returns one or
+     * morea search hits. One call is made for all SearchHits for one friend.
      * @param srcGuid The Alliance GUID (network-unique user id) of the friend that is sending us the search results.
      * @param hops Number of hops this search result is from. I always 1.
      * @param hits A list of the search hits.
