@@ -11,3 +11,4 @@ public abstract class SynchronizedNeedsUserInteraction implements NeedsUserInter
         return false;
     }
 }
+
