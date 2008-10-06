@@ -1,3 +1,17 @@
+Message:
+it would be better if it could be disabled.
+maybe by a setting in the settings.xml?
+it doesn't have to be available in the GUI.
+
+----------------------------------------------------------------------
+
+Comment By: maciek (maciekdrejak)
+Date: 2008-09-29 07:02
+
+Message:
+I've changed the time from 100 days to 200 days in the code now. Is that good enough?
+
+
 * move to top/bottom i downloads. Många har hundra downloads i sin lista. roligt att trycka up hundra gånger.
 Annat:
   verkar som att det som gör att minnet oftast tar slut är att många filer delast. kanske det att man har många vänner också, men det är inte lika troligt
