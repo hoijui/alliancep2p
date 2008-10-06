@@ -1,3 +1,46 @@
+
+I've tried making alliance work for far more than 4 hours, with no luck at all.
+
+I was working on a private LAN of class 10.x.x.x and I discovered, sniffing the traffic, that if you have more than one NIC alliance always chose the IP of the wrong one.
+That's unfortunate in this times, when almost every workstation has at least a virtual NIC installed (hamachi, openvpn, vmware...).
+I tried to specify an IP in the specific setting field, but I discovered it doesn't save it.
+Than I downloaded the source with svn and, with my little programming knowledge, I discovered that:
+
+1 - that field is at the moment ignored
+2 - the algorithm used to chose the IP address from many NICs is not very logic (or I'm not able to understand it)
+
+I modified the code to solve the first problem but I got the same result I get when I try to connect 2 workstation with a single NIC each one: no luck at all.
+In this case the tcp session starts correctly but alliance gives many error about SSL (if I remember correctly).
+
+I tried with sun jdk 1.5 and 1.6... no luck at all.
+I tried from Windows to Windows... no luck at all.
+I tried from Linux to Linux... no luck at all.
+I tried from Windows to Linux... no luck at all.
+I tried from Linux to Windows... no luck at all.
+
+Well, perhaps I'm not a smart guy, but in 20 years using computers I've never had such a failure trying to make work something sad to be working by others. :-( 
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+Hey hey,
+
+I signed up to tell you that me and my friends were trying to get it working in our LAN, but it's grabbing 127.0.0.1 as an IP address for the invite code.
+We got it working, but manually had to change the hostname to our IPs respectively in settings.xml. This is the error log:
+
+18:14 20081002 Error for null (InvitationConnection) (/10.10.47.72:51713): null
+(InvitationConnection):
+18:14 20081002 java.io.IOException: Connection ended - null
+(InvitationConnection)
+	at org.alliance.core.comm.networklayers.tcpnio.TCPNIONetworkLayer.handleRead(TC
+PNIONetworkLayer.java:310)
+	at org.alliance.core.comm.networklayers.tcpnio.TCPNIONetworkLayer.run(TCPNIONet
+workLayer.java:184)
+	at java.lang.Thread.run(Thread.java:613)
+
+We would appear grayed in our alliance network until we changed the IP in settings.xml.
+
+-----------------------------------------------------------------------------------------------------------------------
+
 Message:
 it would be better if it could be disabled.
 maybe by a setting in the settings.xml?
