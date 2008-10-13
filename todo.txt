@@ -1,3 +1,5 @@
+* I'll add support for following symlinks to the todo
+
 
 I've tried making alliance work for far more than 4 hours, with no luck at all.
 
