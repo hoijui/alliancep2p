@@ -1,3 +1,22 @@
+
+
+"java.io.IOException: Unable to establish loopback connection"
+
+The full error report includes the message "no buffer space available"
+which I've come to know and love from other projects as a message that the
+application has run out of available network sockets. This causes all other
+network related applications (including simple things like my web browser)
+to work unpredictably. If I leave Alliance shutdown for long enough the
+system will eventually reclaim enough sockets for things to go back to
+normal but once I start Alliance back up again it's only about a day or so
+before it happens again. It looks to me like, for some reason, Alliance is
+leaking sockets. I ran into this problem on a previous version of Alliance,
+as well, but didn't report it. Here's the full error report:
+
+
+
+
+
 * lägg till så att det står hur många som är online och hur många vänner som finns totalt vid felrapportering..  hade varit riktigt roligt att se i statistiken
 * I'll add support for following symlinks to the todo
 * får in sjukt mycket concurrent modification errors nu..  denna verkar hända hela tiden:
