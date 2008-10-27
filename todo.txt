@@ -1,4 +1,44 @@
+* lägg till så att det står hur många som är online och hur många vänner som finns totalt vid felrapportering..  hade varit riktigt roligt att se i statistiken
 * I'll add support for following symlinks to the todo
+* får in sjukt mycket concurrent modification errors nu..  denna verkar hända hela tiden:
+java.util.ConcurrentModificationException
+	at java.util.HashMap$HashIterator.nextEntry(Unknown Source)
+	at java.util.HashMap$ValueIterator.next(Unknown Source)
+	at java.util.AbstractCollection.toArray(Unknown Source)
+	at org.alliance.core.node.InvitaitonManager.getMostRecentByGuid(InvitaitonManager.java:112)
+	at org.alliance.core.node.InvitaitonManager.hasBeenRecentlyInvited(InvitaitonManager.java:105)
+	at org.alliance.ui.addfriendwizard.ForwardInvitationNodesList$ForwardInvitationListModel.<init>(ForwardInvitationNodesList.java:118)
+	at org.alliance.ui.MainWindow.handleNeedsUserInteraction(MainWindow.java:624)
+	at org.alliance.ui.MainWindow.access$700(MainWindow.java:48)
+	at org.alliance.ui.MainWindow$9.run(MainWindow.java:528)
+	at java.awt.event.InvocationEvent.dispatch(Unknown Source)
+	at java.awt.EventQueue.dispatchEvent(Unknown Source)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.awt.EventDispatchThread.run(Unknown Source)
+
+och denna:
+
+java.util.ConcurrentModificationException
+	at java.util.HashMap$HashIterator.nextEntry(Unknown Source)
+	at java.util.HashMap$ValueIterator.next(Unknown Source)
+	at java.util.AbstractCollection.toArray(Unknown Source)
+	at java.util.ArrayList.<init>(Unknown Source)
+	at org.alliance.ui.windows.UploadsMDIWindow.update(UploadsMDIWindow.java:53)
+	at org.alliance.ui.MainWindow$8.run(MainWindow.java:445)
+	at java.awt.event.InvocationEvent.dispatch(Unknown Source)
+	at java.awt.EventQueue.dispatchEvent(Unknown Source)
+	at org.alliance.launchers.ui.PopupFixQueue.dispatchEvent(PopupFixQueue.java:17)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.awt.EventDispatchThread.run(Unknown Source)
+
+
 
 
 I've tried making alliance work for far more than 4 hours, with no luck at all.
@@ -7,39 +47,8 @@ I was working on a private LAN of class 10.x.x.x and I discovered, sniffing the 
 That's unfortunate in this times, when almost every workstation has at least a virtual NIC installed (hamachi, openvpn, vmware...).
 I tried to specify an IP in the specific setting field, but I discovered it doesn't save it.
 Than I downloaded the source with svn and, with my little programming knowledge, I discovered that:
-
 1 - that field is at the moment ignored
 2 - the algorithm used to chose the IP address from many NICs is not very logic (or I'm not able to understand it)
-
-I modified the code to solve the first problem but I got the same result I get when I try to connect 2 workstation with a single NIC each one: no luck at all.
-In this case the tcp session starts correctly but alliance gives many error about SSL (if I remember correctly).
-
-I tried with sun jdk 1.5 and 1.6... no luck at all.
-I tried from Windows to Windows... no luck at all.
-I tried from Linux to Linux... no luck at all.
-I tried from Windows to Linux... no luck at all.
-I tried from Linux to Windows... no luck at all.
-
-Well, perhaps I'm not a smart guy, but in 20 years using computers I've never had such a failure trying to make work something sad to be working by others. :-( 
-
-------------------------------------------------------------------------------------------------------------------------------------
-
-Hey hey,
-
-I signed up to tell you that me and my friends were trying to get it working in our LAN, but it's grabbing 127.0.0.1 as an IP address for the invite code.
-We got it working, but manually had to change the hostname to our IPs respectively in settings.xml. This is the error log:
-
-18:14 20081002 Error for null (InvitationConnection) (/10.10.47.72:51713): null
-(InvitationConnection):
-18:14 20081002 java.io.IOException: Connection ended - null
-(InvitationConnection)
-	at org.alliance.core.comm.networklayers.tcpnio.TCPNIONetworkLayer.handleRead(TC
-PNIONetworkLayer.java:310)
-	at org.alliance.core.comm.networklayers.tcpnio.TCPNIONetworkLayer.run(TCPNIONet
-workLayer.java:184)
-	at java.lang.Thread.run(Thread.java:613)
-
-We would appear grayed in our alliance network until we changed the IP in settings.xml.
 
 -----------------------------------------------------------------------------------------------------------------------
 
