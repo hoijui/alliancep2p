@@ -1,4 +1,55 @@
 
+Initial Comment:
+Apparently a few people are noticing that when they view their shared folders they can only see the folders and not any of the files in the folders. Alliance doesn't seem to be auto hashing the folder(s) when they add it as a share like it used too. So they have to manually press the rehash button on the bottom right of the client.
+
+----------------------------------------------------------------------
+
+>Comment By: DeathfireD (deathfired)
+Date: 2008-10-27 22:24
+
+Message:
+I think it was since 1.0.4 but I could be wrong. I too have noticed that sometimes when adding a new folder it doesn't get hashed right away. If you press the blue hash button though it will or just wait a bit Alliance will get around to hashing it.
+
+----------------------------------------------------------------------
+
+Comment By: maciek (maciekdrejak)
+Date: 2008-10-27 13:09
+
+Message:
+This seems like a real problem. I would need to know more about this. Is this since the release of version 1.0.5?
+
+----------------------------------------------------------------------
+
+
+
+
+
+* lägg till så att det står hur många som är online och hur många vänner som finns totalt vid felrapportering..  hade varit riktigt roligt att se i statistiken
+
+
+* intressant om SSL:
+Hello, sorry for my english I am german.
+
+There is a small group working in ssl-mode since a few weeks. In ssl-mode
+it seems, there are problems with alliance, if the max. upload-speed is set
+to high in Alliance (>25 KB/s):
+
+After a few seconds, the ul/dl stops (without closing the connection and
+with no automatic restart / resume).
+
+The client gets wrong (corrupted) "parts of a file" after a while.
+
+After one corrupt block is received, all later blocks are also corrupted.
+But it seems, that Alliance does not stop ul/dl if blocks are corrupt, but
+stay up-/downloading. So it could be, that the dl can reach 100 % (after
+hours), but all blocks must/will be send again, after reconnect. To resume
+such a "broken" dl/ul the only way is to reconnect the uploader or restart
+alliance.
+
+Thank you for reading and thanks for the genial program.
+
+
+
 
 "java.io.IOException: Unable to establish loopback connection"
 
@@ -17,7 +68,6 @@ as well, but didn't report it. Here's the full error report:
 
 
 
-* lägg till så att det står hur många som är online och hur många vänner som finns totalt vid felrapportering..  hade varit riktigt roligt att se i statistiken
 * I'll add support for following symlinks to the todo
 * får in sjukt mycket concurrent modification errors nu..  denna verkar hända hela tiden:
 java.util.ConcurrentModificationException
