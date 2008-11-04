@@ -1,6 +1,7 @@
 * fixa goa msn integrationen med ett java-lib
 * lägg till en donate dialog som kommer upp vid något klokt tillfälle
-
+* när man tar delete på en vän så blir han kvar som "unknown" - rätt sunkigt..
+* när pontus kopplade upp sig mot vårt nätverk fick han inga vänner. när jag provade koppla upp mig mot nätverket som finns på deathd lista så fick jag inga vänner - fastän det var folk online!! nåt är fuffens. det är ju INTE bra naturligtvis - nya medlemmar kan inte komma in i nya nätverk
 
 jag har också ett tips på lite mer laidback ambient musik fast lite mer alien-inspirerad... kanske är intressant? http://open.spotify.com/user/pontusm/playlist/7oxqbHGCDA0GrVKmV9mSdG
 maciek säger (13:42):

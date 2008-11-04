@@ -29,7 +29,7 @@ import java.lang.reflect.Method;
  * Time: 16:13:14
  */
 public class UISubsystem implements UINexus, Subsystem {
-    public static final boolean NODE_TREE_MODEL_DISABLED = true; //it's disabled because there's a bug in it and it's not really needed anyway
+    public static final boolean NODE_TREE_MODEL_DISABLED = !T.t; //it's disabled when it's a production release because there's a bug in it and it's not really needed anyway
 
     private MainWindow mainWindow;
     private ResourceLoader rl;
