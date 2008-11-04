@@ -9,8 +9,9 @@
 Support the development of Alliance
 
 Alliance is and will always be free and open source. <- viktigt att sŠga, stina sa att hon skulle tro att hon var tvungen att betala om dialogen kommer upp utan detta 
-We, the developers of Alliance, spend our free time to work on Alliance.
-The project is kept alive thanks to donations from people like you.
+
+We, the developers of Alliance, spend our free time to work on Alliance and the
+project is kept alive thanks to donations from people like you.
 The more donations received the more time the we can spend on Alliance.
 
 Show your support and donate a small amout to Alliance.
