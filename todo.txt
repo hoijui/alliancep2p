@@ -1,6 +1,20 @@
 * fixa goa msn integrationen med ett java-lib
 * lägg till en donate dialog som kommer upp vid något klokt tillfälle
 
+
+jag har också ett tips på lite mer laidback ambient musik fast lite mer alien-inspirerad... kanske är intressant? http://open.spotify.com/user/pontusm/playlist/7oxqbHGCDA0GrVKmV9mSdG
+maciek säger (13:42):
+fan vad grymt spotify är asså. =)
+Pontus säger (13:42):
+hehe
+maciek säger (13:42):
+jag ska FAN lägga in stöd för länkar i alliance tror jag
+
+
+
+
+
+
 Initial Comment:
 Apparently a few people are noticing that when they view their shared folders they can only see the folders and not any of the files in the folders. Alliance doesn't seem to be auto hashing the folder(s) when they add it as a share like it used too. So they have to manually press the rehash button on the bottom right of the client.
 
