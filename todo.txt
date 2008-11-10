@@ -31,6 +31,13 @@ jag ska FAN lägga in stöd för länkar i alliance tror jag
 
 
 
+hey
+auto hashing in Alliance doesn't seem to work
+a new friend of mine just downloaded alliance and added a folder
+DeathfireD - I need a python programmer [All hail piggy king of bacon] säger (06:20):
+Alliance did nothing
+so I told him to press the blue icon and it started to hash the files like it should
+
 
 
 
