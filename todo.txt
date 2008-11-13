@@ -4,6 +4,23 @@
 * big deal: funkar verkligen inte: när pontus kopplade upp sig mot vårt nätverk fick han inga vänner. när jag provade koppla upp mig mot nätverket som finns på deathd lista så fick jag inga vänner - fastän det var folk online!! nåt är fuffens. det är ju INTE bra naturligtvis - nya medlemmar kan inte komma in i nya nätverk
 
 
+************
+
+viktigt:
+ * fixa chat-buggen - har att göra med dom som har fet-stora shares. Man kanske inte ska spara allt vid shutdown. det låter som är bra ide.
+ * fixa att kopplingen inte bombar när man tittar i deras share som är fetstor - har en förklaring om det nedan.
+ * msn integration
+
+********
+
+
+I've noticed a bug where if I'm having a bigger share, the connection of my friends to me drops immediately when the start browsing my filelist. Have to reestablish connection after it. Chat works fine.
+
+1st scenario: me sharing 150.000+ files, friend sharing a lot less, ~50gb. I can download from him without a hassle, when he tries browsing he's dropped out. Tried with other friend, other computer/isp/location, same issue.
+
+2nd scenario: started rehashing just one dir, at around 80gb shared my friend could download from me. Checked back later, when the 250gb (~55000 files) was finally hashed, got disconnected immediately.
+
+Tried updating java, same problems. Both using the latest version of Alliance. Any way I can help to trace the problem?
 
 *********
 Support the development of Alliance
