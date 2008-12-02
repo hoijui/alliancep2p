@@ -12,9 +12,8 @@ import java.awt.image.BufferedImage;
  * Time: 10:49:44
  */
 public class SplashWindowOld extends Window implements Runnable {
-    private Image image;
+	private Image image;
     private String statusMessage="";
-    private long startTick;
     private int progressPercent=-1;
 
     private int lastWidth, lastHeight;
@@ -35,8 +34,7 @@ public class SplashWindowOld extends Window implements Runnable {
         setSize(new Dimension(image.getWidth(null),image.getHeight(null)));
 
         init();
-
-        startTick = System.currentTimeMillis();
+        
         setVisible(true);
         toFront();
         requestFocus();

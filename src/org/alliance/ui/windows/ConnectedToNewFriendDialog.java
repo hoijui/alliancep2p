@@ -1,16 +1,12 @@
 package org.alliance.ui.windows;
 
 import com.stendahls.XUI.XUIDialog;
-import com.stendahls.XUI.XUIException;
 import com.stendahls.nif.ui.OptionDialog;
 import com.stendahls.ui.JHtmlLabel;
-import com.stendahls.ui.JMLabel;
 
 import javax.swing.*;
 
 import org.alliance.ui.UISubsystem;
-
-import java.io.IOException;
 
 /**
  * Created by IntelliJ IDEA.
@@ -20,7 +16,8 @@ import java.io.IOException;
  * To change this template use File | Settings | File Templates.
  */
 public class ConnectedToNewFriendDialog extends XUIDialog {
-    public ConnectedToNewFriendDialog(UISubsystem ui, JFrame f, String name) throws Exception {
+
+	public ConnectedToNewFriendDialog(UISubsystem ui, JFrame f, String name) throws Exception {
         super(ui.getRl(), ui.getRl().getResourceStream("xui/newfriendconnection.xui.xml"), f, true);
         ((JHtmlLabel)xui.getComponent("label")).replaceString("$$NAME$$", name);
         ui.getMainWindow().setConnectedToNewFriendDialogShowing(true);

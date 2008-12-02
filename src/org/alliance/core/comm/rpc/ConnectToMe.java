@@ -5,7 +5,6 @@ import org.alliance.core.comm.Packet;
 import org.alliance.core.comm.T;
 import org.alliance.core.comm.Connection;
 import org.alliance.core.comm.upnp.ReverseConnection;
-import org.alliance.core.comm.filetransfers.DownloadConnection;
 
 import java.io.IOException;
 

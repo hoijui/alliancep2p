@@ -9,6 +9,7 @@ import com.stendahls.trace.TraceChannel;
  */
 public class T {
     public static final boolean t = true && org.alliance.core.T.t;
+    public static final boolean netTrace = false && org.alliance.core.T.t;
 
     private static TraceChannel tc = new TraceChannel("comm");
 

@@ -76,6 +76,7 @@ public class UserInfoV2 extends RPC {
             core.getNetworkManager().signalFriendConnected(con.getRemoteFriend());
             core.getUICallback().nodeOrSubnodesUpdated(con.getRemoteFriend());
             core.updateLastSeenOnlineFor(con.getRemoteFriend());
+            System.setProperty("alliance.network.friendsonline",""+manager.getNFriendsConnected());
         }
     }
 

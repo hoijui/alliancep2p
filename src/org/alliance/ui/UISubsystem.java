@@ -117,14 +117,6 @@ public class UISubsystem implements UINexus, Subsystem {
         core.setUICallback(new UIBridge(this, core.getUICallback()));
     }
 
-    private void runInCorrectThread(Runnable r) throws InvocationTargetException, InterruptedException {
-        if (SwingUtilities.isEventDispatchThread())
-            r.run();
-        else
-            SwingUtilities.invokeAndWait(r);
-
-    }
-
     public void handleErrorInEventLoop(Throwable t) {
         handleErrorInEventLoop(null, t, false);
     }

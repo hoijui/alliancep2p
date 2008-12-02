@@ -1,7 +1,6 @@
 package org.alliance.ui.windows;
 
 import com.stendahls.nif.ui.mdi.MDIWindow;
-import org.alliance.core.node.Node;
 import org.alliance.launchers.console.Console;
 import org.alliance.ui.UISubsystem;
 
@@ -19,8 +18,7 @@ import java.io.ObjectOutputStream;
  * To change this template use File | Settings | File Templates.
  */
 public class ConsoleMDIWindow extends AllianceMDIWindow implements Console.Printer {
-    private Node node;
-    private JTextArea textarea;
+	private JTextArea textarea;
     private JTextField chat;
     private Console console;
 

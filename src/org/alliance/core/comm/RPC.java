@@ -38,7 +38,7 @@ public abstract class RPC {
     public abstract Packet serializeTo(Packet out) throws IOException;
 
     /**
-     * Initializes this RCP in a mode where it has not been recived from anyone - fromGuid is 0
+     * Initializes this RCP in a mode where it has not been received from anyone - fromGuid is 0
      * @param rpcc
      */
     public RPC init(FriendConnection rpcc) {

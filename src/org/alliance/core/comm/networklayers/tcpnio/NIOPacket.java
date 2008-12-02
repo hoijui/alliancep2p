@@ -118,7 +118,7 @@ public class NIOPacket extends Packet {
         mark();
         writeShort(len);
         reset();
-        if(T.t)T.trace("Patched packet length: "+len);
+        if(T.netTrace)T.trace("Patched packet length: "+len);
     }
 
     public byte[] asArray() {

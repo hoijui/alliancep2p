@@ -21,7 +21,7 @@ import java.util.Enumeration;
  * Time: 14:20:47
  */
 public class Invitation implements Serializable {
-    private int invitationPassKey;
+	private int invitationPassKey;
     private String completeInvitaitonString;
     private long createdAt;
     private Integer destinationGuid;

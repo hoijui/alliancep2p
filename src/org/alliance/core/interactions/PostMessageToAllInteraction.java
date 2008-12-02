@@ -8,7 +8,8 @@ package org.alliance.core.interactions;
  * To change this template use File | Settings | File Templates.
  */
 public class PostMessageToAllInteraction extends PostMessageInteraction {
-    public PostMessageToAllInteraction(String message, int fromGuid) {
+
+	public PostMessageToAllInteraction(String message, int fromGuid) {
         super(message, fromGuid);
     }
 

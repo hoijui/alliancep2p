@@ -23,7 +23,7 @@ import java.util.ArrayList;
  * To change this template use File | Settings | File Templates.
  */
 public class UploadsMDIWindow extends AllianceMDIWindow {
-    private UploadsMDIWindow.UploadsTableModel model;
+	private UploadsMDIWindow.UploadsTableModel model;
     private JTable table;
 
     private ArrayList<UploadWrapper> rows = new ArrayList<UploadsMDIWindow.UploadWrapper>();
@@ -109,7 +109,8 @@ public class UploadsMDIWindow extends AllianceMDIWindow {
     }
 
     private class UploadsTableModel extends AbstractTableModel {
-        public int getRowCount() {
+
+		public int getRowCount() {
             return rows.size();
         }
 

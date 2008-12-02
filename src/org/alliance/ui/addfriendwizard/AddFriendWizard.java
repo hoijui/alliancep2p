@@ -10,7 +10,6 @@ import org.alliance.ui.UISubsystem;
 import org.alliance.ui.util.CutCopyPastePopup;
 
 import javax.swing.*;
-import javax.swing.text.JTextComponent;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 import java.awt.*;
@@ -27,7 +26,7 @@ import java.net.URLConnection;
  * Time: 14:54:04
  */
 public class AddFriendWizard extends JWizard {
-    public static final int STEP_INTRO=0;
+	public static final int STEP_INTRO=0;
     public static final int STEP_SELECT_INVITATION_TYPE=1;
     public static final int STEP_ENTER_INVITATION=2;
     public static final int STEP_INCORRECT_INVITATION_CODE=3;

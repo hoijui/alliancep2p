@@ -33,20 +33,20 @@ public class Router {
     public void updateRouteTable(Friend friend, int nodeGuid, int hops) {
         Route routes[] = routeTable.get(nodeGuid);
         if (routes == null) {
-            if(T.t)T.trace("Adding new Route to "+nodeGuid+" via "+friend);
+            if(T.netTrace)T.trace("Adding new Route to "+nodeGuid+" via "+friend);
             routeTable.put(nodeGuid, new Route[] {new Route(friend.getGuid(), hops)});
         } else {
-            if(T.t)T.trace("Updating existing Route array (Route to "+nodeGuid+" via "+friend+")");
+            if(T.netTrace)T.trace("Updating existing Route array (Route to "+nodeGuid+" via "+friend+")");
             for(Route r : routes) {
                 if (r.friendGuid == friend.getGuid()) {
                     if (r.hops > hops) {
-                        if(T.t)T.trace("Updating number of hops for existing Route to"+nodeGuid+". Old: "+r.hops+" new: "+hops);
+                        if(T.netTrace)T.trace("Updating number of hops for existing Route to"+nodeGuid+". Old: "+r.hops+" new: "+hops);
                         r.hops = hops;
                         return;
                     }
                 }
             }
-            if(T.t)T.trace("Adding new Route");
+            if(T.netTrace)T.trace("Adding new Route");
             Route r[] = new Route[routes.length+1];
             r[0] = new Route(friend.getGuid(), hops);
             for(int i=0;i<routes.length;i++) r[i+1] = routes[i];

@@ -33,10 +33,10 @@ public abstract class PacketConnection extends Connection {
     public abstract void packetReceived(Packet p) throws IOException;
 
     public void send(Packet p) throws IOException {
-        if(T.t)T.trace("Sending packet "+p);
+        if(T.netTrace)T.trace("Sending packet "+p);
         p.prepareForSend();
         if (!packetsToSend.offer(p)) throw new IOException("Send packet que overflow!");
-        if(T.t)T.trace("Queing packet for later send");
+        if(T.netTrace)T.trace("Queing packet for later send");
 
         if (NetworkManager.DIRECTLY_CALL_READYTOSEND)
             readyToSend();
@@ -49,7 +49,7 @@ public abstract class PacketConnection extends Connection {
     public void readyToSend() throws IOException {
 //          looks like alliance can hang in an infitite loop here sometimes
 //        if(T.t)T.traceNoDup("OS send buffer space is available - try to send sometihing");
-        if(T.t)T.trace("OS send buffer space is available - try to send sometihing. Packets in que: "+packetsToSend.size()+ "packetCurrentlySending: "+packetCurrentlyInSending);
+        if(T.netTrace)T.trace("OS send buffer space is available - try to send sometihing. Packets in que: "+packetsToSend.size()+ "packetCurrentlySending: "+packetCurrentlyInSending);
 
         while(true) {
             if (packetCurrentlyInSending == null) {
@@ -70,19 +70,19 @@ public abstract class PacketConnection extends Connection {
                 }
             //}
             if (packetCurrentlyInSending.getAvailable() == 0) {
-                if(T.t)T.trace("Succesfully sent packet "+packetCurrentlyInSending);
+                if(T.netTrace)T.trace("Succesfully sent packet "+packetCurrentlyInSending);
                 packetCurrentlyInSending = null; //packet has been successfully sent
             }
         }
 
         if (packetCurrentlyInSending == null && packetsToSend.size() == 0) {
-            if(T.t)T.trace("No more interest to send.");
+            if(T.netTrace)T.trace("No more interest to send.");
             netMan.noInterestToSend(this);
         }
     }
 
     public void received(ByteBuffer buf) throws IOException {
-        if(T.t)T.trace("Received "+buf.remaining()+" bytes - "+receivePacket.getAvailable()+" bytes available in buffer.");
+        if(T.netTrace)T.trace("Received "+buf.remaining()+" bytes - "+receivePacket.getAvailable()+" bytes available in buffer.");
 //        Packet.printBuf(buf);
         receivePacket.writeBuffer(buf);
         while (receivePacket.getPos() >= 2) { //there's more than two bytes to read in packet - that mean we can read the packet length
@@ -90,10 +90,10 @@ public abstract class PacketConnection extends Connection {
             receivePacket.setPos(0);
             int len = receivePacket.readUnsignedShort();
             receivePacket.setPos(mark);
-            if(T.t)T.trace("Packet length "+len+" received. In packet buffer: "+receivePacket.getPos());
+            if(T.netTrace)T.trace("Packet length "+len+" received. In packet buffer: "+receivePacket.getPos());
             if (len > core.getSettings().getInternal().getMaximumAlliancePacketSize()) throw new IOException("Received too large Alliance packet! Max: "+core.getSettings().getInternal().getMaximumAlliancePacketSize()+", received: "+len);
             if (receivePacket.getPos() >= len+2) {
-                if(T.t)T.trace("Packet successfully received. Length: "+len);
+                if(T.netTrace)T.trace("Packet successfully received. Length: "+len);
                 int receiveLen = receivePacket.getPos();
                 receivePacket.setPos(2); //packet begins just after the length info
                 int size = receivePacket.getSize();
@@ -108,20 +108,20 @@ public abstract class PacketConnection extends Connection {
                 packetsReceived++;
                 ((PacketConnection)c).packetReceived(receivePacket);
                 c = netMan.getConnection(getKey());
-                if(T.t)T.trace("Setting size: "+receiveLen);
+                if(T.netTrace)T.trace("Setting size: "+receiveLen);
                 receivePacket.setSize(receiveLen);
-                if(T.t)T.trace("Setting pos: "+(len+2));
+                if(T.netTrace)T.trace("Setting pos: "+(len+2));
                 receivePacket.setPos(len+2);
                 receivePacket.compact();
                 if(c != this && receivePacket.getPos() > 0) {
                     if (c != null) {
-                        if(T.t) T.trace("Connection swapped and we've got stuff left in buffer. Send in to the new connection as raw data.");
+                        if(T.netTrace) T.trace("Connection swapped and we've got stuff left in buffer. Send in to the new connection as raw data.");
                         ByteBuffer b = ByteBuffer.allocate(receivePacket.getPos());
                         b.put(receivePacket.asArray());
                         b.flip();
                         c.received(b);
                     } else {
-                        if(T.t)T.warn("Connection is null. I think this is ok.");
+                        if(T.netTrace)T.warn("Connection is null. I think this is ok.");
                     }
                     return; //we don't want to receive anything here. The swapped connection will take care of the rest.
                 }

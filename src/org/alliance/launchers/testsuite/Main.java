@@ -57,7 +57,7 @@ public class Main {
                     try {
                         String message = String.valueOf(o);
                         String name = Thread.currentThread().getName();
-                        String module = message.substring(0, message.indexOf(' '));
+                        // String module = message.substring(0, message.indexOf(' '));
 
                         if (level >= Trace.LEVEL_WARN) System.out.println(message+" ("+name+")");
 

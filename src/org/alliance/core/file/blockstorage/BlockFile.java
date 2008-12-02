@@ -34,14 +34,11 @@ public final class BlockFile {
     private RandomAccessFile raf;
     private BlockStorage parent;
 
-    private CoreSubsystem core;
-
     private HashMap<Integer, Integer> bytesCompleteForBlock = new HashMap<Integer, Integer>();
 
     public BlockFile(FileDescriptor fd, BlockStorage parent) {
         this.fd = fd;
         this.parent = parent;
-        this.core = parent.getCore();
         blockOffsets = new int[getNumberOfBlocks()];
         for(int i=0;i<blockOffsets.length;i++) blockOffsets[i] = -1;
         if (fd.getSize()>30*GB) {

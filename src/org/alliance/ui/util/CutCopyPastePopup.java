@@ -12,7 +12,7 @@ import java.awt.event.*;
  * To change this template use File | Settings | File Templates.
  */
 public class CutCopyPastePopup extends JPopupMenu implements ActionListener {
-    private JTextComponent target;
+	private JTextComponent target;
 
     public CutCopyPastePopup(JTextComponent target) {
         this.target = target;

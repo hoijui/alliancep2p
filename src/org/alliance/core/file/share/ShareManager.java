@@ -4,7 +4,6 @@ import org.alliance.core.CoreSubsystem;
 import org.alliance.core.file.filedatabase.FileDatabase;
 import org.alliance.core.settings.Settings;
 import org.alliance.core.settings.Share;
-import org.alliance.launchers.OSInfo;
 
 import java.io.IOException;
 import java.util.ArrayList;

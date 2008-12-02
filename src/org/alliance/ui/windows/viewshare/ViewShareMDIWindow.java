@@ -38,7 +38,7 @@ import java.util.Collection;
  * To change this template use File | Settings | File Templates.
  */
 public class ViewShareMDIWindow extends AllianceMDIWindow {
-    private Node remote;
+	private Node remote;
     private JTree tree;
     private ViewShareTreeModel model;
 
@@ -223,7 +223,6 @@ public class ViewShareMDIWindow extends AllianceMDIWindow {
 
     public void save() throws Exception {}
     public void revert() throws Exception {
-        TreeState ts = new TreeState(tree);
         ViewShareMDIWindow viewShareMDIWindow = new ViewShareMDIWindow(ui, remote);
         manager.recreateWindow(this, viewShareMDIWindow);
     }
@@ -232,7 +231,8 @@ public class ViewShareMDIWindow extends AllianceMDIWindow {
     public MDIWindow deserialize(ObjectInputStream in) throws IOException { return null; }
 
     private class ViewShareTreeRenderer extends DefaultTreeCellRenderer {
-        public Component getTreeCellRendererComponent(
+
+		public Component getTreeCellRendererComponent(
                 JTree tree,
                 Object value,
                 boolean sel,

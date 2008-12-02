@@ -34,9 +34,8 @@ import java.util.ArrayList;
  * To change this template use File | Settings | File Templates.
  */
 public class SearchMDIWindow extends AllianceMDIWindow {
-    private int totalHits;
 
-    private JXTreeTable table;
+	private JXTreeTable table;
     private SearchTreeTableModel model;
     private JComboBox type;
     private JPopupMenu popup;
@@ -305,9 +304,6 @@ public class SearchMDIWindow extends AllianceMDIWindow {
     }
 
     public void search(String text, final FileType ft) throws IOException {
-//        if (newfiles.isSelected()) {
-//            text = "";
-//        }
         final String t = text;
 
         String s;
@@ -316,7 +312,6 @@ public class SearchMDIWindow extends AllianceMDIWindow {
         else
             s = "Searching for "+t +" in "+ft.description()+"...";
         left.setText(s);
-        totalHits=0;
         table.setTreeTableModel(model = new SearchTreeTableModel(ui.getCore()));
         ui.getCore().invokeLater(new Runnable() {
             public void run() {
@@ -347,7 +342,8 @@ public class SearchMDIWindow extends AllianceMDIWindow {
     }
 
     public class NameCellRenderer extends DefaultTreeCellRenderer {
-        public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus) {
+
+		public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus) {
             super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf, row, hasFocus);
             if (value instanceof FileNode) {
                 FileNode fn = (FileNode)value;
@@ -369,7 +365,7 @@ public class SearchMDIWindow extends AllianceMDIWindow {
 
     public class BytesizeCellRenderer extends DefaultTableCellRenderer {
 
-        public Component getTableCellRendererComponent(JTable table, Object value,
+		public Component getTableCellRendererComponent(JTable table, Object value,
                                                        boolean isSelected, boolean hasFocus, int rowIndex, int vColIndex) {
             super.getTableCellRendererComponent(table, value,  isSelected,  hasFocus,  rowIndex, vColIndex);
             setText(TextUtils.formatByteSize((Long)value));
@@ -383,7 +379,7 @@ public class SearchMDIWindow extends AllianceMDIWindow {
     }
 
     public class DaysOldCellRenderer extends DefaultTableCellRenderer {
-        public Component getTableCellRendererComponent(JTable table, Object value,
+		public Component getTableCellRendererComponent(JTable table, Object value,
                                                        boolean isSelected, boolean hasFocus, int rowIndex, int vColIndex) {
             super.getTableCellRendererComponent(table, value,  isSelected,  hasFocus,  rowIndex, vColIndex);
             int val = (Integer)value;
@@ -400,7 +396,7 @@ public class SearchMDIWindow extends AllianceMDIWindow {
     }
 
     public class SourcesCellRenderer extends DefaultTableCellRenderer {
-        public Component getTableCellRendererComponent(JTable table, Object value,
+		public Component getTableCellRendererComponent(JTable table, Object value,
                                                        boolean isSelected, boolean hasFocus, int rowIndex, int vColIndex) {
             super.getTableCellRendererComponent(table, value,  isSelected,  hasFocus,  rowIndex, vColIndex);
 
@@ -427,7 +423,9 @@ public class SearchMDIWindow extends AllianceMDIWindow {
     }
 
     public class SpeedCellRenderer extends JProgressBar implements TableCellRenderer {
-        public SpeedCellRenderer() {
+
+
+		public SpeedCellRenderer() {
             super(0, 100);
             setStringPainted(false);
             setOpaque(true);

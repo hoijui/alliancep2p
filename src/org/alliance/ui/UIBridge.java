@@ -9,8 +9,6 @@ import org.alliance.launchers.OSInfo;
 
 import javax.swing.*;
 import java.util.List;
-import java.awt.*;
-import java.lang.reflect.InvocationTargetException;
 
 import com.stendahls.nif.ui.OptionDialog;
 

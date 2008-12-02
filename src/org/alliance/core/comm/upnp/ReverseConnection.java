@@ -1,7 +1,6 @@
 package org.alliance.core.comm.upnp;
 
 import org.alliance.core.comm.*;
-import org.alliance.core.comm.filetransfers.*;
 import org.alliance.core.comm.filetransfers.T;
 
 import java.io.IOException;

@@ -28,7 +28,7 @@ public abstract class CryptoLayer {
     public abstract void noInterestToSend(final Connection c);
     public abstract void closed(Connection c);
 
-    //can be overrided by implementing classes
+    //can be overridden by implementing classes
     public void init() throws Exception {}
 
     public void setNetworkLayer(TCPNIONetworkLayer networkLayer) {

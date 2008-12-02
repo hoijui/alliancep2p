@@ -25,7 +25,8 @@ import java.util.Iterator;
  * change this template use File | Settings | File Templates.
  */
 public class OptionsWindow extends XUIDialog {
-    private final static String[] OPTIONS = new String[] {
+
+	private final static String[] OPTIONS = new String[] {
             "internal.uploadthrottle", "internal.hashspeedinmbpersecond",
             "internal.politehashingwaittimeinminutes",
             "internal.politehashingintervalingigabytes", "my.nickname",

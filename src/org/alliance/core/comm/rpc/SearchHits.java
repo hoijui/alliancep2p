@@ -14,7 +14,7 @@ import java.util.ArrayList;
  *
  * Sent when a friend needs information about the correct ip/port of a common friend of ours.
  *
- * Recieved when we need info about a friend that we haven't got the correct ip/port to.
+ * Received when we need info about a friend that we haven't got the correct ip/port to.
  *
  * Created by IntelliJ IDEA.
  * User: maciek
@@ -34,10 +34,7 @@ public class SearchHits extends RPC {
     }
 
     public void execute(Packet in) throws IOException {
-//        int nHits = in.readUnsignedShort();
-
         for(;;) {
-            SearchHit sh = new SearchHit();
             long size = in.readLong();
             if (size == -1) break;
             Hash h = new Hash();

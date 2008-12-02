@@ -17,7 +17,7 @@ import java.io.*;
  * Time: 14:12:18
  */
 public class WelcomeMDIWindow extends AllianceMDIWindow {
-    public static final String IDENTIFIER = "welcome";
+	public static final String IDENTIFIER = "welcome";
     private JHtmlLabel label;
     private JLabel imageLabel;
     private UISubsystem ui;

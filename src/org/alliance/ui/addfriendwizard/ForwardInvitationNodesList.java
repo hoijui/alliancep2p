@@ -20,7 +20,7 @@ import java.util.Collection;
  * To change this template use File | Settings | File Templates.
  */
 public class ForwardInvitationNodesList extends JList {
-    private UISubsystem ui;
+	private UISubsystem ui;
     private AddFriendWizard addFriendWizard;
 
     public ForwardInvitationNodesList(UISubsystem ui, final AddFriendWizard addFriendWizard) {
@@ -53,7 +53,8 @@ public class ForwardInvitationNodesList extends JList {
     }
 
     private static class CheckListRenderer extends JCheckBox implements ListCellRenderer {
-        public CheckListRenderer() {
+
+		public CheckListRenderer() {
             setBackground(UIManager.getColor("List.textBackground"));
             setForeground(UIManager.getColor("List.textForeground"));
         }
@@ -88,7 +89,7 @@ public class ForwardInvitationNodesList extends JList {
     }
 
     public static class ForwardInvitationListModel extends DefaultListModel {
-        private UISubsystem ui;
+		private UISubsystem ui;
 
         public ForwardInvitationListModel(final UISubsystem ui) {
             this.ui = ui;

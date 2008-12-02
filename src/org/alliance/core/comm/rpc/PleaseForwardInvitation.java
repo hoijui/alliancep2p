@@ -16,7 +16,7 @@ import java.io.IOException;
  * To change this template use File | Settings | File Templates.
  */
 public class PleaseForwardInvitation extends PersistantRPC {
-    private String invitationCode;
+	private String invitationCode;
     private int toGuid;
 
     public PleaseForwardInvitation() {

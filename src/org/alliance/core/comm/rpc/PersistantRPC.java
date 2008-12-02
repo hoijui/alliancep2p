@@ -10,13 +10,13 @@ import java.io.Serializable;
  * Date: 2006-apr-19
  * Time: 15:38:42
  *
- * A persistant RPC is an rpc that can be sent using NetworkManager.sendPersistantly(...). It is guaranteed to
+ * A persistent RPC is an rpc that can be sent using NetworkManager.sendPersistantly(...). It is guaranteed to
  * arrive at its destination. Even if the destination will not be connected for several days and even if
  * the application is restarted.
  *
  */
 public abstract class PersistantRPC extends RPC implements Serializable {
-    private int destinationGuid;
+	private int destinationGuid;
     private long timestamp;
     protected boolean hasBeenQueuedForLaterSend;
 

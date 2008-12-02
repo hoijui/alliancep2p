@@ -29,7 +29,7 @@ import java.io.ObjectOutputStream;
  * Time: 16:22:07
  */
 public class FriendListMDIWindow extends AllianceMDIWindow {
-    private UISubsystem ui;
+	private UISubsystem ui;
     private JList list;
 
     private ImageIcon iconFriendDimmed, iconFriendOld;

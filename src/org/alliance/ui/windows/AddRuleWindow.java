@@ -2,7 +2,6 @@ package org.alliance.ui.windows;
 
 import com.stendahls.XUI.XUIDialog;
 import com.stendahls.nif.ui.OptionDialog;
-import org.alliance.core.settings.Routerule;
 import org.alliance.ui.UISubsystem;
 
 import javax.swing.*;
@@ -12,7 +11,7 @@ import java.util.Arrays;
 
 public class AddRuleWindow extends XUIDialog {
 
-    private UISubsystem ui;
+	private UISubsystem ui;
     private ArrayList<JRadioButton> radioButtons = new ArrayList<JRadioButton>();
     private final static String[] OPTIONS = new String[] { "ip_addr1",
             "ip_addr2", "ip_addr3", "ip_addr4", "ip_addr_mask" };

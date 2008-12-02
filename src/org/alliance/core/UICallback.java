@@ -71,7 +71,7 @@ public interface UICallback {
     boolean isUIVisible();
 
     /**
-     * Called when something has happened that is concidered important enough to bring the Alliance window to front.
+     * Called when something has happened that is considered important enough to bring the Alliance window to front.
      */
     void toFront();
 

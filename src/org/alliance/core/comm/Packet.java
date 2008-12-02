@@ -64,7 +64,7 @@ public abstract class Packet {
 
         int strlen = str.length();
         int utflen = 0;
-        int c, count = 0;
+        int c = 0;
 
         /* use charAt instead of copying String to char array */
         for (int i = 0; i < strlen; i++) {

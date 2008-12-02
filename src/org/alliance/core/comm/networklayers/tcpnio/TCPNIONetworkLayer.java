@@ -339,23 +339,6 @@ public class TCPNIONetworkLayer implements Runnable {
         final SocketChannel sc = ssc.accept();
         sc.configureBlocking(false);
 
-//        if (bannedHosts.contains(sc.socket().getInetAddress())) {
-//            if(T.t)T.warn("Banned host trying to reconnect. Ignoring.");
-//            SelectionKey newKey = sc.register(selector, SelectionKey.OP_READ);
-//            invokeLater(new Runnable() {
-//                public void run() {
-//                    try {
-//                        sc.socket().close();
-//                        sc.close();
-//                        key.cancel();
-//                    } catch (IOException e) {
-//                        netMan.getCore().reportError(e, key);
-//                    }
-//                }
-//            });
-//            return;
-//        }
-
         // Add the new connection to the selector
         SelectionKey newKey = sc.register(selector, SelectionKey.OP_READ);
         Connection c = new HandshakeConnection(netMan, newKey);

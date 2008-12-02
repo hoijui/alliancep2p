@@ -19,7 +19,7 @@ import java.util.ArrayList;
  * Time: 18:14:33
  */
 public class ViewShareTreeModel extends DefaultTreeModel {
-    private Node node;
+	private Node node;
     private CoreSubsystem core;
     private UISubsystem ui;
     private ViewShareMDIWindow win;

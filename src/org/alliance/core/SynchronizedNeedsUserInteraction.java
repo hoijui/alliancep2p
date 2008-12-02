@@ -7,7 +7,8 @@ package org.alliance.core;
  * Time: 14:25:51
  */
 public abstract class SynchronizedNeedsUserInteraction implements NeedsUserInteraction {
-    public boolean canRunInParallelWithOtherInteractions() {
+
+	public boolean canRunInParallelWithOtherInteractions() {
         return false;
     }
 }

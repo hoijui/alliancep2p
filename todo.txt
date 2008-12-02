@@ -4,7 +4,24 @@
 * big deal: funkar verkligen inte: när pontus kopplade upp sig mot vårt nätverk fick han inga vänner. när jag provade koppla upp mig mot nätverket som finns på deathd lista så fick jag inga vänner - fastän det var folk online!! nåt är fuffens. det är ju INTE bra naturligtvis - nya medlemmar kan inte komma in i nya nätverk
 
 
+
+******
+
+
+* en setting: don't connect to more then 50 friends at the same time 
+
+* wiki istället för gaml  dev corner
+* ta in det som brian ville ha
+
+
+ två fel:
+  1. det verkar som att reverse invitations då man inte har öppen port fungerar inte
+  2. det stora nätverket fungerar förvisso.. men det är jättekonstigt.. som att det bara går att koppla sig mot mig och inte åt andra hållet..
+
 ************
+
+* höhö. går inte att hitta sig själv i listan när man har så jävla många online
+
 
 viktigt:
  * fixa chat-buggen - har att göra med dom som har fet-stora shares. Man kanske inte ska spara allt vid shutdown. det låter som är bra ide.
@@ -13,6 +30,13 @@ viktigt:
 
 ********
 
+Download stops at 99%:
+I have debugged this and found the source of the problem.
+Any file whose size is an even multiple of 1 MB will stick at the last block. It will also make the download queue hang so that subseqent files from the user you are downloading from will not start to download.
+The reason for this is the modulo based calculation of the size of the last block, which assumes that the remainder of a division of the total file size with 1 MB is correct. Of course, this will then be 0. The error is at least in the two getBlockSize methods.
+
+
+********
 
 I've noticed a bug where if I'm having a bigger share, the connection of my friends to me drops immediately when the start browsing my filelist. Have to reestablish connection after it. Chat works fine.
 

@@ -70,8 +70,8 @@ public class DownloadConnection extends TransferConnection {
             super.received(buf);
         else {
             while(buf.remaining() > 0) {
-                //this might seem wierd, but when a consumer is done, it will compact the buffer,
-                // remove itselft from the que and return. This way we continue with the next consumer.
+                //this might seem weird, but when a consumer is done, it will compact the buffer,
+                // remove itself from the queue and return. This way we continue with the next consumer.
                 consumerQue.get(0).consume(buf);
 //                if(T.t)T.trace("Bytes left in buf: "+buf.remaining());
             }
@@ -99,7 +99,7 @@ public class DownloadConnection extends TransferConnection {
                 if(T.t)T.info("Trying to que another get block");
                 blockNumber = download.selectBestBlockForDownload(getRemoteFriend());
                 if (blockNumber == -1) {
-                    if(T.t)T.info("Couldn't find block to que");
+                    if(T.t)T.info("Couldn't find block to queue");
                     break;
                 }
             }
@@ -144,7 +144,7 @@ public class DownloadConnection extends TransferConnection {
                 if(T.t)T.info("Did not find anything to download. Closing connection.");
                 sendGracefulClose();
             } else {
-                if(T.t)T.info("Nothing to download but something in que. Don't shutdown quite yet.");
+                if(T.t)T.info("Nothing to download but something in queue. Don't shutdown quite yet.");
             }
         } else {
             setStatusString("Downloading block "+blockNumber);
@@ -168,7 +168,7 @@ public class DownloadConnection extends TransferConnection {
 
     public void fileDescriptorReceived() {
         consumerQue.remove(0);
-        if(T.t)T.ass(consumerQue.size() == 0,"Somethings in que when it shouldn't");
+        if(T.t)T.ass(consumerQue.size() == 0,"Somethings in queue when it shouldn't");
     }
 
     public String toString() {

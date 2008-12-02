@@ -58,7 +58,6 @@ Copyright © 2003-2007 Apple, Inc., All Rights Reserved
 package org.alliance.ui.macos;
 
 import java.lang.reflect.*;
-import java.util.HashMap;
 
 
 public class OSXAdapter implements InvocationHandler {

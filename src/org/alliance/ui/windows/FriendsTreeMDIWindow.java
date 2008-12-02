@@ -24,7 +24,7 @@ import java.util.Set;
  * Time: 16:22:07
  */
 public class FriendsTreeMDIWindow extends AllianceMDIWindow  {
-    private UISubsystem ui;
+	private UISubsystem ui;
     private JTree tree;
 
     private ImageIcon iconMe, iconFriend, iconNode, iconFriendDimmed, iconNodeDimmed, iconRecursion;
@@ -87,7 +87,8 @@ public class FriendsTreeMDIWindow extends AllianceMDIWindow  {
     }
 
     private class FriendCellRenderer extends DefaultTreeCellRenderer {
-        public Component getTreeCellRendererComponent(
+
+		public Component getTreeCellRendererComponent(
                 JTree tree,
                 Object value,
                 boolean sel,

@@ -1,6 +1,5 @@
 package org.alliance.ui.windows;
 
-import org.alliance.core.comm.rpc.ChatMessageV2;
 import org.alliance.core.comm.rpc.ChatMessageV3;
 import org.alliance.core.node.Friend;
 import org.alliance.ui.UISubsystem;
@@ -15,7 +14,8 @@ import java.io.IOException;
  * To change this template use File | Settings | File Templates.
  */
 public class PublicChatMessageMDIWindow extends AbstractChatMessageMDIWindow {
-    public PublicChatMessageMDIWindow(UISubsystem ui) throws Exception {
+
+	public PublicChatMessageMDIWindow(UISubsystem ui) throws Exception {
         super(ui.getMainWindow().getMDIManager(), "publicchat", ui);
 
         setTitle("Chat");

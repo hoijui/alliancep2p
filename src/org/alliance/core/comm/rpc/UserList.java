@@ -38,7 +38,6 @@ public class UserList extends RPC {
             String nickname = in.readUTF();
             boolean connected = in.readBoolean();
             long share = in.readLong();
-            if(T.t)T.trace("  "+nickname+" "+guid+" "+connected+" "+share);
             UntrustedNode rf = UntrustedNode.loadOrCreate(manager, nickname, guid, connected);
             rf.setShareSize(share);
 
@@ -86,7 +85,7 @@ public class UserList extends RPC {
             String nickname = in.readUTF();
             boolean connected = in.readBoolean();
             in.readLong(); //sharesize
-            if(T.t)T.trace("  "+nickname+" "+guid+" "+connected);
+            if(T.netTrace)T.trace("  "+nickname+" "+guid+" "+connected);
             if (connected) manager.getNetMan().getPackageRouter().updateRouteTable(f, guid, hops+1);
         }
     }

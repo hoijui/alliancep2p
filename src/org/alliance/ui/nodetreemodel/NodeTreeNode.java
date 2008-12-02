@@ -23,7 +23,7 @@ import java.util.Enumeration;
  * To change this template use File | Settings | File Templates.
  */
 public class NodeTreeNode extends GenericNode {
-    private ArrayList<NodeTreeNode> children;
+	private ArrayList<NodeTreeNode> children;
     private NodeTreeNode parent;
     private Node node;
     private UISubsystem ui;

@@ -44,7 +44,7 @@ public class KeywordIndex {
     /**
      * Searches through all files in this index
      * @param query
-     * @return array of indecies into FileDescriptorAllocationTable
+     * @return array of indices into FileDescriptorAllocationTable
      */
     public synchronized int[] search(String query, int maxSearchHits, FileType ft) {
         BitSet result = (BitSet)fileTypeFilters.get(ft).clone();
@@ -54,15 +54,6 @@ public class KeywordIndex {
             ArrayList<BitSet> al = new ArrayList<BitSet>();
             while(st.hasMoreTokens()) {
                 String s = st.nextToken();
-
-//                  this is the old algo that matched exact keywords only
-//                CompressedBitSet b = index.get(s);
-//                if (b != null) {
-//                    al.add(b);
-//                } else {
-//                    return new int[0];
-//                }
-
                 BitSet totalForKeyword = new BitSet();
                 for(String keyword : index.keySet()) { //find all indexed keywords that contain the string s
                     if (keyword.indexOf(s) != -1) {
@@ -129,7 +120,7 @@ public class KeywordIndex {
             fileTypeFilters.put(ft, bs);
         }
 
-        //add new file types if they're been added since last verion
+        //add new file types if they're been added since last version
         for(FileType ft : FileType.values()) if (!fileTypeFilters.containsKey(ft)) fileTypeFilters.put(ft, new BitSet());
     }
 

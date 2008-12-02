@@ -65,14 +65,11 @@ public class BlockConsumer implements DataConsumer {
             sliceOffset += buf.remaining();
             buf.position(buf.limit()); //make it look like we read the bytes
 
-//            if(T.t)T.trace("Someone already downloaded this block - flushing. "+(BlockFile.getBlockSize(blockNumber, fd.getSize())-sliceOffset)+" bytes left.");
             if (sliceOffset >= BlockFile.getBlockSize(blockNumber, fd.getSize())) blockComplete();
             return;
         }
 
         dc.getDownload().addBytesComplete(buf.remaining());
-
-//        if(T.t)T.trace("adding to buffer "+buf.remaining());
 
         if (buf.remaining() > saveBuffer.remaining()) flush();
         saveBuffer.put(buf);

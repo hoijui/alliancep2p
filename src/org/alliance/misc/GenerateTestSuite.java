@@ -156,10 +156,6 @@ public class GenerateTestSuite {
         }
     }
 
-    private void saveSettings(Settings settings) throws Exception {
-        saveSettings("", settings);
-    }
-
     private void saveSettings(String path, Settings settings) throws Exception {
         XMLSerializer s = new XMLSerializer();
         Document doc = s.serialize(settings);

@@ -26,7 +26,7 @@ public class FriendConnector extends Thread {
 
     public void run() {
         if (manager.getCore().isRunningAsTestSuite()) {
-            //all hell breaks loose if all clients attemt to connect to each other at the same time
+            //all hell breaks loose if all clients attempt to connect to each other at the same time
             try { Thread.sleep((long)(1000+Math.random()*3000)); } catch (InterruptedException e) {}
         }
         while(alive) {

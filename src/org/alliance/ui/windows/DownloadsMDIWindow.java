@@ -36,14 +36,13 @@ import java.util.Iterator;
  * To change this template use File | Settings | File Templates.
  */
 public class DownloadsMDIWindow extends AllianceMDIWindow {
-    private DownloadsTableModel model;
+	private DownloadsTableModel model;
     private JDownloadGrid downloadGrid;
     private JXTable table;
     private JPopupMenu popup;
     private JLabel status, downloadingFromText, uploadingToText;
 
     private ArrayList<DownloadWrapper> rows = new ArrayList<DownloadWrapper>();
-    private boolean inTable;
     private DownloadWrapper interestingDownloadWrapper;
 
     public DownloadsMDIWindow(final UISubsystem ui) throws Exception {
@@ -316,7 +315,8 @@ public class DownloadsMDIWindow extends AllianceMDIWindow {
     }
 
     private class DownloadsTableModel extends AbstractTableModel {
-        public int getRowCount() {
+
+		public int getRowCount() {
             return rows.size();
         }
 
@@ -465,7 +465,7 @@ public class DownloadsMDIWindow extends AllianceMDIWindow {
     }
 
     public class ProgressBarCellRenderer extends JProgressBar implements TableCellRenderer {
-        public ProgressBarCellRenderer() {
+		public ProgressBarCellRenderer() {
             super(0, 100);
             setOpaque(true);
         }

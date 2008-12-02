@@ -18,7 +18,7 @@ import java.util.TreeSet;
  * To change this template use File | Settings | File Templates.
  */
 public class FriendListModel extends DefaultListModel {
-    private CoreSubsystem core;
+	private CoreSubsystem core;
     private boolean ignoreFires;
 
     public FriendListModel(CoreSubsystem core) {

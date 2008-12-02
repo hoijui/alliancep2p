@@ -44,15 +44,15 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * This is the core of the entire Alliance system. Theres not too much code here, it's more of a hub for the entire
+ * This is the core of the entire Alliance system. There is not too much code here, it's more of a hub for the entire
  * Core subsystem. Has a instance of FriendManager, FileManager, NetworkManager, InvitatationManager and the UICallback.
  * <p>
  * This class contains the oh-so-important invokeLater method that HAS to be used when code in the Core subsystem need
  * to be run from another thread than the Core thread. Very much like SwingUtilities.invokeLater().
  * <p>
- * There's also a que of NeedsUserInteractions. This is an interface that is used when something happens in the Core
+ * There's also a queue of NeedsUserInteractions. This is an interface that is used when something happens in the Core
  * subsystem that the user need to interact to. Examples are: chat message received, invitation code received etc..
- * These things are queued by the Core subsystem and fethed by the UI subsystem
+ * These things are queued by the Core subsystem and fetched by the UI subsystem
  *
  * Created by IntelliJ IDEA.
  * User: maciek
@@ -60,7 +60,7 @@ import java.util.List;
  * Time: 16:38:25
  */
 public class CoreSubsystem implements Subsystem {
-    public final static boolean ALLOW_TO_SEND_UPGRADE_TO_FRIENDS = false; //dont' forget to turn off trace, run with registered synthetica
+    public final static boolean ALLOW_TO_SEND_UPGRADE_TO_FRIENDS = false; //don't forget to turn off trace, run with registered synthetica
     private static final int STATE_FILE_VERSION = 5;
 
     public final static int KB = 1024;
@@ -240,17 +240,6 @@ public class CoreSubsystem implements Subsystem {
         XMLSerializer s = new XMLSerializer();
         try {
             File file = new File(settingsFile);
-/*          this code has remained commented and not removed because it might be reused when all settingsfiles are finally moved to "application data" and not remain in "program files" 
-            if (!file.exists()) {
-                file = new File("settings.xml"); //old location of settingsfile - this code is here for backwards compatibility
-                if (file.exists()) {
-                    if(T.t)T.info("Old settingsfile exists. Moving to new location.");
-                    File f2 = new File(settingsFile);
-                    if (f2.getParentFile() != null) f2.getParentFile().mkdirs();
-                    file.renameTo(f2);
-                    file = f2;
-                }
-            }*/
             settings = s.deserialize(SXML.loadXML(file), Settings.class);
         } catch(FileNotFoundException e) {
             if(T.t)T.info("No settings file - creating default settings.");
@@ -291,7 +280,8 @@ public class CoreSubsystem implements Subsystem {
         out.close();
     }
 
-    public void loadState() throws Exception {
+    @SuppressWarnings("unchecked")
+	public void loadState() throws Exception {
         try {
             if(T.t)T.info("Loading core state");
             ObjectInputStream in = new ObjectInputStream(new FileInputStream(settings.getInternal().getCorestatefile()));
@@ -587,7 +577,8 @@ public class CoreSubsystem implements Subsystem {
         return upnpManager;
     }
 
-    public List<NeedsUserInteraction> getAllUserInteractionsInQue() {
+    @SuppressWarnings("unchecked")
+	public List<NeedsUserInteraction> getAllUserInteractionsInQue() {
         return (List<NeedsUserInteraction>)userInternactionQue.clone();
     }
 

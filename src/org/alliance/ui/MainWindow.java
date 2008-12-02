@@ -46,7 +46,7 @@ import java.util.ArrayList;
  * Time: 16:25:12
  */
 public class MainWindow extends XUIFrame implements MenuItemDescriptionListener, MDIManagerEventListener, Runnable {
-    private UISubsystem ui;
+	private UISubsystem ui;
     private JLabel statusMessage, shareMessage;
     private JProgressBar bandwidthIn, bandwidthOut;
     private ToolbarActionManager toolbarActionManager;
@@ -656,8 +656,8 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
                     ui.handleErrorInEventLoop(e);
                 }
             } else if (nui instanceof FriendAlreadyInListUserInteraction) {
-                FriendAlreadyInListUserInteraction i = (FriendAlreadyInListUserInteraction)nui;
-                String name = ui.getCore().getFriendManager().nickname(i.getGuid());
+                // FriendAlreadyInListUserInteraction i = (FriendAlreadyInListUserInteraction)nui;
+                // String name = ui.getCore().getFriendManager().nickname(i.getGuid());
                 if(T.t)T.trace("Last wizard: "+lastAddFriendWizard);
                 if (lastAddFriendWizard != null) {
                     lastAddFriendWizard.getOuterDialog().dispose();

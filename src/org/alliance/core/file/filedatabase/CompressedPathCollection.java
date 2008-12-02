@@ -92,25 +92,3 @@ public class CompressedPathCollection implements Serializable {
         return sa;
     }
 }
-
-//public class CompressedPathCollection implements Serializable {
-//    private HashSet<Integer> paths = new HashSet<Integer>();
-//
-//    public void addPath(String path) {
-//        path = TextUtils.makeSurePathIsMultiplatform(path);
-//        paths.add(path.hashCode());
-//    }
-//
-//    public void removePath(String path) {
-//        //this is a bit stupid. Since this "collection" is serialized to disc it between restarts it can get quite big..
-//    }
-//
-//    /**
-//     * @param path
-//     * @return true if there is a possibility that this path is contained in this collections
-//     */
-//    public boolean contains(String path) {
-//        path = TextUtils.makeSurePathIsMultiplatform(path);
-//        return paths.contains(path.hashCode());
-//    }
-//}

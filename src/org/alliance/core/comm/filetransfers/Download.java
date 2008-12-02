@@ -44,7 +44,7 @@ public class Download {
     private long bytesComplete;
     private long startedAt;
 
-    //auxillary information thats only used in the UI and when taking a decition whether to start another download
+    //Auxiliary information thats only used in the UI and when taking a decision whether to start another download
     private String auxInfoFilename;
     private ArrayList<Integer> auxInfoGuids;
 
@@ -215,7 +215,7 @@ public class Download {
                 interestingBlocks.clear(highestBlockNumber+1, fd.getNumberOfBlocks());
         }
 
-        //select a random block of the ones we're interested in - change this to rearest first in the future
+        //select a random block of the ones we're interested in - change this to rarest first in the future
         int c = interestingBlocks.cardinality();
         int n = (int)(Math.random()*c);
         for(int i=interestingBlocks.nextSetBit(0), j=0; i>=0; i=interestingBlocks.nextSetBit(i+1), j++) {
@@ -255,7 +255,7 @@ public class Download {
     }
 
     public boolean checkIfDownloadIsComplete() {
-        //may be in a state where the file is beeing moved into the complete directory - then it's complete by this methods definition, but not complete by the filedatabase definition
+        //may be in a state where the file is being moved into the complete directory - then it's complete by this methods definition, but not complete by the filedatabase definition
         if (fd == null) return false;
         boolean b = getManager().getCore().getFileManager().isRecentlyDownloadedOrComplete(fd.getRootHash());
         if (b) setState(State.COMPLETED);
@@ -273,7 +273,7 @@ public class Download {
     }
 
     public void removeConnection(DownloadConnection downloadConnection) throws IOException {
-        boolean r = connections.remove(downloadConnection.getRemoteFriend()) != null;
+        connections.remove(downloadConnection.getRemoteFriend());
         if (connections.size() == 0 && isComplete()) {
             if(T.t)T.info("Download is complete");
             manager.downloadComplete(this);

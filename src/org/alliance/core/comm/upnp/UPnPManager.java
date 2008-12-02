@@ -389,7 +389,7 @@ public class UPnPManager extends ControlPoint implements DeviceChangeListener {
 
     public void shutdown() {
         if (mappedPort != 0 ) {
-            final Mapping tcp, udp;
+            final Mapping tcp;
             synchronized(DEVICE_LOCK) {
                 tcp = _tcp;
             }

@@ -30,7 +30,7 @@ import java.util.HashMap;
  * To change this template use File | Settings | File Templates.
  */
 public class SearchMDIWindowOld extends AllianceMDIWindow {
-    private HashMap<Hash, HashHit> hashHits = new HashMap<Hash, HashHit>();
+	private HashMap<Hash, HashHit> hashHits = new HashMap<Hash, HashHit>();
     private ArrayList<HashHit> rows = new ArrayList<HashHit>(5000);
 
     private int totalHits;
@@ -224,7 +224,8 @@ public class SearchMDIWindowOld extends AllianceMDIWindow {
     public MDIWindow deserialize(ObjectInputStream in) throws IOException { return null; }
 
     public class SearchTableModel extends AbstractTableModel  {
-        public int getRowCount() {
+
+		public int getRowCount() {
             return rows.size();
         }
 
@@ -277,7 +278,7 @@ public class SearchMDIWindowOld extends AllianceMDIWindow {
 
     public class StringCellRenderer extends DefaultTableCellRenderer {
 
-        public Component getTableCellRendererComponent(JTable table, Object value,
+		public Component getTableCellRendererComponent(JTable table, Object value,
                                                        boolean isSelected, boolean hasFocus, int rowIndex, int vColIndex) {
             super.getTableCellRendererComponent(table, value,  isSelected,  hasFocus,  rowIndex, vColIndex);
             HashHit h = rows.get(sorter.modelIndex(rowIndex));
@@ -292,7 +293,7 @@ public class SearchMDIWindowOld extends AllianceMDIWindow {
 
     public class BytesizeCellRenderer extends DefaultTableCellRenderer {
 
-        public Component getTableCellRendererComponent(JTable table, Object value,
+		public Component getTableCellRendererComponent(JTable table, Object value,
                                                        boolean isSelected, boolean hasFocus, int rowIndex, int vColIndex) {
             super.getTableCellRendererComponent(table, value,  isSelected,  hasFocus,  rowIndex, vColIndex);
             setText(TextUtils.formatByteSize((Long)value));
@@ -307,7 +308,7 @@ public class SearchMDIWindowOld extends AllianceMDIWindow {
 
     public class DaysOldCellRenderer extends DefaultTableCellRenderer {
 
-        public Component getTableCellRendererComponent(JTable table, Object value,
+		public Component getTableCellRendererComponent(JTable table, Object value,
                                                        boolean isSelected, boolean hasFocus, int rowIndex, int vColIndex) {
             super.getTableCellRendererComponent(table, value,  isSelected,  hasFocus,  rowIndex, vColIndex);
             int val = (Integer)value;

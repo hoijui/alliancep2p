@@ -17,16 +17,12 @@ import java.awt.event.ActionEvent;
  * To change this template use File | Settings | File Templates.
  */
 public class ForwardInvitationDialog extends XUIDialog {
-    private UISubsystem ui;
     private JCheckBox alwaysAllowInvite;
     private boolean pressedYes = false;
-    private PleaseForwardInvitationInteraction pmi;
 
 
     public ForwardInvitationDialog(UISubsystem ui, PleaseForwardInvitationInteraction pmi) throws Exception {
         super(ui.getMainWindow());
-        this.ui = ui;
-        this.pmi = pmi;
 
         init(ui.getRl(), ui.getRl().getResourceStream("xui/forwardinvitation.xui.xml"));
 

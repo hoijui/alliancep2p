@@ -373,23 +373,7 @@ public class Console {
         if (ui!= null) ui.shutdown();
         printer = PLAIN_PRINTER;
         ui = null;
-//        for(Thread t : getAllThreads()) {
-//            if (t == null) continue;
-//            if (t.getName().indexOf("Thread-5") != -1 || t.getName().indexOf("Thread-6") != -1 ||t.getName().indexOf("AWT") != -1) {
-//                printer.println("Killing "+t);
-//                t.stop();
-//            }
-//        }
         printer.println("UI Shutdown.");
-    }
-
-    private void runMethod(String className, String methodName) {
-        try {
-            Class c = Class.forName(className);
-            c.getMethod(methodName).invoke(null);
-        } catch (Exception e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
     }
 
     private void bye() {

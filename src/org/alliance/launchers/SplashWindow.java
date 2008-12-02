@@ -11,12 +11,10 @@ import java.awt.*;
  * Time: 10:49:44
  */
 public class SplashWindow extends Window implements Runnable, StartupProgressListener {
-    private Image image;
+	private Image image;
     private String statusMessage="";
-    private long startTick;
     private int progressPercent=-1;
 
-    private int lastWidth, lastHeight;
 
     public SplashWindow() throws Exception {
         super(new Frame());
@@ -29,8 +27,7 @@ public class SplashWindow extends Window implements Runnable, StartupProgressLis
         setLocation(ss.width/2-image.getWidth(null)/2,
                 ss.height/2-image.getHeight(null)/2);
         setSize(new Dimension(image.getWidth(null),image.getHeight(null)));
-
-        startTick = System.currentTimeMillis();
+        
         setVisible(true);
         toFront();
         requestFocus();

@@ -22,7 +22,7 @@ import java.util.ArrayList;
  */
 public class FileDescriptor {
     public static class FileModifiedWhileHashingException extends IOException {
-        public FileModifiedWhileHashingException() {}
+		public FileModifiedWhileHashingException() {}
         public FileModifiedWhileHashingException(String s) { super(s); }
     }
     

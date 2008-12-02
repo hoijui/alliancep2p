@@ -159,16 +159,9 @@ public class DownloadManager extends Manager implements Runnable {
         }
     }
 
-    private int getNActiveDownloads() {
-        int n =0;
-        for(Download d : downloadQue) if (d.isActive()) n++;
-        return n;
-    }
-
-    private long lastDownloadStartTick;
     public void startDownload(Download d) throws IOException {
         d.startDownload();
-        lastDownloadStartTick = System.currentTimeMillis();
+
     }
 
     public void blockMaskReceived(int srcGuid, int hops, Hash root, BlockMask bm) {
@@ -205,10 +198,6 @@ public class DownloadManager extends Manager implements Runnable {
             core.getSettings().getInternal().setHasneverdownloadedafile(0);
             core.getUICallback().firstDownloadEverFinished();
         }
-        //start new download if there's one queued
-//        checkForDownloadsToStart();
-// let user remove completed downloads
-//        downloads.remove(download.getRoot());
     }
 
     public void removeCompleteDownloads() {
@@ -287,7 +276,7 @@ public class DownloadManager extends Manager implements Runnable {
         try {
             ObjectInputStream in = new ObjectInputStream(new FileInputStream(core.getSettings().getInternal().getDownloadquefile()));
             if (in.readByte() != SERIALIZATION_VERSION) {
-                if(T.t)T.error("Incorrect version for download que! Ignoring que.");
+                if(T.t)T.error("Incorrect version for download queue! Ignoring queue.");
                 return;
             }
             int n = in.readInt();
@@ -296,7 +285,7 @@ public class DownloadManager extends Manager implements Runnable {
         } catch(FileNotFoundException e) {
             if(T.t)T.info("Assuming there's no download info. Starting from scratch.");
         } catch(Exception e) {
-            if(T.t)T.error("Could not load download que: "+e);
+            if(T.t)T.error("Could not load download queue: "+e);
         }
     }
 

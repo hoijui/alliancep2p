@@ -21,7 +21,7 @@ import java.util.Iterator;
  * To change this template use File | Settings | File Templates.
  */
 public class ConnectionsMDIWindow extends AllianceMDIWindow {
-    private JTable table;
+	private JTable table;
     private ConnectionsTableModel model;
 
     private ArrayList<ConnectionWrapper> rows = new ArrayList<ConnectionWrapper>();

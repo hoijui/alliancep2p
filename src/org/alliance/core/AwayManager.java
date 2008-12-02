@@ -1,7 +1,5 @@
 package org.alliance.core;
 
-import org.alliance.launchers.OSInfo;
-
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;

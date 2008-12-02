@@ -18,7 +18,6 @@ public class ChunkStorage {
     private final static byte MAGIC_ALIVE = 123, MAGIC_MARKED_FOR_DELETION=101;
 
     private RandomAccessFile raf;
-    private String percetMarkedForDeletion;
 
     public ChunkStorage(String file) throws IOException {
         raf = new RandomAccessFile(file, "rw");
@@ -47,7 +46,6 @@ public class ChunkStorage {
         int magic = raf.readByte();
 
         if (magic == MAGIC_MARKED_FOR_DELETION) {
-            if(T.t)T.trace("Tried to get chunk but it has been marked for deletion!");
             return null;
         } else if (magic != MAGIC_ALIVE) {
             throw new IOException("Magic number incorrect in database file database. The database might be corrupt!");

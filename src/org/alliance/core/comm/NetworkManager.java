@@ -36,7 +36,7 @@ import java.util.*;
  * To change this template use File | Settings | File Templates.
  */
 public class NetworkManager extends Manager {
-//    public static final boolean DIRECTLY_CALL_READYTOSEND = false;  //setting fale here produces wierd results - not sure anymore now that encryption is implemented - anyway. It seems to be working well with this flag on.
+//    public static final boolean DIRECTLY_CALL_READYTOSEND = false;  //setting false here produces weird results - not sure anymore now that encryption is implemented - anyway. It seems to be working well with this flag on.
     public static final boolean DIRECTLY_CALL_READYTOSEND = true;
 
     private int serverPort;

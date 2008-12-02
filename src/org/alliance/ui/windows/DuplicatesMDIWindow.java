@@ -28,7 +28,7 @@ import com.stendahls.util.TextUtils;
  * To change this template use File | Settings | File Templates.
  */
 public class DuplicatesMDIWindow extends AllianceMDIWindow {
-    private DuplicatesMDIWindow.TableModel model;
+	private DuplicatesMDIWindow.TableModel model;
     private JTable table;
     private ArrayList<Dup> dups = new ArrayList<Dup>();
 
@@ -114,7 +114,8 @@ public class DuplicatesMDIWindow extends AllianceMDIWindow {
     public MDIWindow deserialize(ObjectInputStream in) throws IOException { return null; }
 
     private class TableModel extends AbstractTableModel {
-        public int getRowCount() {
+
+		public int getRowCount() {
             return dups.size();
         }
 
@@ -154,7 +155,8 @@ public class DuplicatesMDIWindow extends AllianceMDIWindow {
     }
 
     private class MyCellRenderer extends DefaultTableCellRenderer {
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+
+		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
             super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
             String s = String.valueOf(value);
             int i = s.lastIndexOf('/');

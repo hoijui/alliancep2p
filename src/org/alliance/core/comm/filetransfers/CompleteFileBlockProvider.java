@@ -31,7 +31,7 @@ public class CompleteFileBlockProvider extends BlockProvider {
         fileChannel = in.getChannel();
         fileChannel.position(((long)blockNumber)*BLOCK_SIZE);
 
-        if(T.t)T.ass(fileChannel.isOpen(), "FileChannel clsoed!");
+        if(T.t)T.ass(fileChannel.isOpen(), "FileChannel closed!");
         if(T.t)T.trace("Ready to start sending block");
     }
 

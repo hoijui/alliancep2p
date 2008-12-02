@@ -31,7 +31,7 @@ import java.util.TreeSet;
  * To change this template use File | Settings | File Templates.
  */
 public abstract class AbstractChatMessageMDIWindow extends AllianceMDIWindow implements Runnable {
-    protected final static DateFormat FORMAT = new SimpleDateFormat("HH:mm");
+	protected final static DateFormat FORMAT = new SimpleDateFormat("HH:mm");
     protected final static Color COLORS[] = {
             new Color(0x0068a7),
             new Color(0x009606),

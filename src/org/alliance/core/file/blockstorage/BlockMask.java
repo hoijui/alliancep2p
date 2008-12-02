@@ -13,7 +13,8 @@ import java.util.BitSet;
  * To change this template use File | Settings | File Templates.
  */
 public class BlockMask extends BitSet {
-    public BlockMask() {
+
+	public BlockMask() {
     }
 
     public BlockMask(int nbits, boolean allSet) {

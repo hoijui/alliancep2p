@@ -16,7 +16,7 @@ import java.io.IOException;
  * Time: 18:42:48
  */
 public class ChatMessageV3 extends PersistantRPC {
-    private String message;
+	private String message;
     private boolean messageToAll;
     private long sentAtTick;
 

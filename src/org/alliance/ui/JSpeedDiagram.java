@@ -12,7 +12,7 @@ import java.awt.*;
  * Time: 16:49:43
  */
 public class JSpeedDiagram extends JComponent {
-    private double scale = 400;
+	private double scale = 400;
     private double diagramr[] = new double[2048];
     private double diagramw[] = new double[2048];
 

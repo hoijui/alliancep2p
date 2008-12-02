@@ -1,13 +1,11 @@
  package org.alliance.ui;
 
-import org.alliance.core.CoreSubsystem;
 import static org.alliance.core.CoreSubsystem.*;
 import org.alliance.core.file.blockstorage.BlockFile;
 import org.alliance.core.comm.filetransfers.Download;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 
 /**
  * Created by IntelliJ IDEA.
@@ -16,7 +14,7 @@ import java.io.IOException;
  * Time: 16:49:43
  */
 public class JDownloadGrid extends JComponent {
-    private int BLOCK_WIDTH=8, BLOCK_HEIGHT=8;
+	private int BLOCK_WIDTH=8, BLOCK_HEIGHT=8;
     private Download download;
 
     public JDownloadGrid() {

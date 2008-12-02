@@ -33,7 +33,7 @@ public class Internal extends SettingClass {
     private Integer connectFriendInterval = 1;
     private Integer sharemanagercycle = 30;
     private Integer sharemanagercyclewithfilesystemeventsactive = 60*2;
-    private Integer maxdownloadconnections=5;
+    private Integer maxdownloadconnections=10;
     private Integer recordoutspeed=0, recordinspeed=0;
     private Integer totalmegabytesdownloaded =0, totalmegabytesuploaded =0;
     private Integer connectionkeepaliveinterval=60;
