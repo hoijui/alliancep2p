@@ -1,116 +1,126 @@
+
+
+* problem: det går att inte att koppla upp sig mot större nätverk
+  1) det blir konstigt när man har öppen port
+  2) funkar inte alls med ständg port
+  - dessa problem hände i vårat nätverk också - kanske enklare att debugga här.  är det den där callbacken när en connection attemt failar som inte funkar?
+* verifiera att autohashing fungerar. kolla på de befintliga installationerna på Tindra
+* kör med 100 pers på arbetsstationen och fixa alla concurrent modification errors. seriöst lixom. det händer typ hela tiden på ett stort nätverk. finns två typiska stack traces längre ner
+* sheet vad sakta det går med 100 pers online =)   dra sladd till arbetsstation, port fwd:a och profilerara - INTE ALLTID..  om man bara låter den gå drar den inte mycket CPU. det är när man gör något speciellt som den börjar dra CPU som fan.
+  - Att söka går alltid sakta dock
 * fixa goa msn integrationen med ett java-lib
+* "Unable to establish loopback connection" -> alliance verkar läcka sockets - finns info nedan
+
+* bug "Download stops at 99%" - finns förklaring längre ner
 * lägg till en donate dialog som kommer upp vid något klokt tillfälle
+* fixa att kopplingen inte bombar när man tittar i deras share som är fetstor - har en förklaring om det nedan.
+* väldigt stora shares tenderar till att bli corrupta - chatten försvinner också - Man kanske inte ska spara allt vid shutdown. det låter som är bra ide.
+* ens share size uppdateras šverallt fšrutom i listan till vŠnster. det Šr dŒligt fšr att det ser ut som att man inte delar ut nŒt i bšrjan (nŠr man just installerat och hŒller pŒ att indexera)
+* move to top/bottom i downloads. Många har hundra downloads i sin lista. roligt att trycka up hundra gånger.
 * när man tar delete på en vän så blir han kvar som "unknown" - rätt sunkigt..
-* big deal: funkar verkligen inte: när pontus kopplade upp sig mot vårt nätverk fick han inga vänner. när jag provade koppla upp mig mot nätverket som finns på deathd lista så fick jag inga vänner - fastän det var folk online!! nåt är fuffens. det är ju INTE bra naturligtvis - nya medlemmar kan inte komma in i nya nätverk
+* bug: ändra inte ens eget namn när man får ens gamla namn från nån annan i nätverket
+* direct buffer mem lŠcker
+* en setting: limit number of connected friends to 100
+* höhö. går inte att hitta sig själv i listan när man har så jävla många online - gör klickbar länk av ens namn
 
 
-
-******
-
-
-* en setting: don't connect to more then 50 friends at the same time 
-
-* wiki istället för gaml  dev corner
+* i vista så körs programmet som admin första gången - fel i installationsscriptet - detta gör att inställningar inte sparas - kanske skippa "start alliance" checkboxen på vista
+* bättre stöd för vista - settings ska ligga i my documents (eller snarare userkatalogen) - bra för alla OS, inklusive MAC
 * ta in det som brian ville ha
+* internationalisering - massa folk hade översatt om det gick..   tänk på detta. hade varit jävligt najs.  man får välja språk i runtime. najs.
+* alliance ska tydligen ta fel NIC när det finns flera? Finns förklaring längre ner. sök på "10.x.x.x"
+* lägg till setting för om nån är offline X dagar så ska han inte visas längre i listan. och defaulta till 200 eller nåt. vissa vill inte att folk ska försvinna.
+* support för alliance://
+* setting för max antal nedladdningsconnections per nedladdning
+* I'll add support for following symlinks to the todo
+* lägga in ett protokoll i windows för alliance:  alliance://invitationcode/filehash    så kan man skicka meddelanden till polare..  "Här är filen: alliance://wpijgsagjasgsag/slkgfslkfjsfj. Det är bara att installera alliance och klicka på länken så får du den!"  Blir inte bra om man länkar till massa med filer men om det är inte för många så är det najs som fan!
+* Router:50 - vafan. r[] används ju inte..  slå på och testa kanske? kan vara farligt - kan vara så att router tabellen växer okontrollerat.. testa ordentlig i så fall
+* friends of friends uppdateras bara nŠr man starta om inte bra nŠr mŒnga joinar ett nŠtverket
+* wiki istället för gaml  dev corner
+* stöd för dyndn namn i my ip. koslla hur detta fungerar. det är en riktigt klok och proffsig grej att ha - så kan ett litet nätverk överleva om alla har dynamisk ip
+* lägg till advanced vy i friendslist. -- eftersom "via" grejjen fungerar dåligt kan den tas bort (kanske?) -- ratio, max up och max ner. roligt för tekniskare användare. Gör en kool ikon för den så man ser den. - eller välj vilka kolumner man visar per default - default ska nog vara name och ratio (och kanske share size?)
+* fixa koolt UI för uploads också. så det är kul att kolla på.  ha riktig historik för uploads - DET hade jag gillat - så jag kan se vad folk har laddat ner från mig. kalla fliken "statistics" och ha massa askool stats med den läcka diagramkomponenten. cpuanvänding, minnesanvändning, up/ner hastighet, och koola stats för uploads
+* dubbelklick på nerladdad fil öppnar den
+* command-line start. Linuxanvändare intresserade av det.
+* feedback formulär
+* användare startar alliance efter dom tryck på krysset för att trayikonen försvinner. kanske försöka ha kvar trayikonen medans alliance startar om? Det borde gå att fixa..  Antingen värsta hacket där man inte tar bort trayikonen, fast få dår man dubbel ikon när den väl startat. Alt. 2 är att vänta med att döda pocessen tills man ser att den nya alliance snurrar.
+* posta i forum om att jag behöver en download-bundle för installation i linux
+* filesize i view share
+* limit på antal uploads
+* enligt en artikel jag läste ska det räcka med en io diskbuffer på 64kb - för det är det XP har - vista kan ha större
+* In the options dialog, a way to set a short description or witty tagline next to your username in the My Network pane.  This is a "just for fun" item.
 
 
- två fel:
-  1. det verkar som att reverse invitations då man inte har öppen port fungerar inte
-  2. det stora nätverket fungerar förvisso.. men det är jättekonstigt.. som att det bara går att koppla sig mot mig och inte åt andra hållet..
 
-************
+- When scrolling up to read old chat, a new chat message causes the scroll bar to jump to the bottom when a new message is typed.  When many new messages are coming in, it is impossible to read old chat and "catch up".  It would be great if the scroll bar stayed where it is moved to.
+- On Win XP at Alliance startup, there is a flurry of system tray bubbles for missed chat messages while you were offline.  Not a huge deal though.
+- Preserve newlines in chat when pasting text from another program like a browser or Notepad.  Right now they are concatenated into a single line when pasting.
+- Ability to turn off/on timestamps in chat, some users don't like timestamps but others do.
 
-* höhö. går inte att hitta sig själv i listan när man har så jävla många online
+    * gŒ igenom faq och getting started - getting started ska vara riktad till folk som vill starta ett nytt nŠtverk
+    * sett upp forum: http://alliancetalk.proboards91.com/index.cgi
+    * SEO
+    * tŠnk igenom standardfallet: en noob blir inbjuden. hur gŒr man vidare dŠrifrŒn till att han bjuder in sina msn-vŠnner?
+        optimalt:
+            han fŒr en lŠnk frŒn en kompis. klicka pŒ den fšr att gŒ med i mitt nŠtverk
+            han klickar pŒ lŠnken. alliance installeras utan att han behšver gšra nŒgra val alls
+            alliance startar och fšrsšker direkt koppla upp sig mot hans kompis. det bšr gŒ bra eftersom connectionkoden validerades med port test nŠr den skapades
+            efter att kopplingen gjorts sŠger alliance att det Šr rekommenderat att koppla upp sig mot hans kompisar
+            anvŠndaren gšr detta och det trillar in en del nya anvŠndare - UTAN att han fŒr nŒgra meddelanden om det
+            vid <nŠr man laddat ner mer Šn 10mb och tvŒ filer och har just pŒbšrjat en nedladdning som kommer att ta mer Šn fem minuter> berŠttar alliance att om man bjuder in fler vŠnner kan man ladda ner mer saker och man kan ladda ner snabbare
+            anvŠndaren vŠljer att bjuda in kompisar. om inte sŒ fortsŠtter alliance nagga typ en gŒng i veckan tills man bjudit in nŒn
+            wizarden kommer upp. anvŠndaren kan bjuda in msn-vŠnner, bjuda in igenom att skicka mail eller bjuda in manuellt igenom att skicka en lŠnk till en kompis pŒ valfritt sŠtt
+            anvŠndaren uppmuntras till att bjuda in msn vŠnner och gšr detta
+            anvŠndaren drar in ett gŠng msnvŠnner och vŠljer send. goto 10
 
 
-viktigt:
- * fixa chat-buggen - har att göra med dom som har fet-stora shares. Man kanske inte ska spara allt vid shutdown. det låter som är bra ide.
- * fixa att kopplingen inte bombar när man tittar i deras share som är fetstor - har en förklaring om det nedan.
- * msn integration
 
-********
 
+************************************************************************************************************************
 Download stops at 99%:
 I have debugged this and found the source of the problem.
 Any file whose size is an even multiple of 1 MB will stick at the last block. It will also make the download queue hang so that subseqent files from the user you are downloading from will not start to download.
 The reason for this is the modulo based calculation of the size of the last block, which assumes that the remainder of a division of the total file size with 1 MB is correct. Of course, this will then be 0. The error is at least in the two getBlockSize methods.
-
-
-********
-
+************************************************************************************************************************
 I've noticed a bug where if I'm having a bigger share, the connection of my friends to me drops immediately when the start browsing my filelist. Have to reestablish connection after it. Chat works fine.
-
 1st scenario: me sharing 150.000+ files, friend sharing a lot less, ~50gb. I can download from him without a hassle, when he tries browsing he's dropped out. Tried with other friend, other computer/isp/location, same issue.
-
 2nd scenario: started rehashing just one dir, at around 80gb shared my friend could download from me. Checked back later, when the 250gb (~55000 files) was finally hashed, got disconnected immediately.
+************************************************************************************************************************
+Support the development of Alliance  <-- dialogen kommer upp minst några veckor efter man har installerat Alliance
+-----------------------------------
+Alliance is and will always remain completely free. <- viktigt att sŠga, stina sa att hon skulle tro att hon var tvungen att betala om dialogen kommer upp utan detta
 
-Tried updating java, same problems. Both using the latest version of Alliance. Any way I can help to trace the problem?
+We, the developers of Alliance, believe in Alliance and work very
+hard on making Alliance better. We spend our free time to work on Alliance.
 
-*********
-Support the development of Alliance
+Please show your support and donate a small amout to the cause of Alliance.
+The more donations we received the more time we will spend on Alliance.
 
-Alliance is and will always be free and open source. <- viktigt att sŠga, stina sa att hon skulle tro att hon var tvungen att betala om dialogen kommer upp utan detta 
-
-We, the developers of Alliance, spend our free time to work on Alliance and the
-project is kept alive thanks to donations from people like you.
-The more donations received the more time the we can spend on Alliance.
-
-Show your support and donate a small amout to Alliance.
-
-Donate now    //    Maybe later   //   Never donate
-*********
-
-
-
+Donate now    //    Maybe later   //   Never donate  <-- maybe later ska nog inte vara med?
+************************************************************************************************************************
 jag har också ett tips på lite mer laidback ambient musik fast lite mer alien-inspirerad... kanske är intressant? http://open.spotify.com/user/pontusm/playlist/7oxqbHGCDA0GrVKmV9mSdG
 maciek säger (13:42):
 fan vad grymt spotify är asså. =)
 Pontus säger (13:42):
 hehe
 maciek säger (13:42):
-jag ska FAN lägga in stöd för länkar i alliance tror jag
-
-
-
+jag ska FAN lägga in stöd för länkar i alliance tror jag - tänk hur moteverad man kan få en kompis med en länk med nåt fint i som morot
+* "jag tror en del av mina polare nog skulle bli nyfikna om man hade lite reklam typ  "XXX DVD - join Alliance"" 1. enkelt att göra reklam för en eller flera grejor man delar ut Pontus säger (10:10): 2. enkelt för dem som ser reklamen att koppla upp sig och tanka
+************************************************************************************************************************
 hey
 auto hashing in Alliance doesn't seem to work
 a new friend of mine just downloaded alliance and added a folder
 DeathfireD - I need a python programmer [All hail piggy king of bacon] säger (06:20):
 Alliance did nothing
 so I told him to press the blue icon and it started to hash the files like it should
-
-
-
-
-Initial Comment:
-Apparently a few people are noticing that when they view their shared folders they can only see the folders and not any of the files in the folders. Alliance doesn't seem to be auto hashing the folder(s) when they add it as a share like it used too. So they have to manually press the rehash button on the bottom right of the client.
-
-----------------------------------------------------------------------
-
->Comment By: DeathfireD (deathfired)
-Date: 2008-10-27 22:24
-
-Message:
+---
+Apparently a few people are noticing that when they view their shared folders they can only see the folders and not
+any of the files in the folders. Alliance doesn't seem to be auto hashing the folder(s) when they add it as a share
+like it used too. So they have to manually press the rehash button on the bottom right of the client.
+---
 I think it was since 1.0.4 but I could be wrong. I too have noticed that sometimes when adding a new folder it doesn't get hashed right away. If you press the blue hash button though it will or just wait a bit Alliance will get around to hashing it.
-
-----------------------------------------------------------------------
-
-Comment By: maciek (maciekdrejak)
-Date: 2008-10-27 13:09
-
-Message:
-This seems like a real problem. I would need to know more about this. Is this since the release of version 1.0.5?
-
-----------------------------------------------------------------------
-
-
-
-
-
-* lägg till så att det står hur många som är online och hur många vänner som finns totalt vid felrapportering..  hade varit riktigt roligt att se i statistiken
-
-
-* intressant om SSL:
+************************************************************************************************************************
+intressant om SSL:
 Hello, sorry for my english I am german.
 
 There is a small group working in ssl-mode since a few weeks. In ssl-mode
@@ -130,10 +140,7 @@ such a "broken" dl/ul the only way is to reconnect the uploader or restart
 alliance.
 
 Thank you for reading and thanks for the genial program.
-
-
-
-
+************************************************************************************************************************
 "java.io.IOException: Unable to establish loopback connection"
 
 The full error report includes the message "no buffer space available"
@@ -146,12 +153,7 @@ normal but once I start Alliance back up again it's only about a day or so
 before it happens again. It looks to me like, for some reason, Alliance is
 leaking sockets. I ran into this problem on a previous version of Alliance,
 as well, but didn't report it. Here's the full error report:
-
-
-
-
-
-* I'll add support for following symlinks to the todo
+************************************************************************************************************************
 * får in sjukt mycket concurrent modification errors nu..  denna verkar hända hela tiden:
 java.util.ConcurrentModificationException
 	at java.util.HashMap$HashIterator.nextEntry(Unknown Source)
@@ -170,9 +172,7 @@ java.util.ConcurrentModificationException
 	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
 	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
 	at java.awt.EventDispatchThread.run(Unknown Source)
-
 och denna:
-
 java.util.ConcurrentModificationException
 	at java.util.HashMap$HashIterator.nextEntry(Unknown Source)
 	at java.util.HashMap$ValueIterator.next(Unknown Source)
@@ -189,107 +189,23 @@ java.util.ConcurrentModificationException
 	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
 	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
 	at java.awt.EventDispatchThread.run(Unknown Source)
-
-
-
-
-I've tried making alliance work for far more than 4 hours, with no luck at all.
-
+************************************************************************************************************************
 I was working on a private LAN of class 10.x.x.x and I discovered, sniffing the traffic, that if you have more than one NIC alliance always chose the IP of the wrong one.
 That's unfortunate in this times, when almost every workstation has at least a virtual NIC installed (hamachi, openvpn, vmware...).
 I tried to specify an IP in the specific setting field, but I discovered it doesn't save it.
 Than I downloaded the source with svn and, with my little programming knowledge, I discovered that:
 1 - that field is at the moment ignored
 2 - the algorithm used to chose the IP address from many NICs is not very logic (or I'm not able to understand it)
-
------------------------------------------------------------------------------------------------------------------------
-
-Message:
-it would be better if it could be disabled.
-maybe by a setting in the settings.xml?
-it doesn't have to be available in the GUI.
-
-----------------------------------------------------------------------
-
-Comment By: maciek (maciekdrejak)
-Date: 2008-09-29 07:02
-
-Message:
-I've changed the time from 100 days to 200 days in the code now. Is that good enough?
+************************************************************************************************************************
 
 
-* move to top/bottom i downloads. Många har hundra downloads i sin lista. roligt att trycka up hundra gånger.
-Annat:
-  verkar som att det som gör att minnet oftast tar slut är att många filer delast. kanske det att man har många vänner också, men det är inte lika troligt
-    * gŒ igenom faq och getting started - getting started ska vara riktad till folk som vill starta ett nytt nŠtverk
-    * sett upp forum: http://alliancetalk.proboards91.com/index.cgi
-    * SEO
-    * tŠnk igenom standardfallet: en noob blir inbjuden. hur gŒr man vidare dŠrifrŒn till att han bjuder in sina msn-vŠnner?
-        optimalt:
-            han fŒr en lŠnk frŒn en kompis. klicka pŒ den fšr att gŒ med i mitt nŠtverk
-            han klickar pŒ lŠnken. alliance installeras utan att han behšver gšra nŒgra val alls
-            alliance startar och fšrsšker direkt koppla upp sig mot hans kompis. det bšr gŒ bra eftersom connectionkoden validerades med port test nŠr den skapades
-            efter att kopplingen gjorts sŠger alliance att det Šr rekommenderat att koppla upp sig mot hans kompisar
-            anvŠndaren gšr detta och det trillar in en del nya anvŠndare - UTAN att han fŒr nŒgra meddelanden om det
-            vid <nŠr man laddat ner mer Šn 10mb och tvŒ filer och har just pŒbšrjat en nedladdning som kommer att ta mer Šn fem minuter> berŠttar alliance att om man bjuder in fler vŠnner kan man ladda ner mer saker och man kan ladda ner snabbare
-            anvŠndaren vŠljer att bjuda in kompisar. om inte sŒ fortsŠtter alliance nagga typ en gŒng i veckan tills man bjudit in nŒn
-            wizarden kommer upp. anvŠndaren kan bjuda in msn-vŠnner, bjuda in igenom att skicka mail eller bjuda in manuellt igenom att skicka en lŠnk till en kompis pŒ valfritt sŠtt
-            anvŠndaren uppmuntras till att bjuda in msn vŠnner och gšr detta
-            anvŠndaren drar in ett gŠng msnvŠnner och vŠljer send. goto 10
 
-Todo:
-    * ens share size uppdateras šverallt fšrutom i listan till vŠnster. det Šr dŒligt fšr att det ser ut som att man inte delar ut nŒt i bšrjan (nŠr man just installerat och hŒller pŒ att indexera)
-    * lägga in ett protokoll i windows för alliance:  alliance://invitationcode/filehash    så kan man skicka meddelanden till polare..  "Här är filen: alliance://wpijgsagjasgsag/slkgfslkfjsfj. Det är bara att installera alliance och klicka på länken så får du den!"  Blir inte bra om man länkar till massa med filer men om det är inte för många så är det najs som fan!
-    * eeeh. 13 online och 40 trådar igång i alliance. wtf?   whats up with the high amount of threads too? I understand Alliance tries to connect to each user on your list but I don't see how it could be double or triple that of what bittorrent uses when you only have 10 or 15 friends on your Alliance list where as you have 60 or 70 sources on bittorrent. I noticed Alliance sucks up 30-50 threads and when uploading it sky rockets.
-    * i vista så körs programmet som admin första gången - fel i installationsscriptet - detta gör att inställningar inte sparas
-    * allianc sŠger "alliance need your attention" fastŠn man har pŒ automatisk koppling till vŠnners vŠnner och allt nŠr en ny anvŠndare kopplar upp sig
-    * Router:50 - vafan. r[] används ju inte..  slå på och testa kanske? kan vara farligt - kan vara så att router tabellen växer okontrollerat.. testa ordentlig i så fall
-    * direct buffer mem lŠcker
-    * default deny new friends
-    * maximum allowed connected friends vore bra - kanske?
-    * friends of friends uppdateras bara nŠr man starta om inte bra nŠr mŒnga joinar ett nŠtverket
 
-    * stöd för dyndn namn i my ip. koslla hur detta fungerar. det är en riktigt klok och proffsig grej att ha - så kan ett litet nätverk överleva om alla har dynamisk ip
 
-    * lägg till advanced vy i friendslist. -- eftersom "via" grejjen fungerar dåligt kan den tas bort (kanske?) -- ratio, max up och max ner. roligt för tekniskare användare. Gör en kool ikon för den så man ser den. - eller välj vilka kolumner man visar per default - default ska nog vara name och ratio (och kanske share size?)
-    * drag'n'drop från msn - bara man kan förklara det på ett enkelt sätt så är det lika bra som fullständig integration - tänk på att jag redan har färdig kod för att skicka mail - errorreporter
-
-    * fixa koolt UI för uploads också. så det är kul att kolla på.  ha riktig historik för uploads - DET hade jag gillat - så jag kan se vad folk har laddat ner från mig. kalla fliken "statistics" och ha massa askool stats med den läcka diagramkomponenten. cpuanvänding, minnesanvändning, up/ner hastighet, och koola stats för uploads
-
-    * bättre stöd för vista - problem när fil ska flyttas och så?   downloads borde ligga i my downloads eller nåt
-    * nåt åt detta hållet är viktigt så man inte chokar noobs kopplingar: if (uploaded > 100mb and uploded_to > 2 persons and bandwidth_thottle_not_set) set_throttle_and_notify_when_ui_is_up
-    * internationalisering - massa folk hade översatt om det gick..   tänk på detta. hade varit jävligt najs.  man får välja språk i runtime. najs.
-    * dubbelklick på nerladdad fil öppnar den
-    * command-line start. Linuxanvändare intresserade av det.
-    * feedback formulär
-    * användare startar alliance efter dom tryck på krysset för att trayikonen försvinner. kanske försöka ha kvar trayikonen medans alliance startar om? Det borde gå att fixa..  Antingen värsta hacket där man inte tar bort trayikonen, fast få dår man dubbel ikon när den väl startat. Alt. 2 är att vänta med att döda pocessen tills man ser att den nya alliance snurrar.
-    * "jag tror en del av mina polare nog skulle bli nyfikna om man hade lite reklam typ  "XXX DVD - join Alliance"" 1. enkelt att göra reklam för en eller flera grejor man delar ut Pontus säger (10:10): 2. enkelt för dem som ser reklamen att koppla upp sig och tanka
-    * posta i forum om att jag behöver en download-bundle för installation i linux
-    * filesize i view share
-    * limit på antal uploads
-    * integration mot facebook
-    * enligt en artikel jag läste ska det räcka med en io diskbuffer på 64kb - för det är det XP har - vista kan ha större
-
-- When scrolling up to read old chat, a new chat message causes the scroll bar to jump to the bottom when a new message is typed.  When many new messages are coming in, it is impossible to read old chat and "catch up".  It would be great if the scroll bar stayed where it is moved to.
-
-- On Win XP at Alliance startup, there is a flurry of system tray bubbles for missed chat messages while you were offline.  Not a huge deal though.
-
-- Preserve newlines in chat when pasting text from another program like a browser or Notepad.  Right now they are concatenated into a single line when pasting.
-
-- Ctrl-tab and shift-ctrl-tab to navigate forward and backward among tabs.
-
-- Buttons for stop search and clear search.
-
-- Duplicate system tray shutdown submenu in File or other menu (so you don't have to use the system tray for this).
-
-- In the options dialog, a way to set a short description or witty tagline next to your username in the My Network pane.  This is a "just for fun" item.
-
-- Ability to turn off/on timestamps in chat, some users don't like timestamps but others do.
 
 
 
 Future features:
-    * dubbelklick på + ska inte ladda ner
     * pinsamt enkelt att DOS:a alliance till döds - öppna koppling, skicka 0xffff och sedan 64k av skräp så tar alliance emot det glädjeligen
     * droppa fil på en användare - en lite speciell process i download och uploadconnection. borde inte vara några problem. eller någon annan slags implementation - det hade rockat iaf. Bra om den använder standard downloadförfarandet så man får allt från det. Inget fel att tanka från två heller ifall filen råkar finnas på fler ställen. Det får nog bli att man lägger till en fil i share som är markerad som att den bara får downloadas från en person - sedan skickar man tth nyckeln till denna person
 
