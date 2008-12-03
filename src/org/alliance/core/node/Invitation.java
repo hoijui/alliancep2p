@@ -41,7 +41,9 @@ public class Invitation implements Serializable {
             myhost = core.getFriendManager().getMe().getExternalIp(core);
         }
 
+        if(T.t)T.trace("Creating invitation for host: "+myhost);
         byte[] ip = InetAddress.getByName(myhost).getAddress();
+        if(T.t)T.trace("Got: "+ip[0]+"."+ip[1]+"."+ip[2]+"."+ip[3]);
 
         ByteArrayOutputStream o = new ByteArrayOutputStream();
         DataOutputStream out = new DataOutputStream(o);
@@ -55,7 +57,7 @@ public class Invitation implements Serializable {
         //passkey
         invitationPassKey = new Random().nextInt();
         out.writeInt(invitationPassKey);
-        if(T.t)T.trace("passkay: "+invitationPassKey);
+        if(T.t)T.trace("passkey: "+invitationPassKey);
 
         out.flush();
         completeInvitaitonString = HumanReadableEncoder.toBase64SHumanReadableString(o.toByteArray()).trim();

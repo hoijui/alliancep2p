@@ -63,32 +63,38 @@ public class Friend extends Node {
         }
     }
 
-    public void updateLastKnownHostInfo(String host, int port) throws IOException {
-        try {
-        	Settings s = manager.getSettings();
-        	
-        	// Don't overwrite hostnames set by the user manually
-        	if ( TextUtils.isIpNumber(s.getFriend(guid).getHost()) ) {
-        		if(T.t)T.info("Updating host info for "+this+": "+host+":"+port);
-        		lastKnownHost = host;
-        		lastKnownPort = port;
-        		s.getFriend(guid).setHost(lastKnownHost);
-        		s.getFriend(guid).setPort(lastKnownPort);
-        	}
-        } catch(Exception e) {
-            if(T.t)T.error("Could not save settings! "+e);
-            e.printStackTrace();
+    /**
+     *
+     * @param host
+     * @param port
+     * @return True if the host info did actually change
+     * @throws IOException
+     */
+    public boolean updateLastKnownHostInfo(String host, int port) throws IOException {
+        Settings s = manager.getSettings();
+
+        // Don't overwrite hostnames set by the user manually
+        if ( TextUtils.isIpNumber(s.getFriend(guid).getHost()) ) {
+            if(T.t)T.info("Updating host info for "+this+": "+host+":"+port);
+            boolean hostInfoChanged = lastKnownHost == null || !lastKnownHost.equals(host) || lastKnownPort != port;
+            lastKnownHost = host;
+            lastKnownPort = port;
+            s.getFriend(guid).setHost(lastKnownHost);
+            s.getFriend(guid).setPort(lastKnownPort);
+            return hostInfoChanged;
+        } else {
+            return false;
         }
     }
-    
+
     /**
      * Updates host settings of the friend
      * @param host New hostname or IP-Address
      */
     public void setLastKnownHost(String host) {
-    	Settings s = manager.getSettings();
-    	lastKnownHost = host;
-    	s.getFriend(guid).setHost(lastKnownHost);
+        Settings s = manager.getSettings();
+        lastKnownHost = host;
+        s.getFriend(guid).setHost(lastKnownHost);
     }
 
     public boolean isConnected() {
@@ -161,39 +167,30 @@ public class Friend extends Node {
     public void setAllianceBuildNumber(int allianceBuildNumber) {
         this.allianceBuildNumber = allianceBuildNumber;
     }
-    
-    public void reconnect() throws IOException {
-    	disconnect(GracefulClose.RECONNECT);
-    	Thread t = new Thread(new Runnable() {
-    		public void run() {
-    			try {Thread.sleep(3000);} catch (InterruptedException e1) {}
-    			manager.getCore().invokeLater(new Runnable() {
-    				public void run() {
-    					if (isConnected()) try {
-    						getFriendConnection().close();
-    					} catch (IOException e1) {
-    						if(org.alliance.ui.T.t) org.alliance.ui.T.warn("Error when closing connection: "+e1);
-    					}
-    					try {Thread.sleep(500);} catch (InterruptedException e1) {}
-    					manager.getCore().getFriendManager().getFriendConnector().wakeup();
-    				}
-    			});
-    		}
-    	});
-    	t.start();
-    }
 
-    public void connect() throws IOException {
+    public void reconnect() throws IOException {
+        disconnect(GracefulClose.RECONNECT);
         Thread t = new Thread(new Runnable() {
             public void run() {
+                try {Thread.sleep(3000);} catch (InterruptedException e1) {}
                 manager.getCore().invokeLater(new Runnable() {
                     public void run() {
-                        manager.getCore().getFriendManager().getFriendConnector().wakeup();
+                        if (isConnected()) try {
+                            getFriendConnection().close();
+                        } catch (IOException e1) {
+                            if(org.alliance.ui.T.t) org.alliance.ui.T.warn("Error when closing connection: "+e1);
+                        }
+                        try {Thread.sleep(500);} catch (InterruptedException e1) {}
+                        manager.getCore().getFriendManager().getFriendConnector().queHighPriorityConnectTo(Friend.this);
                     }
                 });
             }
         });
         t.start();
+    }
+
+    public void connect() throws IOException {
+        manager.getCore().getFriendManager().getFriendConnector().queHighPriorityConnectTo(this, 500);
     }
 
     public String nickname() {

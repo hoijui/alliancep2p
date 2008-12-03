@@ -247,9 +247,9 @@ public class ShareScanner extends Thread {
         if (filesQueuedForHashing.contains(file)) return;
         if (!lowPriority) {
             filesQueuedForHashing.add(0, file);
+            interrupt();
         } else {
             filesQueuedForHashing.add(file);
-            interrupt();
         }
     }
 

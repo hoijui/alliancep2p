@@ -31,8 +31,8 @@ public class UserList extends RPC {
         Node n = manager.getNode(remoteGUID);
         n.removeAllFriendsOfFriend();
 
-        if(T.t)T.trace("Userinfo for "+n+": ");
         int nFriends = in.readInt();
+        if(T.t)T.trace("Received userlist for "+n+", has "+nFriends+" friends.");
         for(int i=0;i<nFriends;i++) {
             int guid = in.readInt();
             String nickname = in.readUTF();
@@ -60,10 +60,10 @@ public class UserList extends RPC {
 
         Collection<Friend> c = manager.friends();
         int n =0;
-        for(Friend f : c) if (!f.hasNotBeenOnlineForLongTime()) n++;
+        for(Friend f : c) if (!f.hasNotBeenOnlineForLongTime() || f.getLastSeenOnlineAt() == 0) n++;
         p.writeInt(n);
         for(Friend f : c) {
-            if (!f.hasNotBeenOnlineForLongTime()) {
+            if (!f.hasNotBeenOnlineForLongTime() || f.getLastSeenOnlineAt() == 0) {
                 p.writeInt(f.getGuid());
                 p.writeUTF(f.getNickname());
                 p.writeBoolean(f.isConnected());

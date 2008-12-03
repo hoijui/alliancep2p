@@ -89,9 +89,10 @@ public class FriendManager extends Manager {
         for(org.alliance.core.settings.Friend f : settings.getFriendlist()) addFriend(f, false, false);
     }
 
-    public void addFriend(org.alliance.core.settings.Friend f, boolean foundFriendUsingInvitation, boolean invitationWasForwarded) throws Exception {
+    public Friend addFriend(org.alliance.core.settings.Friend f, boolean foundFriendUsingInvitation, boolean invitationWasForwarded) throws Exception {
         if (f.getGuid() == me.getGuid()) {
             if(T.t)T.warn("You have yourself in your friendlist!");
+            return null;
         } else if (f.getNickname() == null) {
             throw new Exception("No nickname for guid: "+f.getGuid());
         } else {
@@ -107,6 +108,7 @@ public class FriendManager extends Manager {
             friend.setNewlyDiscoveredFriend(foundFriendUsingInvitation);
             core.getUICallback().signalFriendAdded(friend);
             if (foundFriendUsingInvitation) sendMyInfoToAllMyFriends();
+            return friend;
         }
     }
 
@@ -176,10 +178,6 @@ public class FriendManager extends Manager {
             return;
         }
         netMan.connect(f.getLastKnownHost(), f.getLastKnownPort(),new FriendConnection(netMan, Connection.Direction.OUT, f.getGuid()));
-    }
-
-    public void runFriendConnectorIn(int ms) {
-        friendConnector.wakeupIn(ms);
     }
 
     public UntrustedNode getUntrustedNode(int guid) {

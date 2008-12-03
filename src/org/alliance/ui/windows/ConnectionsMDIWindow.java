@@ -84,7 +84,7 @@ public class ConnectionsMDIWindow extends AllianceMDIWindow {
 
     private class ConnectionWrapper {
         public Connection connection;
-        public String name, status, sent, received;
+        public String name, status, sent, received, dir;
 
         public ConnectionWrapper(Connection connection) {
             this.connection = connection;
@@ -95,6 +95,7 @@ public class ConnectionsMDIWindow extends AllianceMDIWindow {
             status = connection.getStatusString();
             sent = TextUtils.formatByteSize(connection.getBytesSent())+" ("+connection.getBandwidthOut().getCPSHumanReadable()+")";
             received = TextUtils.formatByteSize(connection.getBytesReceived())+" ("+connection.getBandwidthIn().getCPSHumanReadable()+")";
+            dir = connection.getDirection().toString();
         }
     }
 
@@ -104,7 +105,7 @@ public class ConnectionsMDIWindow extends AllianceMDIWindow {
         }
 
         public int getColumnCount() {
-            return 4;
+            return 5;
         }
 
         public String getColumnName(int columnIndex) {
@@ -117,6 +118,8 @@ public class ConnectionsMDIWindow extends AllianceMDIWindow {
                     return "Sent";
                 case 3:
                     return "Received";
+                case 4:
+                    return "Direction";
                 default:
                     return "undefined";
             }
@@ -132,6 +135,8 @@ public class ConnectionsMDIWindow extends AllianceMDIWindow {
                     return rows.get(rowIndex).sent;
                 case 3:
                     return rows.get(rowIndex).received;
+                case 4:
+                    return rows.get(rowIndex).dir;
                 default:
                     return "undefined";
             }

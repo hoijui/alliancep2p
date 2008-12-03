@@ -1,13 +1,13 @@
-
-
+fixed:
+* friends of friends uppdateras bara nŠr man starta om inte bra nŠr mŒnga joinar ett nŠtverket
 * problem: det går att inte att koppla upp sig mot större nätverk
-  1) det blir konstigt när man har öppen port
-  2) funkar inte alls med ständg port
-  - dessa problem hände i vårat nätverk också - kanske enklare att debugga här.  är det den där callbacken när en connection attemt failar som inte funkar?
+  1) det blir konstigt när man har öppen port - anledningen är att alla har 1500 pers i listan och då tar det hundra år innan friend connectorn hittar till ens nya kompis
 * verifiera att autohashing fungerar. kolla på de befintliga installationerna på Tindra
+
+todo:
 * kör med 100 pers på arbetsstationen och fixa alla concurrent modification errors. seriöst lixom. det händer typ hela tiden på ett stort nätverk. finns två typiska stack traces längre ner
 * sheet vad sakta det går med 100 pers online =)   dra sladd till arbetsstation, port fwd:a och profilerara - INTE ALLTID..  om man bara låter den gå drar den inte mycket CPU. det är när man gör något speciellt som den börjar dra CPU som fan.
-  - Att söka går alltid sakta dock
+* fixa så att sök med 100 pers online funkar snabbt 
 * fixa goa msn integrationen med ett java-lib
 * "Unable to establish loopback connection" -> alliance verkar läcka sockets - finns info nedan
 
@@ -30,7 +30,6 @@
 * internationalisering - massa folk hade översatt om det gick..   tänk på detta. hade varit jävligt najs.  man får välja språk i runtime. najs.
 * alliance ska tydligen ta fel NIC när det finns flera? Finns förklaring längre ner. sök på "10.x.x.x"
 * lägg till setting för om nån är offline X dagar så ska han inte visas längre i listan. och defaulta till 200 eller nåt. vissa vill inte att folk ska försvinna.
-* support för alliance://
 * setting för max antal nedladdningsconnections per nedladdning
 * I'll add support for following symlinks to the todo
 * lägga in ett protokoll i windows för alliance:  alliance://invitationcode/filehash    så kan man skicka meddelanden till polare..  "Här är filen: alliance://wpijgsagjasgsag/slkgfslkfjsfj. Det är bara att installera alliance och klicka på länken så får du den!"  Blir inte bra om man länkar till massa med filer men om det är inte för många så är det najs som fan!
@@ -76,6 +75,27 @@
 
 
 
+n************************************************************************************************************************
+är man anger en invitation code kommer denna:
+Award user with one invitation point
+at:
+java.lang.Exception
+	at org.alliance.ui.UIBridge.trace(UIBridge.java:126)
+	at org.alliance.core.CoreSubsystem.propagateTraceMessage(CoreSubsystem.java:391)
+	at org.alliance.core.CoreSubsystem$2.print(CoreSubsystem.java:110)
+	at com.stendahls.trace.Trace.print(Trace.java:21)
+	at com.stendahls.trace.TraceChannel.info(TraceChannel.java:30)
+	at com.stendahls.trace.TraceChannel.info(TraceChannel.java:39)
+	at org.alliance.core.T.info(T.java:17)
+	at org.alliance.core.node.FriendManager.addFriend(FriendManager.java:101)
+	at org.alliance.core.comm.InvitationConnection.packetReceived(InvitationConnection.java:117)
+	at org.alliance.core.comm.PacketConnection.received(PacketConnection.java:109)
+	at org.alliance.core.crypto.cryptolayers.BufferedCryptoLayer.received(BufferedCryptoLayer.java:113)
+	at org.alliance.core.comm.NetworkManager.received(NetworkManager.java:289)
+	at org.alliance.core.comm.networklayers.tcpnio.TCPNIONetworkLayer.handleRead(TCPNIONetworkLayer.java:317)
+	at org.alliance.core.comm.networklayers.tcpnio.TCPNIONetworkLayer.run(TCPNIONetworkLayer.java:184)
+	at java.lang.Thread.run(Thread.java:619)
+man ska ju inte få en poäng när man bara anger en invitation code!
 ************************************************************************************************************************
 Download stops at 99%:
 I have debugged this and found the source of the problem.

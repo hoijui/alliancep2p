@@ -45,12 +45,12 @@ public class ConnectionInfo extends RPC {
             if (friend == null) {
                 if(T.t)T.error("Friend is null!");
             } else {
-
                 if (friend.isConnected()) {
                     if(T.t)T.info("Already connected to friend.");
                 } else {
-                    friend.updateLastKnownHostInfo(host, port);
-                    manager.runFriendConnectorIn(5000);
+                    if (friend.updateLastKnownHostInfo(host, port)) {
+                        manager.getFriendConnector().wakeUp();
+                    }
                 }
             }
         }

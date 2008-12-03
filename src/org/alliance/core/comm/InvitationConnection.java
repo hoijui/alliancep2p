@@ -103,8 +103,9 @@ public class InvitationConnection extends AuthenticatedConnection {
                 //friend already my friend, update ip number
                 org.alliance.core.node.Friend friend = core.getFriendManager().getFriend(f.getGuid());
                 if (friend != null && !friend.isConnected()) {
-                    friend.updateLastKnownHostInfo(host, port);
-                    core.getFriendManager().getFriendConnector().wakeup();
+                    if (friend.updateLastKnownHostInfo(host, port)) {
+                        core.getFriendManager().getFriendConnector().queHighPriorityConnectTo(friend);
+                    }
                 }
                 core.queNeedsUserInteraction(new FriendAlreadyInListUserInteraction(newFriend.getGuid()));
                 return;
@@ -114,8 +115,9 @@ public class InvitationConnection extends AuthenticatedConnection {
             core.getSettings().getFriendlist().add(newFriend);
             try {
                 core.saveSettings();
-                core.getFriendManager().addFriend(newFriend, true, middleman != null);
-                core.getFriendManager().runFriendConnectorIn((int)(Math.random()*1000+1000));
+                Friend f = core.getFriendManager().addFriend(newFriend, true, middleman != null);
+                core.getFriendManager().getFriendConnector().queHighPriorityConnectTo(f, (int)(Math.random()*1000+1000));
+
             } catch(Exception e) {
                 core.reportError(e, this);
             }
