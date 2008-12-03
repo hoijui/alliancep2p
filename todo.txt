@@ -6,8 +6,11 @@ fixed:
 
 todo:
 * kör med 100 pers på arbetsstationen och fixa alla concurrent modification errors. seriöst lixom. det händer typ hela tiden på ett stort nätverk. finns två typiska stack traces längre ner
-* sheet vad sakta det går med 100 pers online =)   dra sladd till arbetsstation, port fwd:a och profilerara - INTE ALLTID..  om man bara låter den gå drar den inte mycket CPU. det är när man gör något speciellt som den börjar dra CPU som fan.
-* fixa så att sök med 100 pers online funkar snabbt 
+  det känns som att man ofta får concurrent mod error när man ska lägga till nya människor medans det trillar in folk
+* IBLAND när man har 100 pers online så går den i botten och drar jättemycket cpu..  men inte alltid. kanske nån loop som går igång?
+* fixa så att sök med 100 pers online funkar snabbt
+* testa också processen att gå online som ny användare mot det stora nätverket både det IL nätverket och det andra.
+  test helt enkelt att ta en kod från deathfireds lista och se så att den kopplar upp sig någolunda bra - som den ska mot 1.0.5 så att säga. testa med öppen port och kanske med stängd port också
 * fixa goa msn integrationen med ett java-lib
 * "Unable to establish loopback connection" -> alliance verkar läcka sockets - finns info nedan
 
