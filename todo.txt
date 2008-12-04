@@ -1,15 +1,4 @@
-
-hmm direct/nondirect har bara en påverkan. minnesåtgång. Vet inte om det gör nån skillnad. Egentligen borde PacketConnection buffern fixas till..?
-40 användare online:
-non direct: 133 (Working set)
-direct: 106
-91 användare onlie:
-non direct: 163 (working set)
-
-
 todo:
-* testa också processen att gå online som ny användare mot det stora nätverket både det IL nätverket och det andra.
-  test helt enkelt att ta en kod från deathfireds lista och se så att den kopplar upp sig någolunda bra - som den ska mot 1.0.5 så att säga. testa med öppen port och kanske med stängd port också
 * fixa goa msn integrationen med ett java-lib
 * "Unable to establish loopback connection" -> alliance verkar läcka sockets - finns info nedan
 
@@ -70,7 +59,14 @@ todo:
 
 
 
-
+************************************************************************************************************************
+lite gamla anteckningar om minnesanvändinng:
+hmm direct/nondirect har bara en påverkan. minnesåtgång. Vet inte om det gör nån skillnad. Egentligen borde PacketConnection buffern fixas till..?
+40 användare online:
+non direct: 133 (Working set)
+direct: 106
+91 användare onlie:
+non direct: 163 (working set)
 ************************************************************************************************************************
 när man anger en invitation code kommer denna:
 Award user with one invitation point
