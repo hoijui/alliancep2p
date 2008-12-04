@@ -33,8 +33,10 @@ import org.alliance.launchers.StartupProgressListener;
 import org.alliance.launchers.ui.Main;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXParseException;
+import org.xml.sax.InputSource;
 
 import javax.swing.*;
+import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.channels.ClosedChannelException;
@@ -240,7 +242,16 @@ public class CoreSubsystem implements Subsystem {
         XMLSerializer s = new XMLSerializer();
         try {
             File file = new File(settingsFile);
-            settings = s.deserialize(SXML.loadXML(file), Settings.class);
+            FileInputStream fis = new FileInputStream(file);
+            Document document;
+            try {
+                document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new InputSource(fis));
+            } finally {
+                fis.close();
+            }
+            settings = s.deserialize(
+                    document,
+                    Settings.class);
         } catch(FileNotFoundException e) {
             if(T.t)T.info("No settings file - creating default settings.");
             File file = new File(settingsFile);
@@ -282,7 +293,7 @@ public class CoreSubsystem implements Subsystem {
     }
 
     @SuppressWarnings("unchecked")
-	public void loadState() throws Exception {
+    public void loadState() throws Exception {
         try {
             if(T.t)T.info("Loading core state");
             ObjectInputStream in = new ObjectInputStream(new FileInputStream(settings.getInternal().getCorestatefile()));
@@ -579,7 +590,7 @@ public class CoreSubsystem implements Subsystem {
     }
 
     @SuppressWarnings("unchecked")
-	public List<NeedsUserInteraction> getAllUserInteractionsInQue() {
+    public List<NeedsUserInteraction> getAllUserInteractionsInQue() {
         return (List<NeedsUserInteraction>)userInternactionQue.clone();
     }
 
@@ -589,7 +600,12 @@ public class CoreSubsystem implements Subsystem {
 
     public ByteBuffer allocateBuffer(int size) {
         if (settings.getInternal().getUsedirectbuffers() > 0) {
-            return ByteBuffer.allocateDirect(size);
+            try {
+                return ByteBuffer.allocateDirect(size);
+            } catch(OutOfMemoryError e) {
+                if(T.t)T.warn("Falling back to non-direct buffers - out of direct buffer space!");
+                return ByteBuffer.allocate(size);
+            }
         } else {
             return ByteBuffer.allocate(size);
         }

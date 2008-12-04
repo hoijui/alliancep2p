@@ -49,7 +49,8 @@ public class Router {
             if(T.netTrace)T.trace("Adding new Route");
             Route r[] = new Route[routes.length+1];
             r[0] = new Route(friend.getGuid(), hops);
-            for(int i=0;i<routes.length;i++) r[i+1] = routes[i];
+            System.arraycopy(routes, 0, r, 1, routes.length);
+            routeTable.put(nodeGuid, r);
         }
     }
 

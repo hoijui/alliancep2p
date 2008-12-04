@@ -39,7 +39,7 @@ public class Internal extends SettingClass {
     private Integer connectionkeepaliveinterval=60;
     private Integer numberofblockstopipeline=2;
 
-    private Integer usedirectbuffers=0; // Should direct nio buffers be used? 0=no 1=yes    Tested this and it seems that direct buffers give NO performance gain - but they do generate outof memory errors sometimes.
+    private Integer usedirectbuffers=1; // Should direct nio buffers be used? 0=no 1=yes   - does no performance gain but it looks better in Task Manager, when looking at memory usage, not sure if the actual memory usage is better
 
     private Integer restartEveryXHours=4; //this one only works on windows right now
 

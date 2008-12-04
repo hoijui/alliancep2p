@@ -1,5 +1,7 @@
 package org.alliance.core.comm;
 
+import org.alliance.core.comm.networklayers.tcpnio.TCPNIONetworkLayer;
+
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -27,7 +29,7 @@ public abstract class PacketConnection extends Connection {
 
     public void init() throws IOException {
         super.init();
-        receivePacket = netMan.createPacketForReceive();
+        receivePacket = netMan.createPacketForReceive(netMan.getCore().getSettings().getInternal().getMaximumAlliancePacketSize()*11/10);
     }
 
     public abstract void packetReceived(Packet p) throws IOException;
@@ -60,15 +62,12 @@ public abstract class PacketConnection extends Connection {
             }
             if(T.t)T.ass(packetCurrentlyInSending != null, "Internal error! Packet is null!");
 
-            //todo: erics change -- tested it and it did not work.
-            //if (packetCurrentlyInSending.getAvailable() != 0) {
                 int r = netMan.send(this, packetCurrentlyInSending);
                 if (r == -1) throw new IOException("Connection ended");
                 if (r == 0) {
                     netMan.signalInterestToSend(this);
                     break;
                 }
-            //}
             if (packetCurrentlyInSending.getAvailable() == 0) {
                 if(T.netTrace)T.trace("Succesfully sent packet "+packetCurrentlyInSending);
                 packetCurrentlyInSending = null; //packet has been successfully sent

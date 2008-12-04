@@ -237,12 +237,16 @@ public final class BlockFile {
 
     public int getBlockSize(int blockNumber) {
         if (blockNumber < getNumberOfBlocks()-1) return BLOCK_SIZE;
-        return (int)(fd.getSize()%BLOCK_SIZE);
+        int s = (int)(fd.getSize() % BLOCK_SIZE);
+        if (s == 0) s = BLOCK_SIZE;
+        return s;
     }
 
     public static int getBlockSize(int blockNumber, long size) {
         if (blockNumber < getNumberOfBlockForSize(size)-1) return BLOCK_SIZE;
-        return (int)(size%BLOCK_SIZE);
+        int s = (int)(size % BLOCK_SIZE);
+        if (s == 0) s = BLOCK_SIZE;
+        return s;
     }
 
     public void moveToComplete(String directory) throws Exception {

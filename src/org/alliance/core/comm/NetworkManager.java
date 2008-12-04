@@ -194,8 +194,8 @@ public class NetworkManager extends Manager {
         return networkLayer.createPacketForSend();
     }
 
-    public Packet createPacketForReceive() {
-        return networkLayer.createPacketForReceive();
+    public Packet createPacketForReceive(int size) {
+        return networkLayer.createPacketForReceive(size);
     }
 
     /**

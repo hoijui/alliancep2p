@@ -160,9 +160,9 @@ public class TCPNIONetworkLayer implements Runnable {
         return new NIOPacket(netMan.getCore().allocateBuffer(MAXIMUM_PACKET_SIZE), true);
     }
 
-    public Packet createPacketForReceive() {
+    public Packet createPacketForReceive(int size) {
         if(T.t)T.info("Creating new packet - this uses a lot of resources");
-        return new NIOPacket(netMan.getCore().allocateBuffer(buffer.capacity()), false);
+        return new NIOPacket(netMan.getCore().allocateBuffer(size), false);
     }
 
     public void run() {

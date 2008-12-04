@@ -2,15 +2,16 @@
 <br><br>
 
 <p>
-    <b>next</b> - next
+    <b>1.0.6</b> - 2008-12-06
  <dl>
     <dd>+ Improved search performance when receiving search hits from many (hundreds) of users
     <dd>+ Improved performance of Alliance when part of a very large (1000+ friends) network
-    <dd>+ Joining as a new friend into a big network works now much better
+    <dd>+ Joining as a new friend into a existing network works now much better
     <dd>+ Improved speed of connecting to new friends
     <dd>+ Change time from 100 days to 200 days for automatic offline friend removal
     <dd>+ Direction of connection now shown in TCP/IP Connections debug window
-    <dd>+ Changed default setting for direct memory buffers - don't use them by default. No performance gain could be mesured with them anyway
+    <dd>+ fixed bug: files that are an exact multiple of one megabyte (1 048 576 bytes) now download correctly 
+    <dd>+ fixed bug: when settings-file is corrupt the backup settingsfile is now correctly used
     <dd>+ fixed bug: OutOfMemoryError: can not create native thread
     <dd>+ fixed bug: OutOfMemoryError: out of direct memory buffer space
     <dd>+ fixed bug: several ConcurrentModificationExceptions fixed
