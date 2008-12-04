@@ -1,30 +1,22 @@
-fixed:
-* friends of friends uppdateras bara nŠr man starta om inte bra nŠr mŒnga joinar ett nŠtverket
-* problem: det går att inte att koppla upp sig mot större nätverk
-  1) det blir konstigt när man har öppen port - anledningen är att alla har 1500 pers i listan och då tar det hundra år innan friend connectorn hittar till ens nya kompis
-* verifiera att autohashing fungerar. kolla på de befintliga installationerna på Tindra
+WTF!!! när jag pajjar settingsflen säger den att den är korrupt OCH att backupen inte fungrar men när jag går tillbaka till backupen så fungar den ju!
 
 todo:
-* kör med 100 pers på arbetsstationen och fixa alla concurrent modification errors. seriöst lixom. det händer typ hela tiden på ett stort nätverk. finns två typiska stack traces längre ner
-  det känns som att man ofta får concurrent mod error när man ska lägga till nya människor medans det trillar in folk
-* IBLAND när man har 100 pers online så går den i botten och drar jättemycket cpu..  men inte alltid. kanske nån loop som går igång?
-* fixa så att sök med 100 pers online funkar snabbt
 * testa också processen att gå online som ny användare mot det stora nätverket både det IL nätverket och det andra.
   test helt enkelt att ta en kod från deathfireds lista och se så att den kopplar upp sig någolunda bra - som den ska mot 1.0.5 så att säga. testa med öppen port och kanske med stängd port också
 * fixa goa msn integrationen med ett java-lib
 * "Unable to establish loopback connection" -> alliance verkar läcka sockets - finns info nedan
-
 * bug "Download stops at 99%" - finns förklaring längre ner
+
 * lägg till en donate dialog som kommer upp vid något klokt tillfälle
 * fixa att kopplingen inte bombar när man tittar i deras share som är fetstor - har en förklaring om det nedan.
-* väldigt stora shares tenderar till att bli corrupta - chatten försvinner också - Man kanske inte ska spara allt vid shutdown. det låter som är bra ide.
 * ens share size uppdateras šverallt fšrutom i listan till vŠnster. det Šr dŒligt fšr att det ser ut som att man inte delar ut nŒt i bšrjan (nŠr man just installerat och hŒller pŒ att indexera)
 * move to top/bottom i downloads. Många har hundra downloads i sin lista. roligt att trycka up hundra gånger.
 * när man tar delete på en vän så blir han kvar som "unknown" - rätt sunkigt..
 * bug: ändra inte ens eget namn när man får ens gamla namn från nån annan i nätverket
+* höhö. går inte att hitta sig själv i listan när man har så jävla många online - gör klickbar länk av ens namn
+* väldigt stora shares tenderar till att bli corrupta - chatten försvinner också - Man kanske inte ska spara allt vid shutdown. det låter som är bra ide.
 * direct buffer mem lŠcker
 * en setting: limit number of connected friends to 100
-* höhö. går inte att hitta sig själv i listan när man har så jävla många online - gör klickbar länk av ens namn
 
 
 * i vista så körs programmet som admin första gången - fel i installationsscriptet - detta gör att inställningar inte sparas - kanske skippa "start alliance" checkboxen på vista
@@ -78,8 +70,8 @@ todo:
 
 
 
-n************************************************************************************************************************
-är man anger en invitation code kommer denna:
+************************************************************************************************************************
+när man anger en invitation code kommer denna:
 Award user with one invitation point
 at:
 java.lang.Exception

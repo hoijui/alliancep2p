@@ -54,7 +54,7 @@ public class FriendConnector extends Thread {
             );
 
             for(Friend f : al) {
-                if(T.t)T.trace("Attempring to connect to another friend...");
+                if(T.t)T.trace("Attempting to connect to another friend...");
                 //first take care of any queued actions
                 while(actionQue.size() > 0) {
                     if(T.t)T.trace("Found something in action que!");

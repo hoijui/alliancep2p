@@ -11,6 +11,7 @@ import java.io.*;
 import java.net.InetAddress;
 import java.util.HashMap;
 import java.util.Collection;
+import java.util.Iterator;
 
 /**
  * Created by IntelliJ IDEA.
@@ -98,6 +99,11 @@ public class InvitaitonManager {
         } catch (ClassNotFoundException e) {
             throw new IOException("Could not instance class "+e);
         }
+        //remove old, invalid invitations
+        for(Iterator<Integer> it = invitations.keySet().iterator(); it.hasNext();) {
+            Integer key = it.next();
+            if (!isValid(key)) it.remove();
+        }
     }
 
     public boolean hasBeenRecentlyInvited(int guid) {
@@ -106,17 +112,27 @@ public class InvitaitonManager {
         return false;
     }
 
+    public boolean hasBeenRecentlyInvited(Invitation i) {
+        return System.currentTimeMillis() - i.getCreatedAt() < core.getSettings().getInternal().getMinimumtimebetweeninvitations() * 1000 * 60;
+    }
+
     private Invitation getMostRecentByGuid(int guid) {
         Invitation mostRecent = null;
         Collection<Invitation> invitations = this.invitations.values();
-        for(Invitation i : invitations.toArray(new Invitation[invitations.size()])) if (i.getDestinationGuid() != null && i.getDestinationGuid() == guid) {
-            if (mostRecent == null)
-                mostRecent = i;
-            else {
-                if (mostRecent.getCreatedAt() < i.getCreatedAt())
+        for(Invitation i : invitations.toArray(new Invitation[invitations.size()])) {
+            if (i.getDestinationGuid() != null && i.getDestinationGuid() == guid) {
+                if (mostRecent == null)
                     mostRecent = i;
+                else {
+                    if (mostRecent.getCreatedAt() < i.getCreatedAt())
+                        mostRecent = i;
+                }
             }
         }
         return mostRecent;
+    }
+
+    public Collection<Invitation> allInvitations() {
+        return invitations.values();
     }
 }

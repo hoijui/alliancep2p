@@ -278,7 +278,7 @@ public class CoreSubsystem implements Subsystem {
         out.writeObject(publicChatHistory);
         out.flush();
         out.close();
-        if(T.t)T.info("Ccore state saved.");
+        if(T.t)T.info("Core state saved.");
     }
 
     @SuppressWarnings("unchecked")

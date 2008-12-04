@@ -2,6 +2,7 @@ package org.alliance.ui.addfriendwizard;
 
 import org.alliance.core.node.Friend;
 import org.alliance.core.node.UntrustedNode;
+import org.alliance.core.node.Invitation;
 import org.alliance.ui.UISubsystem;
 
 import javax.swing.*;
@@ -108,20 +109,25 @@ public class ForwardInvitationNodesList extends JList {
             Collection<Friend> friends = ui.getCore().getFriendManager().friends();
             for (Friend f : friends.toArray(new Friend[friends.size()])) {
                 if (f.friendsFriends() != null) {
-                    for (UntrustedNode n : f.friendsFriends()) {
+                    Collection<UntrustedNode> ff = f.friendsFriends();
+                    for (UntrustedNode n : ff.toArray(new UntrustedNode[ff.size()])) {
                         if (ui.getCore().getFriendManager().getFriend(n.getGuid()) == null &&
                                 ui.getCore().getFriendManager().getMyGUID() != n.getGuid())
                             secondaryNodeGuids.add(n.getGuid());
                     }
                 }
             }
-            for (int guid : secondaryNodeGuids) {
-                if (!ui.getCore().getInvitaitonManager().hasBeenRecentlyInvited(guid))
-                    addElement(new ListRow(ui.getCore().getFriendManager().nickname(guid), createConnectedThroughList(guid), guid));
+
+            for(Invitation i : ui.getCore().getInvitaitonManager().allInvitations()) {
+                if (i.getDestinationGuid() == null) continue;
+                if (ui.getCore().getInvitaitonManager().hasBeenRecentlyInvited(i)) {
+                    secondaryNodeGuids.remove(i.getDestinationGuid()); //often the guid won't exist in the list - that's fine.
+                }
             }
 
-//            if (getSize() == 0)
-//                OptionDialog.showInformationDialog(ui.getMainWindow(), "No new connections where found for you to connect to.");
+            for (int guid : secondaryNodeGuids) {
+                addElement(new ListRow(ui.getCore().getFriendManager().nickname(guid), createConnectedThroughList(guid), guid));
+            }
         }
 
         private String createConnectedThroughList(int guid) {

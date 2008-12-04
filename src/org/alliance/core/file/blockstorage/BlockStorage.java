@@ -158,7 +158,7 @@ public abstract class BlockStorage extends Thread {
             if(T.t)T.ass(sliceOffset+r <= BlockFile.getBlockSize(blockNumber, fd.getSize()), "Writing outside of block!!!");
             if(T.t)T.debug("Block complete for "+fd.getRootHash());
 
-            //@todo: this is a stupid way of verifying hash - should do it while downloading
+            //@todo: this is a stupid way of verifying hash - should do it while downloading - this very bad for performance when download at higher speelds too
             //verify that hash is correct on disk.
             Hash h = bf.calculateHash(blockNumber);
             if (!h.equals(bf.getFd().getSubHash(blockNumber))) {

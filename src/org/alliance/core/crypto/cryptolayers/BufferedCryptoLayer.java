@@ -36,6 +36,7 @@ public abstract class BufferedCryptoLayer extends CryptoLayer {
         super(core);
 
         //a bit shady..  should have a general way of figuring out the largest buffer needed. Could be dynamic too.
+        //there's only one of this for an Alliance instance so it's ok
         bufferIn = ByteBuffer.allocate(core.getSettings().getInternal().getSocketsendbuffer());
     }
 

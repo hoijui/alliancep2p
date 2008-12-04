@@ -1,6 +1,7 @@
 package org.alliance.ui;
 
 import org.alliance.core.CoreSubsystem;
+import org.alliance.core.PacedRunner;
 import org.alliance.core.node.Friend;
 import org.alliance.core.node.Node;
 
@@ -20,9 +21,21 @@ import java.util.TreeSet;
 public class FriendListModel extends DefaultListModel {
 	private CoreSubsystem core;
     private boolean ignoreFires;
+    private PacedRunner pacedRunner;
 
     public FriendListModel(CoreSubsystem core) {
         this.core = core;
+
+        pacedRunner = new PacedRunner(new Runnable() {
+            public void run() {
+                SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        updateFriendList();
+                    }
+                });
+            }
+        }, 1000);
+        
         updateFriendList();
     }
 
@@ -64,11 +77,11 @@ public class FriendListModel extends DefaultListModel {
     }
 
     public void signalFriendChanged(Friend node) {
-        updateFriendList();
+        pacedRunner.invoke();
     }
 
     public void signalFriendAdded(Friend friend) {
-        updateFriendList();
+        pacedRunner.invoke();
     }
 
     protected void fireContentsChanged(Object source, int index0, int index1) {

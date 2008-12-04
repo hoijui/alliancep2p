@@ -46,7 +46,7 @@ import java.util.ArrayList;
  * Time: 16:25:12
  */
 public class MainWindow extends XUIFrame implements MenuItemDescriptionListener, MDIManagerEventListener, Runnable {
-	private UISubsystem ui;
+    private UISubsystem ui;
     private JLabel statusMessage, shareMessage;
     private JProgressBar bandwidthIn, bandwidthOut;
     private ToolbarActionManager toolbarActionManager;
@@ -621,18 +621,19 @@ public class MainWindow extends XUIFrame implements MenuItemDescriptionListener,
                 String name = ui.getCore().getFriendManager().nickname(i.getGuid());
                 if (lastAddFriendWizard != null) lastAddFriendWizard.connectionWasSuccessful();
 
-                if (ui.getCore().doesInterationQueContain(ForwardedInvitationInteraction.class) || new ForwardInvitationNodesList.ForwardInvitationListModel(ui).getSize() == 0) {
+                if (ui.getCore().doesInterationQueContain(ForwardedInvitationInteraction.class) ||
+                        new ForwardInvitationNodesList.ForwardInvitationListModel(ui).getSize() == 0) {
                     if (lastAddFriendWizard != null) lastAddFriendWizard.getOuterDialog().dispose();
                     showSuccessfullyConnectedToNewFriendDialog(name);
                     //after this method completes the next pending interaction will be processed.
                 } else {
                     if (ui.getCore().getSettings().getInternal().getAlwaysautomaticallyconnecttoallfriendsoffriend() == 1) {
-                        final ArrayList<ForwardInvitationNodesList.ListRow> al = new ArrayList<ForwardInvitationNodesList.ListRow>();
-                        ForwardInvitationNodesList.ForwardInvitationListModel m = new ForwardInvitationNodesList.ForwardInvitationListModel(ui);
-                        for(int j=0;j<m.getSize();j++) al.add((ForwardInvitationNodesList.ListRow) m.getElementAt(j));
                         ui.getCore().invokeLater(new Runnable() {
                             public void run() {
                                 try {
+                                    final ArrayList<ForwardInvitationNodesList.ListRow> al = new ArrayList<ForwardInvitationNodesList.ListRow>();
+                                    ForwardInvitationNodesList.ForwardInvitationListModel m = new ForwardInvitationNodesList.ForwardInvitationListModel(ui);
+                                    for(int j=0;j<m.getSize();j++) al.add((ForwardInvitationNodesList.ListRow) m.getElementAt(j));
                                     for(ForwardInvitationNodesList.ListRow r : al) {
                                         ui.getCore().getFriendManager().forwardInvitationTo(r.guid);
                                     }

@@ -4,8 +4,10 @@ import com.stendahls.nif.util.EnumerationIteratorConverter;
 import com.stendahls.util.TextUtils;
 import org.alliance.core.comm.SearchHit;
 import org.alliance.core.file.hash.Hash;
+import org.alliance.core.PacedRunner;
 
 import javax.swing.tree.TreeNode;
+import javax.swing.*;
 import java.util.*;
 
 /**
@@ -23,10 +25,22 @@ public class RootNode extends SearchTreeNode {
 
     private HashMap<Hash, FileNode> nodeCache = new HashMap<Hash, FileNode>();
 
-    public void setModel(SearchTreeTableModel model) {
+    private PacedRunner pacedRunner;
+
+    public void setModel(SearchTreeTableModel model, PacedRunner pacedRunner) {
         this.model = model;
         comparator = model.createSourcesComparator();
         secondaryComparator = model.createDaysAgoComparator();
+        this.pacedRunner = pacedRunner;
+        pacedRunner.setRunner(new Runnable() {
+            public void run() {
+                SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        resortTable();
+                    }
+                });
+            }
+        });
     }
 
     public void addSearchHits(int sourceGuid, int hops, java.util.List<SearchHit> hits) {
@@ -101,7 +115,7 @@ public class RootNode extends SearchTreeNode {
             }
         }
 
-        resortTable();
+        pacedRunner.invoke(); //invokes resort table, but no more often that once a second
     }
 
     private void resortTable() {

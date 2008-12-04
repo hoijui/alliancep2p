@@ -5,6 +5,7 @@ import com.stendahls.ui.JHtmlLabel;
 import com.stendahls.util.TextUtils;
 import org.alliance.core.comm.SearchHit;
 import org.alliance.core.file.filedatabase.FileType;
+import org.alliance.core.PacedRunner;
 import org.alliance.ui.UISubsystem;
 import org.alliance.ui.util.CutCopyPastePopup;
 import org.alliance.ui.windows.AllianceMDIWindow;
@@ -40,6 +41,7 @@ public class SearchMDIWindow extends AllianceMDIWindow {
     private JComboBox type;
     private JPopupMenu popup;
     private JLabel left, right;
+    private PacedRunner pacedRunner;
 
     private JTextField search;
 
@@ -58,6 +60,8 @@ public class SearchMDIWindow extends AllianceMDIWindow {
         right = (JLabel)xui.getComponent("right");
         search = (JTextField)xui.getComponent("search1");
         new CutCopyPastePopup(search);
+
+        pacedRunner = new PacedRunner(500);
 
         JHtmlLabel label = (JHtmlLabel)xui.getComponent("label");
         label.addHyperlinkListener(new HyperlinkListener() {
@@ -79,7 +83,7 @@ public class SearchMDIWindow extends AllianceMDIWindow {
             }
         });
 
-        table = new JXTreeTable(model = new SearchTreeTableModel(ui.getCore()));
+        table = new JXTreeTable(model = new SearchTreeTableModel(ui.getCore(), pacedRunner));
         table.setColumnControlVisible(true);
 
         table.getTableHeader().addMouseListener(new MouseAdapter() {
@@ -312,7 +316,7 @@ public class SearchMDIWindow extends AllianceMDIWindow {
         else
             s = "Searching for "+t +" in "+ft.description()+"...";
         left.setText(s);
-        table.setTreeTableModel(model = new SearchTreeTableModel(ui.getCore()));
+        table.setTreeTableModel(model = new SearchTreeTableModel(ui.getCore(), pacedRunner));
         ui.getCore().invokeLater(new Runnable() {
             public void run() {
                 try {

@@ -1,6 +1,7 @@
 package org.alliance.ui.windows.search;
 
 import org.alliance.core.CoreSubsystem;
+import org.alliance.core.PacedRunner;
 import org.alliance.core.comm.SearchHit;
 import org.jdesktop.swingx.treetable.DefaultTreeTableModel;
 
@@ -15,10 +16,10 @@ import java.util.Comparator;
 public class SearchTreeTableModel extends DefaultTreeTableModel {
     private CoreSubsystem core;
 
-    public SearchTreeTableModel(CoreSubsystem core) {
+    public SearchTreeTableModel(CoreSubsystem core, PacedRunner pacedRunner) {
         super(new RootNode());
         this.core = core;
-        getRoot().setModel(this);
+        getRoot().setModel(this, pacedRunner);
     }
 
     public RootNode getRoot() {
