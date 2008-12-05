@@ -10,6 +10,7 @@ todo:
 * lägg till en donate dialog som kommer upp vid något klokt tillfälle
 * fixa att kopplingen inte bombar när man tittar i deras share som är fetstor - har en förklaring om det nedan.
 * väldigt stora shares tenderar till att bli corrupta - chatten försvinner också - Man kanske inte ska spara allt vid shutdown. det låter som är bra ide.
+* nŠr nŒn kommer in so gšr att en ikon uppdateras verkar det inte uppdateras lŠngst ner
 
 * i vista så körs programmet som admin första gången - fel i installationsscriptet - detta gör att inställningar inte sparas - kanske skippa "start alliance" checkboxen på vista
 * bättre stöd för vista - settings ska ligga i my documents (eller snarare userkatalogen) - bra för alla OS, inklusive MAC
