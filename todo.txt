@@ -3,7 +3,7 @@ todo:
  * ok..  verkar inte som att nya versionen fixade concurrentmod problemen för alla - det blir att slänga den där konstiga ui datamodellen och göra en grej i core - "ge mig listan på vänners vänner som jag kan bjuda in" - och använda untrusted friends istället - kommer gå hur fort som helt.
  * kolla också i error reports - så vad som händer nu med 1.0.6 - köra statistiken som vanligt i guess
  * nya verren drar 300mb minne i det stora nätverket med typ 90 pers online - kan det vara nya routertabellen?
-
+ * test också att koppla upp sig mot det stora nätverket från scratch - spännande!
 
 
 * fixa goa msn integrationen med ett java-lib
