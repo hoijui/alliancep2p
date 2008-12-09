@@ -208,7 +208,7 @@
         <action
                 id="moveUp"
                 name="Move up"
-                description="Move selected download up in que"
+                description="Move selected download up in queue"
                 menuimage="gfx/icons/up.png"
                 toolbarimage="gfx/icons/up.png"
                 addInMenu="file"
@@ -217,11 +217,29 @@
         <action
                 id="moveDown"
                 name="Move down"
-                description="Move selected download down in que"
+                description="Move selected download down in queue"
                 menuimage="gfx/icons/down.png"
                 toolbarimage="gfx/icons/down.png"
                 addInMenu="file"
                 accelerator="ctrl-up"
+                mnemonic="u"/>
+        <action
+                id="moveTop"
+                name="Move to top"
+                description="Move selected download to the top of the queue"
+                menuimage="gfx/icons/top.png"
+                toolbarimage="gfx/icons/top.png"
+                addInMenu="file"
+                accelerator="ctrl-home"
+                mnemonic="u"/>
+        <action
+                id="moveBottom"
+                name="Move to bottom"
+                description="Move selected download to the bottom of the queue"
+                menuimage="gfx/icons/bottom.png"
+                toolbarimage="gfx/icons/bottom.png"
+                addInMenu="file"
+                accelerator="ctrl-end"
                 mnemonic="u"/>
         <action
                 id="cleanup"

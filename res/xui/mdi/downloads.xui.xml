@@ -4,8 +4,10 @@
         <popupmenu id="popup" detached="yes">
 			<menuitem image="gfx/icons/cleanup.png" text="Clear Completed" eventid="cleanup"/> 
 			<menuitem image="gfx/icons/delete.png" text="Remove" eventid="remove"/> 
-			<menuitem image="gfx/icons/up.png" text="Move Up" eventid="moveUp"/> 
-			<menuitem image="gfx/icons/down.png" text="Move Down" eventid="moveDown"/> 
+			<menuitem image="gfx/icons/up.png" text="Move Up" eventid="moveUp"/>
+			<menuitem image="gfx/icons/down.png" text="Move Down" eventid="moveDown"/>
+			<menuitem image="gfx/icons/top.png" text="Move To Top" eventid="moveTop"/>
+			<menuitem image="gfx/icons/bottom.png" text="Move To Bottom" eventid="moveBottom"/>
         </popupmenu>
         <panel opaque="false" border="0" axis="x" expand="horiz" height="24">
             <strut width="7"/>

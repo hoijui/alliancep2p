@@ -13,6 +13,10 @@ public class OSInfo {
         return supportsTrayIcon;
     }
 
+    public static boolean isLinux() { 
+    	return System.getProperty("os.name").toUpperCase().indexOf("LINUX") != -1; 
+    }
+
     public static boolean isWindows() {
         return System.getProperty("os.name").toUpperCase().indexOf("WINDOWS") != -1;
     }

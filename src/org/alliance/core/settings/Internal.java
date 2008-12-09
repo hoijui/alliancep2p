@@ -1,6 +1,7 @@
 package org.alliance.core.settings;
 
 import static org.alliance.core.CoreSubsystem.KB;
+import org.alliance.launchers.OSInfo;
 
 import java.io.File;
 
@@ -12,18 +13,30 @@ import java.io.File;
  */
 public class Internal extends SettingClass {
     private static final String CURRENT_DIRECTORY;
+    private static final String USER_DIRECTORY;
     static {
-        String s = new File(".").getAbsoluteFile().toString();
-        if (s.endsWith(".")) s = s.substring(0, s.length()-1);
-        CURRENT_DIRECTORY = s;
     }
 
+	static { 
+		if (OSInfo.isLinux()) { 
+			USER_DIRECTORY = System.getProperty("user.home")+"/.alliance/";
+			CURRENT_DIRECTORY = USER_DIRECTORY;
+		} else {
+	        String s = new File(".").getAbsoluteFile().toString();
+	        if (s.endsWith(".")) s = s.substring(0, s.length()-1);
+	        CURRENT_DIRECTORY = s;
+	        USER_DIRECTORY = "";
+		}
+	}
+
+    
     private Integer tempcleareddups=0;
 
-    private String filedatabasefile = "data/share.dat";
-    private String filedatabaseindexfile = "data/share.idx";
-    private String downloadquefile = "data/downloads.dat";
-    private String corestatefile = "data/core.dat";
+	private String filedatabasefile = USER_DIRECTORY+"data/share.dat"; 
+	private String filedatabaseindexfile = USER_DIRECTORY+"data/share.idx"; 
+	private String downloadquefile = USER_DIRECTORY+"data/downloads.dat"; 
+	private String corestatefile = USER_DIRECTORY+"data/core.dat"; 
+
 
     private String downloadfolder = CURRENT_DIRECTORY+"downloads";
     private String cachefolder = CURRENT_DIRECTORY+"cache";

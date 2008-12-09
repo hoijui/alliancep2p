@@ -31,7 +31,8 @@ import java.util.TreeSet;
  * To change this template use File | Settings | File Templates.
  */
 public abstract class AbstractChatMessageMDIWindow extends AllianceMDIWindow implements Runnable {
-	protected final static DateFormat FORMAT = new SimpleDateFormat("HH:mm");
+    protected final static DateFormat FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    protected final static DateFormat SHORT_FORMAT = new SimpleDateFormat("HH:mm");
     protected final static Color COLORS[] = {
             new Color(0x0068a7),
             new Color(0x009606),
@@ -48,9 +49,10 @@ public abstract class AbstractChatMessageMDIWindow extends AllianceMDIWindow imp
     protected String html = "";
 
     private TreeSet<ChatLine> chatLines;
-    private static final int MAXIMUM_NUMBER_OF_CHAT_LINES = 50;
+    private static final int MAXIMUM_NUMBER_OF_CHAT_LINES = 500;
     private boolean needToUpdateHtml;
     private boolean alive = true;
+    private ChatLine previousChatLine = null;
 
     protected AbstractChatMessageMDIWindow(MDIManager manager, String mdiWindowIdentifier, UISubsystem ui) throws Exception {
         super(manager, mdiWindowIdentifier, ui);
@@ -220,7 +222,20 @@ public abstract class AbstractChatMessageMDIWindow extends AllianceMDIWindow imp
     }
 
     private String creattHtmlChatLine(ChatLine cl) {
-        return "<font color=\"#9f9f9f\">["+ FORMAT.format(new Date(cl.tick))+"] <font color=\""+toHexColor(cl.color)+"\">"+cl.from+":</font> <font color=\""+toHexColor(cl.color.darker())+"\">"+cl.message+"</font><br>";
+        String s;
+        DateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+        if (previousChatLine != null &&
+        		f.format(new Date(cl.tick)).equals(
+        				f.format(new Date(previousChatLine.tick))
+        				)) {
+        	s = "["+ SHORT_FORMAT.format(new Date(cl.tick))+"]";
+        } else {
+        	s = "<b>["+ FORMAT.format(new Date(cl.tick))+"]</b>";
+        }
+       	s = "<font color=\"#9f9f9f\">"+ s +" <font color=\""+toHexColor(cl.color)+"\">"+cl.from+":</font> <font color=\""+toHexColor(cl.color.darker())+"\">"+cl.message+"</font><br>";
+       
+        previousChatLine = cl;
+        return s;
     }
 
     protected String toHexColor(Color color) {

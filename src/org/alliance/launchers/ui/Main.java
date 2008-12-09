@@ -37,7 +37,7 @@ public class Main {
             Runnable r = null;
             if (!runMinimized) r = (Runnable)Class.forName("org.alliance.launchers.SplashWindow").newInstance();
 
-            String s = "data/settings.xml";
+            String s = getSettingsFile();
             for(int i=0;i<args.length;i++) if (!args[i].startsWith("/")) s = args[i];
             Subsystem core = initCore(s, (StartupProgressListener)r);
             if (core == null) return; //oops. core crashed. Error message has been displayd. just bail.
@@ -73,6 +73,20 @@ public class Main {
         }
     }
 
+	private static String getSettingsFile() {
+		String s = "data/settings.xml"; 
+
+		String home = System.getProperty("user.home"); 
+		String system = System.getProperty("os.name"); 
+		if(OSInfo.isLinux()) {
+			home = home+"/.alliance/"; 
+		} else {
+			home = "";
+		}
+
+    	return home+s; 
+    }
+    
     private static boolean argsContain(String[] args, String pattern) {
         if (args != null) for(String s : args) if (pattern.equalsIgnoreCase(s)) return true;
         return false;

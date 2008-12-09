@@ -304,6 +304,30 @@ public class DownloadManager extends Manager implements Runnable {
         downloadQue.remove(d);
         downloadQue.add(i+1, d);
     }
+    
+    public void moveTop(Download d) {
+    	int i = downloadQue.indexOf(d);
+    	if(T.t)T.ass(i != -1, "Cant find download!");
+    	if(i==0) return;
+    	downloadQue.remove(d);
+    	downloadQue.add(0, d);
+    }
+
+    public void moveBottom(Download d) {
+        int i = downloadQue.indexOf(d);
+        if(T.t)T.ass(i != -1, "Cant find download!");
+        if (i==downloadQue.size()-1) return;
+        downloadQue.remove(d);
+        downloadQue.add(d);
+    }
+
+    public void movePos(int pos, Download d) {
+        int i = downloadQue.indexOf(d);
+        if(T.t)T.ass(i != -1, "Cant find download!");
+        downloadQue.remove(d);
+        if (pos > i) pos--;
+        downloadQue.add(pos, d);
+    }
 
     private static class BlockMaskRequest {
         public BlockMaskRequest(Friend friend, Download download) {

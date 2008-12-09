@@ -49,6 +49,7 @@ public class ShareScanner extends Thread {
                 if (away && System.currentTimeMillis()-lastFlushCompletedAt > 1000*60*20 && !scanInProgress) {
                     if(T.t)T.trace("Flushing database because user is away and it was a while since we did it.");
                     manager.getFileDatabase().flush();
+                    core.saveState();
                 }
             }
         });
@@ -102,6 +103,7 @@ public class ShareScanner extends Thread {
                 if (((core.getAwayManager().isAway() || !core.getUICallback().isUIVisible()) && System.currentTimeMillis()-lastFlushCompletedAt > 1000*60*20)
                         || System.currentTimeMillis()-lastFlushCompletedAt > 1000*60*60*2) { //if user insists on constantly beeing by the computer with alliance visible then forcefully flush every second hour - note that a flush will be made as soon as the user is away because of the awaystatuslistener
                     manager.getFileDatabase().flush();
+                    core.saveState();
                     lastFlushCompletedAt = System.currentTimeMillis();
                 }
             } catch(IOException e) {

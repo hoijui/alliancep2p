@@ -412,6 +412,50 @@ public class DownloadsMDIWindow extends AllianceMDIWindow {
         }
     }
 
+    public void EVENT_moveTop(ActionEvent e) {
+        int selection[] = table.getSelectedRows();
+        int offset = 0; 
+        if (selection != null && selection.length > 0) {
+            for(int j = selection.length - 1; j >= 0 ; j--) {
+            	int i = selection[j];
+                DownloadWrapper dw = rows.get(i + offset);
+                final Download d = dw.download;
+                ui.getCore().invokeLater(new Runnable() {
+                    public void run() {
+                        ui.getCore().getNetworkManager().getDownloadManager().moveTop(d);
+                    }
+                });
+                moveTop(i + offset, dw);
+                offset++;
+            }
+            model.fireTableStructureChanged();
+            //for(int i : selection) if (i>0) table.getSelectionModel().addSelectionInterval(i-1,i-1);
+            table.getSelectionModel().addSelectionInterval(0, selection.length - 1);
+        }
+    }
+    
+    public void EVENT_moveBottom(ActionEvent e) {
+        int selection[] = table.getSelectedRows();
+
+        int offset = 0;
+        if (selection != null && selection.length > 0) {
+            for(int i : selection) {
+                DownloadWrapper dw = rows.get(i - offset);
+                final Download d = dw.download;
+                ui.getCore().invokeLater(new Runnable() {
+                    public void run() {
+                        ui.getCore().getNetworkManager().getDownloadManager().moveBottom(d);
+                    }
+                });
+                moveBottom(i - offset, dw);
+                offset++;
+            }
+            model.fireTableStructureChanged();
+            //for(int i : selection) if (i<rows.size()-1) table.getSelectionModel().addSelectionInterval(i+1,i+1);
+            ListSelectionModel sm = table.getSelectionModel();
+            sm.addSelectionInterval(rows.size() - selection.length, rows.size() - 1);
+        }
+    }
     public void moveUp(int i, DownloadWrapper dw) {
         if (i==0) return;
         rows.remove(i);
@@ -422,6 +466,21 @@ public class DownloadsMDIWindow extends AllianceMDIWindow {
         if (i==rows.size()-1) return;
         rows.remove(dw);
         rows.add(i+1, dw);
+    }
+    public void moveTop(int i, DownloadWrapper dw) {
+    	if (i==0) return;
+    	rows.remove(i);
+    	rows.add(0, dw);
+    }
+    public void movePos(int pos, int i, DownloadWrapper dw) {
+    	rows.remove(i);
+    	if (pos > i) pos--;
+    	rows.add(pos, dw);
+    }
+    public void moveBottom(int i, DownloadWrapper dw) {
+    	if (i==rows.size()-1) return;
+    	rows.remove(dw);
+    	rows.add(dw);
     }
 
     public void EVENT_remove(ActionEvent e) {
