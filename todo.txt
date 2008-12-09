@@ -1,15 +1,15 @@
 todo:
 
- * ok..  verkar inte som att nya versionen fixade concurrentmod problemen för alla - det blir att slänga den där konstiga ui datamodellen och göra en grej i core - "ge mig listan på vänners vänner som jag kan bjuda in" - och använda untrusted friends istället - kommer gå hur fort som helt.
-  fast samtidigt så verkar det enda concurrent felet vara:
-  ooh concurrent modification när man kopplar sig mot stora nätverket och tar connect to all..  hela processen är jäkligt shaky.. det händer tusen saker samtidigt och det kommer upp tio olika dialoger
-  det blir alltid: MainWindow.java:624 då
  * kolla också i error reports - så vad som händer nu med 1.0.6 - köra statistiken som vanligt i guess
- * nya verren drar 300mb minne i det stora nätverket med typ 90 pers online - kan det vara nya routertabellen?  ojoj. 127 pers online och 400mb drar den .. nånting är väldigt konstigt - kansek routertabellen asså?
+ * nya verren drar 300mb minne i det stora nätverket med typ 90 pers online - kan det vara nya routertabellen?  ojoj. 127 pers online och 400mb drar den .. nånting är väldigt konstigt - kansek routertabellen asså? - måste köra med yourkit och 100 pers för att få en bild tror jag
+
 
 * fixa goa msn integrationen med ett java-lib
 * "Unable to establish loopback connection" -> alliance verkar läcka sockets - finns info nedan
-
+* ok..  verkar inte som att nya versionen fixade concurrentmod problemen för alla - det blir att slänga den där konstiga ui datamodellen och göra en grej i core - "ge mig listan på vänners vänner som jag kan bjuda in" - och använda untrusted friends istället - kommer gå hur fort som helt.
+  fast samtidigt så verkar det enda concurrent felet vara:
+  ooh concurrent modification när man kopplar sig mot stora nätverket och tar connect to all..  hela processen är jäkligt shaky.. det händer tusen saker samtidigt och det kommer upp tio olika dialoger
+  det blir alltid: MainWindow.java:624 då
 * när man tar delete på en vän så blir han kvar som "unknown" - rätt sunkigt..
 * ens share size uppdateras šverallt fšrutom i listan till vŠnster. det Šr dŒligt fšr att det ser ut som att man inte delar ut nŒt i bšrjan (nŠr man just installerat och hŒller pŒ att indexera)
 * bug: ändra inte ens eget namn när man får ens gamla namn från nån annan i nätverket
@@ -19,7 +19,6 @@ todo:
 * väldigt stora shares tenderar till att bli corrupta - chatten försvinner också - Man kanske inte ska spara allt vid shutdown. det låter som är bra ide.
 * nŠr nŒn kommer in so gšr att en ikon uppdateras verkar det inte uppdateras lŠngst ner
 
-* i vista så körs programmet som admin första gången - fel i installationsscriptet - detta gör att inställningar inte sparas - kanske skippa "start alliance" checkboxen på vista
 * bättre stöd för vista - settings ska ligga i my documents (eller snarare userkatalogen) - bra för alla OS, inklusive MAC
 * ta in det som brian ville ha
 * internationalisering - massa folk hade översatt om det gick..   tänk på detta. hade varit jävligt najs.  man får välja språk i runtime. najs.
