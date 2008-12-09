@@ -4,16 +4,12 @@ todo:
   fast samtidigt så verkar det enda concurrent felet vara:
   ooh concurrent modification när man kopplar sig mot stora nätverket och tar connect to all..  hela processen är jäkligt shaky.. det händer tusen saker samtidigt och det kommer upp tio olika dialoger
   det blir alltid: MainWindow.java:624 då
-
  * kolla också i error reports - så vad som händer nu med 1.0.6 - köra statistiken som vanligt i guess
  * nya verren drar 300mb minne i det stora nätverket med typ 90 pers online - kan det vara nya routertabellen?  ojoj. 127 pers online och 400mb drar den .. nånting är väldigt konstigt - kansek routertabellen asså?
-
-
 
 * fixa goa msn integrationen med ett java-lib
 * "Unable to establish loopback connection" -> alliance verkar läcka sockets - finns info nedan
 
-* move to top/bottom i downloads. Många har hundra downloads i sin lista. roligt att trycka up hundra gånger.
 * när man tar delete på en vän så blir han kvar som "unknown" - rätt sunkigt..
 * ens share size uppdateras šverallt fšrutom i listan till vŠnster. det Šr dŒligt fšr att det ser ut som att man inte delar ut nŒt i bšrjan (nŠr man just installerat och hŒller pŒ att indexera)
 * bug: ändra inte ens eget namn när man får ens gamla namn från nån annan i nätverket
