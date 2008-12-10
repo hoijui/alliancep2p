@@ -1,6 +1,7 @@
 todo:
 
- * spännande! friendsFriends drar massa minne i ett stort nätverk..  märkligt?
+ * intressant. friendsFriends drar massa minne i ett stort nätverk..  märkligt?  inte direkt.  2000 HashMaps med 2000 entries i varje - man kan optimera igenom att byta ut friendsFriends till en int[] som alltid är sorterad - kommer säkert att hjälpa rätt mycket men..  det är inte kritiskt nu
+ * nu är en limit på antal vänner online intressant.. 
 
 
  * kolla också i error reports - så vad som händer nu med 1.0.6 - köra statistiken som vanligt i guess
