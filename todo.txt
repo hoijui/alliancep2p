@@ -1,7 +1,7 @@
 todo:
 
  * kolla också i error reports - så vad som händer nu med 1.0.6 - köra statistiken som vanligt i guess
- * nya verren drar 300mb minne i det stora nätverket med typ 90 pers online - kan det vara nya routertabellen?  ojoj. 127 pers online och 400mb drar den .. nånting är väldigt konstigt - kansek routertabellen asså? - måste köra med yourkit och 100 pers för att få en bild tror jag
+ * routertabellen är helt fucked.. och behövs inte egentligen?
 
 
 * fixa goa msn integrationen med ett java-lib
