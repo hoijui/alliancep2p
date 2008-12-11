@@ -1,5 +1,7 @@
 todo:
 
+hmm  den drog en miljard procent cpu när massa chatmeddelanden kom in - kolla och patchen kan ha påverkat det
+
  * intressant. friendsFriends drar massa minne i ett stort nätverk..  märkligt?  inte direkt.  2000 HashMaps med 2000 entries i varje - man kan optimera igenom att byta ut friendsFriends till en int[] som alltid är sorterad - kommer säkert att hjälpa rätt mycket men..  det är inte kritiskt nu
  * nu är en limit på antal vänner online intressant.. 
 
