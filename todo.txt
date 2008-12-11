@@ -41,6 +41,7 @@ org.alliance.core.CoreSubsystem.setupLog(CoreSubsystem.java:208)
 
 * fixa goa msn integrationen med ett java-lib
 * "Unable to establish loopback connection" -> alliance verkar läcka sockets - finns info nedan
+* det hade varit så najs att ha en länk till användarens share i chatten - man kan inte längre hitta i listan
 * ok..  verkar inte som att nya versionen fixade concurrentmod problemen för alla - det blir att slänga den där konstiga ui datamodellen och göra en grej i core - "ge mig listan på vänners vänner som jag kan bjuda in" - och använda untrusted friends istället - kommer gå hur fort som helt.
   fast samtidigt så verkar det enda concurrent felet vara:
   ooh concurrent modification när man kopplar sig mot stora nätverket och tar connect to all..  hela processen är jäkligt shaky.. det händer tusen saker samtidigt och det kommer upp tio olika dialoger
@@ -57,6 +58,7 @@ org.alliance.core.CoreSubsystem.setupLog(CoreSubsystem.java:208)
 * bättre stöd för vista - settings ska ligga i my documents (eller snarare userkatalogen) - bra för alla OS, inklusive MAC
 * ta in det som brian ville ha
 * internationalisering - massa folk hade översatt om det gick..   tänk på detta. hade varit jävligt najs.  man får välja språk i runtime. najs.
+* göra en quick find funktion i listan som i pimmen
 * alliance ska tydligen ta fel NIC när det finns flera? Finns förklaring längre ner. sök på "10.x.x.x"
 * lägg till setting för om nån är offline X dagar så ska han inte visas längre i listan. och defaulta till 200 eller nåt. vissa vill inte att folk ska försvinna.
 * setting för max antal nedladdningsconnections per nedladdning
