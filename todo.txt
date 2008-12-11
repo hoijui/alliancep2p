@@ -1,5 +1,6 @@
 todo:
 
+hmm.. den versionen jag har (kanske 1.0.7?) verkar vara stabil. det enda är chattgrejjen och concurrenterror vid nytt nätverk.
 hmm  den drog en miljard procent cpu när massa chatmeddelanden kom in - kolla och patchen kan ha påverkat det
  * nu är en limit på antal vänner online intressant..  - en default på 100 hade varit bra
 
