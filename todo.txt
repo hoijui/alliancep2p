@@ -1,10 +1,9 @@
 todo:
 
-hmm.. den versionen jag har (kanske 1.0.7?) verkar vara stabil. det enda är chattgrejjen och concurrenterror vid nytt nätverk.
-hmm  den drog en miljard procent cpu när massa chatmeddelanden kom in - kolla och patchen kan ha påverkat det
- * nu är en limit på antal vänner online intressant..  - en default på 100 hade varit bra
+hmm.. den versionen jag har (kanske 1.0.7?) verkar vara stabil. det enda är concurrenterror vid nytt nätverk.
+* nu är en limit på antal vänner online intressant..  - en default på 100 hade varit bra
 
- * denna händer varje gång man går med i stora nätverk:
+* denna händer varje gång man går med i stora nätverk:
  Error stack trace:
  java.util.ConcurrentModificationException
  	at java.util.HashMap$HashIterator.nextEntry(Unknown Source)

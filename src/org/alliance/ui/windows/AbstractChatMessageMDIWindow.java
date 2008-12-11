@@ -49,7 +49,7 @@ public abstract class AbstractChatMessageMDIWindow extends AllianceMDIWindow imp
     protected String html = "";
 
     private TreeSet<ChatLine> chatLines;
-    private static final int MAXIMUM_NUMBER_OF_CHAT_LINES = 500;
+    private static final int MAXIMUM_NUMBER_OF_CHAT_LINES = 50;
     private boolean needToUpdateHtml;
     private boolean alive = true;
     private ChatLine previousChatLine = null;
