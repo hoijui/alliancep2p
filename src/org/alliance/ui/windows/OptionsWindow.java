@@ -11,8 +11,8 @@ import org.alliance.ui.T;
 import org.alliance.ui.UISubsystem;
 
 import javax.swing.*;
-import javax.swing.event.HyperlinkListener;
 import javax.swing.event.HyperlinkEvent;
+import javax.swing.event.HyperlinkListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.File;
@@ -175,6 +175,10 @@ public class OptionsWindow extends XUIDialog {
         // update primitive values
         for (String k : OPTIONS) {
             JComponent c = (JComponent) xui.getComponent(k);
+            if(getComponentValue(c).toString().length() == 0){
+                OptionDialog.showErrorDialog(this, "One or more fields is empty (field id: "+k+").");
+                return false;
+            }
             setSettingValue(k, getComponentValue(c));
         }
 
@@ -338,6 +342,10 @@ public class OptionsWindow extends XUIDialog {
 
     public void EVENT_addrule(ActionEvent e) throws Exception {
         AddRuleWindow window = new AddRuleWindow(ui);
+        if(window.getHuman() == null){
+            //This is here to take care of the case of a user adding a rule, then hitting cancel
+            return;
+        }
         ruleListModel.add(ruleListModel.size(), new Routerule(window.getHuman()));
         ruleList.revalidate();
         ruleList.setSelectedIndex(ruleListModel.size()-1);
