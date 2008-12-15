@@ -123,4 +123,20 @@ public interface UICallback {
      * @param node The node that a RCP could not be routed to.
      */
     void noRouteToHost(Node node);
+
+    /**
+     * This is invoked when a RPC of type PlugInCommunication is recevied. It is used by plugins to communicate
+     * between friends. To send a message of this type to another friend use:
+     * <code>
+     * if (friend.isConnected()) {
+     *   friend.getFriendConnection().send(new PlugInCommunication("MYBOT\tmy data"));
+     * }
+     * The friend on the other side will then receive an event of this type with the String data containing
+     * "MYBOT\tmy data".  
+     * @param source The source friend that sent this message
+     * @param data The data contained within this message. It's up to the creator of the plugin to decide what this
+     * should contain. When doing a plugin make sure to prefix the data-string with something unique for your plugin.
+     * Otherwise you might receive communication ment for some other plugin running on this installation of Alliance.
+     */
+    void pluginCommunicationReceived(Friend source, String data);
 }

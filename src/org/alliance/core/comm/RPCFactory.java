@@ -41,6 +41,7 @@ public class RPCFactory {
             case 34: rpc = new AwayStatus(); break;
             case 35: rpc = new ChatMessageV2(); break;
             case 36: rpc = new ChatMessageV3(); break;
+            case 37: rpc = new PlugInCommunication(); break;
         }
         if (rpc == null) if (T.t) T.error("UNRECOGNIZED rpc id: "+packetId);
         return rpc;
@@ -82,6 +83,7 @@ public class RPCFactory {
         if (rpc instanceof AwayStatus) return 34;
         if (rpc instanceof ChatMessageV2) return 35;
         if (rpc instanceof ChatMessageV3) return 36;
+        if (rpc instanceof PlugInCommunication) return 37;
         if(T.t)T.error("Could not identify RPC: "+rpc);
         return -1;
    }
