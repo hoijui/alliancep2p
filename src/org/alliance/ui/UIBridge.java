@@ -1,5 +1,6 @@
 package org.alliance.ui;
 
+import com.stendahls.nif.ui.OptionDialog;
 import org.alliance.core.NeedsUserInteraction;
 import org.alliance.core.UICallback;
 import org.alliance.core.comm.SearchHit;
@@ -9,8 +10,6 @@ import org.alliance.launchers.OSInfo;
 
 import javax.swing.*;
 import java.util.List;
-
-import com.stendahls.nif.ui.OptionDialog;
 
 /**
  * Created by IntelliJ IDEA.
@@ -102,6 +101,10 @@ public class UIBridge implements UICallback {
                 if (ui.getNodeTreeModel(false) != null) ui.getNodeTreeModel(false).signalNoRouteToHost(node);
             }
         });
+    }
+
+    public void pluginCommunicationReceived(Friend source, String data) {
+        if(T.t)T.trace("Plugin communication received from "+source+": "+data);
     }
 
     public void searchHits(final int fromGuid, final int hops, final List<SearchHit> hits) {

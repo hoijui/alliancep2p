@@ -1,10 +1,10 @@
 package org.alliance.core.plugins;
 
-import org.alliance.core.UICallback;
 import org.alliance.core.NeedsUserInteraction;
+import org.alliance.core.UICallback;
 import org.alliance.core.comm.SearchHit;
-import org.alliance.core.node.Node;
 import org.alliance.core.node.Friend;
+import org.alliance.core.node.Node;
 
 import java.util.List;
 
@@ -32,6 +32,11 @@ public class DoubleUICallback implements UICallback  {
     public void noRouteToHost(Node node) {
         first.noRouteToHost(node);
         second.noRouteToHost(node);
+    }
+
+    public void pluginCommunicationReceived(Friend source, String data) {
+        first.pluginCommunicationReceived(source, data);
+        second.pluginCommunicationReceived(source, data);
     }
 
     public void searchHits(int srcGuid, int hops, List<SearchHit> hits) {

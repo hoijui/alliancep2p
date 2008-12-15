@@ -41,6 +41,7 @@ public class Java6TrayIconSubsystem implements Subsystem, Runnable {
             public void signalFileDatabaseFlushComplete() {}
             public void nodeOrSubnodesUpdated(Node node) {}
             public void noRouteToHost(Node node) {}
+            public void pluginCommunicationReceived(Friend source, String data) {}
             public void searchHits(int srcGuid, int hops, List<SearchHit> hits) {}
             public void trace(int level, String message, Exception stackTrace) {}
             public void statusMessage(String s) {}

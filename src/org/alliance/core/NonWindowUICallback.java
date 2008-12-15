@@ -20,6 +20,9 @@ public class NonWindowUICallback implements UICallback {
     public void noRouteToHost(Node node) {
     }
 
+    public void pluginCommunicationReceived(Friend source, String data) {
+    }
+
     public void messageRecieved(int srcGuid, String message) {
         // @todo: handle this in some good way. balloon should be shown. should add it to ui - and balloon click should open ui with chat window
     }
