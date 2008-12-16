@@ -1,5 +1,7 @@
 todo:
 
+
+
 hmm.. den versionen jag har (kanske 1.0.7?) verkar vara stabil. det enda är concurrenterror vid nytt nätverk.
 förutom att ikonerna är borta?!
 * nu är en limit på antal vänner online intressant..  - en default på 100 hade varit bra
@@ -192,6 +194,9 @@ such a "broken" dl/ul the only way is to reconnect the uploader or restart
 alliance.
 
 Thank you for reading and thanks for the genial program.
+---------------
+It's very interesting to hear that the problem seems to occur when packets are lost.
+---------------
 ************************************************************************************************************************
 "java.io.IOException: Unable to establish loopback connection"
 
