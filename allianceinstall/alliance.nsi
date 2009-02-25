@@ -89,7 +89,8 @@ FunctionEnd
   !define MUI_HEADERIMAGE
   !define MUI_HEADERIMAGE_BITMAP "header.bmp" ; optional
   !define MUI_ABORTWARNING
-  !define MUI_FINISHPAGE_RUN "$INSTDIR\alliance.exe"
+;  !define MUI_FINISHPAGE_RUN "$INSTDIR\alliance.exe"
+
 
 ;--------------------------------
 ;Pages
