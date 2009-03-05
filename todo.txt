@@ -1,5 +1,11 @@
 todo:
 
+i vista hamnar nedladdade saker i..  virtual store! helt omöjligt att hitta!
+  en snabb fulfix är att lägga hela alliance i appdata.. men det är bättre att fixa det ordentligt
+ n  m
+
+
+
 kolla ifall Oneswarm har något som är bättre än alliance - och ny sajt hade varit bra..  den gamla är för enkel för att framstå som väldigt pålitlig
 
 hmm.. den versionen jag har (kanske 1.0.7?) verkar vara stabil. det enda är concurrenterror vid nytt nätverk.
