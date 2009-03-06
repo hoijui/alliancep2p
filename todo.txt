@@ -1,5 +1,7 @@
 todo:
 
+BINGO!   java 6 och vistaproblemet som gör att splashen låser sig: med STOR sannorlikhet är det SplashWindow som anropar swing/awt från fel tråd och då bombar suns direct 3d implementation!
+
 i vista hamnar nedladdade saker i..  virtual store! helt omöjligt att hitta!
   en snabb fulfix är att lägga hela alliance i appdata.. men det är bättre att fixa det ordentligt
  n  m
