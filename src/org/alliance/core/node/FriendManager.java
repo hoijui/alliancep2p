@@ -307,7 +307,8 @@ public class FriendManager extends Manager {
             if(T.t)T.warn("Nonfatal: "+e);
         }
         friends.remove(f.getGuid());
-        for(Iterator i = settings.getFriendlist().iterator();i.hasNext();) if (((org.alliance.core.settings.Friend)i.next()).getGuid() == f.getGuid()) i.remove();
+        for(Iterator i = settings.getFriendlist().iterator();i.hasNext();)
+            if (((org.alliance.core.settings.Friend)i.next()).getGuid() == f.getGuid()) i.remove();
     }
 
     public int getNFriends() {
