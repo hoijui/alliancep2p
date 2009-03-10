@@ -14,6 +14,9 @@ hmm.. den versionen jag har (kanske 1.0.7?) verkar vara stabil. det enda är conc
 förutom att ikonerna är borta?!
 * nu är en limit på antal vänner online intressant..  - en default på 100 hade varit bra
 
+
+* glöm inte bodhis patch
+
 * denna händer varje gång man går med i stora nätverk:
  Error stack trace:
  java.util.ConcurrentModificationException
