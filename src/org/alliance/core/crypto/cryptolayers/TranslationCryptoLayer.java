@@ -18,7 +18,7 @@ import java.nio.ByteBuffer;
 public class TranslationCryptoLayer extends BufferedCryptoLayer {
     public TranslationCryptoLayer(CoreSubsystem core) {
         super(core);
-        if(org.alliance.core.crypto.T.t) T.info("Starting TranslationCryptoLayer");
+        if(T.t) T.info("Starting TranslationCryptoLayer");
     }
 
     public int encrypt(Connection c, ByteBuffer src, ByteBuffer dst) {
