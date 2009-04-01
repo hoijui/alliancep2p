@@ -1,5 +1,8 @@
 todo:
 
+I was thinking of putting in a way of donating within Alliance. And people that have donated would get a cool icon. This would encouage donations and maybe get me enough money to work on Alliance full-time for a while. Now that would be something. =)
+
+
 BINGO!   java 6 och vistaproblemet som gör att splashen låser sig: med STOR sannorlikhet är det SplashWindow som anropar swing/awt från fel tråd och då bombar suns direct 3d implementation!
 
 i vista hamnar nedladdade saker i..  virtual store! helt omöjligt att hitta!
